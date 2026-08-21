@@ -1,0 +1,16 @@
+﻿{
+  "enabled": false,
+  "mode": "SEMI_AUTOPILOT",
+  "min_score_threshold": 92,
+  "max_daily_comments": 4,
+  "daily_comments_posted_today": 0,
+  "last_run_timestamp": null,
+  "human_jitter_min_seconds": 180,
+  "human_jitter_max_seconds": 480,
+  "auto_reply_to_inbound_comments": true,
+  "target_categories": [
+    "Fintech Media & Communities",
+    "Regulatory, Government & Policy",
+    "M2P LOS Competitors & Tech"
+  ]
+}
