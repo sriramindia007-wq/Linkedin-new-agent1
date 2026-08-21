@@ -1,0 +1,131 @@
+[
+  {
+    "id": "post_svatantra_ipo",
+    "source_id": "finsamudra",
+    "source_name": "FinSamudra",
+    "source_category": "Fintech Media & Communities",
+    "author_name": "FinSamudra",
+    "author_headline": "Fintech & Capital Markets Intelligence",
+    "post_url": "https://www.linkedin.com/company/finsamudra/posts/",
+    "post_text": "Svatantra Microfin Limited, founded and promoted by Ananya Birla, has officially filed its Draft Red Herring Prospectus with SEBI for a 3,000 crore rupee initial public offering. The issue structure comprises a 1,500 crore rupee fresh issue to augment Tier-1 capital for onward lending, and a 1,500 crore rupee Offer for Sale by marquee private equity investors Advent International and Multiples Alternate Asset Management. Following its acquisition of Chaitanya India Fin Credit, Svatantra’s consolidated Assets Under Management reached 23,818 crore rupees, cementing its position as India's second-largest NBFC-MFI.",
+    "published_relative": "6h",
+    "scraped_at": "2026-08-21T18:04:09.049Z",
+    "status": "PENDING",
+    "priority_score": 98,
+    "impact_badge": "🔥 Top Priority (High LOS Relevance)",
+    "post_type_badge": "🚀 IPO & Capital Markets",
+    "badge_color": "danger",
+    "relevance_tags": [
+      "Microfinance",
+      "IPO",
+      "JLG Lending",
+      "LOS Architecture",
+      "Tier-1 Capital"
+    ],
+    "generated_comments": {
+      "value_add": "Svatantra Microfin's ₹3,000 Cr IPO filing and post-Chaitanya scale (₹23,818 Cr AUM) underscores a pivotal shift in the NBFC-MFI landscape. As microfinance institutions scale distribution across rural Bharat, the critical operational challenge lies in deploying an agile Loan Origination System (LOS) that enforces multi-bureau JLG indebtedness checks and household income limits in real-time, mitigating borrower over-leveraging while maintaining rapid rural disbursement SLAs.",
+      "provocative_question": "As large NBFC-MFIs transition to public market scrutiny, what workflow orchestration mechanisms are being implemented in their origination platforms to balance automated credit scorecards with ground-level field officer judgment under RBI's revised microfinance framework?",
+      "executive_perspective": "The institutionalization of India's microfinance sector—backed by marquee PE participation and public listings—demonstrates that sustainable rural financial inclusion requires robust digital lending infrastructure with strict credit policy governance at its core."
+    },
+    "selected_style": null,
+    "approved_comment": null,
+    "posted_at": null,
+    "error_message": null
+  },
+  {
+    "id": "post_kvb_cco",
+    "source_id": "etbfsi",
+    "source_name": "ETBFSI (The Economic Times)",
+    "source_category": "Fintech Media & Communities",
+    "author_name": "ETBFSI",
+    "author_headline": "The Economic Times BFSI News Hub",
+    "post_url": "https://www.linkedin.com/company/etbfsi/posts/",
+    "post_text": "Karur Vysya Bank (KVB) appoints V S R A KUMAR RAVUTU as Chief Credit Officer, rejigs ops department. Along with appointments of three senior personnel, the bank formed a new Centralized Credit Department, splitting the existing Operations Department into Banking Operations and Infrastructure Management Group.",
+    "published_relative": "3h",
+    "scraped_at": "2026-08-21T18:04:09.053Z",
+    "status": "PENDING",
+    "priority_score": 95,
+    "impact_badge": "🔥 Top Priority (High LOS Relevance)",
+    "post_type_badge": "⚡ Leadership & Ops Restructuring",
+    "badge_color": "danger",
+    "relevance_tags": [
+      "LOS Architecture",
+      "Centralized Underwriting",
+      "Credit Governance",
+      "Banking Tech"
+    ],
+    "generated_comments": {
+      "value_add": "Centralizing the credit function at Karur Vysya Bank under V S R A KUMAR RAVUTU is a timely strategic move. For mid-tier and private banks, decoupling credit decisioning from branch operations into a centralized underwriting department requires an agile Loan Origination System (LOS) that standardizes policy enforcement, automates multi-bureau and telemetry ingestion, and delivers rapid turnaround without operational bottlenecks.",
+      "provocative_question": "As Karur Vysya Bank transitions towards a centralized credit architecture, what workflow orchestration mechanisms are being implemented in the LOS to balance automated Straight-Through Processing (STP) with nuanced credit officer judgment on edge cases?",
+      "executive_perspective": "Centralized credit transformation succeeds when powered by configurable lending platforms that provide risk committees with end-to-end auditability and policy governance while empowering underwriters to make faster, compliant decisions."
+    },
+    "selected_style": null,
+    "approved_comment": null,
+    "posted_at": null,
+    "error_message": null
+  },
+  {
+    "id": "post_perfios_aa",
+    "source_id": "perfios",
+    "source_name": "Perfios",
+    "source_category": "M2P LOS Competitors & Tech",
+    "author_name": "Perfios",
+    "author_headline": "SaaS & AI Lending Tech",
+    "post_url": "https://www.linkedin.com/company/perfios/posts/",
+    "post_text": "The evolution of digital lending requires more than just digitizing paper forms. Modern Loan Origination Systems (LOS) need sub-second data ingestion from Account Aggregator (AA), real-time GST reconciliation, and automated fraud score checks to deliver true Straight-Through Processing (STP) for MSMEs.",
+    "published_relative": "4h",
+    "scraped_at": "2026-08-21T18:04:09.053Z",
+    "status": "PENDING",
+    "priority_score": 96,
+    "impact_badge": "🔥 Top Priority (High LOS Relevance)",
+    "post_type_badge": "⚡ Digital Lending & LOS",
+    "badge_color": "danger",
+    "relevance_tags": [
+      "LOS Architecture",
+      "Account Aggregator",
+      "STP Origination",
+      "MSME Lending"
+    ],
+    "generated_comments": {
+      "value_add": "Spot on. However, true STP isn't just about faster API response times—it requires dynamic rule orchestration in the LOS that adapts risk thresholds based on cashflow volatility rather than static bureau cutoffs, while keeping underwriters in the loop on edge cases.",
+      "provocative_question": "As institutions scale AA-based underwriting across MSME portfolios, what are the primary drop-off points you are observing during consent capture, and how are configurable LOS workflows mitigating them?",
+      "executive_perspective": "Technology should empower lenders, not replace their judgment. The next competitive differentiator in MSME origination is pairing automated data orchestration with decision intelligence governed by the institution's own credit policy."
+    },
+    "selected_style": null,
+    "approved_comment": null,
+    "posted_at": null,
+    "error_message": null
+  },
+  {
+    "id": "post_rbih_uli",
+    "source_id": "rbih",
+    "source_name": "Reserve Bank Innovation Hub (RBIH)",
+    "source_category": "Regulatory, Government & Policy",
+    "author_name": "Reserve Bank Innovation Hub (RBIH)",
+    "author_headline": "Reserve Bank of India Innovation Hub",
+    "post_url": "https://www.linkedin.com/company/reserve-bank-innovation-hub/posts/",
+    "post_text": "Frictionless credit delivery is key to financial inclusion. Through digital public infrastructure like the Unified Lending Interface (ULI) and Account Aggregator framework, we are enabling seamless consent-based data flow from diverse sources (land records, satellite data, GST, milk yields) to reduce loan origination turnaround from days to minutes.",
+    "published_relative": "6h",
+    "scraped_at": "2026-08-21T18:04:09.053Z",
+    "status": "PENDING",
+    "priority_score": 94,
+    "impact_badge": "🔥 Top Priority (High LOS Relevance)",
+    "post_type_badge": "📜 Regulatory & DPI Update",
+    "badge_color": "danger",
+    "relevance_tags": [
+      "Unified Lending Interface",
+      "Account Aggregator",
+      "LOS",
+      "RBI Regulations"
+    ],
+    "generated_comments": {
+      "value_add": "ULI and the Account Aggregator framework represent a monumental leap for credit democratization. For financial institutions, the critical success factor is deploying an agile LOS capable of orchestrating these diverse alternate telemetry streams directly into configurable credit policies without engineering release bottlenecks.",
+      "provocative_question": "As ULI unlocks specialized rural and agricultural data feeds, what governance mechanisms are credit risk committees establishing to ensure AI model explainability and mitigate bias at the board level?",
+      "executive_perspective": "Effective regulatory compliance and technology innovation must move in lockstep. Enterprise lending infrastructure must be built with regulatory agility and auditability at its very core to turn DPI into scalable credit outcomes."
+    },
+    "selected_style": null,
+    "approved_comment": null,
+    "posted_at": null,
+    "error_message": null
+  }
+]
