@@ -152,6 +152,80 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  
+  if (pathname === "/api/generate-viral-post" && method === "POST") {
+    const body = await parseBody(req);
+    const { topic, format } = body;
+    
+    // High-engagement B2B Lending templates
+    let postContent = "";
+    if (format === "teardown") {
+      postContent = `Most Banks think Loan Origination System (LOS) modernization is about "digitizing paper forms".
+
+It isn't.
+
+Here is what happens behind the scenes in a true sub-minute MSME Digital Lending Architecture:
+
+1️⃣ Instant Consent & Telemetry Ingestion:
+→ Account Aggregator (AA) pulls 12-month bank statements in <3 seconds.
+→ Real-time GSTN API reconciliation identifies sales circularity and supplier concentration.
+
+2️⃣ Visual Business Rules Engine (BRE):
+→ Risk policies shouldn't require 3-week engineering sprints.
+→ Configurable credit matrix executes multi-tier policy cutoffs dynamically.
+
+3️⃣ Frictionless Bureau & Fraud Checks:
+→ Automated deduplication against internal blacklists and credit bureaus.
+→ Alternate telemetry (device footprint, director linkage) scored before underwriter review.
+
+4️⃣ Straight-Through Processing (STP) vs Assisted Decisioning:
+→ Tier-1 Prime MSMEs: Instant sanction letter generation.
+→ Edge Cases: Routed to credit officers with pre-flagged risk anomalies.
+
+The result?
+Disbursement turnaround drops from 7 days to 12 minutes—without diluting credit quality.
+
+What is the biggest operational bottleneck your team faces during MSME origination today?
+
+#DigitalLending #Fintech #LOS #BankingTech #MSMELending #CreditUnderwriting`;
+    } else if (format === "contrarian") {
+      postContent = `Unpopular Opinion in Fintech: 
+
+90% of Digital Lending drop-offs do NOT happen because of "bad UI".
+
+They happen because of rigid LOS policy orchestration.
+
+Here is why:
+When an MSME applicant has 2 bank accounts with differing turnover, or seasonal GST spikes:
+❌ Legacy systems treat it as a hard failure and reject the application.
+✅ Modern configurable LOS creates dynamic sub-limits and requests targeted telemetry instead.
+
+If your lending engine treats credit underwriting as a binary Yes/No rather than an intelligent risk-pricing spectrum, you are leaving your best borrowers on the table.
+
+Agree or disagree?
+
+#Fintech #DigitalLending #RiskManagement #LOS #BankingInnovation`;
+    } else {
+      postContent = `The 2026 Checklist for Enterprise Loan Origination Systems (LOS):
+
+If your lending tech stack doesn't have these 5 capabilities, you are building for 2018:
+
+[ ] 1. Sub-second Account Aggregator (AA) & ULI framework integration
+[ ] 2. No-code / Low-code Visual BRE for instant credit policy changes
+[ ] 3. Multi-entity MSME underwriting (holding co + directors + GST)
+[ ] 4. Automated co-lending & FLDG compliance tracking
+[ ] 5. Real-time audit trail for board and regulatory compliance
+
+Bookmark / Save this checklist for your next core banking or LOS modernization review. 📌
+
+What would you add to this list?
+
+#Banking #Fintech #LOS #CreditPolicy #LendingInfrastructure`;
+    }
+
+    return sendJSON(res, { success: true, post: postContent });
+  }
+
   if (pathname === "/api/stats" && method === "GET") {
     return sendJSON(res, getStats());
   }
