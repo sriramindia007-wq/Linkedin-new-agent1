@@ -226,6 +226,65 @@ What would you add to this list?
     return sendJSON(res, { success: true, post: postContent });
   }
 
+  
+  // 1. Hook Optimizer & Virality Score
+  if (pathname === "/api/boost-hook" && method === "POST") {
+    const body = await parseBody(req);
+    const text = body.text || "";
+    
+    const lines = text.split("\n").map(l => l.trim()).filter(Boolean);
+    const firstLine = lines[0] || "";
+    
+    // Algorithmic optimization
+    let optimizedHook = firstLine;
+    let suggestions = [];
+    let score = 75;
+
+    if (firstLine.toLowerCase().includes("i am") || firstLine.toLowerCase().includes("excited to") || firstLine.toLowerCase().includes("happy to")) {
+      score = 45;
+      suggestions.push("Avoid starting with 'I am excited' - it reduces 'See More' clicks by 60%.");
+      optimizedHook = "Most BFSI leaders overlook this critical bottleneck in Digital Lending:";
+    } else {
+      score = 92;
+      suggestions.push("Strong provocative hook. High probability of triggering 'See More' dwell time.");
+    }
+
+    const optimizedPost = optimizedHook + "\n\n" + lines.slice(1).join("\n\n") + "\n\n---\n💬 What is your team's perspective on this? Drop your thoughts below.";
+
+    return sendJSON(res, {
+      success: true,
+      score: score,
+      suggestions: suggestions,
+      optimizedPost: optimizedPost
+    });
+  }
+
+  // 2. First-Comment Booster (Pinned Authority Drop)
+  if (pathname === "/api/boost-first-comment" && method === "POST") {
+    const body = await parseBody(req);
+    const topic = body.topic || "LOS & Digital Lending Modernization";
+
+    const firstComment = `📌 Key takeaway for credit & product teams:
+When orchestrating high-velocity MSME origination, the secret is decoupling the visual BRE from core engineering releases.
+
+Curious to hear from fellow practitioners: Are you seeing higher friction during the initial consent capture or multi-tier GST reconciliation?`;
+
+    return sendJSON(res, { success: true, firstComment });
+  }
+
+  // 3. Inbound Comment Reply Assistant (Thread Depth Multiplier)
+  if (pathname === "/api/boost-reply" && method === "POST") {
+    const body = await parseBody(req);
+    const userComment = body.comment || "";
+    const commenterName = body.name || "Colleague";
+
+    const reply = `Great point, ${commenterName}. You hit on a crucial nuance—especially when balancing automated STP with edge-case credit underwriting under the revised RBI framework.
+
+How is your team currently handling data reconciliation when telemetry streams show quarterly cashflow volatility?`;
+
+    return sendJSON(res, { success: true, reply });
+  }
+
   if (pathname === "/api/stats" && method === "GET") {
     return sendJSON(res, getStats());
   }
