@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: sriram-lending-agent
+    env: node
+    plan: free
+    buildCommand: npm install && npx playwright install --with-deps chromium
+    startCommand: node server_standalone.js
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: NODE_ENV
+        value: production
+      - key: HEADLESS_BROWSER
+        value: "true"

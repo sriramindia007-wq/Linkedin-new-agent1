@@ -1,0 +1,19 @@
+{
+  "name": "linkedin-lending-agent",
+  "version": "1.0.0",
+  "description": "LinkedIn Lending Intelligence & AI Comment Automation Agent",
+  "main": "server_standalone.js",
+  "scripts": {
+    "start": "node server_standalone.js",
+    "login": "node setup_session.js",
+    "scrape": "node run_pipeline.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.0",
+    "@ngrok/ngrok": "^1.7.0",
+    "dotenv": "^16.6.1",
+    "localtunnel": "^2.0.2",
+    "node-cron": "^4.6.0",
+    "playwright": "^1.62.1"
+  }
+}
