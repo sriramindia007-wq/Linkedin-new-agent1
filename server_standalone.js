@@ -1,4 +1,4 @@
-﻿const http = require("http");
+const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const url = require("url");
@@ -279,7 +279,10 @@ const server = http.createServer(async (req, res) => {
       let contentType = "text/html";
       if (ext === ".js") contentType = "text/javascript";
       if (ext === ".css") contentType = "text/css";
-      if (ext === ".json") contentType = "application/json";
+      if (ext === ".json" || ext === ".webmanifest") contentType = "application/json";
+      if (ext === ".svg") contentType = "image/svg+xml";
+      if (ext === ".png") contentType = "image/png";
+      if (ext === ".ico") contentType = "image/x-icon";
       res.writeHead(200, { "Content-Type": contentType });
       res.end(content);
     }
