@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const url = require("url");
 
-// Safe Dynamic Module Resolver (Works whether files are in ./src_node or root ./)
+// Safe Dynamic Module Resolver
 function safeRequire(moduleName) {
   const pathsToTry = [
     path.join(__dirname, "src_node", moduleName),
@@ -15,9 +15,7 @@ function safeRequire(moduleName) {
       if (fs.existsSync(p + ".js") || fs.existsSync(p)) {
         return require(p);
       }
-    } catch (e) {
-      // try next
-    }
+    } catch (e) {}
   }
   try {
     return require("./src_node/" + moduleName);
@@ -39,21 +37,25 @@ const {
   savePersona 
 } = db;
 
-let scraperModule = null;
-try {
-  scraperModule = safeRequire("scraper");
-} catch (e) {
-  console.warn("Scraper module will load on-demand:", e.message);
-}
-
 const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = path.join(__dirname, "public");
 
 let lastScrapeTime = null;
-let lastScrapeStats = { newPosts: 0, status: "Idle" };
+let activeScrapeJob = {
+  isRunning: false,
+  progress: 0,
+  total: 0,
+  currentSource: "",
+  newPosts: 0,
+  status: "Idle"
+};
 
 function sendJSON(res, data, statusCode = 200) {
-  res.writeHead(statusCode, { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" });
+  res.writeHead(statusCode, { 
+    "Content-Type": "application/json", 
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type"
+  });
   res.end(JSON.stringify(data));
 }
 
@@ -72,43 +74,74 @@ function parseBody(req) {
   });
 }
 
-// -------------------------------------------------------------
-// AUTOMATED CRON SCHEDULER (7:00 AM & 6:00 PM DAILY)
-// -------------------------------------------------------------
-try {
-  const cron = require("node-cron");
-  async function executeScheduledScrape(label) {
-    console.log(`\n⏰ [CRON TRIGGER] Starting automated scheduled scrape (${label})...`);
-    lastScrapeStats.status = `Running (${label})`;
-    try {
-      const { runScraper } = safeRequire("scraper");
-      const count = await runScraper(null, 2);
-      lastScrapeTime = new Date().toISOString();
-      lastScrapeStats = { newPosts: count, status: `Completed (${label})`, timestamp: lastScrapeTime };
-      console.log(`✅ [CRON COMPLETE] Automated ${label} scrape ingested ${count} new posts.`);
-    } catch (err) {
-      console.error(`❌ [CRON ERROR] ${label} scrape failed:`, err.message);
-      lastScrapeStats.status = `Error: ${err.message}`;
-    }
+// Background Scrape Runner (Non-blocking)
+async function triggerBackgroundScrape(sourceIds = null, maxPosts = 2, label = "Manual") {
+  if (activeScrapeJob.isRunning) {
+    return activeScrapeJob;
   }
 
-  cron.schedule("0 7 * * *", () => executeScheduledScrape("Morning 7:00 AM"));
-  cron.schedule("0 18 * * *", () => executeScheduledScrape("Evening 6:00 PM"));
-  console.log("⏰ Automated Scheduler Initialized: Running at 07:00 AM & 18:00 PM daily.");
-} catch (e) {
-  console.log("Cron scheduler will run when node-cron is present:", e.message);
+  activeScrapeJob = {
+    isRunning: true,
+    progress: 0,
+    total: 0,
+    currentSource: "Initializing...",
+    newPosts: 0,
+    status: `Running (${label})`
+  };
+
+  (async () => {
+    try {
+      const { runScraper } = safeRequire("scraper");
+      const count = await runScraper(sourceIds, maxPosts, (current, total, srcName) => {
+        activeScrapeJob.progress = current;
+        activeScrapeJob.total = total;
+        activeScrapeJob.currentSource = srcName;
+      });
+
+      lastScrapeTime = new Date().toISOString();
+      activeScrapeJob = {
+        isRunning: false,
+        progress: activeScrapeJob.total,
+        total: activeScrapeJob.total,
+        currentSource: "Complete",
+        newPosts: count,
+        status: `Completed (${label})`,
+        timestamp: lastScrapeTime
+      };
+      console.log(`✅ [SCRAPER FINISHED] Ingested ${count} new qualifying posts.`);
+    } catch (err) {
+      console.error(`❌ [SCRAPER FAILED] Error:`, err.message);
+      activeScrapeJob = {
+        isRunning: false,
+        progress: 0,
+        total: 0,
+        currentSource: "Error",
+        newPosts: 0,
+        status: `Error: ${err.message}`
+      };
+    }
+  })();
+
+  return activeScrapeJob;
 }
 
-// -------------------------------------------------------------
-// HTTP SERVER & API ROUTES
-// -------------------------------------------------------------
+// Cron Scheduler (7am & 6pm)
+try {
+  const cron = require("node-cron");
+  cron.schedule("0 7 * * *", () => triggerBackgroundScrape(null, 2, "Morning 7:00 AM"));
+  cron.schedule("0 18 * * *", () => triggerBackgroundScrape(null, 2, "Evening 6:00 PM"));
+  console.log("⏰ Automated Scheduler Initialized: Running at 07:00 AM & 18:00 PM daily.");
+} catch (e) {
+  console.log("Cron scheduler will run when node-cron is present");
+}
+
+// HTTP Server
 const server = http.createServer(async (req, res) => {
   const parsedUrl = url.parse(req.url, true);
   const pathname = parsedUrl.pathname;
   const query = parsedUrl.query;
   const method = req.method;
 
-  // CORS preflight
   if (method === "OPTIONS") {
     res.writeHead(204, {
       "Access-Control-Allow-Origin": "*",
@@ -119,7 +152,6 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // API Routes
   if (pathname === "/api/stats" && method === "GET") {
     return sendJSON(res, getStats());
   }
@@ -129,7 +161,7 @@ const server = http.createServer(async (req, res) => {
       schedule: ["07:00 AM Morning", "06:00 PM Evening"],
       status: "ACTIVE",
       lastScrapeTime,
-      lastScrapeStats
+      activeScrapeJob
     });
   }
 
@@ -154,25 +186,15 @@ const server = http.createServer(async (req, res) => {
   if (pathname === "/api/regenerate-comment" && method === "POST") {
     const body = await parseBody(req);
     const { postId, customGuidance } = body;
-    if (!postId) {
-      return sendJSON(res, { success: false, error: "Missing postId" }, 400);
-    }
+    if (!postId) return sendJSON(res, { success: false, error: "Missing postId" }, 400);
 
     const posts = loadPosts();
     const post = posts.find(p => p.id === postId);
-    if (!post) {
-      return sendJSON(res, { success: false, error: "Post not found" }, 404);
-    }
+    if (!post) return sendJSON(res, { success: false, error: "Post not found" }, 404);
 
     try {
       const { generateCommentsForPost } = safeRequire("commentGenerator");
-      const newComments = await generateCommentsForPost(
-        post.post_text, 
-        post.author_name, 
-        post.source_category, 
-        customGuidance || ""
-      );
-
+      const newComments = await generateCommentsForPost(post.post_text, post.author_name, post.source_category, customGuidance || "");
       const updatedPost = updatePostComments(postId, newComments);
       return sendJSON(res, { success: true, post: updatedPost, comments: newComments });
     } catch (err) {
@@ -189,7 +211,6 @@ const server = http.createServer(async (req, res) => {
   if (pathname === "/api/post-now" && method === "POST") {
     const body = await parseBody(req);
     approveComment(body.postId, body.selectedStyle, body.commentText);
-    
     try {
       const { postCommentToLinkedIn } = safeRequire("poster");
       const result = await postCommentToLinkedIn(body.postId);
@@ -206,42 +227,19 @@ const server = http.createServer(async (req, res) => {
     return sendJSON(res, { success: true, post: updated });
   }
 
-  // Instant Scrape (Fast single source or category)
-  if (pathname === "/api/instant-scrape" && method === "POST") {
+  // Non-blocking Scrape Trigger (Responds instantly in < 50ms)
+  if ((pathname === "/api/scrape" || pathname === "/api/instant-scrape") && method === "POST") {
     const body = await parseBody(req);
-    try {
-      const { runScraper } = safeRequire("scraper");
-      const sources = loadSources();
-      let filterIds = null;
-      if (body.sourceId) {
-        filterIds = [body.sourceId];
-      } else if (body.category && body.category !== "ALL") {
-        filterIds = sources.filter(s => s.category === body.category).map(s => s.id);
-      }
-      console.log(`[⚡ Instant Scrape] Triggered for ${filterIds ? filterIds.join(", ") : "All Sources"}...`);
-      const count = await runScraper(filterIds, body.maxPosts || 2);
-      lastScrapeTime = new Date().toISOString();
-      return sendJSON(res, { success: true, newPosts: count, timestamp: lastScrapeTime });
-    } catch (e) {
-      return sendJSON(res, { success: false, error: e.message }, 500);
+    const sources = loadSources();
+    let filterIds = null;
+    if (body.sourceId) {
+      filterIds = [body.sourceId];
+    } else if (body.category && body.category !== "ALL") {
+      filterIds = sources.filter(s => s.category === body.category).map(s => s.id);
     }
-  }
 
-  if (pathname === "/api/scrape" && method === "POST") {
-    const body = await parseBody(req);
-    try {
-      const { runScraper } = safeRequire("scraper");
-      const sources = loadSources();
-      let filterIds = null;
-      if (body.category && body.category !== "ALL") {
-        filterIds = sources.filter(s => s.category === body.category).map(s => s.id);
-      }
-      const count = await runScraper(filterIds, body.maxPosts || 2);
-      lastScrapeTime = new Date().toISOString();
-      return sendJSON(res, { success: true, newPosts: count });
-    } catch (e) {
-      return sendJSON(res, { success: false, error: e.message }, 500);
-    }
+    const job = await triggerBackgroundScrape(filterIds, body.maxPosts || 2, body.category || "Selected Sources");
+    return sendJSON(res, { success: true, message: "Scraping running in background", job });
   }
 
   if (pathname === "/api/sources" && method === "GET") {
@@ -290,7 +288,7 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(PORT, "0.0.0.0", () => {
   console.log("========================================================");
-  console.log("💼 LinkedIn Lending Intelligence Agent (Render Cloud Ready)");
+  console.log("💼 LinkedIn Lending Intelligence Agent (Async Scraper Active)");
   console.log(`🌐 Dashboard running at: http://0.0.0.0:${PORT}`);
   console.log("⏰ Daily Automated Scrapes Scheduled at 07:00 AM & 06:00 PM");
   console.log("========================================================");
