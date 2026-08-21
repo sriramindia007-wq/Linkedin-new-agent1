@@ -100,39 +100,6 @@
       </div>
     </div>
 
-    <!-- 🤖 Autonomous Engagement Autopilot Bar -->
-    <div class="card p-3 mb-4 bg-white shadow-sm border-0 rounded-3 border-start border-primary border-4">
-      <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
-        <div class="d-flex align-items-center gap-3">
-          <div class="bg-primary text-white rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
-            <i class="fa-solid fa-robot fa-lg"></i>
-          </div>
-          <div>
-            <div class="fw-bold fs-6 d-flex align-items-center gap-2">
-              🤖 Autonomous Engagement Bot
-              <span class="badge bg-success" id="autopilotStatusBadge">Active (Semi-Autopilot)</span>
-            </div>
-            <div class="small text-muted">
-              Auto-scans 145 sources every 2h • Generates high-authority LOS comments • Safe human jitter delays
-            </div>
-          </div>
-        </div>
-        <div class="d-flex align-items-center gap-3 flex-wrap">
-          <div class="form-check form-switch fs-5 mb-0">
-            <input class="form-check-input" type="checkbox" role="switch" id="autopilotToggleSwitch" onchange="toggleAutopilot(this.checked)" />
-            <label class="form-check-label fs-6 fw-bold text-dark ms-1" for="autopilotToggleSwitch">Autopilot</label>
-          </div>
-          <select class="form-select form-select-sm w-auto fw-semibold" id="autopilotModeSelect" onchange="updateAutopilotMode(this.value)">
-            <option value="SEMI_AUTOPILOT">Semi-Autopilot (Draft + Instant Notify)</option>
-            <option value="FULL_AUTOPILOT">Full Autopilot (Auto-Post Top >92 Posts)</option>
-          </select>
-          <button class="btn btn-outline-primary btn-sm fw-bold px-3" onclick="triggerAutopilotNow()">
-            <i class="fa-solid fa-play me-1"></i> Run Bot Now
-          </button>
-        </div>
-      </div>
-    </div>
-
     <!-- Scraper Control Bar -->
     <div class="card p-3 mb-4 bg-white shadow-sm border-0 rounded-3">
       <div class="row align-items-center g-3">
@@ -998,69 +965,6 @@
       return str.replace(/"/g, "&quot;").replace(/'/g, "\\'");
     }
 
-    // Autopilot Functions
-    async function loadAutopilotSettings() {
-      try {
-        const res = await fetch("/api/autopilot");
-        const config = await res.json();
-        const sw = document.getElementById("autopilotToggleSwitch");
-        const sel = document.getElementById("autopilotModeSelect");
-        const badge = document.getElementById("autopilotStatusBadge");
-        
-        if (sw) sw.checked = !!config.enabled;
-        if (sel) sel.value = config.mode || "SEMI_AUTOPILOT";
-        if (badge) {
-          if (config.enabled) {
-            badge.className = "badge bg-success";
-            badge.innerText = config.mode === "FULL_AUTOPILOT" ? "Active (Full Autopilot)" : "Active (Semi-Autopilot)";
-          } else {
-            badge.className = "badge bg-secondary";
-            badge.innerText = "Disabled";
-          }
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    }
-
-    async function toggleAutopilot(enabled) {
-      try {
-        await fetch("/api/autopilot", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ enabled })
-        });
-        loadAutopilotSettings();
-      } catch (e) {
-        alert("Autopilot update error: " + e.message);
-      }
-    }
-
-    async function updateAutopilotMode(mode) {
-      try {
-        await fetch("/api/autopilot", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ mode })
-        });
-        loadAutopilotSettings();
-      } catch (e) {
-        alert("Autopilot mode error: " + e.message);
-      }
-    }
-
-    async function triggerAutopilotNow() {
-      try {
-        const res = await fetch("/api/autopilot-trigger-cycle", { method: "POST" });
-        const data = await res.json();
-        alert("🤖 Autopilot Engagement Cycle Triggered! Status: " + (data.result?.status || "Success"));
-        loadStats();
-        loadPendingPosts();
-      } catch (e) {
-        alert("Autopilot error: " + e.message);
-      }
-    }
-
     // Init
     loadStats();
     loadPendingPosts();
@@ -1068,7 +972,6 @@
     loadHistory();
     loadSources();
     loadPersona();
-    loadAutopilotSettings();
 
     // PWA Service Worker Registration
     if ("serviceWorker" in navigator) {
