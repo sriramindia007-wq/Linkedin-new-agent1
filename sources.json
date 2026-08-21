@@ -1,0 +1,1711 @@
+[
+  {
+    "id": "etbfsi",
+    "name": "ETBFSI (The Economic Times)",
+    "category": "Industry Media & Communities",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/etbfsi/posts/",
+    "active": true
+  },
+  {
+    "id": "finsamudra",
+    "name": "FinSamudra",
+    "category": "Industry Media & Communities",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/finsamudra/posts/",
+    "active": true
+  },
+  {
+    "id": "gencfo",
+    "name": "GenCFO Community",
+    "category": "Industry Media & Communities",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/gencfo/posts/",
+    "active": true
+  },
+  {
+    "id": "rbih",
+    "name": "Reserve Bank Innovation Hub (RBIH)",
+    "category": "Regulatory & Industry Bodies",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/rbi-innovation-hub/posts/",
+    "active": true
+  },
+  {
+    "id": "rbi",
+    "name": "Reserve Bank of India",
+    "category": "Regulatory & Industry Bodies",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/reserve-bank-of-india/posts/",
+    "active": true,
+    "role_type": "Regulator",
+    "organization": "Reserve Bank of India",
+    "website_url": "https://www.rbi.org.in/",
+    "vertical_tags": [
+      "regulatory",
+      "guidelines"
+    ],
+    "notes": "RBI official site (circulars & guidelines)"
+  },
+  {
+    "id": "sahamati",
+    "name": "Sahamati (Account Aggregator Ecosystem)",
+    "category": "Regulatory & Industry Bodies",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/sahamati/posts/",
+    "active": true
+  },
+  {
+    "id": "dlai",
+    "name": "Digital Lenders Association of India (DLAI)",
+    "category": "Regulatory & Industry Bodies",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/dlai-india/posts/",
+    "active": true
+  },
+  {
+    "id": "face",
+    "name": "Fintech Association for Consumer Empowerment (FACE)",
+    "category": "Regulatory & Industry Bodies",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/face-fintech/posts/",
+    "active": true
+  },
+  {
+    "id": "perfios",
+    "name": "Perfios",
+    "category": "AI Underwriting & Credit Risk",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/perfios/posts/",
+    "active": true,
+    "role_type": "Data Vendor",
+    "organization": "Perfios",
+    "vertical_tags": [
+      "data aggregation",
+      "credit analytics"
+    ],
+    "notes": "Statement parsing and data aggregation"
+  },
+  {
+    "id": "pennant",
+    "name": "Pennant Technologies",
+    "category": "M2P LOS Competitors & Tech",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/pennant-technologies/posts/",
+    "active": true
+  },
+  {
+    "id": "finflux",
+    "name": "Finflux",
+    "category": "M2P LOS Competitors & Tech",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/finflux/posts/",
+    "active": true,
+    "role_type": "LOS Vendor",
+    "organization": "Finflux",
+    "vertical_tags": [
+      "LOS",
+      "lending platform"
+    ],
+    "notes": "Indian LOS vendor"
+  },
+  {
+    "id": "nucleus-software",
+    "name": "Nucleus Software",
+    "category": "M2P LOS Competitors & Tech",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/nucleus-software/posts/",
+    "active": true,
+    "role_type": "LOS Vendor",
+    "organization": "Nucleus Software",
+    "vertical_tags": [
+      "LOS",
+      "core lending"
+    ],
+    "notes": "Enterprise LOS vendor"
+  },
+  {
+    "id": "lentra",
+    "name": "Lentra AI",
+    "category": "M2P LOS Competitors & Tech",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/lentra/posts/",
+    "active": true
+  },
+  {
+    "id": "decimal",
+    "name": "Decimal Technologies / Kuliza",
+    "category": "M2P LOS Competitors & Tech",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/decimal-technologies/posts/",
+    "active": true
+  },
+  {
+    "id": "turnkey-lender",
+    "name": "TurnKey Lender",
+    "category": "M2P LOS Competitors & Tech",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/turnkey-lender/posts/",
+    "active": true
+  },
+  {
+    "id": "nelito",
+    "name": "Nelito Systems",
+    "category": "M2P LOS Competitors & Tech",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/nelito-systems-ltd/posts/",
+    "active": true
+  },
+  {
+    "id": "intellect-design",
+    "name": "Intellect Design Arena",
+    "category": "M2P LOS Competitors & Tech",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/intellect-design-arena-ltd/posts/",
+    "active": true
+  },
+  {
+    "id": "newgen",
+    "name": "Newgen Software",
+    "category": "M2P LOS Competitors & Tech",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/newgen-software/posts/",
+    "active": true
+  },
+  {
+    "id": "lendingkart",
+    "name": "Lendingkart",
+    "category": "Digital Lending Fintechs & BNPL",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/lendingkart-technologies/posts/",
+    "active": true,
+    "role_type": "Fintech",
+    "organization": "Lendingkart Technologies",
+    "vertical_tags": [
+      "MSME",
+      "lending"
+    ],
+    "notes": "MSME fintech lender"
+  },
+  {
+    "id": "neogrowth",
+    "name": "NeoGrowth Credit",
+    "category": "MSME & Digital Lending NBFCs",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/neogrowth-credit-pvt-ltd/posts/",
+    "active": true
+  },
+  {
+    "id": "aye-finance",
+    "name": "Aye Finance",
+    "category": "MSME & Digital Lending NBFCs",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/aye-finance-p-ltd/posts/",
+    "active": true
+  },
+  {
+    "id": "kinara-capital",
+    "name": "Kinara Capital",
+    "category": "MSME & Digital Lending NBFCs",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/kinara-capital/posts/",
+    "active": true
+  },
+  {
+    "id": "incred",
+    "name": "InCred Financial Services",
+    "category": "MSME & Digital Lending NBFCs",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/incred/posts/",
+    "active": true
+  },
+  {
+    "id": "protium",
+    "name": "Protium",
+    "category": "MSME & Digital Lending NBFCs",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/protium-in/posts/",
+    "active": true
+  },
+  {
+    "id": "ugro-capital",
+    "name": "UGRO Capital",
+    "category": "MSME & Digital Lending NBFCs",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/ugrocapital/posts/",
+    "active": true
+  },
+  {
+    "id": "oxyzo",
+    "name": "Oxyzo Financial Services",
+    "category": "MSME & Digital Lending NBFCs",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/oxyzo-financial-services/posts/",
+    "active": true
+  },
+  {
+    "id": "flexiloans",
+    "name": "FlexiLoans",
+    "category": "Digital Lending Fintechs & BNPL",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/flexiloans/posts/",
+    "active": true,
+    "role_type": "Fintech",
+    "organization": "FlexiLoans",
+    "vertical_tags": [
+      "SME",
+      "business loans"
+    ],
+    "notes": "SME lending fintech"
+  },
+  {
+    "id": "indifi",
+    "name": "Indifi",
+    "category": "Digital Lending Fintechs & BNPL",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/indifi-technologies/posts/",
+    "active": true,
+    "role_type": "Fintech",
+    "organization": "Indifi Technologies",
+    "vertical_tags": [
+      "MSME",
+      "SME lending"
+    ],
+    "notes": "SME-focused lender"
+  },
+  {
+    "id": "vivriti-capital",
+    "name": "Vivriti Capital",
+    "category": "MSME & Digital Lending NBFCs",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/vivriti-capital/posts/",
+    "active": true
+  },
+  {
+    "id": "northern-arc",
+    "name": "Northern Arc Capital",
+    "category": "MSME & Digital Lending NBFCs",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/northernarc/posts/",
+    "active": true
+  },
+  {
+    "id": "fibe-india",
+    "name": "Fibe India (EarlySalary)",
+    "category": "MSME & Digital Lending NBFCs",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/fibe-india/posts/",
+    "active": true
+  },
+  {
+    "id": "mintifi",
+    "name": "Mintifi Supply Chain Lending",
+    "category": "MSME & Digital Lending NBFCs",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/mintifi/posts/",
+    "active": true
+  },
+  {
+    "id": "scoredata",
+    "name": "ScoreData Corporation",
+    "category": "AI Underwriting & Credit Risk",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/scoredata/posts/",
+    "active": true
+  },
+  {
+    "id": "arya-ai",
+    "name": "Arya.ai",
+    "category": "AI Underwriting & Credit Risk",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/arya-ai/posts/",
+    "active": true
+  },
+  {
+    "id": "jocata",
+    "name": "Jocata Financial Advisory",
+    "category": "AI Underwriting & Credit Risk",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/jocata-financial-advisory-services/posts/",
+    "active": true
+  },
+  {
+    "id": "creditvidya",
+    "name": "CreditVidya",
+    "category": "AI Underwriting & Credit Risk",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/creditvidya/posts/",
+    "active": true,
+    "role_type": "Data Vendor",
+    "organization": "CreditVidya",
+    "vertical_tags": [
+      "alternative data",
+      "scoring"
+    ],
+    "notes": "Alt-data credit scoring"
+  },
+  {
+    "id": "bureau-id",
+    "name": "Bureau.id",
+    "category": "AI Underwriting & Credit Risk",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/bureauid/posts/",
+    "active": true
+  },
+  {
+    "id": "hyperverge",
+    "name": "HyperVerge Fintech",
+    "category": "AI Underwriting & Credit Risk",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/hyperverge/posts/",
+    "active": true
+  },
+  {
+    "id": "idfy",
+    "name": "IDfy",
+    "category": "AI Underwriting & Credit Risk",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/idfy/posts/",
+    "active": true
+  },
+  {
+    "id": "karza-technologies",
+    "name": "Karza Technologies",
+    "category": "Data, KYC, AI Underwriting & Collections",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/karza-technologies/posts/",
+    "active": true,
+    "role_type": "KYC / Data",
+    "organization": "Karza Technologies",
+    "vertical_tags": [
+      "KYC",
+      "fraud"
+    ],
+    "notes": "Data & KYC provider"
+  },
+  {
+    "id": "hdfc-bank",
+    "name": "HDFC Bank",
+    "category": "Incumbent Banks & SFBs",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/hdfcbank/posts/",
+    "active": true,
+    "role_type": "Incumbent Bank",
+    "organization": "HDFC Bank",
+    "vertical_tags": [
+      "home loans",
+      "retail"
+    ],
+    "notes": "Private bank"
+  },
+  {
+    "id": "icici-bank",
+    "name": "ICICI Bank",
+    "category": "Incumbent Banks & SFBs",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/icici-bank/posts/",
+    "active": true,
+    "role_type": "Incumbent Bank",
+    "organization": "ICICI Bank",
+    "vertical_tags": [
+      "retail",
+      "MSME"
+    ],
+    "notes": "Private bank"
+  },
+  {
+    "id": "axis-bank",
+    "name": "Axis Bank",
+    "category": "Incumbent Banks & SFBs",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/axis-bank/posts/",
+    "active": true,
+    "role_type": "Incumbent Bank",
+    "organization": "Axis Bank",
+    "vertical_tags": [
+      "retail",
+      "vehicle"
+    ],
+    "notes": "Private bank"
+  },
+  {
+    "id": "kotak-mahindra-bank",
+    "name": "Kotak Mahindra Bank",
+    "category": "Incumbent Banks & SFBs",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/kotak-mahindra-bank/posts/",
+    "active": true,
+    "role_type": "Incumbent Bank",
+    "organization": "Kotak Mahindra Bank",
+    "vertical_tags": [
+      "digital lending"
+    ],
+    "notes": "Private bank"
+  },
+  {
+    "id": "federal-bank",
+    "name": "Federal Bank Fintech",
+    "category": "Banks & Regulators",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/federal-bank/posts/",
+    "active": true
+  },
+  {
+    "id": "harshvardhan-lunia",
+    "name": "Harshvardhan Lunia (Founder & CEO, Lendingkart)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/harshvardhanlunia/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "shachindra-nath",
+    "name": "Shachindra Nath (Founder & VC, UGRO Capital)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/shachindra-nath/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "hardika-shah",
+    "name": "Hardika Shah (Founder & CEO, Kinara Capital)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/hardika-shah/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "sanjay-sharma",
+    "name": "Sanjay Sharma (MD & CEO, Aye Finance)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/sanjay-sharma-aye/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "manish-lunia",
+    "name": "Manish Lunia (Co-Founder, FlexiLoans)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/manish-lunia-flexiloans/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "alok-mittal",
+    "name": "Alok Mittal (Co-Founder & CEO, Indifi)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/alokmittal/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "akshay-mehrotra",
+    "name": "Akshay Mehrotra (Co-Founder & CEO, Fibe)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/akshay-mehrotra-fibe/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "gaurav-chopra",
+    "name": "Gaurav Chopra (Founder & CEO, IndiaLends)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/gaurav-chopra-indialends/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "anup-agarwal",
+    "name": "Anup Agarwal (Co-Founder & CEO, Mintifi)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/anup-agarwal-mintifi/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "madhusudan-ekambaram",
+    "name": "Madhusudan Ekambaram (Co-Founder & CEO, KredX)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/madhusudan-ekambaram/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "anuj-kacker",
+    "name": "Anuj Kacker (Co-Founder, Freo / MoneyTap)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/anuj-kacker/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "ranvir-singh",
+    "name": "Ranvir Singh (Founder & CEO, Ring / Kissht)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ranvir-singh-kissht/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "sashank-rishyasringa",
+    "name": "Sashank Rishyasringa (Co-Founder & MD, axio)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/sashank-rishyasringa/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "gaurav-hinduja",
+    "name": "Gaurav Hinduja (Co-Founder & MD, axio)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/gauravhinduja/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "alok-bansal",
+    "name": "Alok Bansal (Co-Founder, PB Fintech / Paisabazaar)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/alok-bansal-b05423/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "naveen-kukreja",
+    "name": "Naveen Kukreja (Co-Founder & CEO, Paisabazaar)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/naveenkukreja/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "bhavin-patel",
+    "name": "Bhavin Patel (Co-Founder & CEO, LenDenClub)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/bhavin-patel-lendenclub/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "rajat-gandhi",
+    "name": "Rajat Gandhi (Founder & CEO, Faircent)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/rajatgandhi/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "bg-mahesh",
+    "name": "B.G. Mahesh (CEO, Sahamati)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/bgmahesh/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "jatinder-handoo",
+    "name": "Jatinder Handoo (CEO, Digital Lenders Association of India)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/jatinder-handoo/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "sugandh-saxena",
+    "name": "Sugandh Saxena (CEO, FACE)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/sugandh-saxena/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "amol-dethe",
+    "name": "Amol Dethe (Editor, ETBFSI)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/amoldethe/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "v-vaidyanathan",
+    "name": "V. Vaidyanathan (MD & CEO, IDFC FIRST Bank)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/v-vaidyanathan-idfc/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "sameer-shetty",
+    "name": "Sameer Shetty (President & Head Digital Banking, Axis Bank)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/sameershetty/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "sabyasachi-goswami",
+    "name": "Sabyasachi Goswami (CEO, Perfios)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/sabyasachigoswami/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "ramgopal-subramani",
+    "name": "Ramgopal Subramani (Chief Strategy Officer, Perfios)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ramgopalsubramani/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "d-kamath",
+    "name": "Deepak Sharma (Former President & CDO, Kotak Mahindra Bank)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/deepaksharma/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "monica-jasuja",
+    "name": "Monica Jasuja (Global Fintech Influencer)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/jasuja/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "shinjini-kumar",
+    "name": "Shinjini Kumar (Co-Founder, SALT / Ex-Bank of America & RBI)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/shinjinikumar/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "vivek-belgavi",
+    "name": "Vivek Belgavi (Partner & Fintech Leader, PwC)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/vivekbelgavi/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "upendran-m2p",
+    "name": "Madhusudanan R (Co-Founder & CEO, M2P Fintech)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/madhusudananr/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "prabhu-m2p",
+    "name": "Prabhu Rangarajan (Co-Founder, M2P Fintech)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/prabhuranganathan/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "ramanathan-rv",
+    "name": "Ramanathan RV (Founder, Hyperface)",
+    "category": "Top 50 Digital Lending Influencers",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ramanathanrv/recent-activity/all/",
+    "active": true
+  },
+  {
+    "id": "signzy",
+    "name": "Signzy",
+    "role_type": "KYC Vendor",
+    "organization": "Signzy",
+    "category": "AI Underwriting & Credit Risk",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/signzy/posts/",
+    "vertical_tags": [
+      "KYC",
+      "onboarding"
+    ],
+    "notes": "KYC automation vendor",
+    "active": true
+  },
+  {
+    "id": "finshots",
+    "name": "Finshots",
+    "role_type": "Media",
+    "organization": "Finshots",
+    "category": "Industry Media & Communities",
+    "type": "company",
+    "website_url": "https://finshots.in/",
+    "url": "https://www.linkedin.com/company/finshots/posts/",
+    "vertical_tags": [
+      "media",
+      "fintech"
+    ],
+    "notes": "Fintech explainers and analysis",
+    "active": true
+  },
+  {
+    "id": "state-bank-of-india",
+    "name": "State Bank of India",
+    "role_type": "Incumbent Bank",
+    "organization": "SBI",
+    "category": "Incumbent Banks & SFBs",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/state-bank-of-india/posts/",
+    "vertical_tags": [
+      "home loans",
+      "corporate",
+      "retail"
+    ],
+    "notes": "Public sector bank",
+    "active": true
+  },
+  {
+    "id": "idfc-first-bank",
+    "name": "IDFC First Bank",
+    "role_type": "Incumbent Bank",
+    "organization": "IDFC First Bank",
+    "category": "Incumbent Banks & SFBs",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/idfc-first-bank/posts/",
+    "vertical_tags": [
+      "retail",
+      "personal"
+    ],
+    "notes": "Digital initiatives",
+    "active": true
+  },
+  {
+    "id": "indusind-bank",
+    "name": "IndusInd Bank",
+    "role_type": "Incumbent Bank",
+    "organization": "IndusInd Bank",
+    "category": "Incumbent Banks & SFBs",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/indusind-bank/posts/",
+    "vertical_tags": [
+      "vehicle",
+      "retail"
+    ],
+    "notes": "Bank with digital products",
+    "active": true
+  },
+  {
+    "id": "au-small-finance-bank",
+    "name": "AU Small Finance Bank",
+    "role_type": "Incumbent Bank",
+    "organization": "AU Small Finance Bank",
+    "category": "Incumbent Banks & SFBs",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/au-small-finance-bank/posts/",
+    "vertical_tags": [
+      "MSME",
+      "retail"
+    ],
+    "notes": "SFB focus",
+    "active": true
+  },
+  {
+    "id": "bajaj-finance",
+    "name": "Bajaj Finance",
+    "role_type": "NBFC",
+    "organization": "Bajaj Finance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/bajaj-finserv/posts/",
+    "vertical_tags": [
+      "consumer",
+      "personal",
+      "BNPL"
+    ],
+    "notes": "Large NBFC lender",
+    "active": true
+  },
+  {
+    "id": "mahindra-finance",
+    "name": "Mahindra Finance",
+    "role_type": "NBFC",
+    "organization": "Mahindra Finance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/mahindra-finance/posts/",
+    "vertical_tags": [
+      "vehicle",
+      "EV"
+    ],
+    "notes": "Vehicle and rural finance",
+    "active": true
+  },
+  {
+    "id": "shriram-finance",
+    "name": "Shriram Finance",
+    "role_type": "NBFC",
+    "organization": "Shriram Finance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/shriram-finance/posts/",
+    "vertical_tags": [
+      "vehicle",
+      "MSME"
+    ],
+    "notes": "Regional NBFC group",
+    "active": true
+  },
+  {
+    "id": "muthoot-finance",
+    "name": "Muthoot Finance",
+    "role_type": "NBFC",
+    "organization": "Muthoot Finance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/muthoot-finance/posts/",
+    "vertical_tags": [
+      "gold loans"
+    ],
+    "notes": "Gold loan leader",
+    "active": true
+  },
+  {
+    "id": "manappuram-finance",
+    "name": "Manappuram Finance",
+    "role_type": "NBFC",
+    "organization": "Manappuram Finance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/manappuram-finance-limited/posts/",
+    "vertical_tags": [
+      "gold loans"
+    ],
+    "notes": "Gold loan leader",
+    "active": true
+  },
+  {
+    "id": "fullerton-india-smfg-india-credit",
+    "name": "Fullerton India / SMFG India Credit",
+    "role_type": "NBFC",
+    "organization": "Fullerton India",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/fullerton-india/posts/",
+    "vertical_tags": [
+      "personal",
+      "MSME"
+    ],
+    "notes": "Consumer and SME lending",
+    "active": true
+  },
+  {
+    "id": "iifl-finance",
+    "name": "IIFL Finance",
+    "role_type": "NBFC",
+    "organization": "IIFL Finance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/iifl-finance/posts/",
+    "vertical_tags": [
+      "gold loans",
+      "personal"
+    ],
+    "notes": "Large NBFC",
+    "active": true
+  },
+  {
+    "id": "aditya-birla-finance",
+    "name": "Aditya Birla Finance",
+    "role_type": "NBFC",
+    "organization": "Aditya Birla Finance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/aditya-birla-capital/posts/",
+    "vertical_tags": [
+      "consumer",
+      "business"
+    ],
+    "notes": "Group NBFC",
+    "active": true
+  },
+  {
+    "id": "tata-capital",
+    "name": "Tata Capital",
+    "role_type": "NBFC",
+    "organization": "Tata Capital",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/tata-capital/posts/",
+    "vertical_tags": [
+      "retail",
+      "corporate"
+    ],
+    "notes": "Large NBFC",
+    "active": true
+  },
+  {
+    "id": "home-credit-india",
+    "name": "Home Credit India",
+    "role_type": "NBFC",
+    "organization": "Home Credit India",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/home-credit-india/posts/",
+    "vertical_tags": [
+      "consumer",
+      "personal"
+    ],
+    "notes": "Consumer finance",
+    "active": true
+  },
+  {
+    "id": "capital-float-axio",
+    "name": "Capital Float / axio",
+    "role_type": "Fintech",
+    "organization": "Capital Float",
+    "category": "Digital Lending Fintechs & BNPL",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/capitalfloat/posts/",
+    "vertical_tags": [
+      "SME",
+      "consumer"
+    ],
+    "notes": "SME and consumer lending",
+    "active": true
+  },
+  {
+    "id": "kreditbee",
+    "name": "KreditBee",
+    "role_type": "Fintech",
+    "organization": "KreditBee",
+    "category": "Digital Lending Fintechs & BNPL",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/kreditbee/posts/",
+    "vertical_tags": [
+      "personal loans",
+      "consumer"
+    ],
+    "notes": "Personal loan fintech",
+    "active": true
+  },
+  {
+    "id": "earlysalary-fibe",
+    "name": "EarlySalary / Fibe",
+    "role_type": "Fintech",
+    "organization": "EarlySalary",
+    "category": "Digital Lending Fintechs & BNPL",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/earlysalary/posts/",
+    "vertical_tags": [
+      "short term",
+      "personal"
+    ],
+    "notes": "Short-term credit provider",
+    "active": true
+  },
+  {
+    "id": "zestmoney",
+    "name": "ZestMoney",
+    "role_type": "Fintech",
+    "organization": "ZestMoney",
+    "category": "Digital Lending Fintechs & BNPL",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/zestmoney/posts/",
+    "vertical_tags": [
+      "BNPL",
+      "consumer"
+    ],
+    "notes": "BNPL player",
+    "active": true
+  },
+  {
+    "id": "simpl",
+    "name": "Simpl",
+    "role_type": "Fintech",
+    "organization": "Simpl",
+    "category": "Digital Lending Fintechs & BNPL",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/simpl/posts/",
+    "vertical_tags": [
+      "BNPL",
+      "checkout"
+    ],
+    "notes": "BNPL checkout provider",
+    "active": true
+  },
+  {
+    "id": "razorpay",
+    "name": "Razorpay",
+    "role_type": "Fintech",
+    "organization": "Razorpay",
+    "category": "Digital Lending Fintechs & BNPL",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/razorpay/posts/",
+    "vertical_tags": [
+      "merchant lending",
+      "BNPL"
+    ],
+    "notes": "Payments + lending integrations",
+    "active": true
+  },
+  {
+    "id": "pine-labs",
+    "name": "Pine Labs",
+    "role_type": "Fintech",
+    "organization": "Pine Labs",
+    "category": "Digital Lending Fintechs & BNPL",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/pinelabs/posts/",
+    "vertical_tags": [
+      "merchant BNPL",
+      "POS"
+    ],
+    "notes": "POS finance & merchant BNPL",
+    "active": true
+  },
+  {
+    "id": "paytm-lending",
+    "name": "Paytm Lending",
+    "role_type": "Fintech",
+    "organization": "Paytm",
+    "category": "Digital Lending Fintechs & BNPL",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/paytm/posts/",
+    "vertical_tags": [
+      "consumer",
+      "merchant"
+    ],
+    "notes": "Payments platform with lending",
+    "active": true
+  },
+  {
+    "id": "phonepe-credit",
+    "name": "PhonePe Credit",
+    "role_type": "Fintech",
+    "organization": "PhonePe",
+    "category": "Digital Lending Fintechs & BNPL",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/phonepe/posts/",
+    "vertical_tags": [
+      "BNPL",
+      "merchant"
+    ],
+    "notes": "PhonePe credit initiatives",
+    "active": true
+  },
+  {
+    "id": "lazypay",
+    "name": "LazyPay",
+    "role_type": "Fintech",
+    "organization": "LazyPay",
+    "category": "Digital Lending Fintechs & BNPL",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/lazypay/posts/",
+    "vertical_tags": [
+      "BNPL",
+      "consumer"
+    ],
+    "notes": "BNPL player",
+    "active": true
+  },
+  {
+    "id": "slice",
+    "name": "Slice",
+    "role_type": "Fintech",
+    "organization": "Slice",
+    "category": "Digital Lending Fintechs & BNPL",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/sliceit/posts/",
+    "vertical_tags": [
+      "cards",
+      "BNPL"
+    ],
+    "notes": "Card + BNPL startup",
+    "active": true
+  },
+  {
+    "id": "kredx",
+    "name": "KredX",
+    "role_type": "SCF Platform",
+    "organization": "KredX",
+    "category": "Supply Chain Finance (SCF) & TReDS",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/kredx/posts/",
+    "vertical_tags": [
+      "SCF",
+      "supply chain"
+    ],
+    "notes": "SCF marketplace",
+    "active": true
+  },
+  {
+    "id": "fis",
+    "name": "FIS",
+    "role_type": "Enterprise Vendor",
+    "organization": "FIS",
+    "category": "Enterprise Vendors & Core Tech",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/fis/posts/",
+    "vertical_tags": [
+      "enterprise lending"
+    ],
+    "notes": "Global enterprise fintech vendor",
+    "active": true
+  },
+  {
+    "id": "fiserv",
+    "name": "Fiserv",
+    "role_type": "Enterprise Vendor",
+    "organization": "Fiserv",
+    "category": "Enterprise Vendors & Core Tech",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/fiserv/posts/",
+    "vertical_tags": [
+      "enterprise lending"
+    ],
+    "notes": "Payments & lending tech",
+    "active": true
+  },
+  {
+    "id": "yodlee",
+    "name": "Yodlee",
+    "role_type": "Data Aggregator",
+    "organization": "Yodlee",
+    "category": "Data, KYC, AI Underwriting & Collections",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/yodlee/posts/",
+    "vertical_tags": [
+      "data aggregation"
+    ],
+    "notes": "Account aggregation provider",
+    "active": true
+  },
+  {
+    "id": "finbox",
+    "name": "FinBox",
+    "role_type": "Data Vendor",
+    "organization": "FinBox",
+    "category": "Data, KYC, AI Underwriting & Collections",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/finbox/posts/",
+    "vertical_tags": [
+      "bank statement parsing",
+      "scoring"
+    ],
+    "notes": "Financial data APIs",
+    "active": true
+  },
+  {
+    "id": "onfido",
+    "name": "Onfido",
+    "role_type": "KYC Vendor",
+    "organization": "Onfido",
+    "category": "Data, KYC, AI Underwriting & Collections",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/onfido/posts/",
+    "vertical_tags": [
+      "KYC",
+      "identity verification"
+    ],
+    "notes": "Global identity verification",
+    "active": true
+  },
+  {
+    "id": "zest-ai",
+    "name": "Zest AI",
+    "role_type": "AI Underwriting",
+    "organization": "Zest AI",
+    "category": "Data, KYC, AI Underwriting & Collections",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/zest-ai/posts/",
+    "vertical_tags": [
+      "AI underwriting"
+    ],
+    "notes": "AI credit decisioning",
+    "active": true
+  },
+  {
+    "id": "credgenics",
+    "name": "Credgenics",
+    "role_type": "Collections / Recovery",
+    "organization": "Credgenics",
+    "category": "Data, KYC, AI Underwriting & Collections",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/credgenics/posts/",
+    "vertical_tags": [
+      "collections",
+      "recovery"
+    ],
+    "notes": "Collections automation",
+    "active": true
+  },
+  {
+    "id": "cams",
+    "name": "CAMS",
+    "role_type": "Data Partner",
+    "organization": "CAMS",
+    "category": "Credit Bureaus & Market Infrastructure",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/camsindia/posts/",
+    "vertical_tags": [
+      "data",
+      "payments"
+    ],
+    "notes": "Mutual fund & payments infrastructure",
+    "active": true
+  },
+  {
+    "id": "transunion-cibil",
+    "name": "TransUnion CIBIL",
+    "role_type": "Credit Bureau",
+    "organization": "TransUnion CIBIL",
+    "category": "Credit Bureaus & Market Infrastructure",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/transunion-cibil/posts/",
+    "vertical_tags": [
+      "credit bureau",
+      "data"
+    ],
+    "notes": "Credit bureau",
+    "active": true
+  },
+  {
+    "id": "experian",
+    "name": "Experian",
+    "role_type": "Credit Bureau",
+    "organization": "Experian",
+    "category": "Credit Bureaus & Market Infrastructure",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/experian/posts/",
+    "vertical_tags": [
+      "credit bureau",
+      "data"
+    ],
+    "notes": "Global bureau",
+    "active": true
+  },
+  {
+    "id": "equifax",
+    "name": "Equifax",
+    "role_type": "Credit Bureau",
+    "organization": "Equifax",
+    "category": "Credit Bureaus & Market Infrastructure",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/equifax/posts/",
+    "vertical_tags": [
+      "credit bureau",
+      "data"
+    ],
+    "notes": "Global bureau",
+    "active": true
+  },
+  {
+    "id": "m1xchange",
+    "name": "M1xchange",
+    "role_type": "SCF Platform",
+    "organization": "M1xchange",
+    "category": "Supply Chain Finance (SCF) & TReDS",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/m1xchange/posts/",
+    "vertical_tags": [
+      "SCF",
+      "corporate"
+    ],
+    "notes": "SCF exchange (TReDS)",
+    "active": true
+  },
+  {
+    "id": "significant-systems",
+    "name": "Significant Systems",
+    "role_type": "Systems Integrator",
+    "organization": "Significant Systems",
+    "category": "Enterprise Vendors & Core Tech",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/significant-systems/posts/",
+    "vertical_tags": [
+      "integration",
+      "SI"
+    ],
+    "notes": "System integrator (representative)",
+    "active": true
+  },
+  {
+    "id": "shriram-transport-finance",
+    "name": "Shriram Transport Finance",
+    "role_type": "NBFC",
+    "organization": "Shriram Transport Finance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/shriram-transport-finance-company-limited/posts/",
+    "website_url": null,
+    "vertical_tags": [
+      "vehicle",
+      "commercial"
+    ],
+    "notes": "Commercial vehicle finance specialist",
+    "active": true
+  },
+  {
+    "id": "sundaram-finance",
+    "name": "Sundaram Finance",
+    "role_type": "NBFC",
+    "organization": "Sundaram Finance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/sundaram-finance-limited/posts/",
+    "website_url": null,
+    "vertical_tags": [
+      "vehicle finance"
+    ],
+    "notes": "Vehicle finance NBFC",
+    "active": true
+  },
+  {
+    "id": "orix-india",
+    "name": "Orix India",
+    "role_type": "NBFC",
+    "organization": "Orix India",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/orix-india/posts/",
+    "website_url": null,
+    "vertical_tags": [
+      "EV",
+      "vehicle finance",
+      "leasing"
+    ],
+    "notes": "Leasing & fleet finance",
+    "active": true
+  },
+  {
+    "id": "hdfc-ltd",
+    "name": "HDFC Ltd",
+    "role_type": "Home Loans",
+    "organization": "HDFC Ltd",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/hdfc-limited/posts/",
+    "website_url": null,
+    "vertical_tags": [
+      "home loans",
+      "LAP"
+    ],
+    "notes": "Primary mortgage lender",
+    "active": true
+  },
+  {
+    "id": "lic-housing-finance",
+    "name": "LIC Housing Finance",
+    "role_type": "Home Loans",
+    "organization": "LIC Housing Finance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/lic-housing-finance-ltd/posts/",
+    "website_url": null,
+    "vertical_tags": [
+      "home loans",
+      "LAP"
+    ],
+    "notes": "Housing finance NBFC",
+    "active": true
+  },
+  {
+    "id": "invoicemart-treds",
+    "name": "Invoicemart (TReDS)",
+    "role_type": "SCF Platform",
+    "organization": "Invoicemart",
+    "category": "Supply Chain Finance (SCF) & TReDS",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/invoicemart/posts/",
+    "website_url": null,
+    "vertical_tags": [
+      "SCF",
+      "TReDS",
+      "invoice discounting"
+    ],
+    "notes": "Invoice discounting / TReDS platform",
+    "active": true
+  },
+  {
+    "id": "bankbazaar",
+    "name": "BankBazaar",
+    "role_type": "Aggregator",
+    "organization": "BankBazaar",
+    "category": "Digital Lending Fintechs & BNPL",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/bankbazaar/posts/",
+    "website_url": null,
+    "vertical_tags": [
+      "loan marketplace",
+      "co-branded cards"
+    ],
+    "notes": "Loan product aggregator",
+    "active": true
+  },
+  {
+    "id": "paisabazaar",
+    "name": "Paisabazaar",
+    "role_type": "Aggregator",
+    "organization": "Paisabazaar",
+    "category": "Digital Lending Fintechs & BNPL",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/paisabazaar/posts/",
+    "website_url": null,
+    "vertical_tags": [
+      "loan marketplace",
+      "credit health"
+    ],
+    "notes": "Loan product aggregator",
+    "active": true
+  },
+  {
+    "id": "m2p-fintech",
+    "name": "M2P Fintech",
+    "role_type": "Core Platform",
+    "organization": "M2P Fintech",
+    "category": "M2P LOS Competitors & Tech",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/m2p-fintech/posts/",
+    "website_url": null,
+    "vertical_tags": [
+      "LOS",
+      "platform",
+      "integration"
+    ],
+    "notes": "M2P corporate page & enterprise LOS",
+    "active": true
+  },
+  {
+    "id": "npci",
+    "name": "NPCI",
+    "role_type": "Payments Regulator",
+    "organization": "NPCI",
+    "category": "Data, KYC, AI Underwriting & Collections",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/national-payments-corporation-of-india/posts/",
+    "website_url": null,
+    "vertical_tags": [
+      "payments",
+      "UPI",
+      "infrastructure"
+    ],
+    "notes": "Payments infrastructure & schemes",
+    "active": true
+  },
+  {
+    "id": "payu",
+    "name": "PayU",
+    "role_type": "Payments / Lending",
+    "organization": "PayU",
+    "category": "Data, KYC, AI Underwriting & Collections",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/payu/posts/",
+    "website_url": null,
+    "vertical_tags": [
+      "merchant payments",
+      "lending"
+    ],
+    "notes": "Payments gateway with lending products",
+    "active": true
+  },
+  {
+    "id": "crisil",
+    "name": "CRISIL",
+    "role_type": "Research & Ratings",
+    "organization": "CRISIL",
+    "category": "Credit Bureaus & Market Infrastructure",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/crisil/posts/",
+    "website_url": null,
+    "vertical_tags": [
+      "research",
+      "credit",
+      "ratings"
+    ],
+    "notes": "Authoritative credit & sector research",
+    "active": true
+  },
+  {
+    "id": "icra",
+    "name": "ICRA",
+    "role_type": "Research & Ratings",
+    "organization": "ICRA",
+    "category": "Credit Bureaus & Market Infrastructure",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/icra-limited/posts/",
+    "website_url": null,
+    "vertical_tags": [
+      "research",
+      "ratings"
+    ],
+    "notes": "Rating agency research",
+    "active": true
+  },
+  {
+    "id": "moneycontrol",
+    "name": "Moneycontrol",
+    "role_type": "Media",
+    "organization": "Moneycontrol",
+    "category": "Industry Media & Communities",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/moneycontrol/posts/",
+    "website_url": "https://www.moneycontrol.com/",
+    "vertical_tags": [
+      "news",
+      "finance",
+      "banking"
+    ],
+    "notes": "Mainstream finance news site",
+    "active": true
+  },
+  {
+    "id": "livemint",
+    "name": "LiveMint",
+    "role_type": "Media",
+    "organization": "LiveMint",
+    "category": "Industry Media & Communities",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/livemint/posts/",
+    "website_url": "https://www.livemint.com/",
+    "vertical_tags": [
+      "business",
+      "policy",
+      "fintech"
+    ],
+    "notes": "Business & policy coverage",
+    "active": true
+  },
+  {
+    "id": "inc42",
+    "name": "Inc42",
+    "role_type": "Media",
+    "organization": "Inc42",
+    "category": "Industry Media & Communities",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/inc42/posts/",
+    "website_url": "https://inc42.com/",
+    "vertical_tags": [
+      "startups",
+      "fintech"
+    ],
+    "notes": "Startup & fintech reporting",
+    "active": true
+  },
+  {
+    "id": "yourstory",
+    "name": "YourStory",
+    "role_type": "Media",
+    "organization": "YourStory",
+    "category": "Industry Media & Communities",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/yourstory-media/posts/",
+    "website_url": "https://yourstory.com/",
+    "vertical_tags": [
+      "startups",
+      "fintech"
+    ],
+    "notes": "Startup coverage & profiles",
+    "active": true
+  },
+  {
+    "id": "nbfc-advisor",
+    "name": "NBFC Advisor",
+    "role_type": "Media / Advisory",
+    "organization": "NBFC Advisor",
+    "category": "Industry Media & Communities",
+    "type": "company",
+    "url": "https://nbfcadvisor.com/",
+    "website_url": "https://nbfcadvisor.com/",
+    "vertical_tags": [
+      "NBFC",
+      "analysis",
+      "regulatory"
+    ],
+    "notes": "NBFC-focused news & advisory",
+    "active": true
+  },
+  {
+    "id": "ministry-of-finance-goi",
+    "name": "Ministry of Finance (GoI)",
+    "role_type": "Government",
+    "organization": "Ministry of Finance",
+    "category": "Regulatory & Industry Bodies",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/ministry-of-finance-government-of-india/posts/",
+    "website_url": "https://www.finmin.nic.in/",
+    "vertical_tags": [
+      "policy",
+      "finance"
+    ],
+    "notes": "Policy releases and press notes",
+    "active": true
+  },
+  {
+    "id": "meity-govt-of-india",
+    "name": "MeitY (Govt of India)",
+    "role_type": "Government",
+    "organization": "Ministry of Electronics & IT",
+    "category": "Regulatory & Industry Bodies",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/meity/posts/",
+    "website_url": "https://www.meity.gov.in/",
+    "vertical_tags": [
+      "fintech",
+      "policy",
+      "DPDP"
+    ],
+    "notes": "Fintech & digital policy inputs",
+    "active": true
+  },
+  {
+    "id": "msme-ministry-india",
+    "name": "Ministry of Micro, Small and Medium Enterprises (Govt of India)",
+    "category": "Regulatory, Government & Policy",
+    "role_type": "Government / MSME Policy & CGTMSE",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/ministry-of-micro-small-and-medium-enterprises-government-of-india/posts/",
+    "active": true
+  },
+  {
+    "id": "sidbi-india",
+    "name": "SIDBI (Small Industries Development Bank of India)",
+    "category": "Regulatory, Government & Policy",
+    "role_type": "DFI / MSME Refinancing & Co-Lending",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/sidbi-small-industries-development-bank-of-india/posts/",
+    "active": true
+  },
+  {
+    "id": "abhinav-bhardwaj",
+    "name": "Abhinav Bhardwaj",
+    "category": "Top Industry Influencers & CXOs",
+    "role_type": "Fintech & Lending Executive",
+    "type": "profile",
+    "url": "https://www.linkedin.com/in/abhinavbhardwaj02/",
+    "active": true
+  },
+  {
+    "id": "business-protection-101",
+    "name": "Business Protection 101 (Newsletter)",
+    "category": "Fintech Media & Communities",
+    "role_type": "Fintech & Risk Newsletter",
+    "type": "newsletter",
+    "url": "https://www.linkedin.com/newsletters/business-protection-101-7195287270453624832/",
+    "active": true
+  },
+  {
+    "id": "cxolanes",
+    "name": "CXO Lanes",
+    "category": "Fintech Media & Communities",
+    "role_type": "Executive & Fintech Community",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/cxolanes/posts/",
+    "active": true
+  },
+  {
+    "id": "unifiedfintech",
+    "name": "Unified Fintech",
+    "category": "M2P LOS Competitors & Tech",
+    "role_type": "Digital Lending & Banking Platform",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/unifiedfintech/posts/",
+    "active": true
+  }
+]
