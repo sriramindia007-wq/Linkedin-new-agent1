@@ -3,22 +3,30 @@
   "short_name": "LendingAgent",
   "description": "Autonomous LinkedIn Lending Intelligence & AI Comment Automation Agent for Sriram Ganesan",
   "start_url": "/",
+  "id": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#f8fafc",
+  "background_color": "#004182",
   "theme_color": "#004182",
   "orientation": "portrait-primary",
   "icons": [
     {
+      "src": "/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
       "src": "/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }
