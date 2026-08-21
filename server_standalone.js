@@ -152,7 +152,26 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  
+  if (pathname === "/api/autopilot" && method === "GET") {
+    const { loadAutopilotConfig } = safeRequire("autopilot");
+    return sendJSON(res, loadAutopilotConfig());
+  }
+
+  if (pathname === "/api/autopilot" && method === "POST") {
+    const body = await parseBody(req);
+    const { saveAutopilotConfig, loadAutopilotConfig } = safeRequire("autopilot");
+    const current = loadAutopilotConfig();
+    const updated = { ...current, ...body };
+    saveAutopilotConfig(updated);
+    return sendJSON(res, { success: true, config: updated });
+  }
+
+  if (pathname === "/api/autopilot-trigger-cycle" && method === "POST") {
+    const { runAutopilotEngagementCycle } = safeRequire("autopilot");
+    const result = await runAutopilotEngagementCycle(safeRequire);
+    return sendJSON(res, { success: true, result });
+  }
+
   if (pathname === "/api/generate-viral-post" && method === "POST") {
     const body = await parseBody(req);
     const { topic, format } = body;
