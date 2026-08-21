@@ -1653,5 +1653,59 @@
     ],
     "notes": "Fintech & digital policy inputs",
     "active": true
+  },
+  {
+    "id": "msme-ministry-india",
+    "name": "Ministry of Micro, Small and Medium Enterprises (Govt of India)",
+    "category": "Regulatory, Government & Policy",
+    "role_type": "Government / MSME Policy & CGTMSE",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/ministry-of-micro-small-and-medium-enterprises-government-of-india/posts/",
+    "active": true
+  },
+  {
+    "id": "sidbi-india",
+    "name": "SIDBI (Small Industries Development Bank of India)",
+    "category": "Regulatory, Government & Policy",
+    "role_type": "DFI / MSME Refinancing & Co-Lending",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/sidbi-small-industries-development-bank-of-india/posts/",
+    "active": true
+  },
+  {
+    "id": "abhinav-bhardwaj",
+    "name": "Abhinav Bhardwaj",
+    "category": "Top Industry Influencers & CXOs",
+    "role_type": "Fintech & Lending Executive",
+    "type": "profile",
+    "url": "https://www.linkedin.com/in/abhinavbhardwaj02/",
+    "active": true
+  },
+  {
+    "id": "business-protection-101",
+    "name": "Business Protection 101 (Newsletter)",
+    "category": "Fintech Media & Communities",
+    "role_type": "Fintech & Risk Newsletter",
+    "type": "newsletter",
+    "url": "https://www.linkedin.com/newsletters/business-protection-101-7195287270453624832/",
+    "active": true
+  },
+  {
+    "id": "cxolanes",
+    "name": "CXO Lanes",
+    "category": "Fintech Media & Communities",
+    "role_type": "Executive & Fintech Community",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/cxolanes/posts/",
+    "active": true
+  },
+  {
+    "id": "unifiedfintech",
+    "name": "Unified Fintech",
+    "category": "M2P LOS Competitors & Tech",
+    "role_type": "Digital Lending & Banking Platform",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/unifiedfintech/posts/",
+    "active": true
   }
 ]
