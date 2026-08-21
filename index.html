@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LinkedIn Lending Intelligence & Comment Agent</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <style>
+    body { background-color: #f3f4f6; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #1e293b; }
+    .navbar { background-color: #0a66c2; color: #ffffff; }
+    .nav-tabs .nav-link { color: #475569; font-weight: 500; }
+    .nav-tabs .nav-link.active { color: #0a66c2; font-weight: 700; border-bottom: 3px solid #0a66c2; }
+    .card-metric { border-radius: 10px; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.06); transition: transform 0.2s; }
+    .card-metric:hover { transform: translateY(-2px); }
+    .post-card { background: #ffffff; border-radius: 12px; border: 1px solid #e2e8f0; padding: 20px; margin-bottom: 24px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+    .badge-cat { background-color: #e0f2fe; color: #0369a1; font-weight: 600; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; }
+    .badge-time { background-color: #f1f5f9; color: #64748b; font-weight: 500; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; }
+    .post-content-box { background-color: #f8fafc; border-left: 4px solid #0a66c2; border-radius: 4px; padding: 14px; margin: 12px 0; font-size: 0.95rem; line-height: 1.6; white-space: pre-wrap; }
+    .style-pill { cursor: pointer; border-radius: 20px; font-size: 0.85rem; padding: 6px 14px; margin-right: 8px; margin-bottom: 8px; border: 1px solid #cbd5e1; background: #ffffff; transition: all 0.2s; }
+    .style-pill.active { background-color: #0a66c2; color: #ffffff; border-color: #0a66c2; font-weight: 600; }
+    .comment-editor { border-radius: 8px; font-size: 0.95rem; line-height: 1.5; border: 1px solid #cbd5e1; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg px-4 py-3 shadow-sm">
+    <div class="container-fluid">
+      <span class="navbar-brand text-white fw-bold mb-0 h1 d-flex align-items-center gap-2">
+        <i class="fa-brands fa-linkedin fa-lg"></i> Lending Intelligence & AI Comment Agent
+      </span>
+      <span class="text-white-50 small">Targeted MSME & Digital LOS Intelligence</span>
+    </div>
+  </nav>
+
+  <div class="container py-4">
+    <!-- Top Stats Row -->
+    <div class="row g-3 mb-4" id="statsRow">
+      <div class="col-md-3">
+        <div class="card card-metric p-3 border-start border-warning border-4 bg-white">
+          <div class="text-muted small fw-bold">PENDING REVIEW</div>
+          <div class="h3 fw-bold text-warning mb-0" id="statPending">0</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card card-metric p-3 border-start border-info border-4 bg-white">
+          <div class="text-muted small fw-bold">APPROVED / QUEUED</div>
+          <div class="h3 fw-bold text-info mb-0" id="statApproved">0</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card card-metric p-3 border-start border-success border-4 bg-white">
+          <div class="text-muted small fw-bold">POSTED TO LINKEDIN</div>
+          <div class="h3 fw-bold text-success mb-0" id="statPosted">0</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card card-metric p-3 border-start border-primary border-4 bg-white">
+          <div class="text-muted small fw-bold">MONITORED TARGETS</div>
+          <div class="h3 fw-bold text-primary mb-0" id="statSources">40</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scraper Control Banner -->
+    <div class="card p-3 mb-4 bg-white shadow-sm border-0 rounded-3">
+      <div class="row align-items-center g-3">
+        <div class="col-md-6">
+          <label class="form-label fw-bold mb-1"><i class="fa-solid fa-satellite-dish text-primary me-1"></i> Trigger Scraper (Last 48h Posts)</label>
+          <div class="d-flex gap-2">
+            <select class="form-select" id="scrapeCategorySelect">
+              <option value="ALL">All Sources (78 Monitored)</option>
+              <option value="Industry Media & Communities">Industry Media & Communities (ETBFSI, FinSamudra, GenCFO)</option>
+              <option value="Regulatory & Industry Bodies">Regulatory Bodies (RBI, RBIH, Sahamati, DLAI, FACE)</option>
+              <option value="Top 50 Digital Lending Influencers">Top 50 Digital Lending Influencers</option>
+              <option value="M2P LOS Competitors & Tech">M2P LOS Competitors & Tech</option>
+              <option value="MSME & Digital Lending NBFCs">MSME & Digital Lending NBFCs</option>
+              <option value="AI Underwriting & Credit Risk">AI Underwriting & Credit Risk</option>
+              <option value="Banks & Regulators">Banks & Digital Lending</option>
+            </select>
+            <button class="btn btn-primary px-4 text-nowrap fw-semibold" id="btnScrape" onclick="triggerScrape()">
+              <i class="fa-solid fa-play me-1"></i> Run Scraper
+            </button>
+          </div>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <span class="badge bg-light text-dark p-2 border"><i class="fa-solid fa-cookie-bite text-warning me-1"></i> Persistent Session: <code>session_data/</code></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <ul class="nav nav-tabs mb-4" id="mainTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="tab-review-btn" data-bs-toggle="tab" data-bs-target="#tab-review" type="button" role="tab">
+          <i class="fa-solid fa-inbox me-1"></i> Review & Approve
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tab-competitors-btn" data-bs-toggle="tab" data-bs-target="#tab-competitors" type="button" role="tab" onclick="loadCompetitorRadar()">
+          <i class="fa-solid fa-radar me-1"></i> 🏢 Competitor Radar (Read-Only)
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tab-history-btn" data-bs-toggle="tab" data-bs-target="#tab-history" type="button" role="tab">
+          <i class="fa-solid fa-history me-1"></i> Posted History
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tab-sources-btn" data-bs-toggle="tab" data-bs-target="#tab-sources" type="button" role="tab">
+          <i class="fa-solid fa-crosshairs me-1"></i> Target Sources (<span id="srcCountBadge">139</span>)
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tab-persona-btn" data-bs-toggle="tab" data-bs-target="#tab-persona" type="button" role="tab">
+          <i class="fa-solid fa-user-tie me-1"></i> Persona & Guidelines
+        </button>
+      </li>
+    </ul>
+
+    <!-- Tab Contents -->
+    <div class="tab-content" id="mainTabContent">
+      
+      <!-- TAB 1: REVIEW & APPROVE -->
+      <div class="tab-pane fade show active" id="tab-review" role="tabpanel">
+        <div class="alert alert-info py-2 px-3 mb-3 d-flex align-items-center justify-content-between small">
+          <div>
+            <i class="fa-solid fa-shield-halved me-2 text-primary"></i>
+            <strong>Approval Required:</strong> No comment is ever posted without your explicit click. Only unposted posts from the last 48 hours appear here. Once posted, items automatically move to <strong>Posted History</strong>.
+          </div>
+          <span class="badge bg-primary">Unposted Queue Only</span>
+        </div>
+
+        <div class="row mb-3 g-2">
+          <div class="col-md-3">
+            <input type="text" class="form-control" id="searchBox" placeholder="🔍 Search posts or authors..." oninput="loadPendingPosts()" />
+          </div>
+          <div class="col-md-3">
+            <select class="form-select" id="filterCategory" onchange="loadPendingPosts()">
+              <option value="ALL">All Categories</option>
+              <option value="M2P LOS Competitors & Tech">M2P LOS Competitors</option>
+              <option value="Regulatory, Government & Policy">Regulatory & Policy (RBI, RBIH, Sahamati)</option>
+              <option value="Top Digital Lending Influencers & Leaders">Top Influencers & Founders</option>
+              <option value="Incumbent Banks & SFBs">Incumbent Banks & SFBs</option>
+              <option value="NBFCs & Asset Lenders">NBFCs, Gold, Auto & LAP</option>
+              <option value="Digital Lending Fintechs & Marketplaces">Digital Fintechs & BNPL</option>
+              <option value="Supply Chain Finance (SCF) & TReDS">SCF & TReDS Platforms</option>
+              <option value="Data, KYC, AI Underwriting & Collections">Data, KYC & Collections</option>
+              <option value="Credit Bureaus & Market Infrastructure">Bureaus & Ratings</option>
+              <option value="Fintech Media & Communities">Media & Portals (ETBFSI, FinSamudra)</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <select class="form-select" id="sortOrder" onchange="loadPendingPosts()">
+              <option value="priority">🔥 Sort: Highest Impact First</option>
+              <option value="recent">🕒 Sort: Most Recent (<48h)</option>
+            </select>
+          </div>
+          <div class="col-md-3 text-end">
+            <button class="btn btn-outline-secondary w-100" onclick="loadPendingPosts()"><i class="fa-solid fa-rotate me-1"></i> Refresh Queue</button>
+          </div>
+        </div>
+
+        <div id="pendingPostsContainer">
+          <div class="text-center py-5 text-muted">
+            <i class="fa-solid fa-spinner fa-spin fa-2x mb-3"></i>
+            <p>Loading posts...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: COMPETITOR RADAR (READ-ONLY) -->
+      <div class="tab-pane fade" id="tab-competitors" role="tabpanel">
+        <div class="alert alert-secondary py-2 px-3 mb-3 d-flex align-items-center justify-content-between small">
+          <div>
+            <i class="fa-solid fa-binoculars me-2 text-primary"></i>
+            <strong>Competitor Surveillance:</strong> Real-time monitoring of product launches, customer wins, and strategic moves from M2P LOS Competitors (Perfios, Lentra, Nucleus, Finflux, Pennant, Decimal, Newgen, etc.). No comments are generated or required here.
+          </div>
+          <span class="badge bg-dark">Read-Only Intel</span>
+        </div>
+
+        <div class="row mb-3 g-2">
+          <div class="col-md-6">
+            <input type="text" class="form-control" id="compSearchBox" placeholder="🔍 Search competitor posts (e.g. Perfios, Lentra, STP, FinnOne)..." oninput="loadCompetitorRadar()" />
+          </div>
+          <div class="col-md-6 text-end">
+            <button class="btn btn-outline-secondary" onclick="loadCompetitorRadar()"><i class="fa-solid fa-rotate me-1"></i> Refresh Competitor Feed</button>
+          </div>
+        </div>
+
+        <div id="competitorPostsContainer">
+          <div class="text-center py-5 text-muted">
+            <i class="fa-solid fa-spinner fa-spin fa-2x mb-3"></i>
+            <p>Loading competitor posts...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: POSTED HISTORY -->
+      <div class="tab-pane fade" id="tab-history" role="tabpanel">
+        <div class="card p-3 bg-white shadow-sm border-0 rounded-3">
+          <h5 class="fw-bold mb-3">Published LinkedIn Comments</h5>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>Author / Source</th>
+                  <th>Category</th>
+                  <th>Published Comment</th>
+                  <th>Posted At</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="historyTableBody">
+                <tr><td colspan="5" class="text-center text-muted">No published comments yet.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: SOURCES -->
+      <div class="tab-pane fade" id="tab-sources" role="tabpanel">
+        <div class="card p-3 bg-white shadow-sm border-0 rounded-3">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold mb-0">Target LinkedIn Sources (40 Configured)</h5>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-sm table-striped align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>#</th>
+                  <th>Name / Entity</th>
+                  <th>Category</th>
+                  <th>Type</th>
+                  <th>URL</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="sourcesTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: PERSONA -->
+      <div class="tab-pane fade" id="tab-persona" role="tabpanel">
+        <div class="card p-4 bg-white shadow-sm border-0 rounded-3">
+          <h5 class="fw-bold mb-3">Lending Thought Leadership Persona</h5>
+          <form id="personaForm" onsubmit="savePersonaSettings(event)">
+            <div class="mb-3">
+              <label class="form-label fw-bold">Persona Title</label>
+              <input type="text" class="form-control" id="pTitle" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">LinkedIn Headline & Positioning</label>
+              <input type="text" class="form-control" id="pHeadline" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Core Focus Areas (Comma or line separated)</label>
+              <textarea class="form-control" id="pFocus" rows="4"></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Tone Rules & Anti-Bot Guardrails</label>
+              <textarea class="form-control" id="pRules" rows="4"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary px-4 fw-semibold"><i class="fa-solid fa-floppy-disk me-1"></i> Save Persona</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let currentPosts = [];
+
+    async function loadStats() {
+      try {
+        const res = await fetch("/api/stats");
+        const stats = await res.json();
+        document.getElementById("statPending").innerText = stats.PENDING || 0;
+        document.getElementById("statApproved").innerText = stats.APPROVED || 0;
+        document.getElementById("statPosted").innerText = stats.POSTED || 0;
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function loadPendingPosts() {
+      const cat = document.getElementById("filterCategory").value;
+      const search = document.getElementById("searchBox").value;
+      const sort = document.getElementById("sortOrder").value;
+      const container = document.getElementById("pendingPostsContainer");
+
+      try {
+        const res = await fetch(`/api/posts?status=PENDING&category=${encodeURIComponent(cat)}&search=${encodeURIComponent(search)}&sort=${encodeURIComponent(sort)}`);
+        const posts = await res.json();
+        currentPosts = posts;
+
+        if (!posts || posts.length === 0) {
+          container.innerHTML = `
+            <div class="text-center py-5 bg-white rounded-3 p-4 shadow-sm">
+              <i class="fa-solid fa-check-circle fa-3x text-success mb-3"></i>
+              <h5>All Caught Up!</h5>
+              <p class="text-muted">No pending posts from the last 48 hours to approve. Click <strong>Run Scraper</strong> above to fetch the latest posts.</p>
+            </div>
+          `;
+          return;
+        }
+
+        let html = "";
+        posts.forEach(p => {
+          const comms = p.generated_comments || {};
+          const vAdd = comms.value_add || "";
+          const pQuest = comms.provocative_question || "";
+          const ePersp = comms.executive_perspective || "";
+
+          const score = p.priority_score || 80;
+          const badgeText = p.impact_badge || (score >= 85 ? "🔥 Top Priority (High LOS Relevance)" : "⭐ High Impact");
+          const badgeColor = p.badge_color || (score >= 85 ? "danger" : "warning");
+          const tags = (p.relevance_tags || []).map(t => `<span class="badge bg-light text-dark border me-1">${escapeHtml(t)}</span>`).join("");
+
+          html += `
+            <div class="post-card" id="card-${p.id}">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <div>
+                  <strong class="fs-6">${escapeHtml(p.author_name)}</strong>
+                  <span class="text-muted small ms-1">(${escapeHtml(p.source_name)})</span>
+                </div>
+                <div class="d-flex gap-2 align-items-center flex-wrap justify-content-end">
+                  <span class="badge bg-primary text-white px-2 py-1">${escapeHtml(p.post_type_badge || "⚡ Digital Lending")}</span>
+                  <span class="badge bg-${badgeColor} px-2 py-1">${badgeText}</span>
+                  <span class="badge-cat">${escapeHtml(p.source_category)}</span>
+                  <span class="badge-time">🕒 ${escapeHtml(p.published_relative)}</span>
+                </div>
+              </div>
+
+              ${tags ? `<div class="mb-2">${tags}</div>` : ""}
+
+              <div class="post-content-box">${escapeHtml(p.post_text)}</div>
+
+              <div class="mt-3">
+                <label class="fw-bold small text-muted mb-2">SELECT COMMENT ANGLE (SRIRAM GANESAN PERSONA):</label>
+                <div>
+                  <button type="button" class="style-pill active" id="btn-style-1-${p.id}" onclick="selectStyle('${p.id}', 'value_add')">
+                    💡 Practitioner's LOS Nuance
+                  </button>
+                  <button type="button" class="style-pill" id="btn-style-2-${p.id}" onclick="selectStyle('${p.id}', 'provocative_question')">
+                    ❓ Governance & Risk Inquiry
+                  </button>
+                  <button type="button" class="style-pill" id="btn-style-3-${p.id}" onclick="selectStyle('${p.id}', 'executive_perspective')">
+                    📊 Strategic Outlook
+                  </button>
+                </div>
+
+                <div class="mt-2">
+                  <textarea class="form-control comment-editor" rows="3" id="textarea-${p.id}">${escapeHtml(vAdd)}</textarea>
+                </div>
+
+                <!-- Custom Guidance & AI Regeneration Bar -->
+                <div class="input-group input-group-sm mt-2">
+                  <span class="input-group-text bg-light text-muted"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+                  <input type="text" class="form-control" id="custom-guidance-${p.id}" placeholder="Specify custom guidance (e.g. Focus on our BRE engine, FLDG risk sharing, or board compliance)..." />
+                  <button class="btn btn-outline-primary fw-semibold" id="btn-regen-${p.id}" onclick="regenerateComment('${p.id}')">
+                    <i class="fa-solid fa-rotate me-1"></i> Regenerate AI Comments
+                  </button>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                  <div>
+                    ${p.post_url ? `<a href="${p.post_url}" target="_blank" class="btn btn-sm btn-outline-primary text-decoration-none"><i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Open Post on LinkedIn</a>` : ""}
+                  </div>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-outline-danger" onclick="dismissPost('${p.id}')">
+                      <i class="fa-solid fa-xmark me-1"></i> Dismiss
+                    </button>
+                    <button class="btn btn-sm btn-primary fw-semibold px-3" onclick="postNow('${p.id}', '${escapeAttr(p.post_url)}')">
+                      <i class="fa-solid fa-paper-plane me-1"></i> Approve & Post Now
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+
+        container.innerHTML = html;
+      } catch (e) {
+        container.innerHTML = `<div class="alert alert-danger">Error loading posts: ${e.message}</div>`;
+      }
+    }
+
+    function selectStyle(postId, styleKey) {
+      const post = currentPosts.find(p => p.id === postId);
+      if (!post || !post.generated_comments) return;
+
+      document.getElementById(`btn-style-1-${postId}`).classList.remove("active");
+      document.getElementById(`btn-style-2-${postId}`).classList.remove("active");
+      document.getElementById(`btn-style-3-${postId}`).classList.remove("active");
+
+      if (styleKey === "value_add") {
+        document.getElementById(`btn-style-1-${postId}`).classList.add("active");
+      } else if (styleKey === "provocative_question") {
+        document.getElementById(`btn-style-2-${postId}`).classList.add("active");
+      } else if (styleKey === "executive_perspective") {
+        document.getElementById(`btn-style-3-${postId}`).classList.add("active");
+      }
+
+      document.getElementById(`textarea-${postId}`).value = post.generated_comments[styleKey] || "";
+    }
+
+    async function postNow(postId, postUrl) {
+      const text = document.getElementById(`textarea-${postId}`).value;
+      if (!text) return alert("Comment text is empty!");
+
+      const card = document.getElementById(`card-${postId}`);
+      card.style.opacity = "0.5";
+
+      try {
+        const res = await fetch("/api/post-now", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ postId, postUrl, commentText: text })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert("✅ Comment successfully posted to LinkedIn!");
+          loadStats();
+          loadPendingPosts();
+          loadHistory();
+        } else {
+          alert("⚠️ " + (data.message || "Failed to post"));
+          card.style.opacity = "1";
+        }
+      } catch (e) {
+        alert("Error: " + e.message);
+        card.style.opacity = "1";
+      }
+    }
+
+    async function regenerateComment(postId) {
+      const btn = document.getElementById(`btn-regen-${postId}`);
+      const guidance = document.getElementById(`custom-guidance-${postId}`) ? document.getElementById(`custom-guidance-${postId}`).value : "";
+      const originalBtnHtml = btn.innerHTML;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin me-1"></i> Regenerating...`;
+      btn.disabled = true;
+
+      try {
+        const res = await fetch("/api/regenerate-comment", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ postId, customGuidance: guidance })
+        });
+        const data = await res.json();
+        if (data.success && data.comments) {
+          const post = currentPosts.find(p => p.id === postId);
+          if (post) {
+            post.generated_comments = data.comments;
+          }
+          const activeBtn = document.querySelector(`#card-${postId} .style-pill.active`);
+          let styleKey = "value_add";
+          if (activeBtn && activeBtn.id.includes("btn-style-2")) styleKey = "provocative_question";
+          if (activeBtn && activeBtn.id.includes("btn-style-3")) styleKey = "executive_perspective";
+          
+          document.getElementById(`textarea-${postId}`).value = data.comments[styleKey] || data.comments.value_add;
+        } else {
+          alert("Error regenerating comments: " + (data.error || "Unknown error"));
+        }
+      } catch (e) {
+        alert("Network error: " + e.message);
+      } finally {
+        btn.innerHTML = originalBtnHtml;
+        btn.disabled = false;
+      }
+    }
+
+    async function loadCompetitorRadar() {
+      const search = document.getElementById("compSearchBox") ? document.getElementById("compSearchBox").value : "";
+      const container = document.getElementById("competitorPostsContainer");
+      if (!container) return;
+
+      try {
+        const res = await fetch(`/api/competitor-posts?search=${encodeURIComponent(search)}`);
+        const posts = await res.json();
+
+        if (!posts || posts.length === 0) {
+          container.innerHTML = `
+            <div class="text-center py-5 bg-white rounded-3 p-4 shadow-sm">
+              <i class="fa-solid fa-shield-halved fa-3x text-primary mb-3"></i>
+              <h5>No Competitor Posts Found</h5>
+              <p class="text-muted">No recent competitor updates matching your search.</p>
+            </div>
+          `;
+          return;
+        }
+
+        let html = "";
+        posts.forEach(p => {
+          const tags = (p.relevance_tags || []).map(t => `<span class="badge bg-light text-dark border me-1">${escapeHtml(t)}</span>`).join("");
+          html += `
+            <div class="card p-3 mb-3 bg-white shadow-sm border-0 rounded-3">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <div>
+                  <strong class="fs-6 text-dark"><i class="fa-solid fa-building-flag me-1 text-danger"></i> ${escapeHtml(p.author_name)}</strong>
+                  <span class="badge bg-secondary ms-2">${escapeHtml(p.source_name)}</span>
+                </div>
+                <div class="d-flex gap-2 align-items-center">
+                  <span class="badge bg-dark">${escapeHtml(p.post_type_badge || "🏢 Competitor Update")}</span>
+                  <span class="badge-time">🕒 ${escapeHtml(p.published_relative || "Recent")}</span>
+                </div>
+              </div>
+              ${tags ? `<div class="mb-2">${tags}</div>` : ""}
+              <div class="post-content-box bg-light p-3 rounded mb-2">${escapeHtml(p.post_text)}</div>
+              <div class="text-end">
+                ${p.post_url ? `<a href="${p.post_url}" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Open Post on LinkedIn</a>` : ""}
+              </div>
+            </div>
+          `;
+        });
+        container.innerHTML = html;
+      } catch (e) {
+        container.innerHTML = `<div class="alert alert-danger">Error loading competitor radar: ${e.message}</div>`;
+      }
+    }
+
+    async function dismissPost(postId) {
+      try {
+        await fetch("/api/reject", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ postId })
+        });
+        loadStats();
+        loadPendingPosts();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function triggerScrape() {
+      const btn = document.getElementById("btnScrape");
+      const cat = document.getElementById("scrapeCategorySelect").value;
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin me-1"></i> Scraping...`;
+
+      try {
+        const res = await fetch("/api/scrape", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ category: cat, maxPosts: 2 })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert(`✅ Scraper finished! Found ${data.newPosts} new posts from last 48h.`);
+          loadStats();
+          loadPendingPosts();
+        } else {
+          alert(`Error: ${data.error}`);
+        }
+      } catch (e) {
+        alert("Scraping request failed: " + e.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fa-solid fa-play me-1"></i> Run Scraper`;
+      }
+    }
+
+    async function loadHistory() {
+      try {
+        const res = await fetch("/api/posts?status=POSTED");
+        const posts = await res.json();
+        const tbody = document.getElementById("historyTableBody");
+
+        if (!posts.length) {
+          tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">No published comments yet.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = posts.map(p => `
+          <tr>
+            <td><strong>${p.author_name}</strong><br><small class="text-muted">${p.source_name}</small></td>
+            <td><span class="badge-cat">${p.source_category}</span></td>
+            <td style="max-width: 400px;"><small>${escapeHtml(p.approved_comment || "")}</small></td>
+            <td><small class="text-muted">${p.posted_at ? new Date(p.posted_at).toLocaleString() : "-"}</small></td>
+            <td><a href="${p.post_url}" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td>
+          </tr>
+        `).join("");
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function loadSources() {
+      try {
+        const res = await fetch("/api/sources");
+        const sources = await res.json();
+        document.getElementById("statSources").innerText = sources.length;
+        const tbody = document.getElementById("sourcesTableBody");
+
+        tbody.innerHTML = sources.map((s, idx) => `
+          <tr>
+            <td>${idx + 1}</td>
+            <td><strong>${s.name}</strong></td>
+            <td><span class="badge-cat">${s.category}</span></td>
+            <td><code>${s.type}</code></td>
+            <td><a href="${s.url}" target="_blank" class="small text-truncate d-inline-block" style="max-width: 250px;">${s.url}</a></td>
+            <td><span class="badge bg-success">Active</span></td>
+          </tr>
+        `).join("");
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function loadPersona() {
+      try {
+        const res = await fetch("/api/persona");
+        const persona = await res.json();
+        document.getElementById("pTitle").value = persona.user_name || "";
+        document.getElementById("pHeadline").value = persona.linkedin_headline || "";
+        document.getElementById("pFocus").value = (persona.focus_areas || []).join("\n");
+        document.getElementById("pRules").value = (persona.tone_guidelines?.rules || []).join("\n");
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function savePersonaSettings(e) {
+      e.preventDefault();
+      const updated = {
+        user_name: document.getElementById("pTitle").value,
+        linkedin_headline: document.getElementById("pHeadline").value,
+        focus_areas: document.getElementById("pFocus").value.split("\n").map(s => s.trim()).filter(Boolean),
+        tone_guidelines: {
+          rules: document.getElementById("pRules").value.split("\n").map(s => s.trim()).filter(Boolean)
+        }
+      };
+
+      try {
+        await fetch("/api/persona", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updated)
+        });
+        alert("✅ Persona settings saved successfully!");
+      } catch (err) {
+        alert("Failed to save: " + err.message);
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    function escapeAttr(str) {
+      if (!str) return "";
+      return str.replace(/"/g, "&quot;").replace(/'/g, "\\'");
+    }
+
+    // Init
+    loadStats();
+    loadPendingPosts();
+    loadHistory();
+    loadSources();
+    loadPersona();
+  </script>
+</body>
+</html>
