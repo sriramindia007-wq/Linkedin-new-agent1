@@ -757,6 +757,40 @@
       return str.replace(/"/g, "&quot;").replace(/'/g, "\\'");
     }
 
+    
+    async function generateViralPost() {
+      const format = document.getElementById("viralFormatSelect").value;
+      const topic = document.getElementById("viralTopicInput").value;
+      const btn = document.getElementById("btnGenerateViral");
+      
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Generating...';
+
+      try {
+        const res = await fetch("/api/generate-viral-post", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ format, topic })
+        });
+        const data = await res.json();
+        if (data.success && data.post) {
+          document.getElementById("viralPostOutput").value = data.post;
+        }
+      } catch (e) {
+        alert("Error generating viral post: " + e.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-sparkles me-1"></i> Generate Post';
+      }
+    }
+
+    function copyViralPost() {
+      const text = document.getElementById("viralPostOutput").value;
+      if (!text) return alert("Please generate a post first.");
+      navigator.clipboard.writeText(text);
+      alert("📋 Post copied to clipboard! Paste directly into LinkedIn.");
+    }
+  
     // Init
     loadStats();
     loadPendingPosts();
