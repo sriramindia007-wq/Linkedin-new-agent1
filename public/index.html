@@ -791,6 +791,64 @@
       alert("📋 Post copied to clipboard! Paste directly into LinkedIn.");
     }
   
+    
+    async function gradeAndBoostHook() {
+      const text = document.getElementById("draftPostInput").value;
+      if (!text.trim()) return alert("Please paste a draft post.");
+      const resultDiv = document.getElementById("hookGradeResult");
+      resultDiv.classList.remove("d-none");
+      resultDiv.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Analyzing hook...';
+
+      try {
+        const res = await fetch("/api/boost-hook", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text })
+        });
+        const data = await res.json();
+        resultDiv.innerHTML = `
+          <div class="fw-bold text-${data.score >= 80 ? 'success' : 'warning'} mb-1">
+            <i class="fa-solid fa-gauge-high me-1"></i> Virality Score: ${data.score}/100
+          </div>
+          <div class="text-muted mb-2">${data.suggestions.join(' ')}</div>
+          <div class="fw-semibold small text-primary mb-1">Optimized High-Dwell Post:</div>
+          <pre class="bg-light p-2 rounded mb-0" style="white-space: pre-wrap; font-size: 0.85rem;">${escapeHtml(data.optimizedPost)}</pre>
+        `;
+      } catch (e) {
+        resultDiv.innerHTML = "Error: " + e.message;
+      }
+    }
+
+    async function generateFirstCommentDrop() {
+      try {
+        const res = await fetch("/api/boost-first-comment", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({})
+        });
+        const data = await res.json();
+        document.getElementById("firstCommentOutput").value = data.firstComment;
+      } catch (e) {
+        alert("Error: " + e.message);
+      }
+    }
+
+    async function generateReplyAssistant() {
+      const name = document.getElementById("commenterNameInput").value || "Colleague";
+      const comment = document.getElementById("userCommentInput").value || "";
+      try {
+        const res = await fetch("/api/boost-reply", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, comment })
+        });
+        const data = await res.json();
+        document.getElementById("replyAssistantOutput").value = data.reply;
+      } catch (e) {
+        alert("Error: " + e.message);
+      }
+    }
+  
     // Init
     loadStats();
     loadPendingPosts();
