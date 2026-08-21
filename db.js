@@ -1,4 +1,4 @@
-const fs = require("fs");
+﻿const fs = require("fs");
 const path = require("path");
 
 const DATA_DIR = path.join(__dirname, "..", "data");
@@ -22,26 +22,49 @@ function readCleanJson(filePath) {
   }
 }
 
+function normalizeKey(str) {
+  if (!str) return "";
+  return str.trim().substring(0, 80).toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
 function loadPosts() {
   const data = readCleanJson(POSTS_FILE);
-  return Array.isArray(data) ? data : [];
+  if (!Array.isArray(data)) return [];
+  
+  // Deduplicate on read
+  const seen = new Set();
+  const unique = [];
+  for (const p of data) {
+    const k = normalizeKey(p.post_text) || p.post_url;
+    if (k && !seen.has(k)) {
+      seen.add(k);
+      unique.push(p);
+    }
+  }
+  return unique;
 }
 
 function savePosts(posts) {
   fs.writeFileSync(POSTS_FILE, JSON.stringify(posts, null, 2), "utf-8");
 }
 
-function postExists(postUrl) {
+function postExists(postUrl, authorName = "", postText = "") {
   const posts = loadPosts();
-  return posts.some(p => p.post_url === postUrl);
+  const textKey = normalizeKey(postText);
+  return posts.some(p => {
+    if (postUrl && p.post_url && p.post_url === postUrl) return true;
+    if (textKey && normalizeKey(p.post_text) === textKey) return true;
+    return false;
+  });
 }
 
 function insertPost(postData) {
   const posts = loadPosts();
-  if (posts.some(p => p.post_url === postData.post_url)) {
+  if (postExists(postData.post_url, postData.author_name, postData.post_text)) {
     return null;
   }
-  const id = Date.now().toString() + Math.random().toString(36).substring(2, 6);
+
+  const id = postData.id || ("post_" + Date.now().toString() + "_" + Math.random().toString(36).substring(2, 6));
   const newPost = {
     id,
     source_id: postData.source_id || "",
@@ -53,68 +76,69 @@ function insertPost(postData) {
     post_text: postData.post_text || "",
     published_relative: postData.published_relative || "1d",
     scraped_at: new Date().toISOString(),
-    status: "PENDING",
+    status: postData.status || "PENDING",
+    priority_score: postData.priority_score || 85,
+    impact_badge: postData.impact_badge || "⚡ High Impact",
+    post_type_badge: postData.post_type_badge || "⚡ Digital Lending",
+    badge_color: postData.badge_color || "primary",
+    relevance_tags: postData.relevance_tags || ["Lending", "LOS"],
     generated_comments: postData.generated_comments || {},
     selected_style: null,
     approved_comment: null,
     posted_at: null,
     error_message: null
   };
+
   posts.unshift(newPost);
   savePosts(posts);
   return newPost;
 }
 
-function approveComment(postId, selectedStyle, approvedText) {
-  const posts = loadPosts();
-  const post = posts.find(p => p.id === postId);
-  if (post) {
-    post.status = "APPROVED";
-    post.selected_style = selectedStyle;
-    post.approved_comment = approvedText;
-    savePosts(posts);
-    return post;
-  }
-  return null;
-}
-
 function updatePostComments(postId, newComments) {
   const posts = loadPosts();
-  const post = posts.find(p => p.id === postId);
-  if (post) {
-    post.generated_comments = newComments;
+  const p = posts.find(item => item.id === postId);
+  if (p) {
+    p.generated_comments = newComments;
     savePosts(posts);
-    return post;
   }
-  return null;
+  return p;
+}
+
+function approveComment(postId, style, commentText) {
+  const posts = loadPosts();
+  const p = posts.find(item => item.id === postId);
+  if (p) {
+    p.selected_style = style;
+    p.approved_comment = commentText;
+    p.status = "APPROVED";
+    savePosts(posts);
+  }
+  return p;
 }
 
 function markPostStatus(postId, status, errorMsg = null) {
   const posts = loadPosts();
-  const post = posts.find(p => p.id === postId);
-  if (post) {
-    post.status = status;
-    if (status === "POSTED") {
-      post.posted_at = new Date().toISOString();
-    }
-    if (errorMsg) {
-      post.error_message = errorMsg;
-    }
+  const p = posts.find(item => item.id === postId);
+  if (p) {
+    p.status = status;
+    if (status === "POSTED") p.posted_at = new Date().toISOString();
+    if (errorMsg) p.error_message = errorMsg;
     savePosts(posts);
-    return post;
   }
-  return null;
+  return p;
 }
 
 function getStats() {
   const posts = loadPosts();
-  const stats = { PENDING: 0, APPROVED: 0, POSTED: 0, REJECTED: 0, TOTAL: posts.length };
-  posts.forEach(p => {
-    if (stats[p.status] !== undefined) {
-      stats[p.status]++;
-    }
-  });
-  return stats;
+  const sources = loadSources();
+  return {
+    pending: posts.filter(p => p.status === "PENDING").length,
+    approved: posts.filter(p => p.status === "APPROVED").length,
+    posted: posts.filter(p => p.status === "POSTED").length,
+    rejected: posts.filter(p => p.status === "REJECTED").length,
+    sources_count: sources.length,
+    total: posts.length
+  };
 }
 
 function loadSources() {
@@ -127,8 +151,7 @@ function saveSources(sources) {
 }
 
 function loadPersona() {
-  const data = readCleanJson(PERSONA_FILE);
-  return data || {};
+  return readCleanJson(PERSONA_FILE) || {};
 }
 
 function savePersona(persona) {
@@ -140,8 +163,8 @@ module.exports = {
   savePosts,
   postExists,
   insertPost,
-  approveComment,
   updatePostComments,
+  approveComment,
   markPostStatus,
   getStats,
   loadSources,
