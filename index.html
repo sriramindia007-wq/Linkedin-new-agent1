@@ -518,12 +518,20 @@
       }
     }
 
+    window.__postComments = window.__postComments || {};
+
     function renderPostCard(p) {
       const comments = p.generated_comments || {};
       const valAdd = comments.value_add || "";
       const provQ = comments.provocative_question || "";
       const execP = comments.executive_perspective || "";
       const defaultComment = valAdd || provQ || execP || "";
+
+      window.__postComments[p.id] = {
+        value_add: valAdd,
+        provocative_question: provQ,
+        executive_perspective: execP
+      };
 
       const tagsHtml = (p.relevance_tags || []).map(t => `<span class="tag-pill me-1 mb-1 d-inline-block">${escapeHtml(t)}</span>`).join("");
       
@@ -582,13 +590,13 @@
           <div class="mb-2">
             <label class="form-label fw-bold small text-muted text-uppercase mb-2">Select Comment Angle (Sriram Ganesan Persona):</label>
             <div class="d-flex flex-wrap">
-              <button type="button" class="style-pill active" id="btn-${p.id}-value_add" onclick="selectStyle('${p.id}', 'value_add', \`${escapeAttr(valAdd)}\`)">
+              <button type="button" class="style-pill active" id="btn-${p.id}-value_add" onclick="selectStyle('${p.id}', 'value_add')">
                 💡 Practitioner's LOS Nuance
               </button>
-              <button type="button" class="style-pill" id="btn-${p.id}-provocative_question" onclick="selectStyle('${p.id}', 'provocative_question', \`${escapeAttr(provQ)}\`)">
+              <button type="button" class="style-pill" id="btn-${p.id}-provocative_question" onclick="selectStyle('${p.id}', 'provocative_question')">
                 ❓ Governance &amp; Risk Inquiry
               </button>
-              <button type="button" class="style-pill" id="btn-${p.id}-executive_perspective" onclick="selectStyle('${p.id}', 'executive_perspective', \`${escapeAttr(execP)}\`)">
+              <button type="button" class="style-pill" id="btn-${p.id}-executive_perspective" onclick="selectStyle('${p.id}', 'executive_perspective')">
                 📊 Strategic Outlook
               </button>
             </div>
@@ -617,8 +625,18 @@
       `;
     }
 
+    function selectStyle(postId, styleKey) {
+      document.querySelectorAll(`#card-${postId} .style-pill`).forEach(btn => btn.classList.remove("active"));
+      const targetBtn = document.getElementById(`btn-${postId}-${styleKey}`);
+      if (targetBtn) targetBtn.classList.add("active");
+      const commentText = window.__postComments?.[postId]?.[styleKey] || "";
+      const editor = document.getElementById(`editor-${postId}`);
+      if (editor) editor.value = commentText;
+    }
+
     async function loadCompetitorPosts() {
       const container = document.getElementById("competitorsContainer");
+      if (!container) return;
       try {
         const res = await fetch("/api/competitor-posts");
         const posts = await res.json();
@@ -651,14 +669,6 @@
       } catch (err) {
         container.innerHTML = `<div class="alert alert-danger">Error loading competitor intel: ${err.message}</div>`;
       }
-    }
-
-    function selectStyle(postId, styleKey, text) {
-      document.querySelectorAll(`#card-${postId} .style-pill`).forEach(btn => btn.classList.remove("active"));
-      const targetBtn = document.getElementById(`btn-${postId}-${styleKey}`);
-      if (targetBtn) targetBtn.classList.add("active");
-      const editor = document.getElementById(`editor-${postId}`);
-      if (editor) editor.value = text;
     }
 
     async function regenerateComment(postId) {
