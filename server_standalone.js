@@ -134,15 +134,40 @@ async function triggerBackgroundScrape(sourceIds = null, maxPosts = 2, label = "
   return activeScrapeJob;
 }
 
-// Cron Scheduler (7am & 6pm)
+// Robust IST Cron Scheduler (07:00 AM & 06:00 PM IST)
 try {
   const cron = require("node-cron");
-  cron.schedule("0 7 * * *", () => triggerBackgroundScrape(null, 2, "Morning 7:00 AM"));
-  cron.schedule("0 18 * * *", () => triggerBackgroundScrape(null, 2, "Evening 6:00 PM"));
-  console.log("⏰ Automated Scheduler Initialized: Running at 07:00 AM & 18:00 PM daily.");
+  cron.schedule("0 7 * * *", () => triggerBackgroundScrape(null, 2, "Morning 07:00 AM IST"), { timezone: "Asia/Kolkata" });
+  cron.schedule("0 18 * * *", () => triggerBackgroundScrape(null, 2, "Evening 06:00 PM IST"), { timezone: "Asia/Kolkata" });
+  console.log("⏰ Automated Scheduler Initialized: Running at 07:00 AM & 06:00 PM IST daily.");
 } catch (e) {
-  console.log("Cron scheduler will run when node-cron is present");
+  console.log("Using built-in IST heartbeat ticker for scheduling");
 }
+
+// Fail-Safe IST Heartbeat Ticker (checks exact Indian Standard Time every 30s)
+let lastFiredDateSlot = "";
+setInterval(() => {
+  try {
+    const istTimeStr = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata", hour12: false });
+    const timePart = istTimeStr.split(", ")[1] || "";
+    const [hh, mm] = timePart.split(":");
+    const hour = parseInt(hh, 10);
+    const min = parseInt(mm, 10);
+    const todayDate = istTimeStr.split(", ")[0];
+
+    if (hour === 7 && min === 0 && lastFiredDateSlot !== `${todayDate}_0700`) {
+      lastFiredDateSlot = `${todayDate}_0700`;
+      console.log("⏰ [IST HEARTBEAT] Triggering 07:00 AM Morning Scheduled Scrape!");
+      triggerBackgroundScrape(null, 2, "Morning 07:00 AM IST");
+    }
+
+    if (hour === 18 && min === 0 && lastFiredDateSlot !== `${todayDate}_1800`) {
+      lastFiredDateSlot = `${todayDate}_1800`;
+      console.log("⏰ [IST HEARTBEAT] Triggering 06:00 PM Evening Scheduled Scrape!");
+      triggerBackgroundScrape(null, 2, "Evening 06:00 PM IST");
+    }
+  } catch (err) {}
+}, 30000);
 
 // HTTP Server
 const server = http.createServer(async (req, res) => {
