@@ -1,5 +1,95 @@
 [
   {
+    "id": "search-los-bre",
+    "name": "Global Search: LOS Architecture & BRE",
+    "category": "M2P LOS Competitors & Tech",
+    "type": "search",
+    "query": "\"loan origination system\" OR \"LOS architecture\" OR \"BRE engine\" India",
+    "role_type": "Global LOS Tech Intelligence",
+    "active": true
+  },
+  {
+    "id": "search-colending-fldg",
+    "name": "Global Search: Co-Lending & FLDG Governance",
+    "category": "Regulatory, Government & Policy",
+    "type": "search",
+    "query": "\"co-lending\" OR \"FLDG\" OR \"default loss guarantee\" RBI",
+    "role_type": "Regulatory & Co-Origination Intelligence",
+    "active": true
+  },
+  {
+    "id": "search-msme-cashflow",
+    "name": "Global Search: MSME Cashflow Credit & TReDS",
+    "category": "Supply Chain Finance (SCF) & TReDS",
+    "type": "search",
+    "query": "\"cashflow based lending\" OR \"TReDS\" OR \"MSME credit underwriting\" India",
+    "role_type": "MSME & Cashflow Credit Insights",
+    "active": true
+  },
+  {
+    "id": "search-npa-banking",
+    "name": "Global Search: Gross NPA & Asset Quality",
+    "category": "Data, KYC, AI Underwriting & Collections",
+    "type": "search",
+    "query": "\"gross NPA\" OR \"bad loans\" OR \"asset quality\" bank NBFC India",
+    "role_type": "Asset Quality & Risk Analytics",
+    "active": true
+  },
+  {
+    "id": "search-uli-dpi",
+    "name": "Global Search: ULI & Account Aggregator",
+    "category": "Regulatory, Government & Policy",
+    "type": "search",
+    "query": "\"Unified Lending Interface\" OR \"ULI\" OR \"Account Aggregator\" RBI credit",
+    "role_type": "DPI Credit Infrastructure",
+    "active": true
+  },
+  {
+    "id": "search-credit-upi",
+    "name": "Global Search: Credit on UPI & Embedded Lending",
+    "category": "Digital Lending Fintechs",
+    "type": "search",
+    "query": "\"credit on UPI\" OR \"UPI credit line\" NPCI lending",
+    "role_type": "Next-Gen Consumer Credit",
+    "active": true
+  },
+  {
+    "id": "tag-digitallending",
+    "name": "Hashtag: #digitallending",
+    "category": "Digital Lending Fintechs",
+    "type": "hashtag",
+    "hashtag": "#digitallending",
+    "role_type": "Global Digital Lending Stream",
+    "active": true
+  },
+  {
+    "id": "tag-colending",
+    "name": "Hashtag: #colending",
+    "category": "Regulatory, Government & Policy",
+    "type": "hashtag",
+    "hashtag": "#colending",
+    "role_type": "Co-Lending Ecosystem Stream",
+    "active": true
+  },
+  {
+    "id": "tag-lendingtech",
+    "name": "Hashtag: #lendingtech",
+    "category": "M2P LOS Competitors & Tech",
+    "type": "hashtag",
+    "hashtag": "#lendingtech",
+    "role_type": "Lending Technology Ecosystem",
+    "active": true
+  },
+  {
+    "id": "tag-msmelending",
+    "name": "Hashtag: #msmelending",
+    "category": "Supply Chain Finance (SCF) & TReDS",
+    "type": "hashtag",
+    "hashtag": "#msmelending",
+    "role_type": "MSME Lending & Credit Flow",
+    "active": true
+  },
+  {
     "id": "banknbfc",
     "name": "BankNBFC.com",
     "category": "Industry Media & Communities",

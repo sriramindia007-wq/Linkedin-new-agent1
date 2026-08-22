@@ -13,7 +13,6 @@
  * - Smooth real-time progress callbacks (1 to 145 without stuttering)
  */
 
-const fs = require("fs");
 const path = require("path");
 const https = require("https");
 const { chromium } = require("playwright");
@@ -22,10 +21,7 @@ const { calculateRelevance } = require("./relevanceScorer");
 const { evaluatePostContext } = require("./contentGatekeeper");
 const { generateCommentsForPost } = require("./commentGenerator");
 
-const SESSION_DIR = fs.existsSync(path.join(__dirname, "session_data"))
-  ? path.join(__dirname, "session_data")
-  : path.join(__dirname, "..", "session_data");
-
+const SESSION_DIR = path.join(__dirname, "session_data");
 const MAX_POST_AGE_HOURS = 48;
 const HEADLESS = process.env.HEADLESS_BROWSER !== "false";
 const CONCURRENCY_LIMIT = 4; // Optimal parallelism for stability and memory
@@ -188,12 +184,25 @@ async function launchScraperContext() {
   return context;
 }
 
+function resolveSourceUrl(src) {
+  if (src.type === "search" || src.query) {
+    const rawQuery = src.query || src.name.replace(/^Global Search:\s*/i, "");
+    return `https://www.linkedin.com/search/results/content/?keywords=${encodeURIComponent(rawQuery)}&sortBy=%22date_posted%22`;
+  }
+  if (src.type === "hashtag" || src.hashtag) {
+    const tag = (src.hashtag || src.name).replace(/^#/, "").replace(/^Hashtag:\s*#?/i, "").trim();
+    return `https://www.linkedin.com/feed/hashtag/?keywords=${encodeURIComponent(tag)}`;
+  }
+  return src.url;
+}
+
 /**
  * Scrape Single Source with Playwright + Instant Google News RSS Fallback
  */
 async function scrapeSingleSource(context, src, maxPosts = 2) {
   let page = null;
   const results = [];
+  const targetUrl = resolveSourceUrl(src);
 
   const scrapeTask = (async () => {
     // 1. Direct Playwright Page Extraction
@@ -202,31 +211,39 @@ async function scrapeSingleSource(context, src, maxPosts = 2) {
       page.setDefaultTimeout(NAVIGATION_TIMEOUT_MS);
       page.setDefaultNavigationTimeout(NAVIGATION_TIMEOUT_MS);
 
-      await page.goto(src.url, { waitUntil: "domcontentloaded", timeout: NAVIGATION_TIMEOUT_MS });
+      await page.goto(targetUrl, { waitUntil: "domcontentloaded", timeout: NAVIGATION_TIMEOUT_MS });
       await new Promise(r => setTimeout(r, 400));
 
       const isAuthwalled = page.url().includes("login") || page.url().includes("authwall");
 
       if (!isAuthwalled) {
-        // Fast 1-Step Atomic DOM Evaluation (Zero IPC deadlocks)
+        // Universal 1-Step Atomic DOM Evaluation (Zero IPC deadlocks) across feeds, searches & hashtags
         const extractedRaw = await page.evaluate((maxPosts) => {
-          const cards = document.querySelectorAll("div.feed-shared-update-v2, div[data-urn*='urn:li:activity'], div.occludable-update");
+          const cardSelectors = [
+            "div.feed-shared-update-v2",
+            "li.reusable-search__result-container",
+            "div[data-urn*='urn:li:activity']",
+            "div.search-results-container div.occludable-update",
+            "div.occludable-update"
+          ];
+          const cards = document.querySelectorAll(cardSelectors.join(", "));
           const list = [];
           for (const c of cards) {
             if (list.length >= maxPosts * 3) break;
             const isPinned = c.querySelector(".update-components-header--pinned, span:has-text('Pinned')");
-            if (isPinned) continue;
+            const isPromoted = c.innerText.includes("Promoted") || c.querySelector("span:has-text('Promoted')");
+            if (isPinned || isPromoted) continue;
 
             const timeElem = c.querySelector("span.update-components-actor__sub-description span[aria-hidden='true'], span.update-components-actor__sub-description .visually-hidden, time, span.feed-shared-actor__sub-description");
             const timeText = timeElem ? timeElem.innerText.trim() : "";
 
-            const textElem = c.querySelector("div.update-components-text, .feed-shared-update-v2__description, span.break-words");
+            const textElem = c.querySelector("div.update-components-text, .feed-shared-update-v2__description, span.break-words, .feed-shared-text");
             const postText = textElem ? textElem.innerText.trim() : "";
 
-            const authorElem = c.querySelector("span.update-components-actor__title span[dir='ltr'], .feed-shared-actor__name");
+            const authorElem = c.querySelector("span.update-components-actor__title span[dir='ltr'], .feed-shared-actor__name, a.app-aware-link span[dir='ltr'], .update-components-actor__name");
             const authorName = authorElem ? authorElem.innerText.trim() : "";
 
-            const urn = c.getAttribute("data-urn") || c.getAttribute("data-id") || "";
+            const urn = c.getAttribute("data-urn") || c.getAttribute("data-id") || c.getAttribute("data-activity-urn") || "";
 
             if (postText && postText.length >= 35) {
               list.push({ timeText, postText, authorName, urn });
@@ -241,7 +258,7 @@ async function scrapeSingleSource(context, src, maxPosts = 2) {
           const validation = evaluatePostContext(raw.postText, src.name, src.category);
           if (!validation.isRelevant && !validation.isValid) continue;
 
-          let postUrl = src.url;
+          let postUrl = targetUrl;
           if (raw.urn && raw.urn.includes("activity:")) {
             const actId = raw.urn.split("activity:")[1].split("?")[0].replace(/[^0-9]/g, "");
             if (actId && actId.length >= 15) {
@@ -249,7 +266,7 @@ async function scrapeSingleSource(context, src, maxPosts = 2) {
             }
           }
 
-          const author = raw.authorName || src.name;
+          const author = raw.authorName || (src.type === "search" || src.type === "hashtag" ? "Indian Lending Leader" : src.name);
           if (postExists(postUrl, author, raw.postText)) continue;
 
           const scoreResult = calculateRelevance(raw.postText, src.category, src.name, author);
