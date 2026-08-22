@@ -207,6 +207,86 @@ const DOMAIN_PILLARS = [
     ]
   },
   {
+    key: "agri_rural_kcc_priority_credit",
+    badge: "🚜 Agri & Rural Credit (KCC & Allied)",
+    patterns: [
+      /\bkisan\s*credit\s*card\b/i,
+      /\bkcc\b/i,
+      /\bcrop\s*loans?\b/i,
+      /\bagriculture\s*lending\b/i,
+      /\bagri\s*(?:credit|loans?|finance|infra\s*fund|aif)\b/i,
+      /\bdairy\s*loans?\b/i,
+      /\bpoultry\s*loans?\b/i,
+      /\bfisheries\s*finance\b/i,
+      /\btractor\s*loans?\b/i,
+      /\bfarm\s*equipment\s*finance\b/i,
+      /\bshg[\s-]bank\s*linkage\b/i,
+      /\bnabard\b/i,
+      /\bwarehouse\s*receipt\s*finance\b/i,
+      /\benwr\b/i
+    ]
+  },
+  {
+    key: "gov_schemes_cgtmse_mudra",
+    badge: "🏛️ Govt Credit Schemes & Guarantees",
+    patterns: [
+      /\bmudra\s*(?:loans?|scheme|yojana)?\b/i,
+      /\bshishu\s*loan\b/i,
+      /\bkishore\s*loan\b/i,
+      /\btarun\s*loan\b/i,
+      /\bcgtmse\b/i,
+      /\bcredit\s*guarantee\s*fund\b/i,
+      /\bpm\s*svanidhi\b/i,
+      /\bstand[\s-]up\s*india\b/i,
+      /\beclgs\b/i,
+      /\bpmegp\b/i,
+      /\bpm[\s-]kisan\b/i,
+      /\bcredit\s*subsidy\b/i,
+      /\binterest\s*subvention\b/i
+    ]
+  },
+  {
+    key: "digital_credit_upi_embedded_ocen",
+    badge: "⚡ Credit on UPI & Embedded Finance",
+    patterns: [
+      /\bcredit\s*on\s*upi\b/i,
+      /\bupi\s*credit\s*lines?\b/i,
+      /\brupay\s*credit\s*cards?\b/i,
+      /\bcheckout\s*financ(?:e|ing)\b/i,
+      /\bpoint[\s-]of[\s-]sale\s*lending\b/i,
+      /\bpos\s*merchant\s*loans?\b/i,
+      /\bmerchant\s*cash\s*advance\b/i,
+      /\bgem\s*sahay\b/i,
+      /\bembedded\s*credit\b/i,
+      /\bembedded\s*lending\b/i,
+      /\binstant\s*credit\b/i,
+      /\bpre[\s-]approved\s*loans?\b/i
+    ]
+  },
+  {
+    key: "secured_lrd_las_mortgages",
+    badge: "🏡 Housing, LAP, LRD & LAS",
+    patterns: [
+      /\bhome\s*loans?\b/i,
+      /\bhousing\s*finance\b/i,
+      /\baffordable\s*housing\b/i,
+      /\bpmay\b/i,
+      /\bpradhan\s*mantri\s*awas\b/i,
+      /\blap\b/i,
+      /\bloan\s*against\s*property\b/i,
+      /\blease\s*rental\s*discounting\b/i,
+      /\blrd\b/i,
+      /\bloan\s*against\s*securities\b/i,
+      /\blas\b/i,
+      /\bloan\s*against\s*shares\b/i,
+      /\bloan\s*against\s*mutual\s*funds\b/i,
+      /\bgold\s*loans?\b/i,
+      /\bdoorstep\s*gold\s*loans?\b/i,
+      /\bbalance\s*transfer\b/i,
+      /\btop[\s-]up\s*loans?\b/i
+    ]
+  },
+  {
     key: "multi_asset_microfinance",
     badge: "🌾 Multi-Asset & Microfinance",
     patterns: [
@@ -216,15 +296,15 @@ const DOMAIN_PILLARS = [
       /\bjoint\s*liability\s*group\b/i,
       /\bhousehold\s*income\s*limit\b/i,
       /\bborrower\s*indebtedness\b/i,
-      /\blap\b/i,
-      /\bloan\s*against\s*property\b/i,
-      /\bmortgage\s*origination\b/i,
-      /\bhousing\s*finance\b/i,
-      /\bgold\s*loans?\b/i,
+      /\beducation\s*loans?\b/i,
+      /\bstudy\s*abroad\s*loans?\b/i,
+      /\bstudent\s*loans?\b/i,
       /\bev\s*financ(?:e|ing)\b/i,
       /\bvehicle\s*financ(?:e|ing)\b/i,
       /\bcommercial\s*vehicle\s*loan\b/i,
-      /\bauto\s*loan\b/i
+      /\bauto\s*loan\b/i,
+      /\bused\s*car\s*loans?\b/i,
+      /\btwo[\s-]wheeler\s*loans?\b/i
     ]
   },
   {

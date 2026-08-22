@@ -9,6 +9,168 @@
     "active": true
   },
   {
+    "id": "credgenics",
+    "name": "Credgenics (NPA & Collections)",
+    "category": "Data, KYC, AI Underwriting & Collections",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/credgenics/posts/",
+    "role_type": "Loan Collections & Debt Recovery Tech",
+    "active": true
+  },
+  {
+    "id": "bankbazaar",
+    "name": "BankBazaar.com",
+    "category": "Industry Media & Communities",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/bankbazaar-com/posts/",
+    "role_type": "Retail Loan & Credit Card Marketplace",
+    "active": true
+  },
+  {
+    "id": "paisabazaar",
+    "name": "Paisabazaar",
+    "category": "Industry Media & Communities",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/paisabazaar/posts/",
+    "role_type": "Digital Credit & Bureau Marketplace",
+    "active": true
+  },
+  {
+    "id": "piramal-finance",
+    "name": "Piramal Finance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/piramal-finance/posts/",
+    "role_type": "Affordable Housing & MSME Lender",
+    "active": true
+  },
+  {
+    "id": "tata-capital",
+    "name": "Tata Capital",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/tata-capital/posts/",
+    "role_type": "Multi-Asset NBFC Lender",
+    "active": true
+  },
+  {
+    "id": "poonawalla-fincorp",
+    "name": "Poonawalla Fincorp",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/poonawalla-fincorp/posts/",
+    "role_type": "Digital-First Retail & MSME NBFC",
+    "active": true
+  },
+  {
+    "id": "chola-finance",
+    "name": "Cholamandalam Investment and Finance (Chola)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/cholamandalam-investment-and-finance-company-limited/posts/",
+    "role_type": "Vehicle Finance & LAP Leader",
+    "active": true
+  },
+  {
+    "id": "lt-finance",
+    "name": "L&T Finance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/ltfinance/posts/",
+    "role_type": "Retail, Farm, 2W & Micro Loans",
+    "active": true
+  },
+  {
+    "id": "navi-tech",
+    "name": "Navi Technologies",
+    "category": "Digital Lending Fintechs & BNPL",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/navi-technologies/posts/",
+    "role_type": "Digital Home & Personal Loans",
+    "active": true
+  },
+  {
+    "id": "moneyview",
+    "name": "Moneyview",
+    "category": "Digital Lending Fintechs & BNPL",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/money-view/posts/",
+    "role_type": "Digital Personal Credit & MSME",
+    "active": true
+  },
+  {
+    "id": "incred-finance",
+    "name": "InCred Financial Services",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/incred-financial-services/posts/",
+    "role_type": "Retail, Education & MSME Lending",
+    "active": true
+  },
+  {
+    "id": "fibe-india",
+    "name": "Fibe India (EarlySalary)",
+    "category": "Digital Lending Fintechs & BNPL",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/fibe-india/posts/",
+    "role_type": "Digital Consumer Credit & Checkout EMI",
+    "active": true
+  },
+  {
+    "id": "m1xchange",
+    "name": "M1xchange (TReDS)",
+    "category": "Supply Chain Finance (SCF) & TReDS",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/m1xchange/posts/",
+    "role_type": "TReDS MSME Invoice Discounting",
+    "active": true
+  },
+  {
+    "id": "rxil-treds",
+    "name": "RXIL (Receivables Exchange of India)",
+    "category": "Supply Chain Finance (SCF) & TReDS",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/rxil/posts/",
+    "role_type": "TReDS Invoice Discounting Platform",
+    "active": true
+  },
+  {
+    "id": "invoicemart",
+    "name": "Invoicemart (A.TREDS)",
+    "category": "Supply Chain Finance (SCF) & TReDS",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/invoicemart/posts/",
+    "role_type": "TReDS Digital Factoring Platform",
+    "active": true
+  },
+  {
+    "id": "aavas-financiers",
+    "name": "Aavas Financiers",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/aavas-financiers-limited/posts/",
+    "role_type": "Affordable Housing Finance",
+    "active": true
+  },
+  {
+    "id": "homefirst-finance",
+    "name": "Home First Finance Company",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/homefirst-finance-company/posts/",
+    "role_type": "Technology-Driven Housing Finance",
+    "active": true
+  },
+  {
+    "id": "five-star-finance",
+    "name": "Five-Star Business Finance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/five-star-business-finance-limited/posts/",
+    "role_type": "Small Business & Self-Employed LAP",
+    "active": true
+  },
+  {
     "id": "etbfsi",
     "name": "ETBFSI (The Economic Times)",
     "category": "Industry Media & Communities",
