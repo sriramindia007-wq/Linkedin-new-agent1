@@ -101,40 +101,88 @@ function makeHttpsPost(urlStr, headers, bodyObj, timeoutMs = 4000) {
     req.write(postData);
     req.end();
   });
+/**
+ * Generic HTTPS GET helper with timeout
+ */
+function makeHttpsGet(urlStr, headers = {}, timeoutMs = 4000) {
+  return new Promise((resolve, reject) => {
+    const url = new URL(urlStr);
+    const options = {
+      hostname: url.hostname,
+      port: 443,
+      path: url.pathname + url.search,
+      method: "GET",
+      headers: {
+        "User-Agent": "Node-Gemini-Client",
+        ...headers
+      },
+      timeout: timeoutMs
+    };
+
+    const req = https.request(options, (res) => {
+      let data = "";
+      res.on("data", chunk => (data += chunk));
+      res.on("end", () => {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          resolve(data);
+        } else {
+          reject(new Error(`HTTP ${res.statusCode}: ${data}`));
+        }
+      });
+    });
+
+    req.on("error", reject);
+    req.on("timeout", () => {
+      req.destroy();
+      reject(new Error(`GET timed out after ${timeoutMs}ms`));
+    });
+
+    req.end();
+  });
 }
 
 /**
- * Google Gemini LLM Caller (Supports Gemini Pro, 1.5 Flash, 2.0 Flash with auto-fallback)
+ * Google Gemini LLM Caller with Dynamic Model Discovery
  */
 async function callGemini(apiKey, prompt) {
-  const modelsToTry = [
+  // 1. Dynamic Discovery via ModelService.ListModels
+  let discoveredModels = [];
+  try {
+    const listUrl = `https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`;
+    const rawList = await makeHttpsGet(listUrl, {}, 5000);
+    const jsonList = JSON.parse(rawList);
+    if (jsonList.models && Array.isArray(jsonList.models)) {
+      discoveredModels = jsonList.models
+        .filter(m => m.supportedGenerationMethods && m.supportedGenerationMethods.includes("generateContent"))
+        .map(m => m.name.replace(/^models\//, ""));
+    }
+  } catch (listErr) {
+    // If listing fails, fall back to prioritized default list
+  }
+
+  // Combine discovered models with prioritized fallback models
+  const candidateModels = Array.from(new Set([
+    ...discoveredModels,
     "gemini-1.5-pro",
     "gemini-1.5-pro-latest",
+    "gemini-1.5-pro-002",
     "gemini-2.0-flash",
+    "gemini-2.0-flash-exp",
     "gemini-1.5-flash",
     "gemini-1.5-flash-latest",
+    "gemini-1.5-flash-8b",
     "gemini-pro"
-  ];
+  ]));
 
   let lastError = null;
-  for (const modelName of modelsToTry) {
+  for (const modelName of candidateModels) {
     try {
-      if (GoogleGenerativeAI) {
-        try {
-          const genAI = new GoogleGenerativeAI(apiKey);
-          const model = genAI.getGenerativeModel({ model: modelName });
-          const res = await model.generateContent(prompt);
-          const text = res.response.text();
-          if (text && text.trim().length > 0) return text;
-        } catch (sdkErr) {}
-      }
-
       // Direct REST API v1beta
       const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
       const payload = {
         contents: [{ parts: [{ text: prompt }] }]
       };
-      const raw = await makeHttpsPost(url, {}, payload, 6000);
+      const raw = await makeHttpsPost(url, {}, payload, 7000);
       const json = JSON.parse(raw);
       if (json.candidates && json.candidates[0]?.content?.parts?.[0]?.text) {
         return json.candidates[0].content.parts[0].text;
@@ -144,7 +192,7 @@ async function callGemini(apiKey, prompt) {
     }
   }
 
-  throw lastError || new Error("Could not connect to Gemini Pro/Flash with this API key. Please check your key at aistudio.google.com");
+  throw lastError || new Error("Could not connect to any available Gemini model for this API key.");
 }
 
 /**
