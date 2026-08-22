@@ -385,6 +385,41 @@
       <div class="tab-pane fade" id="tab-persona" role="tabpanel">
         <div class="card p-4 shadow-sm border-0">
           <h5 class="fw-bold mb-3"><i class="fa-solid fa-id-badge text-primary me-2"></i> Persona &amp; Voice Calibration</h5>
+          
+          <!-- LLM Engine Configuration Box -->
+          <div class="card p-3 mb-4 bg-light border-start border-4 border-info">
+            <h6 class="fw-bold text-dark mb-2"><i class="fa-solid fa-brain text-info me-2"></i> 🤖 AI Engine &amp; API Key Configuration</h6>
+            <p class="small text-muted mb-3">Configure your LLM provider for authentic, adaptive commenting without forced product plugs.</p>
+            
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label fw-bold small">AI Provider</label>
+                <select class="form-select form-select-sm" id="tabLlmProvider" onchange="syncTabLlmProvider()">
+                  <option value="gemini">Google Gemini (gemini-1.5-flash) [Recommended / Free Tier]</option>
+                  <option value="groq">Groq (Llama 3.3 70B - Ultra Fast) [Free]</option>
+                  <option value="openai">OpenAI (GPT-4o-mini)</option>
+                  <option value="deep_contextual">Smart Context-Adaptive Engine (Built-in / Offline)</option>
+                </select>
+              </div>
+              <div class="col-md-6" id="tabApiKeyCol">
+                <label class="form-label fw-bold small d-flex justify-content-between">
+                  <span id="tabKeyLabel">API Key</span>
+                  <small><a href="https://aistudio.google.com/app/apikey" target="_blank" id="tabKeyHelp">Get Free Key ↗</a></small>
+                </label>
+                <div class="input-group input-group-sm">
+                  <input type="password" class="form-control font-monospace" id="tabApiKeyInput" placeholder="Paste your API key here...">
+                  <button class="btn btn-outline-secondary" type="button" onclick="toggleTabKeyVisibility()">
+                    <i class="fa-solid fa-eye" id="tabEyeIcon"></i>
+                  </button>
+                  <button class="btn btn-primary fw-bold" type="button" id="btnTabTestLlm" onclick="testTabLlm()">
+                    <i class="fa-solid fa-bolt me-1"></i> Test
+                  </button>
+                </div>
+                <div id="tabLlmTestResult" class="small mt-1"></div>
+              </div>
+            </div>
+          </div>
+
           <form id="personaForm" onsubmit="savePersonaSettings(event)">
             <div class="mb-3">
               <label class="form-label fw-bold">Full Name &amp; Title</label>
@@ -399,10 +434,10 @@
               <textarea class="form-control" id="pFocus" rows="4"></textarea>
             </div>
             <div class="mb-3">
-              <label class="form-label fw-bold">Tone Guidelines &amp; Philosophy</label>
-              <textarea class="form-control" id="pRules" rows="4"></textarea>
+              <label class="form-label fw-bold">Tone Guidelines &amp; Anti-Spam Rules</label>
+              <textarea class="form-control" id="pRules" rows="5"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary px-4 fw-bold">Save Persona Settings</button>
+            <button type="submit" class="btn btn-primary px-4 fw-bold">Save All Settings</button>
           </form>
         </div>
       </div>
@@ -952,26 +987,118 @@
     async function loadPersona() {
       try {
         const res = await fetch("/api/persona");
-        const persona = await res.json();
-        document.getElementById("pTitle").value = persona.user_name || "";
-        document.getElementById("pHeadline").value = persona.linkedin_headline || "";
-        document.getElementById("pFocus").value = (persona.focus_areas || []).join("\n");
-        document.getElementById("pRules").value = (persona.tone_guidelines?.rules || []).join("\n");
+        currentPersonaConfig = await res.json();
+        document.getElementById("pTitle").value = currentPersonaConfig.user_name || "";
+        document.getElementById("pHeadline").value = currentPersonaConfig.linkedin_headline || "";
+        document.getElementById("pFocus").value = (currentPersonaConfig.focus_areas || []).join("\n");
+        document.getElementById("pRules").value = (currentPersonaConfig.tone_guidelines?.rules || []).join("\n");
+
+        const provider = currentPersonaConfig.llm_provider || "gemini";
+        const tabProvEl = document.getElementById("tabLlmProvider");
+        if (tabProvEl) tabProvEl.value = provider;
+        syncTabLlmProvider();
       } catch (e) {
         console.error(e);
       }
     }
 
+    function syncTabLlmProvider() {
+      const provider = document.getElementById("tabLlmProvider")?.value || "gemini";
+      const keyCol = document.getElementById("tabApiKeyCol");
+      const keyLabel = document.getElementById("tabKeyLabel");
+      const keyHelp = document.getElementById("tabKeyHelp");
+      const input = document.getElementById("tabApiKeyInput");
+
+      if (!keyCol) return;
+
+      if (provider === "deep_contextual") {
+        keyCol.style.display = "none";
+      } else {
+        keyCol.style.display = "block";
+        if (provider === "gemini") {
+          keyLabel.innerText = "Gemini API Key";
+          keyHelp.href = "https://aistudio.google.com/app/apikey";
+          keyHelp.innerText = "Get Free Gemini Key ↗";
+          input.value = currentPersonaConfig.gemini_api_key || "";
+        } else if (provider === "groq") {
+          keyLabel.innerText = "Groq API Key";
+          keyHelp.href = "https://console.groq.com/keys";
+          keyHelp.innerText = "Get Free Groq Key ↗";
+          input.value = currentPersonaConfig.groq_api_key || "";
+        } else if (provider === "openai") {
+          keyLabel.innerText = "OpenAI API Key";
+          keyHelp.href = "https://platform.openai.com/api-keys";
+          keyHelp.innerText = "Get OpenAI Key ↗";
+          input.value = currentPersonaConfig.openai_api_key || "";
+        }
+      }
+    }
+
+    function toggleTabKeyVisibility() {
+      const input = document.getElementById("tabApiKeyInput");
+      const icon = document.getElementById("tabEyeIcon");
+      if (input.type === "password") {
+        input.type = "text";
+        icon.className = "fa-solid fa-eye-slash";
+      } else {
+        input.type = "password";
+        icon.className = "fa-solid fa-eye";
+      }
+    }
+
+    async function testTabLlm() {
+      const provider = document.getElementById("tabLlmProvider").value;
+      const apiKey = document.getElementById("tabApiKeyInput").value;
+      const resultDiv = document.getElementById("tabLlmTestResult");
+      const btn = document.getElementById("btnTabTestLlm");
+
+      if (!apiKey || apiKey.trim().length < 5) {
+        resultDiv.innerHTML = '<span class="text-danger"><i class="fa-solid fa-triangle-exclamation"></i> Please paste an API key first.</span>';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+      resultDiv.innerHTML = '<span class="text-muted"><i class="fa-solid fa-spinner fa-spin"></i> Contacting ' + provider.toUpperCase() + '...</span>';
+
+      try {
+        const res = await fetch("/api/test-llm", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ provider, apiKey })
+        });
+        const data = await res.json();
+        if (data.success) {
+          resultDiv.innerHTML = '<span class="text-success fw-bold"><i class="fa-solid fa-circle-check"></i> ' + data.message + '</span>';
+        } else {
+          resultDiv.innerHTML = '<span class="text-danger"><i class="fa-solid fa-circle-xmark"></i> ' + (data.error || "Connection failed") + '</span>';
+        }
+      } catch (err) {
+        resultDiv.innerHTML = '<span class="text-danger"><i class="fa-solid fa-circle-xmark"></i> Network Error: ' + err.message + '</span>';
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-bolt me-1"></i> Test';
+      }
+    }
+
     async function savePersonaSettings(e) {
       e.preventDefault();
+      const provider = document.getElementById("tabLlmProvider")?.value || "gemini";
+      const keyVal = document.getElementById("tabApiKeyInput")?.value?.trim() || "";
+
       const updated = {
         user_name: document.getElementById("pTitle").value,
         linkedin_headline: document.getElementById("pHeadline").value,
         focus_areas: document.getElementById("pFocus").value.split("\n").map(s => s.trim()).filter(Boolean),
         tone_guidelines: {
           rules: document.getElementById("pRules").value.split("\n").map(s => s.trim()).filter(Boolean)
-        }
+        },
+        llm_provider: provider
       };
+
+      if (provider === "gemini") updated.gemini_api_key = keyVal;
+      if (provider === "groq") updated.groq_api_key = keyVal;
+      if (provider === "openai") updated.openai_api_key = keyVal;
 
       try {
         await fetch("/api/persona", {
@@ -979,7 +1106,17 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updated)
         });
-        alert("✅ Persona settings saved successfully!");
+        await fetch("/api/save-llm-settings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            llm_provider: provider,
+            gemini_api_key: updated.gemini_api_key,
+            groq_api_key: updated.groq_api_key,
+            openai_api_key: updated.openai_api_key
+          })
+        });
+        alert("✅ Persona & AI settings saved successfully!");
       } catch (err) {
         alert("Failed to save: " + err.message);
       }
