@@ -101,6 +101,8 @@ function makeHttpsPost(urlStr, headers, bodyObj, timeoutMs = 4000) {
     req.write(postData);
     req.end();
   });
+}
+
 /**
  * Generic HTTPS GET helper with timeout
  */
