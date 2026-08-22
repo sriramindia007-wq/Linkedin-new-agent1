@@ -104,24 +104,47 @@ function makeHttpsPost(urlStr, headers, bodyObj, timeoutMs = 4000) {
 }
 
 /**
- * Google Gemini LLM Caller
+ * Google Gemini LLM Caller (Supports Gemini Pro, 1.5 Flash, 2.0 Flash with auto-fallback)
  */
 async function callGemini(apiKey, prompt) {
-  if (GoogleGenerativeAI) {
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    const res = await model.generateContent(prompt);
-    return res.response.text();
+  const modelsToTry = [
+    "gemini-1.5-pro",
+    "gemini-1.5-pro-latest",
+    "gemini-2.0-flash",
+    "gemini-1.5-flash",
+    "gemini-1.5-flash-latest",
+    "gemini-pro"
+  ];
+
+  let lastError = null;
+  for (const modelName of modelsToTry) {
+    try {
+      if (GoogleGenerativeAI) {
+        try {
+          const genAI = new GoogleGenerativeAI(apiKey);
+          const model = genAI.getGenerativeModel({ model: modelName });
+          const res = await model.generateContent(prompt);
+          const text = res.response.text();
+          if (text && text.trim().length > 0) return text;
+        } catch (sdkErr) {}
+      }
+
+      // Direct REST API v1beta
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+      const payload = {
+        contents: [{ parts: [{ text: prompt }] }]
+      };
+      const raw = await makeHttpsPost(url, {}, payload, 6000);
+      const json = JSON.parse(raw);
+      if (json.candidates && json.candidates[0]?.content?.parts?.[0]?.text) {
+        return json.candidates[0].content.parts[0].text;
+      }
+    } catch (err) {
+      lastError = err;
+    }
   }
 
-  // REST API Fallback
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-  const payload = {
-    contents: [{ parts: [{ text: prompt }] }]
-  };
-  const raw = await makeHttpsPost(url, {}, payload, 4000);
-  const json = JSON.parse(raw);
-  return json.candidates[0].content.parts[0].text;
+  throw lastError || new Error("Could not connect to Gemini Pro/Flash with this API key. Please check your key at aistudio.google.com");
 }
 
 /**
