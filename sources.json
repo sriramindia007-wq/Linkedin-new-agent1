@@ -1,5 +1,113 @@
 [
   {
+    "id": "mfin-india",
+    "name": "MFIN (Microfinance Institutions Network)",
+    "category": "Regulatory, Government & Policy",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/microfinance-institutions-network/posts/",
+    "role_type": "RBI Recognized Microfinance SRO",
+    "active": true
+  },
+  {
+    "id": "sa-dhan",
+    "name": "Sa-Dhan (Microfinance Association)",
+    "category": "Regulatory, Government & Policy",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/sa-dhan/posts/",
+    "role_type": "Microfinance SRO & Policy Voice",
+    "active": true
+  },
+  {
+    "id": "creditaccess-grameen",
+    "name": "CreditAccess Grameen Limited",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/creditaccess-grameen-limited/posts/",
+    "role_type": "India's #1 Largest NBFC-MFI",
+    "active": true
+  },
+  {
+    "id": "svatantra-microfin",
+    "name": "Svatantra Microfin",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/svatantra-microfin-pvt-ltd/posts/",
+    "role_type": "Top 2 NBFC-MFI (Post-Chaitanya)",
+    "active": true
+  },
+  {
+    "id": "spandana-sphoorty",
+    "name": "Spandana Sphoorty Financial",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/spandana-sphoorty-financial-limited/posts/",
+    "role_type": "Major Listed NBFC-MFI",
+    "active": true
+  },
+  {
+    "id": "fusion-microfinance",
+    "name": "Fusion Micro Finance Limited",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/fusion-microfinance-limited/posts/",
+    "role_type": "Listed Rural NBFC-MFI",
+    "active": true
+  },
+  {
+    "id": "muthoot-microfin",
+    "name": "Muthoot Microfin Limited",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/muthoot-microfin-limited/posts/",
+    "role_type": "Listed Microfinance Leader",
+    "active": true
+  },
+  {
+    "id": "satin-creditcare",
+    "name": "Satin Creditcare Network Limited",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/satin-creditcare-network-limited/posts/",
+    "role_type": "Major Listed NBFC-MFI",
+    "active": true
+  },
+  {
+    "id": "asirvad-microfinance",
+    "name": "Asirvad Microfinance (Manappuram)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/asirvad-microfinance-limited/posts/",
+    "role_type": "Pan-India NBFC-MFI",
+    "active": true
+  },
+  {
+    "id": "annapurna-finance",
+    "name": "Annapurna Finance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/annapurna-finance-pvt-ltd/posts/",
+    "role_type": "Eastern India Microfinance Leader",
+    "active": true
+  },
+  {
+    "id": "arohan-finance",
+    "name": "Arohan Financial Services",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/arohan-financial-services-limited/posts/",
+    "role_type": "Aavishkaar Group NBFC-MFI",
+    "active": true
+  },
+  {
+    "id": "belstar-microfinance",
+    "name": "Belstar Microfinance (Muthoot Finance)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/belstar-microfinance-limited/posts/",
+    "role_type": "Southern India NBFC-MFI",
+    "active": true
+  },
+  {
     "id": "search-los-bre",
     "name": "Global Search: LOS Architecture & BRE",
     "category": "M2P LOS Competitors & Tech",
