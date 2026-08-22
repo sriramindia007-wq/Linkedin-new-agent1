@@ -89,50 +89,61 @@ Ensure the response is ONLY valid raw JSON with keys: value_add, provocative_que
   }
 }
 
+function extractKeyEntities(text) {
+  const words = text.split(/\s+/);
+  const snippet = words.slice(0, 15).join(" ") + (words.length > 15 ? "..." : "");
+  
+  // Extract amounts / figures
+  const amountMatch = text.match(/(?:₹|rs\.?|inr|usd|\$)\s*[\d,]+(?:\.\d+)?\s*(?:cr(?:ore)?|lakh|mn|bn|billion|million|k)?/i) || text.match(/\b\d+(?:\.\d+)?\s*(?:cr(?:ore)?|lakh|percent|%)\b/i);
+  const keyMetric = amountMatch ? amountMatch[0] : "";
+
+  // Extract primary entity/organization
+  const orgMatch = text.match(/\b([A-Z][A-Za-z0-9&]+(?:\s+[A-Z][A-Za-z0-9&]+)*\s+(?:Bank|Finance|Fintech|Capital|Financial|Services|Limited|Ltd|NBFC|HFC))\b/);
+  const detectedOrg = orgMatch ? orgMatch[1].trim() : "";
+
+  return { snippet, keyMetric, detectedOrg };
+}
+
 /**
- * Deep Semantic Engine (Accurate Contextual Fallback)
+ * Deep Contextual & Entity-Aware Semantic Engine
  */
 function generateDeepSemanticComments(postText, authorName, sourceCategory, customGuidance = "") {
   const text = postText || "";
   const textLower = text.toLowerCase();
   const prefix = customGuidance && customGuidance.trim().length > 0 ? `Regarding ${customGuidance.trim()}: ` : "";
+  const { keyMetric, detectedOrg } = extractKeyEntities(text);
+  const org = detectedOrg || authorName || "financial institutions";
 
-  // 1. MICROFINANCE / NBFC-MFI / IPO / CAPITAL MARKETS
-  if (textLower.includes("svatantra") || textLower.includes("microfin") || textLower.includes("ipo") || textLower.includes("drhp") || textLower.includes("mfi") || textLower.includes("chaitanya") || textLower.includes("joint liability") || textLower.includes("jlg")) {
-    const isSvatantra = textLower.includes("svatantra");
-    const mfiRef = isSvatantra ? "Svatantra Microfin's ₹3,000 Cr IPO filing and post-Chaitanya scale (₹23,818 Cr AUM)" : "this public listing milestone in the microfinance sector";
-
+  // 1. MICROFINANCE / NBFC-MFI / JLG LENDING
+  if (textLower.includes("svatantra") || textLower.includes("microfin") || textLower.includes("mfi") || textLower.includes("jlg") || textLower.includes("joint liability") || textLower.includes("creditaccess") || textLower.includes("mfin")) {
+    const metricStr = keyMetric ? ` (at ${keyMetric} scale)` : "";
     return {
-      value_add: `${prefix}${mfiRef} underscores a pivotal shift in the NBFC-MFI landscape. As microfinance institutions scale distribution across rural Bharat, the critical operational challenge lies in deploying an agile Loan Origination System (LOS) that enforces multi-bureau JLG indebtedness checks and household income limits in real-time, mitigating borrower over-leveraging while maintaining rapid rural disbursement SLAs.`,
-      provocative_question: `As large NBFC-MFIs transition to public market scrutiny, what workflow orchestration mechanisms are being implemented in their origination platforms to balance automated credit scorecards with ground-level field officer judgment under RBI's revised microfinance framework?`,
-      executive_perspective: `The institutionalization of India's microfinance sector—backed by marquee PE participation and public listings—demonstrates that sustainable rural financial inclusion requires robust digital lending infrastructure with strict credit policy governance at its core.`
+      value_add: `${prefix}Scaling rural credit distribution${metricStr} requires an agile Loan Origination System (LOS) capable of performing real-time multi-bureau JLG indebtedness de-duplication (CRIF/Equifax/CIBIL) and verifying household income caps directly on mobile devices at center meetings, ensuring rapid disbursement without compromising credit discipline.`,
+      provocative_question: `As microfinance institutions balance high-volume rural disbursement SLAs with RBI's revised regulatory framework, what automated guardrails are being built into your origination workflows to prevent borrower over-leveraging across multiple lenders?`,
+      executive_perspective: `Sustainable microfinance expansion across Bharat rests on resilient digital infrastructure that pairs automated rule compliance with empowering ground-level credit officers to exercise sound risk judgment.`
     };
   }
 
   // 2. EXECUTIVE APPOINTMENTS & RESTRUCTURING
-  if ((textLower.includes("appoint") || textLower.includes("chief credit officer") || textLower.includes("joins as") || textLower.includes("rejig")) && !textLower.includes("ipo")) {
-    let orgName = authorName;
-    const orgMatch = text.match(/([A-Z][A-Za-z0-9\s&]+(?:Bank|Finance|Fintech|Capital))/);
-    if (orgMatch && !orgMatch[1].includes("Sheet")) orgName = orgMatch[1].trim();
-
+  if ((textLower.includes("appoint") || textLower.includes("chief credit officer") || textLower.includes("joins as") || textLower.includes("rejig") || textLower.includes("leadership")) && !textLower.includes("ipo")) {
     return {
-      value_add: `${prefix}Decoupling credit decisioning and risk underwriting into a specialized, centralized department is a timely strategic move for ${orgName}. For enterprise financial institutions, this transition requires an agile Loan Origination System (LOS) that standardizes policy enforcement across branches, automates multi-bureau ingestion, and delivers straight-through processing without operational friction.`,
-      provocative_question: `As ${orgName} transitions towards a centralized credit architecture, what workflow orchestration capabilities are being prioritized in the LOS to ensure seamless exception management and policy auditability?`,
-      executive_perspective: `Centralized credit transformation succeeds when powered by configurable lending platforms that provide risk committees with end-to-end governance while empowering underwriters to make faster, compliant decisions.`
+      value_add: `${prefix}Centralizing and decoupling credit risk architecture is a vital strategic milestone for ${org}. For enterprise lenders, transitioning to centralized underwriting requires an API-first LOS that standardizes credit policy enforcement across all channels, automates multi-bureau ingestion, and eliminates branch-level operational friction.`,
+      provocative_question: `As ${org} strengthens its centralized credit leadership, what workflow orchestration capabilities are being prioritized in the LOS to ensure seamless exception handling and transparent audit governance?`,
+      executive_perspective: `Centralized credit transformation succeeds when powered by configurable lending platforms that equip risk committees with comprehensive policy governance while empowering underwriters to execute faster, compliant decisions.`
     };
   }
 
-  // 3. CO-LENDING & PARTNERSHIPS
-  if (textLower.includes("co-lending") || textLower.includes("colending") || textLower.includes("partnership") || textLower.includes("mou")) {
+  // 3. CO-LENDING, PARTNERSHIPS & FLDG
+  if (textLower.includes("co-lending") || textLower.includes("colending") || textLower.includes("co-origination") || textLower.includes("fldg") || textLower.includes("default loss guarantee")) {
     return {
-      value_add: `${prefix}Scaling institutional co-lending partnerships between Banks and NBFCs requires far more than basic API connectivity. The critical operational heavy lifting lies in deploying a multi-entity LOS capable of synchronizing disparate credit risk policies, automating tripartite escrow reconciliation, and enforcing FLDG caps in real time.`,
-      provocative_question: `For lenders scaling Bank-NBFC co-origination journeys, what architectural safeguards are being prioritized to ensure seamless data exchange across distinct core banking stacks while meeting sub-24 hour disbursement SLAs?`,
+      value_add: `${prefix}Scaling Bank-NBFC co-origination partnerships requires far more than basic API connectivity. The critical operational heavy lifting lies in deploying a multi-entity LOS capable of synchronizing disparate credit risk policies, automating tripartite escrow reconciliation, and enforcing RBI FLDG caps in real time.`,
+      provocative_question: `For institutions scaling co-lending journeys under CLM-1 and CLM-2, what architectural safeguards are being prioritized to ensure sub-second data exchange across disparate core banking stacks while meeting sub-24-hour disbursement SLAs?`,
       executive_perspective: `Sustainable co-lending models depend on collaborative, open-API lending infrastructure that provides transparent audit trails, shared risk visibility, and automated compliance for both partner institutions.`
     };
   }
 
-  // 4. ULI, ACCOUNT AGGREGATOR & REGULATORY PUBLIC INFRASTRUCTURE
-  if (textLower.includes("uli") || textLower.includes("unified lending") || textLower.includes("account aggregator") || textLower.includes("sahamati") || textLower.includes("rbi")) {
+  // 4. ULI, ACCOUNT AGGREGATOR & DIGITAL PUBLIC INFRASTRUCTURE
+  if (textLower.includes("uli") || textLower.includes("unified lending") || textLower.includes("account aggregator") || textLower.includes("sahamati") || textLower.includes("dpi")) {
     return {
       value_add: `${prefix}The Unified Lending Interface (ULI) and Account Aggregator ecosystem represent a generational leap in credit democratization. For financial institutions, the primary differentiator is implementing an agile LOS that can seamlessly ingest and parse these diverse telemetry streams into configurable credit rules without multi-month development cycles.`,
       provocative_question: `As ULI unlocks specialized alternate data feeds across rural and MSME clusters, how are credit risk committees structuring AI governance to ensure model explainability and mitigate bias at the board level?`,
@@ -140,11 +151,11 @@ function generateDeepSemanticComments(postText, authorName, sourceCategory, cust
     };
   }
 
-  // 5. MSME CASHFLOW, GST & SUPPLY CHAIN FINANCE
-  if (textLower.includes("msme") || textLower.includes("sme") || textLower.includes("gst") || textLower.includes("cashflow") || textLower.includes("supply chain")) {
+  // 5. MSME CASHFLOW, GST & SUPPLY CHAIN FINANCE (SCF / TReDS)
+  if (textLower.includes("msme") || textLower.includes("sme") || textLower.includes("gst") || textLower.includes("cashflow") || textLower.includes("supply chain") || textLower.includes("treds") || textLower.includes("invoice discounting")) {
     return {
-      value_add: `${prefix}The real operational challenge in scaling MSME credit isn't just data access—it is orchestrating real-time GST, banking, and tax telemetry directly within a configurable Business Rules Engine (BRE). An agile LOS must allow credit policy teams to adapt risk cutoffs dynamically based on cashflow volatility rather than static bureau proxies.`,
-      provocative_question: `As institutions transition from collateral-backed to cashflow-based MSME underwriting, what governance guardrails are being instituted in the LOS to manage first-loss defaults while expanding into new vendor clusters?`,
+      value_add: `${prefix}The real operational challenge in scaling MSME and supply chain credit isn't just data access—it is orchestrating real-time GST, banking, and e-invoice telemetry directly within a configurable Business Rules Engine (BRE). An agile LOS must allow credit policy teams to adapt risk cutoffs dynamically based on cashflow volatility rather than static bureau proxies.`,
+      provocative_question: `As lenders transition from collateral-backed to cashflow-based MSME underwriting, what governance guardrails are being instituted in the LOS to manage first-loss defaults while expanding into new vendor clusters?`,
       executive_perspective: `Technology should empower underwriters, not replace their judgment. The competitive edge in MSME origination lies in pairing automated data orchestration with decision intelligence governed by the institution's own credit policy.`
     };
   }
@@ -158,9 +169,36 @@ function generateDeepSemanticComments(postText, authorName, sourceCategory, cust
     };
   }
 
-  // 7. DEFAULT ENTERPRISE LENDING THOUGHT LEADERSHIP
+  // 7. HOUSING FINANCE, LAP, LRD & MORTGAGES
+  if (textLower.includes("housing finance") || textLower.includes("home loan") || textLower.includes("lap") || textLower.includes("loan against property") || textLower.includes("mortgage") || textLower.includes("lrd") || textLower.includes("pmay")) {
+    return {
+      value_add: `${prefix}Scaling secured retail lending (Home Loans & LAP) requires an enterprise LOS that unifies collateral legal/technical appraisal workflows with automated credit decisioning. Seamlessly integrating digital land records, automated LTV calculations, and tripartite builder approvals cuts sanction TAT from weeks to hours while preserving strict risk controls.`,
+      provocative_question: `For mortgage and LAP originations, how are institutions optimizing digital property title verification and field technical appraisal within their LOS to reduce drop-offs without loosening underwriting rigor?`,
+      executive_perspective: `Long-tenor asset-backed financing demands platforms built for operational resilience—where automated verification and strict collateral governance ensure enduring portfolio health.`
+    };
+  }
+
+  // 8. VEHICLE, EV & COMMERCIAL ASSET FINANCE
+  if (textLower.includes("vehicle") || textLower.includes("auto loan") || textLower.includes("ev ") || textLower.includes("electric vehicle") || textLower.includes("commercial vehicle") || textLower.includes("tractor")) {
+    return {
+      value_add: `${prefix}Originating vehicle and asset finance journeys at the point of sale requires instant dealer-subvention calculations, Vahan API verification, and automated asset-backed scorecards. Modern LOS platforms must provide sub-10 minute in-dealership approvals while maintaining robust credit cutoffs.`,
+      provocative_question: `As EV financing evolves with differing battery depreciation cycles, what dynamic risk-scoring variables are credit teams introducing into their LOS decision engines to accurately price collateral residual value?`,
+      executive_perspective: `Point-of-sale asset financing thrives when seamless dealer integration is anchored by intelligent underwriting that manages collateral risk across the entire asset lifecycle.`
+    };
+  }
+
+  // 9. CREDIT CARDS, CREDIT ON UPI & EMBEDDED CONSUMER CREDIT
+  if (textLower.includes("credit card") || textLower.includes("credit on upi") || textLower.includes("upi credit") || textLower.includes("rupay") || textLower.includes("bnpl") || textLower.includes("embedded credit")) {
+    return {
+      value_add: `${prefix}Credit on UPI and instant revolving lines require sub-second decisioning architectures capable of orchestrating bureau lookups, AML/fraud screening, and dynamic limit allocation in real time. Decoupling the Business Rules Engine (BRE) from core banking dependencies is essential to handling high-concurrency peak transaction loads.`,
+      provocative_question: `As Credit on UPI unlocks micro-credit access across Tier 2 and Tier 3 markets, how are risk teams balancing instant sub-second limit sanctions with pre-delinquency portfolio surveillance?`,
+      executive_perspective: `Next-generation consumer credit is embedded, instant, and frictionless—but its long-term viability hinges on modular decision engines that enforce disciplined credit policy at micro-transaction speed.`
+    };
+  }
+
+  // 10. DEFAULT ENTERPRISE LENDING THOUGHT LEADERSHIP
   return {
-    value_add: `${prefix}From a lending technology standpoint, the key to scaling digital credit journeys lies in building a modular, API-first Loan Origination System (LOS) that decouples risk policy configuration from core banking dependencies, enabling rapid product rollouts while maintaining audit compliance.`,
+    value_add: `${prefix}From a lending technology standpoint, the key to scaling digital credit journeys for ${org} lies in building a modular, API-first Loan Origination System (LOS) that decouples risk policy configuration from core banking dependencies, enabling rapid product rollouts while maintaining audit compliance.`,
     provocative_question: `As digital lending architectures evolve, how are product teams balancing automated straight-through processing (STP) with granular risk governance at the committee level?`,
     executive_perspective: `Scalable credit platforms must be designed with both borrower speed and institutional governance in mind, ensuring technology strengthens credit judgment rather than bypassing it.`
   };

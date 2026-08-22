@@ -75,57 +75,7 @@ function isWithinTimeframe(timeStr, maxHours = 48) {
 
   if (s.includes("yesterday") || s.includes("1d") || s.includes("2d")) return true;
 
-  // RFC2822 / ISO Date parse for RSS items
-  try {
-    const parsed = new Date(timeStr);
-    if (!isNaN(parsed.getTime())) {
-      const diffHours = (Date.now() - parsed.getTime()) / (1000 * 60 * 60);
-      return diffHours >= 0 && diffHours <= maxHours;
-    }
-  } catch (e) {}
-
   return false;
-}
-
-/**
- * Ultra-Fast Google News RSS Fetcher
- */
-function fetchGoogleNewsRSS(query, timeoutMs = RSS_TIMEOUT_MS) {
-  return new Promise((resolve) => {
-    const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-IN&gl=IN&ceid=IN:en`;
-    const req = https.get(url, { 
-      headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" }, 
-      timeout: timeoutMs 
-    }, (res) => {
-      let data = "";
-      res.on("data", chunk => (data += chunk));
-      res.on("end", () => {
-        const items = [];
-        const itemMatches = data.match(/<item>[\s\S]*?<\/item>/g) || [];
-        for (const itemXml of itemMatches.slice(0, 5)) {
-          const titleMatch = itemXml.match(/<title>([\s\S]*?)<\/title>/);
-          const linkMatch = itemXml.match(/<link>([\s\S]*?)<\/link>/);
-          const pubDateMatch = itemXml.match(/<pubDate>([\s\S]*?)<\/pubDate>/);
-          const descMatch = itemXml.match(/<description>([\s\S]*?)<\/description>/);
-          
-          let title = titleMatch ? titleMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, "$1").trim() : "";
-          let link = linkMatch ? linkMatch[1].trim() : "";
-          let pubDate = pubDateMatch ? pubDateMatch[1].trim() : "";
-          let desc = descMatch ? descMatch[1].replace(/<[^>]*>/g, "").replace(/<!\[CDATA\[(.*?)\]\]>/g, "$1").trim() : "";
-          
-          if (title) {
-            items.push({ title, link, pubDate, desc });
-          }
-        }
-        resolve(items);
-      });
-    });
-    req.on("error", () => resolve([]));
-    req.on("timeout", () => {
-      req.destroy();
-      resolve([]);
-    });
-  });
 }
 
 /**
@@ -305,51 +255,6 @@ async function scrapeSingleSource(context, src, maxPosts = 2) {
       }
     }
 
-    // 2. Intelligent Google News RSS / Search Fallback (If 0 posts found or page restricted)
-    if (results.length === 0) {
-      try {
-        const query = `"${src.name}" lending OR loan OR credit OR fintech OR banking`;
-        const rssItems = await fetchGoogleNewsRSS(query, RSS_TIMEOUT_MS);
-
-        for (const item of rssItems) {
-          const combinedText = `${item.title}. ${item.desc}`;
-          const validation = evaluatePostContext(combinedText, src.name, src.category);
-          if (!validation.isRelevant && !validation.isValid) continue;
-
-          const timeText = item.pubDate ? new Date(item.pubDate).toLocaleDateString() : "Recent";
-          const postUrl = item.link || src.url;
-
-          if (postExists(postUrl, src.name, combinedText)) continue;
-
-          const scoreResult = calculateRelevance(combinedText, src.category, src.name, src.name);
-          const comments = await generateCommentsForPost(combinedText, src.name, src.category);
-
-          const postItem = {
-            id: `post_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
-            source_id: src.id,
-            source_name: src.name,
-            source_category: src.category,
-            author_name: src.name,
-            post_url: postUrl,
-            post_text: combinedText,
-            published_relative: timeText,
-            scraped_at: new Date().toISOString(),
-            status: "PENDING",
-            priority_score: scoreResult.score || scoreResult.priority_score || 85,
-            impact_badge: scoreResult.impact_badge || "⚡ High Impact",
-            post_type_badge: validation.postTypeBadge || "⚡ Digital Lending & LOS",
-            badge_color: scoreResult.badge_color || "warning",
-            relevance_tags: scoreResult.tags || scoreResult.relevance_tags || ["Lending", "LOS"],
-            generated_comments: comments
-          };
-
-          insertPost(postItem);
-          results.push(postItem);
-          if (results.length >= maxPosts) break;
-        }
-      } catch (rssErr) {}
-    }
-
     return results;
   })();
 
@@ -375,7 +280,7 @@ async function runScraper(selectedSourceIds = null, maxPostsPerSource = 2, onPro
   let newPostsCount = 0;
   let completedCount = 0;
 
-  console.log(`[+] 🚀 Starting Ultra-Reliable Scraper Engine for ${totalSources} sources (Concurrency: ${CONCURRENCY_LIMIT})...`);
+  console.log(`[+] 🚀 Starting Pure LinkedIn Scraper Engine for ${totalSources} sources (Concurrency: ${CONCURRENCY_LIMIT})...`);
 
   let context = await launchScraperContext();
   let sourcesProcessedWithCurrentContext = 0;
@@ -389,13 +294,13 @@ async function runScraper(selectedSourceIds = null, maxPostsPerSource = 2, onPro
       const src = activeSources[currentIndex];
       const globalIdx = currentIndex + 1;
 
-      console.log(`[${globalIdx}/${totalSources}] 🌐 Scraping: ${src.name}...`);
+      console.log(`[${globalIdx}/${totalSources}] 🌐 Scraping LinkedIn: ${src.name}...`);
       if (onProgress) onProgress(globalIdx, totalSources, src.name);
 
       try {
         const extracted = await scrapeSingleSource(context, src, maxPostsPerSource);
         if (extracted && extracted.length > 0) {
-          console.log(`  -> 🎉 Ingested ${extracted.length} qualifying <48h lending posts from ${src.name}`);
+          console.log(`  -> 🎉 Ingested ${extracted.length} qualifying <48h pure LinkedIn posts from ${src.name}`);
           newPostsCount += extracted.length;
         }
       } catch (err) {
@@ -423,7 +328,7 @@ async function runScraper(selectedSourceIds = null, maxPostsPerSource = 2, onPro
     }
   }
 
-  console.log(`[+] 🏁 Scraping complete! Total processed: ${completedCount}/${totalSources}, New lending posts: ${newPostsCount}`);
+  console.log(`[+] 🏁 Pure LinkedIn Scraping complete! Total processed: ${completedCount}/${totalSources}, New lending posts: ${newPostsCount}`);
   return newPostsCount;
 }
 
@@ -431,6 +336,5 @@ module.exports = {
   runScraper,
   scrapeSingleSource,
   isWithinTimeframe,
-  fetchGoogleNewsRSS,
   withTimeout
 };
