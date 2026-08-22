@@ -1,92 +1,165 @@
-/**
- * Context-Aware Comment Generator calibrated for Sriram Ganesan
- * Head of Loan Origination System (LOS) Product and Product Solutions at M2P Fintech
- * 
- * Powered by:
- * 1. Google Gemini Generative AI LLM (when GEMINI_API_KEY is configured)
- * 2. Deep Contextual Semantic Engine (specialized for Indian Banking, MFIs, IPOs, Co-Lending, LOS/LMS, RBI Policy)
- */
+const https = require("https");
+const { loadPersona } = require("./db");
+try { require("dotenv").config(); } catch (e) {}
 
 let GoogleGenerativeAI = null;
 try {
   GoogleGenerativeAI = require("@google/generative-ai").GoogleGenerativeAI;
 } catch (e) {}
 
-const { loadPersona } = require("./db");
-try { require("dotenv").config(); } catch (e) {}
-
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
-
-const SRIRAM_PERSONA_PROMPT = `
-You are Sriram Ganesan, Head of Loan Origination System (LOS) Product and Product Solutions at M2P Fintech.
-Your core philosophy: "Technology should empower lenders—not replace their judgment. Our platform provides configurable workflows, intelligent automation and decision support while ensuring lending decisions remain governed by each institution's own credit policies, governance framework and compliance obligations."
-
-Your expertise:
-- Enterprise Loan Origination Systems (LOS), LMS, Decision Engines (BRE), API Orchestration.
-- Multi-asset lending: MSME (cashflow/GST-based), Retail, LAP, Co-Lending, Microfinance (NBFC-MFI & JLG lending), Supply Chain Finance.
-- Digital Public Infrastructure: Unified Lending Interface (ULI), Account Aggregator (AA), OCEN, Sahamati.
-- Risk Governance: RBI Master Directions, FLDG compliance, capital adequacy, credit cost discipline.
-
-Your communication style:
-- Authoritative, senior product leader and enterprise practitioner.
-- Deeply technical yet strategic.
-- NEVER use generic buzzwords like "Exciting times ahead!" or "Kudos to the team!".
-- Focus on origination architecture, underwriting governance, credit policy enforcement, and scalability.
-
-Task:
-Read the following LinkedIn post carefully and generate 3 distinctly calibrated comments in your authentic voice.
-`;
-
 /**
- * Generate Comments using Google Gemini LLM with Strict 3.5s Timeout
+ * Builds dynamic context-adaptive prompt for Sriram Ganesan
  */
-async function generateGeminiComments(postText, authorName, sourceCategory, customGuidance = "") {
-  try {
-    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+function buildAdaptivePrompt(persona, postText, authorName, sourceCategory, customGuidance = "") {
+  const p = persona || loadPersona();
+  const userName = p.user_name || "Sriram Ganesan";
+  const userHeadline = p.linkedin_headline || "Head of LOS Product & Product Solutions | M2P Fintech";
+  const corePhilosophy = p.core_philosophy || "Technology should empower lenders—not replace their judgment.";
 
-    const prompt = `
-${SRIRAM_PERSONA_PROMPT}
+  return `
+You are ${userName}, ${userHeadline}.
+Your core philosophy: "${corePhilosophy}"
+Your background: 20+ years Indian Banking & Lending veteran (CAIIB, Retail/Wholesale Credit, NBFCs, Small Finance Banks, and Lending Tech).
+
+CRITICAL CONTEXTUAL CALIBRATION RULE:
+DO NOT force product plugs or mention "LOS" / "Loan Origination System" unless the post is explicitly about lending technology, origination software, BRE rules, or automated onboarding!
+Instead, adapt your authentic practitioner perspective to the EXACT nature of the post:
+
+- MACRO / BANKING DYNAMICS / RATES: Discuss Net Interest Margins (NIM), Cost of Funds, Credit-to-Deposit (CD) ratios, Asset-Liability Management (ALM), or liquidity transmission.
+- ASSET QUALITY / NPA / RECOVERY: Discuss counter-cyclical provisioning, early-warning indicators (SMA-0/1/2), loan recovery mechanisms (SARFAESI/IBC/DRT), or credit cost containment.
+- REGULATORY / RBI DIRECTIVES: Discuss regulatory compliance agility, borrower transparency (KFS/APR), Priority Sector Lending (PSL), or risk governance.
+- CO-LENDING / NBFC PARTNERSHIPS: Discuss Default Loss Guarantee (FLDG) caps, risk-sharing economics, tripartite reconciliation, and underwriting alignment.
+- MICROFINANCE / RURAL / JLG: Discuss multi-bureau indebtedness checks (CRIF/Equifax/CIBIL), household income caps, and rural center-meeting collection discipline.
+- MSME CASHFLOW & TRADE FINANCE: Discuss GST telemetry, invoice discounting on TReDS, cashflow volatility vs collateral proxies, and working capital cycles.
+- EXECUTIVE APPOINTMENTS / CORPORATE MILESTONES: Offer warm, professional executive congratulations combined with strategic reflections on organizational transformation or capital scale.
+- LENDING TECH & AUTOMATION (ONLY when directly relevant): Discuss visual Business Rules Engines (BRE), straight-through processing (STP) rates, API orchestration, and decision intelligence.
+
+Tone & Style Guidelines:
+- Authoritative, senior banking & credit leader.
+- Grounded in Indian BFSI practitioner reality.
+- Concise, engaging, and professional (2 to 4 punchy sentences per comment).
+- NEVER use generic filler phrases ("Exciting times ahead!", "Great post!", "Kudos to the team!").
 
 POST DETAILS:
-Author/Source: ${authorName} (${sourceCategory})
+Author / Source: ${authorName} (${sourceCategory})
 Post Content:
 """
 ${postText}
 """
 
-${customGuidance ? `SPECIFIC USER INSTRUCTION/GUIDANCE: ${customGuidance}` : ""}
+${customGuidance ? `USER GUIDANCE / SPECIAL INSTRUCTION: ${customGuidance}` : ""}
 
-Generate a JSON response with exactly three keys:
-1. "value_add": A practitioner's technical and operational insight focusing on LOS architecture, credit policy, underwriting workflows, or data orchestration directly relevant to the post. (2-4 sentences)
-2. "provocative_question": A thoughtful, senior-level question to the author/industry on credit risk governance, technology adoption, or regulatory balance. (1-2 sentences)
-3. "executive_perspective": A strategic, high-level outlook on how this development impacts the future of institutional lending and technology empowerment. (2-3 sentences)
+Task:
+Generate a JSON object with exactly three distinct comment styles in your authentic voice:
+1. "value_add": A practitioner's technical, operational, or strategic insight directly addressing the post's core message. (2-3 sentences)
+2. "provocative_question": A thoughtful, senior-level question to the author/industry on credit risk, market dynamics, or governance. (1-2 sentences)
+3. "executive_perspective": A strategic, high-level outlook on how this development impacts the broader Indian BFSI landscape. (2-3 sentences)
 
-Ensure the response is ONLY valid raw JSON with keys: value_add, provocative_question, executive_perspective.
+Return ONLY valid raw JSON without markdown code fences. Example format:
+{"value_add": "...", "provocative_question": "...", "executive_perspective": "..."}
 `;
+}
 
-    // Hard 3500ms timeout for LLM generation
-    let timer = null;
-    const timeoutPromise = new Promise((_, reject) => {
-      timer = setTimeout(() => reject(new Error("Gemini generation timed out after 3.5s")), 3500);
-    });
-
-    const result = await Promise.race([model.generateContent(prompt), timeoutPromise]).finally(() => {
-      if (timer) clearTimeout(timer);
-    });
-
-    const text = result.response.text().trim();
-    const cleanJson = text.replace(/```json/g, "").replace(/```/g, "").trim();
-    const parsed = JSON.parse(cleanJson);
-    return {
-      value_add: parsed.value_add || "",
-      provocative_question: parsed.provocative_question || "",
-      executive_perspective: parsed.executive_perspective || ""
+/**
+ * Generic HTTPS POST helper with timeout
+ */
+function makeHttpsPost(urlStr, headers, bodyObj, timeoutMs = 4000) {
+  return new Promise((resolve, reject) => {
+    const url = new URL(urlStr);
+    const postData = typeof bodyObj === "string" ? bodyObj : JSON.stringify(bodyObj);
+    const options = {
+      hostname: url.hostname,
+      port: 443,
+      path: url.pathname + url.search,
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Content-Length": Buffer.byteLength(postData),
+        ...headers
+      },
+      timeout: timeoutMs
     };
-  } catch (err) {
-    // Instant seamless fallback to calibrated Deep Semantic Engine
-    return generateDeepSemanticComments(postText, authorName, sourceCategory, customGuidance);
+
+    const req = https.request(options, (res) => {
+      let data = "";
+      res.on("data", chunk => (data += chunk));
+      res.on("end", () => {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          resolve(data);
+        } else {
+          reject(new Error(`HTTP ${res.statusCode}: ${data}`));
+        }
+      });
+    });
+
+    req.on("error", reject);
+    req.on("timeout", () => {
+      req.destroy();
+      reject(new Error(`Request timed out after ${timeoutMs}ms`));
+    });
+
+    req.write(postData);
+    req.end();
+  });
+}
+
+/**
+ * Google Gemini LLM Caller
+ */
+async function callGemini(apiKey, prompt) {
+  if (GoogleGenerativeAI) {
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const res = await model.generateContent(prompt);
+    return res.response.text();
   }
+
+  // REST API Fallback
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  const payload = {
+    contents: [{ parts: [{ text: prompt }] }]
+  };
+  const raw = await makeHttpsPost(url, {}, payload, 4000);
+  const json = JSON.parse(raw);
+  return json.candidates[0].content.parts[0].text;
+}
+
+/**
+ * Groq LLM Caller (Llama 3.3 70B - Ultra Fast)
+ */
+async function callGroq(apiKey, prompt) {
+  const url = "https://api.groq.com/openai/v1/chat/completions";
+  const payload = {
+    model: "llama-3.3-70b-versatile",
+    messages: [
+      { role: "system", content: "You are an expert AI assistant that responds ONLY with valid JSON." },
+      { role: "user", content: prompt }
+    ],
+    temperature: 0.7,
+    response_format: { type: "json_object" }
+  };
+  const raw = await makeHttpsPost(url, { "Authorization": `Bearer ${apiKey}` }, payload, 4000);
+  const json = JSON.parse(raw);
+  return json.choices[0].message.content;
+}
+
+/**
+ * OpenAI LLM Caller
+ */
+async function callOpenAI(apiKey, prompt) {
+  const url = "https://api.openai.com/v1/chat/completions";
+  const payload = {
+    model: "gpt-4o-mini",
+    messages: [
+      { role: "system", content: "You are an expert AI assistant that responds ONLY with valid JSON." },
+      { role: "user", content: prompt }
+    ],
+    temperature: 0.7,
+    response_format: { type: "json_object" }
+  };
+  const raw = await makeHttpsPost(url, { "Authorization": `Bearer ${apiKey}` }, payload, 4000);
+  const json = JSON.parse(raw);
+  return json.choices[0].message.content;
 }
 
 function extractKeyEntities(text) {
@@ -196,26 +269,67 @@ function generateDeepSemanticComments(postText, authorName, sourceCategory, cust
     };
   }
 
-  // 10. DEFAULT ENTERPRISE LENDING THOUGHT LEADERSHIP
+  // 10. DEFAULT ENTERPRISE BANKING & CREDIT THOUGHT LEADERSHIP (NO FORCED LOS)
   return {
-    value_add: `${prefix}From a lending technology standpoint, the key to scaling digital credit journeys for ${org} lies in building a modular, API-first Loan Origination System (LOS) that decouples risk policy configuration from core banking dependencies, enabling rapid product rollouts while maintaining audit compliance.`,
-    provocative_question: `As digital lending architectures evolve, how are product teams balancing automated straight-through processing (STP) with granular risk governance at the committee level?`,
-    executive_perspective: `Scalable credit platforms must be designed with both borrower speed and institutional governance in mind, ensuring technology strengthens credit judgment rather than bypassing it.`
+    value_add: `${prefix}From an institutional credit standpoint, sustainable growth for ${org} requires balancing rapid market expansion with counter-cyclical risk discipline, ensuring underwriting policy standards and governance remain steadfast across changing credit cycles.`,
+    provocative_question: `As the broader Indian BFSI landscape navigates evolving liquidity dynamics and credit demand, what key risk indicators is your leadership monitoring most closely this quarter?`,
+    executive_perspective: `Institutional resilience is built on the foundation of disciplined credit governance and sound risk management, ensuring technology and capital work in synergy to foster long-term stakeholder value.`
   };
 }
 
 /**
- * Main Exported Comment Generator Function
+ * Main Exported Comment Generator Function (Multi-Provider LLM Agent)
  */
 async function generateCommentsForPost(postText, authorName, sourceCategory, customGuidance = "") {
-  if (GEMINI_API_KEY && GEMINI_API_KEY.trim().length > 10) {
-    return await generateGeminiComments(postText, authorName, sourceCategory, customGuidance);
+  const persona = loadPersona();
+  const provider = persona.llm_provider || "gemini";
+  const geminiKey = persona.gemini_api_key || process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+  const groqKey = persona.groq_api_key || process.env.GROQ_API_KEY;
+  const openaiKey = persona.openai_api_key || process.env.OPENAI_API_KEY;
+
+  const prompt = buildAdaptivePrompt(persona, postText, authorName, sourceCategory, customGuidance);
+
+  let rawLlmOutput = null;
+
+  try {
+    if ((provider === "gemini" || !provider) && geminiKey && geminiKey.trim().length > 10) {
+      rawLlmOutput = await callGemini(geminiKey.trim(), prompt);
+    } else if (provider === "groq" && groqKey && groqKey.trim().length > 10) {
+      rawLlmOutput = await callGroq(groqKey.trim(), prompt);
+    } else if (provider === "openai" && openaiKey && openaiKey.trim().length > 10) {
+      rawLlmOutput = await callOpenAI(openaiKey.trim(), prompt);
+    } else if (geminiKey && geminiKey.trim().length > 10) {
+      rawLlmOutput = await callGemini(geminiKey.trim(), prompt);
+    }
+  } catch (llmErr) {
+    console.warn(`[AI Comment Generator] LLM call error (${provider}):`, llmErr.message);
   }
+
+  if (rawLlmOutput) {
+    try {
+      const cleanJson = rawLlmOutput.replace(/```json/gi, "").replace(/```/g, "").trim();
+      const parsed = JSON.parse(cleanJson);
+      if (parsed.value_add && parsed.provocative_question && parsed.executive_perspective) {
+        return {
+          value_add: parsed.value_add,
+          provocative_question: parsed.provocative_question,
+          executive_perspective: parsed.executive_perspective
+        };
+      }
+    } catch (parseErr) {
+      console.warn("[AI Comment Generator] Failed to parse LLM JSON, using semantic fallback:", parseErr.message);
+    }
+  }
+
+  // Instant seamless fallback to Context-Adaptive Persona Engine
   return generateDeepSemanticComments(postText, authorName, sourceCategory, customGuidance);
 }
 
 module.exports = {
   generateCommentsForPost,
   generateDeepSemanticComments,
-  generateGeminiComments
+  callGemini,
+  callGroq,
+  callOpenAI,
+  buildAdaptivePrompt
 };

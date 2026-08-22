@@ -426,6 +426,51 @@ How is your team currently handling data reconciliation when telemetry streams s
     return sendJSON(res, { success: true, persona: body });
   }
 
+  if (pathname === "/api/test-llm" && method === "POST") {
+    const body = await parseBody(req);
+    const { provider, apiKey } = body;
+    if (!apiKey || apiKey.trim().length < 5) {
+      return sendJSON(res, { success: false, error: "Please enter a valid API key" }, 400);
+    }
+    try {
+      const { callGemini, callGroq, callOpenAI } = safeRequire("commentGenerator");
+      const testPrompt = "You are Sriram Ganesan (Head of LOS Product, M2P Fintech). Return valid JSON: {\"value_add\": \"AI connection successful\", \"provocative_question\": \"Are workflows ready?\", \"executive_perspective\": \"Enterprise AI enabled.\"}";
+      let result = null;
+      if (provider === "gemini" || !provider) {
+        result = await callGemini(apiKey.trim(), testPrompt);
+      } else if (provider === "groq") {
+        result = await callGroq(apiKey.trim(), testPrompt);
+      } else if (provider === "openai") {
+        result = await callOpenAI(apiKey.trim(), testPrompt);
+      }
+      return sendJSON(res, { success: true, message: "AI Connection Successful! Responses are active.", sample: result });
+    } catch (err) {
+      return sendJSON(res, { success: false, error: err.message }, 500);
+    }
+  }
+
+  if (pathname === "/api/save-llm-settings" && method === "POST") {
+    const body = await parseBody(req);
+    const persona = loadPersona();
+    persona.llm_provider = body.llm_provider || "gemini";
+    if (body.gemini_api_key !== undefined) persona.gemini_api_key = body.gemini_api_key;
+    if (body.groq_api_key !== undefined) persona.groq_api_key = body.groq_api_key;
+    if (body.openai_api_key !== undefined) persona.openai_api_key = body.openai_api_key;
+    savePersona(persona);
+
+    // Save to .env if possible
+    try {
+      const envPath = path.join(__dirname, ".env");
+      let envContent = fs.existsSync(envPath) ? fs.readFileSync(envPath, "utf-8") : "";
+      if (persona.gemini_api_key) envContent += `\nGEMINI_API_KEY=${persona.gemini_api_key}`;
+      if (persona.groq_api_key) envContent += `\nGROQ_API_KEY=${persona.groq_api_key}`;
+      if (persona.openai_api_key) envContent += `\nOPENAI_API_KEY=${persona.openai_api_key}`;
+      fs.writeFileSync(envPath, envContent.trim() + "\n", "utf-8");
+    } catch (e) {}
+
+    return sendJSON(res, { success: true, message: "LLM Settings saved successfully!", persona });
+  }
+
   // Static File Serving
   let filePath = pathname === "/" ? path.join(PUBLIC_DIR, "index.html") : path.join(PUBLIC_DIR, pathname);
   if (!fs.existsSync(filePath)) {

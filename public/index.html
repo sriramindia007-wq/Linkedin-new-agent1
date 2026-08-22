@@ -45,7 +45,12 @@
       <span class="navbar-brand text-white fw-bold mb-0 h1 d-flex align-items-center gap-2">
         <i class="fa-brands fa-linkedin fa-lg text-info"></i> Lending Intelligence & Comment Agent
       </span>
-      <span class="text-white-50 small">Sriram Ganesan | Head - LOS Product & Solutions (M2P Fintech)</span>
+      <div class="d-flex align-items-center gap-3">
+        <button class="btn btn-outline-info btn-sm fw-bold px-3 d-flex align-items-center gap-2" onclick="openLlmModal()">
+          <i class="fa-solid fa-brain"></i> 🤖 AI Persona &amp; LLM Settings
+        </button>
+        <span class="text-white-50 small d-none d-md-inline">Sriram Ganesan | Head - LOS Product &amp; Solutions (M2P Fintech)</span>
+      </div>
     </div>
   </nav>
 
@@ -977,6 +982,154 @@
     loadSources();
     loadPersona();
 
+    // AI Persona & LLM Settings Modal Handlers
+    let currentPersonaConfig = {};
+
+    async function openLlmModal() {
+      try {
+        const res = await fetch("/api/persona");
+        currentPersonaConfig = await res.json();
+        const provider = currentPersonaConfig.llm_provider || "gemini";
+        document.getElementById("llmProviderSelect").value = provider;
+        
+        if (provider === "gemini") {
+          document.getElementById("llmApiKeyInput").value = currentPersonaConfig.gemini_api_key || "";
+        } else if (provider === "groq") {
+          document.getElementById("llmApiKeyInput").value = currentPersonaConfig.groq_api_key || "";
+        } else if (provider === "openai") {
+          document.getElementById("llmApiKeyInput").value = currentPersonaConfig.openai_api_key || "";
+        }
+
+        if (currentPersonaConfig.core_philosophy) {
+          document.getElementById("modalPhilosophy").value = currentPersonaConfig.core_philosophy;
+        }
+        if (currentPersonaConfig.tone_guidelines?.rules) {
+          document.getElementById("modalToneRules").value = currentPersonaConfig.tone_guidelines.rules.join("\n");
+        }
+
+        toggleLlmFields();
+        document.getElementById("llmTestResult").innerHTML = "";
+
+        const modalEl = document.getElementById("llmModal");
+        const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+        modal.show();
+      } catch (e) {
+        alert("Failed to load settings: " + e.message);
+      }
+    }
+
+    function toggleLlmFields() {
+      const provider = document.getElementById("llmProviderSelect").value;
+      const keyGroup = document.getElementById("apiKeyFieldGroup");
+      const keyLabel = document.getElementById("activeKeyLabel");
+      const helpLink = document.getElementById("getKeyHelpLink");
+
+      if (provider === "deep_contextual") {
+        keyGroup.style.display = "none";
+      } else {
+        keyGroup.style.display = "block";
+        if (provider === "gemini") {
+          keyLabel.innerText = "Gemini API Key";
+          helpLink.href = "https://aistudio.google.com/app/apikey";
+          helpLink.innerText = "Get free Gemini API Key ↗";
+          document.getElementById("llmApiKeyInput").value = currentPersonaConfig.gemini_api_key || "";
+        } else if (provider === "groq") {
+          keyLabel.innerText = "Groq API Key";
+          helpLink.href = "https://console.groq.com/keys";
+          helpLink.innerText = "Get free Groq Key (Llama 3.3) ↗";
+          document.getElementById("llmApiKeyInput").value = currentPersonaConfig.groq_api_key || "";
+        } else if (provider === "openai") {
+          keyLabel.innerText = "OpenAI API Key";
+          helpLink.href = "https://platform.openai.com/api-keys";
+          helpLink.innerText = "Get OpenAI API Key ↗";
+          document.getElementById("llmApiKeyInput").value = currentPersonaConfig.openai_api_key || "";
+        }
+      }
+    }
+
+    function toggleKeyVisibility() {
+      const input = document.getElementById("llmApiKeyInput");
+      const icon = document.getElementById("eyeIcon");
+      if (input.type === "password") {
+        input.type = "text";
+        icon.className = "fa-solid fa-eye-slash";
+      } else {
+        input.type = "password";
+        icon.className = "fa-solid fa-eye";
+      }
+    }
+
+    async function testLlmConnection() {
+      const provider = document.getElementById("llmProviderSelect").value;
+      const apiKey = document.getElementById("llmApiKeyInput").value;
+      const resultDiv = document.getElementById("llmTestResult");
+      const btn = document.getElementById("btnTestLlm");
+
+      if (!apiKey || apiKey.trim().length < 5) {
+        resultDiv.innerHTML = '<span class="text-danger"><i class="fa-solid fa-triangle-exclamation"></i> Please paste an API key first.</span>';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Testing...';
+      resultDiv.innerHTML = '<span class="text-muted"><i class="fa-solid fa-spinner fa-spin"></i> Contacting ' + provider.toUpperCase() + ' API...</span>';
+
+      try {
+        const res = await fetch("/api/test-llm", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ provider, apiKey })
+        });
+        const data = await res.json();
+        if (data.success) {
+          resultDiv.innerHTML = '<span class="text-success fw-bold"><i class="fa-solid fa-circle-check"></i> ' + data.message + '</span>';
+        } else {
+          resultDiv.innerHTML = '<span class="text-danger"><i class="fa-solid fa-circle-xmark"></i> Connection Error: ' + (data.error || "Invalid response") + '</span>';
+        }
+      } catch (err) {
+        resultDiv.innerHTML = '<span class="text-danger"><i class="fa-solid fa-circle-xmark"></i> Network Error: ' + err.message + '</span>';
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-bolt me-1"></i> Test Connection';
+      }
+    }
+
+    async function saveLlmSettingsFromModal() {
+      const provider = document.getElementById("llmProviderSelect").value;
+      const keyVal = document.getElementById("llmApiKeyInput").value.trim();
+      const philosophy = document.getElementById("modalPhilosophy").value.trim();
+      const rules = document.getElementById("modalToneRules").value.split("\n").map(s => s.trim()).filter(Boolean);
+
+      const payload = {
+        llm_provider: provider,
+        core_philosophy: philosophy,
+        tone_guidelines: { rules }
+      };
+
+      if (provider === "gemini") payload.gemini_api_key = keyVal;
+      if (provider === "groq") payload.groq_api_key = keyVal;
+      if (provider === "openai") payload.openai_api_key = keyVal;
+
+      try {
+        const res = await fetch("/api/save-llm-settings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert("✅ AI Persona & LLM Settings successfully saved and applied!");
+          const modalEl = document.getElementById("llmModal");
+          bootstrap.Modal.getInstance(modalEl).hide();
+          loadPersona();
+        } else {
+          alert("Error: " + (data.error || "Failed to save"));
+        }
+      } catch (e) {
+        alert("Error saving settings: " + e.message);
+      }
+    }
+
     // PWA Service Worker Registration
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
@@ -986,5 +1139,74 @@
       });
     }
   </script>
+
+  <!-- Modal: AI Persona & LLM Settings -->
+  <div class="modal fade" id="llmModal" tabindex="-1" aria-labelledby="llmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title d-flex align-items-center gap-2" id="llmModalLabel">
+            <i class="fa-solid fa-brain text-info"></i> 🤖 AI Engine &amp; Sriram Persona Calibration
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4">
+          <div class="alert alert-info py-2 small mb-3">
+            <i class="fa-solid fa-info-circle me-1"></i>
+            <strong>Context-Adaptive Persona:</strong> The AI adapts naturally to the post type (Macro, NPA, Regulatory, MFI, Co-Lending, or LOS Tech) without forcing product plugs where they don't belong.
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Select AI Provider</label>
+            <select class="form-select" id="llmProviderSelect" onchange="toggleLlmFields()">
+              <option value="gemini">Google Gemini (gemini-1.5-flash) [Recommended / Free Tier]</option>
+              <option value="groq">Groq (Llama 3.3 70B - Ultra Fast) [Free]</option>
+              <option value="openai">OpenAI (GPT-4o-mini)</option>
+              <option value="deep_contextual">Smart Context-Adaptive Engine (Built-in / Offline)</option>
+            </select>
+          </div>
+
+          <div class="mb-3" id="apiKeyFieldGroup">
+            <label class="form-label fw-bold d-flex justify-content-between">
+              <span>API Key (<span id="activeKeyLabel">Gemini API Key</span>)</span>
+              <small class="text-muted"><a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-decoration-none" id="getKeyHelpLink">Get free Gemini API Key ↗</a></small>
+            </label>
+            <div class="input-group">
+              <input type="password" class="form-control font-monospace" id="llmApiKeyInput" placeholder="Paste your API key here...">
+              <button class="btn btn-outline-secondary" type="button" onclick="toggleKeyVisibility()">
+                <i class="fa-solid fa-eye" id="eyeIcon"></i>
+              </button>
+              <button class="btn btn-primary px-3 fw-bold" type="button" id="btnTestLlm" onclick="testLlmConnection()">
+                <i class="fa-solid fa-bolt me-1"></i> Test Connection
+              </button>
+            </div>
+            <div id="llmTestResult" class="mt-2 small"></div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Persona Speaking Philosophy</label>
+            <textarea class="form-control small font-monospace" id="modalPhilosophy" rows="2">Technology should empower lenders—not replace their judgment. Modern lending platforms must provide configurable workflows, intelligent automation, and decision support while ensuring lending decisions remain governed by each institution's own credit policies, risk appetite, and compliance obligations.</textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Contextual Tone Guidelines &amp; Anti-Spam Rules</label>
+            <textarea class="form-control small font-monospace" id="modalToneRules" rows="6">CRITICAL: Do NOT force product plugs or mention 'LOS' / 'Loan Origination System' on every post! Tailor your comment strictly to the post's nature:
+- If Macro / Rates / Liquidity: Speak on NIM, Cost of Funds, CD Ratio, and ALM.
+- If NPA / Asset Quality: Speak on provisioning, early delinquency (SMA-0/1/2), and debt recovery (SARFAESI/IBC).
+- If Regulatory / RBI: Speak on compliance agility, transparency (KFS), and risk governance.
+- If Co-Lending: Speak on FLDG caps, risk-sharing economics, and underwriting alignment.
+- If Leadership / Appointments: Offer executive congratulations and strategic transformation insights.
+- If Lending Tech (when explicitly relevant): Speak on workflow orchestration, rule engines (BRE), and STP.</textarea>
+          </div>
+        </div>
+        <div class="modal-footer bg-light">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-success fw-bold px-4" onclick="saveLlmSettingsFromModal()">
+            <i class="fa-solid fa-check me-1"></i> Save &amp; Apply
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
