@@ -133,6 +133,27 @@
       </div>
     </div>
 
+    <!-- ⚡ Instant Single LinkedIn URL Ingestion Bar -->
+    <div class="card p-3 mb-4 bg-white shadow-sm border-start border-4 border-info rounded-3">
+      <div class="row align-items-center g-2">
+        <div class="col-md-3">
+          <label class="form-label fw-bold mb-0 text-dark">
+            <i class="fa-solid fa-link text-info me-1"></i> ⚡ Analyze Any LinkedIn Post:
+          </label>
+          <div class="small text-muted">Paste shortlink (lnkd.in) or post URL</div>
+        </div>
+        <div class="col-md-7">
+          <input type="text" class="form-control font-monospace" id="directPostUrlInput" placeholder="https://lnkd.in/p/gHfteuRv or https://www.linkedin.com/posts/...">
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-info text-white fw-bold w-100 text-nowrap" id="btnIngestUrl" onclick="ingestDirectUrl()">
+            <i class="fa-solid fa-bolt me-1"></i> Ingest &amp; Analyze
+          </button>
+        </div>
+      </div>
+      <div id="ingestStatusMessage" class="mt-2 small" style="display:none;"></div>
+    </div>
+
     <!-- Navigation Tabs (ALL 7 TABS) -->
     <ul class="nav nav-tabs mb-4" id="mainTab" role="tablist">
       <li class="nav-item" role="presentation">
@@ -961,6 +982,45 @@
         alert("✅ Persona settings saved successfully!");
       } catch (err) {
         alert("Failed to save: " + err.message);
+      }
+    }
+
+    async function ingestDirectUrl() {
+      const url = document.getElementById("directPostUrlInput").value.trim();
+      const btn = document.getElementById("btnIngestUrl");
+      const msgDiv = document.getElementById("ingestStatusMessage");
+
+      if (!url) {
+        alert("Please paste a LinkedIn post URL or shortlink first.");
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Ingesting...';
+      msgDiv.style.display = "block";
+      msgDiv.innerHTML = '<span class="text-info"><i class="fa-solid fa-spinner fa-spin"></i> Resolving URL, extracting LinkedIn post content & generating AI comments...</span>';
+
+      try {
+        const res = await fetch("/api/ingest-url", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url })
+        });
+        const data = await res.json();
+        if (data.success) {
+          msgDiv.innerHTML = '<span class="text-success fw-bold"><i class="fa-solid fa-circle-check"></i> ' + data.message + '</span>';
+          document.getElementById("directPostUrlInput").value = "";
+          loadStats();
+          loadPendingPosts();
+          setTimeout(() => { msgDiv.style.display = "none"; }, 5000);
+        } else {
+          msgDiv.innerHTML = '<span class="text-danger fw-bold"><i class="fa-solid fa-circle-xmark"></i> ' + (data.error || "Ingestion failed") + '</span>';
+        }
+      } catch (err) {
+        msgDiv.innerHTML = '<span class="text-danger fw-bold"><i class="fa-solid fa-circle-xmark"></i> Network Error: ' + err.message + '</span>';
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-bolt me-1"></i> Ingest &amp; Analyze';
       }
     }
 

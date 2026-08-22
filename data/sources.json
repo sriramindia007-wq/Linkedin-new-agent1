@@ -1,5 +1,14 @@
 [
   {
+    "id": "nbfcadvisor",
+    "name": "NBFC Advisor",
+    "category": "Industry Media & Communities",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/nbfcadvisor/posts/",
+    "role_type": "NBFC & Microfinance Advisory",
+    "active": true
+  },
+  {
     "id": "mfin-india",
     "name": "MFIN (Microfinance Institutions Network)",
     "category": "Regulatory, Government & Policy",

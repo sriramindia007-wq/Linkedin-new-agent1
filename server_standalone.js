@@ -389,6 +389,86 @@ How is your team currently handling data reconciliation when telemetry streams s
     return sendJSON(res, { success: true, post: updated });
   }
 
+  // 1-Click Single LinkedIn URL Ingestion
+  if (pathname === "/api/ingest-url" && method === "POST") {
+    const body = await parseBody(req);
+    let targetUrl = (body.url || "").trim();
+    if (!targetUrl) return sendJSON(res, { success: false, error: "Please provide a valid LinkedIn URL" }, 400);
+
+    // Resolve shortlink if needed
+    if (targetUrl.includes("lnkd.in")) {
+      try {
+        const resolved = await new Promise((resolve) => {
+          https.get(targetUrl, { headers: { "User-Agent": "Mozilla/5.0" } }, (res) => {
+            resolve(res.headers.location || targetUrl);
+          }).on("error", () => resolve(targetUrl));
+        });
+        targetUrl = resolved;
+      } catch (e) {}
+    }
+
+    try {
+      const { chromium } = require("playwright");
+      const sessionDir = path.join(__dirname, "session_data");
+      const browser = await chromium.launchPersistentContext(sessionDir, { headless: true });
+      const page = await browser.newPage();
+      await page.goto(targetUrl, { waitUntil: "domcontentloaded", timeout: 15000 });
+      await new Promise(r => setTimeout(r, 2000));
+
+      const extracted = await page.evaluate(() => {
+        const textElem = document.querySelector("div.update-components-text, .feed-shared-update-v2__description, span.break-words, .feed-shared-text, .attributed-text-segment-list__content");
+        const authorElem = document.querySelector(".update-components-actor__title span[dir='ltr'], .feed-shared-actor__name, a.app-aware-link span[dir='ltr']");
+        const timeElem = document.querySelector("span.update-components-actor__sub-description span[aria-hidden='true'], time");
+        const urn = document.querySelector("div[data-urn*='urn:li:activity']")?.getAttribute("data-urn") || "";
+        return {
+          author: authorElem ? authorElem.innerText.trim() : "LinkedIn Creator",
+          time: timeElem ? timeElem.innerText.trim() : "Recent",
+          text: textElem ? textElem.innerText.trim() : "",
+          urn
+        };
+      });
+
+      await browser.close();
+
+      if (!extracted.text || extracted.text.length < 30) {
+        return sendJSON(res, { success: false, error: "Could not extract text from this LinkedIn post (may require login or post was deleted)" }, 400);
+      }
+
+      const { evaluatePostContext } = safeRequire("contentGatekeeper");
+      const { calculateRelevance } = safeRequire("relevanceScorer");
+      const { generateCommentsForPost } = safeRequire("commentGenerator");
+
+      const validation = evaluatePostContext(extracted.text, extracted.author, "Direct Ingestion");
+      const scoreResult = calculateRelevance(extracted.text, "Direct Ingestion", extracted.author, extracted.author);
+      const comments = await generateCommentsForPost(extracted.text, extracted.author, "Direct Ingestion");
+
+      const postItem = {
+        id: `post_manual_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+        source_id: "direct_ingest",
+        source_name: extracted.author || "LinkedIn Post",
+        source_category: "Direct Ingestion",
+        author_name: extracted.author || "LinkedIn Author",
+        author_headline: "LinkedIn Lending Voice",
+        post_url: targetUrl,
+        post_text: extracted.text,
+        published_relative: extracted.time || "Recent",
+        scraped_at: new Date().toISOString(),
+        status: "PENDING",
+        priority_score: scoreResult.score || scoreResult.priority_score || 90,
+        impact_badge: scoreResult.impact_badge || "🔥 Top Priority",
+        post_type_badge: validation.postTypeBadge || "⚡ Digital Lending & Credit",
+        badge_color: "danger",
+        relevance_tags: scoreResult.tags || scoreResult.relevance_tags || ["Lending", "Credit"],
+        generated_comments: comments
+      };
+
+      insertPost(postItem);
+      return sendJSON(res, { success: true, message: "Post successfully ingested & analyzed!", post: postItem });
+    } catch (err) {
+      return sendJSON(res, { success: false, error: "Ingestion failed: " + err.message }, 500);
+    }
+  }
+
   // Non-blocking Scrape Trigger (Responds instantly in < 50ms)
   if ((pathname === "/api/scrape" || pathname === "/api/instant-scrape") && method === "POST") {
     const body = await parseBody(req);

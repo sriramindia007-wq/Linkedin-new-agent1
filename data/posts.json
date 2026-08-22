@@ -1,5 +1,62 @@
 [
   {
+    "id": "post_banknbfc_ev_conclave",
+    "source_id": "banknbfc",
+    "source_name": "BankNBFC.com",
+    "source_category": "Industry Media & Communities",
+    "author_name": "BankNBFC.com",
+    "author_headline": "Banking & NBFC Industry Conclave",
+    "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7496593835213455360/",
+    "post_text": "Financing India's EV Mobility Revolution. We sincerely appreciate Mr. Abhay Singh, Founder & Director, Bundela Fin Corp, for participating in the insightful panel discussion on “Financing India's EV Mobility Revolution” at India's First Auto Loan & Leasing FinX Banking Conclave, held on August 19th in Mumbai, presented by Qualtech Edge and powered by Park+. As the EV ecosystem continues to expand, collaboration between EV manufacturers, lenders, fintechs and mobility stakeholders will be crucial to making EV financing more accessible, affordable and customer-centric.",
+    "published_relative": "13h",
+    "scraped_at": "2026-08-22T04:40:28.062Z",
+    "status": "PENDING",
+    "priority_score": 85,
+    "impact_badge": "⚡ High Impact (EV / Asset Finance)",
+    "post_type_badge": "🚗 EV Mobility & Vehicle Finance",
+    "badge_color": "warning",
+    "relevance_tags": [
+      "EV Financing",
+      "Vehicle Finance",
+      "Auto Loans",
+      "FinX Conclave"
+    ],
+    "generated_comments": {
+      "value_add": "Originating vehicle and asset finance journeys at the point of sale requires instant dealer-subvention calculations, Vahan API verification, and automated asset-backed scorecards. Modern lending platforms must provide sub-10 minute in-dealership approvals while maintaining robust credit cutoffs.",
+      "provocative_question": "As EV financing evolves with differing battery depreciation cycles, what dynamic risk-scoring variables are credit teams introducing into their decision engines to accurately price collateral residual value?",
+      "executive_perspective": "Point-of-sale asset financing thrives when seamless dealer integration is anchored by intelligent underwriting that manages collateral risk across the entire asset lifecycle."
+    }
+  },
+  {
+    "id": "post_nbfcadvisor_svatantra",
+    "source_id": "nbfcadvisor",
+    "source_name": "NBFC Advisor",
+    "source_category": "Industry Media & Communities",
+    "author_name": "NBFC Advisor",
+    "author_headline": "NBFC & Microfinance Advisory",
+    "post_url": "https://www.linkedin.com/posts/nbfcadvisor-nbfc-microfinance-share-7496476741289529344-q2v2/",
+    "post_text": "Ananya Birla-led Svatantra Microfin Limited has filed its DRHP with SEBI for a proposed ₹3,000 crore IPO. It offers an important lesson for anyone analysing an NBFC or microfinance lender. Svatantra Microfin has filed its DRHP with SEBI for a ₹3,000 crore IPO: ➟ ₹1,500 crore fresh issue ➟ ₹1,500 crore Offer for Sale ➟ Fresh issue proceeds to strengthen Tier-I capital and support future lending growth ➟ Microfinance AUM of ₹21,093 crore as of March 2026 ➟ Gross Stage-3 ratio improved to 1.19% in FY26 from 2.24% in FY25. No single district contributes more than 2.74% of microfinance AUM. No single state contributes more than 23.02%. Look beyond growth: Check Geographic concentration, Asset quality, Borrower leverage, Collection efficiency, Capital adequacy, Portfolio diversification.",
+    "published_relative": "16h",
+    "scraped_at": "2026-08-22T04:40:28.061Z",
+    "status": "PENDING",
+    "priority_score": 99,
+    "impact_badge": "🔥 Top Priority (High MFI / Risk Relevance)",
+    "post_type_badge": "🌾 Microfinance & Portfolio Risk",
+    "badge_color": "danger",
+    "relevance_tags": [
+      "Microfinance",
+      "IPO",
+      "Portfolio Diversification",
+      "Asset Quality",
+      "Capital Adequacy"
+    ],
+    "generated_comments": {
+      "value_add": "Scaling rural credit distribution at ₹3,000 crore scale requires an agile Loan Origination System (LOS) capable of performing real-time multi-bureau JLG indebtedness de-duplication (CRIF/Equifax/CIBIL) and verifying household income caps directly on mobile devices at center meetings, ensuring rapid disbursement without compromising credit discipline.",
+      "provocative_question": "As microfinance institutions balance high-volume rural disbursement SLAs with RBI's revised regulatory framework, what automated guardrails are being built into your origination workflows to prevent borrower over-leveraging across multiple lenders?",
+      "executive_perspective": "Sustainable microfinance expansion across Bharat rests on resilient digital infrastructure that pairs automated rule compliance with empowering ground-level credit officers to exercise sound risk judgment."
+    }
+  },
+  {
     "id": "post_svatantra_ipo",
     "source_id": "finsamudra",
     "source_name": "FinSamudra",
