@@ -1340,12 +1340,12 @@
       }
     }
 
-    // PWA Service Worker Registration
+    // Force unregister any legacy PWA ServiceWorker
     if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/service-worker.js")
-          .then(reg => console.log("✅ PWA ServiceWorker active:", reg.scope))
-          .catch(err => console.warn("PWA ServiceWorker error:", err));
+      navigator.serviceWorker.getRegistrations().then(regs => {
+        for (let reg of regs) {
+          reg.unregister().then(() => console.log("🗑️ Unregistered old ServiceWorker:", reg.scope));
+        }
       });
     }
   </script>

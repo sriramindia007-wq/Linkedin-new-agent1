@@ -570,12 +570,16 @@ How is your team currently handling data reconciliation when telemetry streams s
       if (ext === ".svg") contentType = "image/svg+xml";
       if (ext === ".png") contentType = "image/png";
       if (ext === ".ico") contentType = "image/x-icon";
-      res.writeHead(200, { 
+      const headers = {
         "Content-Type": contentType,
-        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0",
         "Pragma": "no-cache",
         "Expires": "0"
-      });
+      };
+      if (contentType === "text/html") {
+        headers["Clear-Site-Data"] = '"cache", "storage"';
+      }
+      res.writeHead(200, headers);
       res.end(content);
     }
   });
