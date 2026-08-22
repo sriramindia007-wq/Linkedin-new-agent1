@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Intelligent Priority & Relevance Scoring Engine
  * Calibrated for Sriram Ganesan (Head of LOS Product & Product Solutions, M2P Fintech)
  */
@@ -28,6 +28,19 @@ const HIGH_PRIORITY_KEYWORDS = [
   { term: "fldg", weight: 18, tag: "FLDG Compliance" },
   { term: "credit policy", weight: 18, tag: "Credit Policy" },
   { term: "api", weight: 10, tag: "API Infrastructure" },
+  { term: "npa", weight: 22, tag: "NPA & Asset Quality" },
+  { term: "bad loan", weight: 20, tag: "Stressed Assets" },
+  { term: "stressed asset", weight: 20, tag: "Stressed Assets" },
+  { term: "asset quality", weight: 20, tag: "Asset Quality" },
+  { term: "debt recovery", weight: 18, tag: "Debt Recovery" },
+  { term: "sarfaesi", weight: 18, tag: "SARFAESI" },
+  { term: "nclt", weight: 18, tag: "NCLT / IBC" },
+  { term: "ibc", weight: 18, tag: "Insolvency & Bankruptcy" },
+  { term: "credit growth", weight: 18, tag: "Credit Growth" },
+  { term: "nim", weight: 15, tag: "Net Interest Margin" },
+  { term: "unsecured lending", weight: 18, tag: "Unsecured Credit" },
+  { term: "personal loan", weight: 15, tag: "Personal Loans" },
+  { term: "home loan", weight: 15, tag: "Home Loans" },
   { term: "fintech", weight: 8, tag: "Fintech" }
 ];
 
@@ -90,14 +103,18 @@ function calculateRelevance(postText, sourceCategory, sourceName, authorName) {
   }
 
   return {
+    score: score,
     priority_score: score,
     impact_badge: impactBadge,
     badge_color: badgeColor,
     priority_rank: priorityRank,
+    tags: matchedTags.slice(0, 4),
     relevance_tags: matchedTags.slice(0, 4)
   };
 }
 
 module.exports = {
-  calculateRelevance
+  calculateRelevance,
+  HIGH_PRIORITY_KEYWORDS,
+  SOURCE_TIER_WEIGHTS
 };

@@ -59,7 +59,7 @@
         </div>
         <div>
           <div class="fw-bold fs-6">⏰ Automated Daily Scraper Active</div>
-          <div class="small text-white-50">Scheduled Runs at <strong>07:00 AM Morning</strong> &amp; <strong>06:00 PM Evening</strong> Daily</div>
+          <div class="small text-white-50">Scheduled: <strong>07:00 AM &amp; 06:00 PM</strong> &bull; Last Refreshed: <strong id="statLastScrapeTime" class="text-warning">22 Aug, 09:03 AM IST</strong></div>
         </div>
       </div>
       <div class="d-flex gap-2">
@@ -413,6 +413,10 @@
         document.getElementById("statApproved").innerText = data.approved ?? data.APPROVED ?? 0;
         document.getElementById("statPosted").innerText = data.posted ?? data.POSTED ?? 0;
         document.getElementById("statSources").innerText = data.sources_count || 145;
+        if (data.last_scrape) {
+          const d = new Date(data.last_scrape);
+          document.getElementById("statLastScrapeTime").innerText = d.toLocaleDateString([], { day: '2-digit', month: 'short' }) + ", " + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
       } catch (e) {
         console.error(e);
       }

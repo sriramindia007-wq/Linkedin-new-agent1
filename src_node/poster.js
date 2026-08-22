@@ -96,5 +96,6 @@ async function postCommentToLinkedin(postId, postUrl, commentText) {
 }
 
 module.exports = {
-  postCommentToLinkedin
+  postCommentToLinkedin,
+  postCommentToLinkedIn: postCommentToLinkedin
 };

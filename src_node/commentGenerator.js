@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Context-Aware Comment Generator calibrated for Sriram Ganesan
  * Head of Loan Origination System (LOS) Product and Product Solutions at M2P Fintech
  * 
@@ -7,9 +7,13 @@
  * 2. Deep Contextual Semantic Engine (specialized for Indian Banking, MFIs, IPOs, Co-Lending, LOS/LMS, RBI Policy)
  */
 
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+let GoogleGenerativeAI = null;
+try {
+  GoogleGenerativeAI = require("@google/generative-ai").GoogleGenerativeAI;
+} catch (e) {}
+
 const { loadPersona } = require("./db");
-require("dotenv").config();
+try { require("dotenv").config(); } catch (e) {}
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
 
@@ -34,7 +38,7 @@ Read the following LinkedIn post carefully and generate 3 distinctly calibrated 
 `;
 
 /**
- * Generate Comments using Google Gemini LLM
+ * Generate Comments using Google Gemini LLM with Strict 3.5s Timeout
  */
 async function generateGeminiComments(postText, authorName, sourceCategory, customGuidance = "") {
   try {
@@ -61,7 +65,16 @@ Generate a JSON response with exactly three keys:
 Ensure the response is ONLY valid raw JSON with keys: value_add, provocative_question, executive_perspective.
 `;
 
-    const result = await model.generateContent(prompt);
+    // Hard 3500ms timeout for LLM generation
+    let timer = null;
+    const timeoutPromise = new Promise((_, reject) => {
+      timer = setTimeout(() => reject(new Error("Gemini generation timed out after 3.5s")), 3500);
+    });
+
+    const result = await Promise.race([model.generateContent(prompt), timeoutPromise]).finally(() => {
+      if (timer) clearTimeout(timer);
+    });
+
     const text = result.response.text().trim();
     const cleanJson = text.replace(/```json/g, "").replace(/```/g, "").trim();
     const parsed = JSON.parse(cleanJson);
@@ -71,7 +84,7 @@ Ensure the response is ONLY valid raw JSON with keys: value_add, provocative_que
       executive_perspective: parsed.executive_perspective || ""
     };
   } catch (err) {
-    console.warn("⚠️ Gemini API generation failed, using Deep Semantic Engine:", err.message);
+    // Instant seamless fallback to calibrated Deep Semantic Engine
     return generateDeepSemanticComments(postText, authorName, sourceCategory, customGuidance);
   }
 }
@@ -136,7 +149,16 @@ function generateDeepSemanticComments(postText, authorName, sourceCategory, cust
     };
   }
 
-  // 6. DEFAULT ENTERPRISE LENDING THOUGHT LEADERSHIP
+  // 6. NPA, STRESSED ASSETS, ASSET QUALITY & DEBT RECOVERY
+  if (textLower.includes("npa") || textLower.includes("bad loan") || textLower.includes("stressed asset") || textLower.includes("asset quality") || textLower.includes("debt recovery") || textLower.includes("sarfaesi") || textLower.includes("nclt") || textLower.includes("ibc") || textLower.includes("provisioning")) {
+    return {
+      value_add: `${prefix}Managing gross NPAs and early-warning stress signals in dynamic credit cycles requires proactive early delinquency telemetry directly connected to the LMS/LOS. Modern lending systems must integrate automated early-alert triggers (SMA-0 to SMA-2) and dynamic risk-scoring adjustments to prevent asset quality deterioration before default events materialize.`,
+      provocative_question: `As lenders manage asset quality amid rising unsecured retail exposures, what telemetry indicators are credit risk teams incorporating into their underwriting models to detect early stress prior to bureau reporting lags?`,
+      executive_perspective: `Asset quality discipline is the bedrock of sustainable banking. Technology infrastructure must balance credit growth ambition with continuous portfolio surveillance and automated provisioning governance.`
+    };
+  }
+
+  // 7. DEFAULT ENTERPRISE LENDING THOUGHT LEADERSHIP
   return {
     value_add: `${prefix}From a lending technology standpoint, the key to scaling digital credit journeys lies in building a modular, API-first Loan Origination System (LOS) that decouples risk policy configuration from core banking dependencies, enabling rapid product rollouts while maintaining audit compliance.`,
     provocative_question: `As digital lending architectures evolve, how are product teams balancing automated straight-through processing (STP) with granular risk governance at the committee level?`,

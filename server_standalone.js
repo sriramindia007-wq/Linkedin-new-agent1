@@ -74,51 +74,59 @@ function parseBody(req) {
   });
 }
 
-// Background Scrape Runner (Non-blocking)
+// Background Scrape Runner (Non-blocking & Ultra-Reliable)
 async function triggerBackgroundScrape(sourceIds = null, maxPosts = 2, label = "Manual") {
   if (activeScrapeJob.isRunning) {
     return activeScrapeJob;
   }
 
+  const startTime = Date.now();
   activeScrapeJob = {
     isRunning: true,
     progress: 0,
-    total: 0,
-    currentSource: "Initializing...",
+    total: sourceIds ? sourceIds.length : (loadSources().length || 145),
+    currentSource: "Initializing Ultra-Reliable Engine...",
     newPosts: 0,
-    status: `Running (${label})`
+    status: `Running (${label})`,
+    startTime: new Date().toISOString()
   };
 
   (async () => {
+    let count = 0;
     try {
       const { runScraper } = safeRequire("scraper");
-      const count = await runScraper(sourceIds, maxPosts, (current, total, srcName) => {
+      count = await runScraper(sourceIds, maxPosts, (current, total, srcName) => {
         activeScrapeJob.progress = current;
         activeScrapeJob.total = total;
         activeScrapeJob.currentSource = srcName;
       });
 
       lastScrapeTime = new Date().toISOString();
+      const elapsedSec = Math.round((Date.now() - startTime) / 1000);
       activeScrapeJob = {
         isRunning: false,
-        progress: activeScrapeJob.total,
-        total: activeScrapeJob.total,
+        progress: activeScrapeJob.total || current,
+        total: activeScrapeJob.total || current,
         currentSource: "Complete",
         newPosts: count,
-        status: `Completed (${label})`,
-        timestamp: lastScrapeTime
+        status: `Completed (${label}) in ${elapsedSec}s`,
+        timestamp: lastScrapeTime,
+        elapsedSeconds: elapsedSec
       };
-      console.log(`✅ [SCRAPER FINISHED] Ingested ${count} new qualifying posts.`);
+      console.log(`✅ [SCRAPER FINISHED] Scraped ${activeScrapeJob.total} sources in ${elapsedSec}s. Ingested ${count} new qualifying posts.`);
     } catch (err) {
       console.error(`❌ [SCRAPER FAILED] Error:`, err.message);
       activeScrapeJob = {
         isRunning: false,
-        progress: 0,
-        total: 0,
-        currentSource: "Error",
-        newPosts: 0,
-        status: `Error: ${err.message}`
+        progress: activeScrapeJob.progress || 0,
+        total: activeScrapeJob.total || 0,
+        currentSource: "Error encountered",
+        newPosts: count || 0,
+        status: `Error: ${err.message}`,
+        timestamp: new Date().toISOString()
       };
+    } finally {
+      activeScrapeJob.isRunning = false;
     }
   })();
 
