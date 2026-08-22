@@ -27,6 +27,7 @@ function safeRequire(moduleName) {
 const db = safeRequire("db");
 const { 
   loadPosts, 
+  insertPost,
   approveComment, 
   updatePostComments,
   markPostStatus, 
@@ -409,29 +410,43 @@ How is your team currently handling data reconciliation when telemetry streams s
 
     try {
       const { chromium } = require("playwright");
-      const sessionDir = path.join(__dirname, "session_data");
-      const browser = await chromium.launchPersistentContext(sessionDir, { headless: true });
-      const page = await browser.newPage();
-      await page.goto(targetUrl, { waitUntil: "domcontentloaded", timeout: 15000 });
-      await new Promise(r => setTimeout(r, 2000));
-
+      const browser = await chromium.launch({ headless: true });
+      const context = await browser.newContext({
+        userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+      });
+      const page = await context.newPage();
+      await page.goto(targetUrl, { waitUntil: "domcontentloaded", timeout: 20000 });
+      await new Promise(r => setTimeout(r, 3000));
       const extracted = await page.evaluate(() => {
-        const textElem = document.querySelector("div.update-components-text, .feed-shared-update-v2__description, span.break-words, .feed-shared-text, .attributed-text-segment-list__content");
-        const authorElem = document.querySelector(".update-components-actor__title span[dir='ltr'], .feed-shared-actor__name, a.app-aware-link span[dir='ltr']");
-        const timeElem = document.querySelector("span.update-components-actor__sub-description span[aria-hidden='true'], time");
-        const urn = document.querySelector("div[data-urn*='urn:li:activity']")?.getAttribute("data-urn") || "";
+        const textEl = document.querySelector("div.update-components-text, .feed-shared-update-v2__description, span.break-words, .feed-shared-text, .attributed-text-segment-list__content, article");
+        const authorEl = document.querySelector(".update-components-actor__name, .feed-shared-actor__name, .update-components-actor__title span, a.app-aware-link, .base-main-card__title");
+        const headEl = document.querySelector(".update-components-actor__description, .feed-shared-actor__description");
+        const timeEl = document.querySelector("span.update-components-actor__sub-description, time");
+
+        let text = textEl ? textEl.innerText.trim() : "";
+        if (!text || text.length < 20) {
+          const ogDesc = document.querySelector('meta[property="og:description"]')?.getAttribute("content");
+          if (ogDesc && ogDesc.length > 20) text = ogDesc;
+        }
+
+        let author = authorEl ? authorEl.innerText.trim() : "";
+        if (!author) {
+          const ogTitle = document.querySelector('meta[property="og:title"]')?.getAttribute("content");
+          if (ogTitle) author = ogTitle.split(" on LinkedIn")[0].replace("Post by ", "").trim();
+        }
+
         return {
-          author: authorElem ? authorElem.innerText.trim() : "LinkedIn Creator",
-          time: timeElem ? timeElem.innerText.trim() : "Recent",
-          text: textElem ? textElem.innerText.trim() : "",
-          urn
+          author: author || "LinkedIn Creator",
+          headline: headEl ? headEl.innerText.trim() : "Banking & Lending Voice",
+          time: timeEl ? timeEl.innerText.trim() : "Recent (<48h)",
+          text: text || document.title
         };
       });
 
       await browser.close();
 
-      if (!extracted.text || extracted.text.length < 30) {
-        return sendJSON(res, { success: false, error: "Could not extract text from this LinkedIn post (may require login or post was deleted)" }, 400);
+      if (!extracted.text || extracted.text.length < 20) {
+        return sendJSON(res, { success: false, error: "Could not extract text from this LinkedIn post" }, 400);
       }
 
       const { evaluatePostContext } = safeRequire("contentGatekeeper");

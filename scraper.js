@@ -268,6 +268,92 @@ async function scrapeSingleSource(context, src, maxPosts = 2) {
 }
 
 /**
+ * Phase 1: Direct Personal Feed & Global Discovery Queries
+ */
+async function scrapeFeedAndDiscovery(context) {
+  const discoveryTargets = [
+    { name: "Personal Network Feed", url: "https://www.linkedin.com/feed/", category: "Industry Media & Communities" },
+    { name: "Global Search: Digital Lending", url: "https://www.linkedin.com/search/results/content/?keywords=digital%20lending%20india&sortBy=%22date_posted%22", category: "Digital Lending Fintechs" },
+    { name: "Global Search: Microfinance & NBFC", url: "https://www.linkedin.com/search/results/content/?keywords=nbfc%20microfinance%20india&sortBy=%22date_posted%22", category: "NBFCs & Retail/Gold/Vehicle Lenders" },
+    { name: "Global Search: Co-Lending & RBI", url: "https://www.linkedin.com/search/results/content/?keywords=co-lending%20rbi&sortBy=%22date_posted%22", category: "Regulatory, Government & Policy" }
+  ];
+
+  let added = 0;
+  for (const dt of discoveryTargets) {
+    let page = null;
+    try {
+      page = await context.newPage();
+      await page.goto(dt.url, { waitUntil: "domcontentloaded", timeout: 8000 });
+      await page.evaluate(() => window.scrollBy(0, 800));
+      await new Promise(r => setTimeout(r, 2000));
+
+      const posts = await page.evaluate(() => {
+        const cards = document.querySelectorAll("div.feed-shared-update-v2, div[data-urn*='urn:li:activity'], article.base-main-card");
+        const list = [];
+        for (const c of cards) {
+          if (list.length >= 5) break;
+          const textEl = c.querySelector("div.update-components-text, .feed-shared-update-v2__description, span.break-words, .feed-shared-text, .attributed-text-segment-list__content");
+          const text = textEl ? textEl.innerText.trim() : "";
+          const authorEl = c.querySelector("span.update-components-actor__title span[dir='ltr'], .feed-shared-actor__name, a.app-aware-link span[dir='ltr'], .update-components-actor__name");
+          const author = authorEl ? authorEl.innerText.trim() : "";
+          const timeEl = c.querySelector("span.update-components-actor__sub-description span[aria-hidden='true'], time, span.feed-shared-actor__sub-description");
+          const time = timeEl ? timeEl.innerText.trim() : "Recent (<48h)";
+          const urn = c.getAttribute("data-urn") || c.getAttribute("data-id") || "";
+
+          if (text && text.length >= 35) {
+            let directUrl = window.location.href;
+            if (urn.includes("activity:")) {
+              const actId = urn.split("activity:")[1].split("?")[0].replace(/[^0-9]/g, "");
+              if (actId && actId.length >= 15) directUrl = `https://www.linkedin.com/feed/update/urn:li:activity:${actId}/`;
+            }
+            list.push({ text, author: author || "LinkedIn Lending Leader", time, directUrl });
+          }
+        }
+        return list;
+      });
+
+      for (const p of posts) {
+        if (p.time && !isWithinTimeframe(p.time, MAX_POST_AGE_HOURS)) continue;
+        const validation = evaluatePostContext(p.text, p.author, dt.category);
+        if (!validation.isRelevant && !validation.isValid) continue;
+        if (postExists(p.directUrl, p.author, p.text)) continue;
+
+        const scoreResult = calculateRelevance(p.text, dt.category, dt.name, p.author);
+        const comments = await generateCommentsForPost(p.text, p.author, dt.category);
+
+        const postItem = {
+          id: `post_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+          source_id: dt.name.toLowerCase().replace(/[^a-z0-9]/g, "_"),
+          source_name: dt.name,
+          source_category: dt.category,
+          author_name: p.author,
+          author_headline: "Indian Lending Voice",
+          post_url: p.directUrl,
+          post_text: p.text,
+          published_relative: p.time || "Recent (<48h)",
+          scraped_at: new Date().toISOString(),
+          status: "PENDING",
+          priority_score: scoreResult.score || 88,
+          impact_badge: scoreResult.impact_badge || "🔥 Top Priority",
+          post_type_badge: validation.postTypeBadge || "⚡ Digital Lending",
+          badge_color: "danger",
+          relevance_tags: scoreResult.tags || ["Lending", "Credit"],
+          generated_comments: comments
+        };
+
+        insertPost(postItem);
+        added++;
+      }
+    } catch (e) {
+      // Handled gracefully
+    } finally {
+      if (page) await page.close().catch(() => {});
+    }
+  }
+  return added;
+}
+
+/**
  * Ultra-Reliable Parallel Scraper Engine with Worker Pool & Context Recycling
  */
 async function runScraper(selectedSourceIds = null, maxPostsPerSource = 2, onProgress = null) {
@@ -283,6 +369,15 @@ async function runScraper(selectedSourceIds = null, maxPostsPerSource = 2, onPro
   console.log(`[+] 🚀 Starting Pure LinkedIn Scraper Engine for ${totalSources} sources (Concurrency: ${CONCURRENCY_LIMIT})...`);
 
   let context = await launchScraperContext();
+  
+  // Phase 1: Personal Feed & Discovery Search Queries
+  try {
+    if (onProgress) onProgress(0, totalSources, "Scanning Personal Feed & Global Discovery...");
+    const discoveryNew = await scrapeFeedAndDiscovery(context);
+    newPostsCount += discoveryNew;
+    console.log(`[+] 🔍 Phase 1 Discovery found ${discoveryNew} new posts from Network Feed & Search`);
+  } catch (e) {}
+
   let sourcesProcessedWithCurrentContext = 0;
 
   // Dynamic Worker Pool Execution
