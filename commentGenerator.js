@@ -162,18 +162,12 @@ async function callGemini(apiKey, prompt) {
     // If listing fails, fall back to prioritized default list
   }
 
-  // Combine discovered models with prioritized fallback models
+  // Combine discovered models with prioritized working models
   const candidateModels = Array.from(new Set([
-    ...discoveredModels,
-    "gemini-1.5-pro",
-    "gemini-1.5-pro-latest",
-    "gemini-1.5-pro-002",
-    "gemini-2.0-flash",
-    "gemini-2.0-flash-exp",
-    "gemini-1.5-flash",
-    "gemini-1.5-flash-latest",
-    "gemini-1.5-flash-8b",
-    "gemini-pro"
+    "gemini-3.7-flash",
+    "gemini-flash-latest",
+    "gemini-pro-latest",
+    ...discoveredModels
   ]));
 
   let lastError = null;
