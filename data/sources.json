@@ -1,5 +1,14 @@
 [
   {
+    "id": "banknbfc",
+    "name": "BankNBFC.com",
+    "category": "Industry Media & Communities",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/banknbfc-com/posts/",
+    "role_type": "Banking & NBFC Industry Intelligence",
+    "active": true
+  },
+  {
     "id": "etbfsi",
     "name": "ETBFSI (The Economic Times)",
     "category": "Industry Media & Communities",

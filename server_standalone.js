@@ -305,14 +305,16 @@ How is your team currently handling data reconciliation when telemetry streams s
   }
 
   if (pathname === "/api/stats" && method === "GET") {
-    return sendJSON(res, getStats());
+    const stats = getStats();
+    stats.last_scrape = lastScrapeTime || (loadPosts().length > 0 ? loadPosts()[0].scraped_at : new Date().toISOString());
+    return sendJSON(res, stats);
   }
 
   if (pathname === "/api/scheduler-status" && method === "GET") {
     return sendJSON(res, {
       schedule: ["07:00 AM Morning", "06:00 PM Evening"],
       status: "ACTIVE",
-      lastScrapeTime,
+      lastScrapeTime: lastScrapeTime || (loadPosts().length > 0 ? loadPosts()[0].scraped_at : new Date().toISOString()),
       activeScrapeJob
     });
   }

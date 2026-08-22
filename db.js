@@ -1,14 +1,21 @@
-﻿const fs = require("fs");
+const fs = require("fs");
 const path = require("path");
 
-const DATA_DIR = path.join(__dirname, "..", "data");
-const POSTS_FILE = path.join(DATA_DIR, "posts.json");
-const SOURCES_FILE = path.join(DATA_DIR, "sources.json");
-const PERSONA_FILE = path.join(DATA_DIR, "persona.json");
-
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
+function getResolvedPath(filename) {
+  const candidates = [
+    path.join(__dirname, filename),
+    path.join(__dirname, "data", filename),
+    path.join(__dirname, "..", "data", filename)
+  ];
+  for (const c of candidates) {
+    if (fs.existsSync(c)) return c;
+  }
+  return path.join(__dirname, filename);
 }
+
+const POSTS_FILE = getResolvedPath("posts.json");
+const SOURCES_FILE = getResolvedPath("sources.json");
+const PERSONA_FILE = getResolvedPath("persona.json");
 
 function readCleanJson(filePath) {
   if (!fs.existsSync(filePath)) return null;
@@ -131,14 +138,22 @@ function markPostStatus(postId, status, errorMsg = null) {
 function getStats() {
   const posts = loadPosts();
   const sources = loadSources();
-  return {
-    pending: posts.filter(p => p.status === "PENDING").length,
-    approved: posts.filter(p => p.status === "APPROVED").length,
-    posted: posts.filter(p => p.status === "POSTED").length,
-    rejected: posts.filter(p => p.status === "REJECTED").length,
+  const stats = {
+    pending: 0,
+    approved: 0,
+    posted: 0,
+    rejected: 0,
     sources_count: sources.length,
-    total: posts.length
+    total: posts.length,
+    last_scrape: posts.length > 0 ? posts[0].scraped_at : new Date().toISOString()
   };
+  for (const p of posts) {
+    if (p.status === "PENDING") stats.pending++;
+    else if (p.status === "APPROVED") stats.approved++;
+    else if (p.status === "POSTED") stats.posted++;
+    else if (p.status === "REJECTED") stats.rejected++;
+  }
+  return stats;
 }
 
 function loadSources() {
@@ -151,7 +166,8 @@ function saveSources(sources) {
 }
 
 function loadPersona() {
-  return readCleanJson(PERSONA_FILE) || {};
+  const data = readCleanJson(PERSONA_FILE);
+  return data || {};
 }
 
 function savePersona(persona) {

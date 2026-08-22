@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Ultra-Fast LinkedIn Parallel Scraper Engine
  * Optimized for Sriram Ganesan (Head of LOS Product & Solutions | M2P Fintech)
  * Features:
@@ -16,7 +16,7 @@ const { calculateRelevance } = require("./relevanceScorer");
 const { evaluatePostContext } = require("./contentGatekeeper");
 const { generateCommentsForPost } = require("./commentGenerator");
 
-const SESSION_DIR = path.join(__dirname, "..", "session_data");
+const SESSION_DIR = path.join(__dirname, "session_data");
 const MAX_POST_AGE_HOURS = 48;
 const HEADLESS = process.env.HEADLESS_BROWSER !== "false";
 const CONCURRENCY_LIMIT = 6; // Scrape 6 sources in parallel

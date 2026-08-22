@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Context-Aware Comment Generator calibrated for Sriram Ganesan
  * Head of Loan Origination System (LOS) Product and Product Solutions at M2P Fintech
  * 
@@ -7,9 +7,13 @@
  * 2. Deep Contextual Semantic Engine (specialized for Indian Banking, MFIs, IPOs, Co-Lending, LOS/LMS, RBI Policy)
  */
 
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+let GoogleGenerativeAI = null;
+try {
+  GoogleGenerativeAI = require("@google/generative-ai").GoogleGenerativeAI;
+} catch (e) {}
+
 const { loadPersona } = require("./db");
-require("dotenv").config();
+try { require("dotenv").config(); } catch (e) {}
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
 
