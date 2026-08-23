@@ -144,30 +144,41 @@ try {
   console.log("Using built-in IST heartbeat ticker for scheduling");
 }
 
-// Fail-Safe IST Heartbeat Ticker (checks exact Indian Standard Time every 30s)
-let lastFiredDateSlot = "";
-setInterval(() => {
+// Fail-Safe IST Heartbeat Ticker with Automatic Sleep/Wake Catch-Up
+let completedRuns = new Set();
+
+function checkAndRunScheduledSlots() {
   try {
     const istTimeStr = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata", hour12: false });
     const timePart = istTimeStr.split(", ")[1] || "";
     const [hh, mm] = timePart.split(":");
     const hour = parseInt(hh, 10);
-    const min = parseInt(mm, 10);
     const todayDate = istTimeStr.split(", ")[0];
 
-    if (hour === 7 && min === 0 && lastFiredDateSlot !== `${todayDate}_0700`) {
-      lastFiredDateSlot = `${todayDate}_0700`;
-      console.log("⏰ [IST HEARTBEAT] Triggering 07:00 AM Morning Scheduled Scrape!");
-      triggerBackgroundScrape(null, 2, "Morning 07:00 AM IST");
+    const morningKey = `${todayDate}_morning_0700`;
+    const eveningKey = `${todayDate}_evening_1800`;
+
+    // 1. Morning Slot (Any time from 07:00 AM until 17:59 PM if not yet executed today)
+    if (hour >= 7 && hour < 18 && !completedRuns.has(morningKey)) {
+      completedRuns.add(morningKey);
+      console.log(`⏰ [IST CATCH-UP] Triggering Morning Scrape for ${todayDate} (Current IST: ${hour}:${mm})`);
+      triggerBackgroundScrape(null, 2, `Morning 07:00 AM IST (Run at ${hour}:${mm})`);
     }
 
-    if (hour === 18 && min === 0 && lastFiredDateSlot !== `${todayDate}_1800`) {
-      lastFiredDateSlot = `${todayDate}_1800`;
-      console.log("⏰ [IST HEARTBEAT] Triggering 06:00 PM Evening Scheduled Scrape!");
-      triggerBackgroundScrape(null, 2, "Evening 06:00 PM IST");
+    // 2. Evening Slot (Any time from 18:00 PM onwards if not yet executed today)
+    if (hour >= 18 && !completedRuns.has(eveningKey)) {
+      completedRuns.add(eveningKey);
+      console.log(`⏰ [IST CATCH-UP] Triggering Evening Scrape for ${todayDate} (Current IST: ${hour}:${mm})`);
+      triggerBackgroundScrape(null, 2, `Evening 06:00 PM IST (Run at ${hour}:${mm})`);
     }
-  } catch (err) {}
-}, 30000);
+  } catch (err) {
+    console.error("Scheduler ticker error:", err.message);
+  }
+}
+
+// Check every 30 seconds and run catch-up immediately on startup/wake
+setInterval(checkAndRunScheduledSlots, 30000);
+setTimeout(checkAndRunScheduledSlots, 2000);
 
 // HTTP Server
 const server = http.createServer(async (req, res) => {
