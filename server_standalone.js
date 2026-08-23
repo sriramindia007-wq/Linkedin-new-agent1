@@ -27,6 +27,7 @@ function safeRequire(moduleName) {
 const db = safeRequire("db");
 const { 
   loadPosts, 
+  savePosts,
   insertPost,
   approveComment, 
   updatePostComments,

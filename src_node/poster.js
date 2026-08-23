@@ -1,3 +1,4 @@
+const fs = require("fs");
 const path = require("path");
 const { chromium } = require("playwright");
 const { markPostStatus } = require("./db");
@@ -6,20 +7,56 @@ const SESSION_DIR = path.resolve(__dirname.includes('src_node') || __dirname.inc
 const HEADLESS = process.env.HEADLESS_BROWSER !== "false";
 
 async function launchPosterContext() {
+  const isLinux = process.platform === "linux";
+  const chromiumArgs = [
+    "--no-sandbox",
+    "--disable-setuid-sandbox",
+    "--disable-dev-shm-usage",
+    "--disable-gpu",
+    "--disable-software-rasterizer"
+  ];
+
   const options = {
     headless: HEADLESS,
     viewport: { width: 1280, height: 900 },
-    userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+    userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+    args: chromiumArgs
   };
-  try {
-    return await chromium.launchPersistentContext(SESSION_DIR, { ...options, channel: "chrome" });
-  } catch (e) {
+
+  let context;
+  if (!isLinux) {
     try {
-      return await chromium.launchPersistentContext(SESSION_DIR, { ...options, channel: "msedge" });
-    } catch (e2) {
-      return await chromium.launchPersistentContext(SESSION_DIR, options);
+      context = await chromium.launchPersistentContext(SESSION_DIR, { ...options, channel: "chrome" });
+    } catch (e) {
+      try {
+        context = await chromium.launchPersistentContext(SESSION_DIR, { ...options, channel: "msedge" });
+      } catch (e2) {
+        context = await chromium.launchPersistentContext(SESSION_DIR, options);
+      }
+    }
+  } else {
+    try {
+      context = await chromium.launchPersistentContext(SESSION_DIR, options);
+    } catch (e) {
+      const browser = await chromium.launch({ headless: true, args: chromiumArgs });
+      context = await browser.newContext(options);
     }
   }
+
+  // Load session_cookies.json into cloud/Docker context
+  const cookiePath = path.resolve(__dirname.includes('src_node') ? path.join(__dirname, '..', 'session_cookies.json') : path.join(__dirname, 'session_cookies.json'));
+  if (fs.existsSync(cookiePath)) {
+    try {
+      const raw = fs.readFileSync(cookiePath, 'utf-8');
+      const cookies = JSON.parse(raw);
+      if (Array.isArray(cookies) && cookies.length > 0) {
+        await context.addCookies(cookies);
+        console.log(`[Poster] Loaded ${cookies.length} session cookies into context.`);
+      }
+    } catch (err) {}
+  }
+
+  return context;
 }
 
 async function postCommentToLinkedin(postId, postUrl, commentText) {
