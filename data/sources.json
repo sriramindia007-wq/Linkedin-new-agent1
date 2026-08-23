@@ -3338,5 +3338,465 @@
     "role_type": "Central Bank Sponsored HFC",
     "segment": "Tier-2 Housing Finance",
     "active": true
+  },
+  {
+    "id": "v-vaidyanathan",
+    "name": "V. Vaidyanathan",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/v-vaidyanathan-idfcfirst/recent-activity/all/",
+    "role_type": "MD & CEO, IDFC FIRST Bank",
+    "segment": "Bank Leadership",
+    "active": true
+  },
+  {
+    "id": "shachindra-nath",
+    "name": "Shachindra Nath",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/shachindranath/recent-activity/all/",
+    "role_type": "Founder & MD, UGRO Capital",
+    "segment": "NBFC Leadership",
+    "active": true
+  },
+  {
+    "id": "suresh-khatanhar",
+    "name": "Suresh Khatanhar",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/suresh-khatanhar/recent-activity/all/",
+    "role_type": "Deputy Managing Director, IDBI Bank",
+    "segment": "Bank Leadership",
+    "active": true
+  },
+  {
+    "id": "sanjay-agarwal-au",
+    "name": "Sanjay Agarwal",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/sanjay-agarwal-au/recent-activity/all/",
+    "role_type": "MD & CEO, AU Small Finance Bank",
+    "segment": "SFB Leadership",
+    "active": true
+  },
+  {
+    "id": "pn-vasudevan-equitas",
+    "name": "P. N. Vasudevan",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/pnvasudevan/recent-activity/all/",
+    "role_type": "MD & CEO, Equitas Small Finance Bank",
+    "segment": "SFB Leadership",
+    "active": true
+  },
+  {
+    "id": "r-baskar-babu",
+    "name": "R. Baskar Babu",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/rbaskarbabu/recent-activity/all/",
+    "role_type": "MD & CEO, Suryoday Small Finance Bank",
+    "segment": "SFB Leadership",
+    "active": true
+  },
+  {
+    "id": "ajay-kanwal-jana",
+    "name": "Ajay Kanwal",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ajaykanwal/recent-activity/all/",
+    "role_type": "MD & CEO, Jana Small Finance Bank",
+    "segment": "SFB Leadership",
+    "active": true
+  },
+  {
+    "id": "shalini-warrier-federal",
+    "name": "Shalini Warrier",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/shaliniwarrier/recent-activity/all/",
+    "role_type": "Executive Director, Federal Bank",
+    "segment": "Bank Leadership",
+    "active": true
+  },
+  {
+    "id": "deepak-sharma-kotak",
+    "name": "Deepak Sharma",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/deepaksharmaktk/recent-activity/all/",
+    "role_type": "Former President & CDO, Kotak Mahindra Bank",
+    "segment": "Digital Banking Leader",
+    "active": true
+  },
+  {
+    "id": "nitin-chugh-sbi",
+    "name": "Nitin Chugh",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/nitinchugh/recent-activity/all/",
+    "role_type": "Deputy Managing Director & Head of Digital Banking, SBI",
+    "segment": "Digital Banking Leader",
+    "active": true
+  },
+  {
+    "id": "sameer-shetty-axis",
+    "name": "Sameer Shetty",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/sameershettyaxis/recent-activity/all/",
+    "role_type": "President & Head - Digital Business & Transformation, Axis Bank",
+    "segment": "Digital Banking Leader",
+    "active": true
+  },
+  {
+    "id": "akshay-mehrotra-fibe",
+    "name": "Akshay Mehrotra",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/akshaymehrotra/recent-activity/all/",
+    "role_type": "Co-Founder & CEO, Fibe (EarlySalary)",
+    "segment": "Lending Fintech Founder",
+    "active": true
+  },
+  {
+    "id": "ashish-goyal-fibe",
+    "name": "Ashish Goyal",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ashishgoyalfibe/recent-activity/all/",
+    "role_type": "Co-Founder & CFO, Fibe",
+    "segment": "Lending Fintech Founder",
+    "active": true
+  },
+  {
+    "id": "madhusudan-ekambaram",
+    "name": "Madhusudan Ekambaram",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/madhusudanekambaram/recent-activity/all/",
+    "role_type": "Co-Founder & CEO, KreditBee",
+    "segment": "Lending Fintech Founder",
+    "active": true
+  },
+  {
+    "id": "sashank-rishyasringa",
+    "name": "Sashank Rishyasringa",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/sashankr/recent-activity/all/",
+    "role_type": "Co-Founder & MD, Axio",
+    "segment": "Lending Fintech Founder",
+    "active": true
+  },
+  {
+    "id": "hardika-shah-kinara",
+    "name": "Hardika Shah",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/hardikashah/recent-activity/all/",
+    "role_type": "Founder & CEO, Kinara Capital",
+    "segment": "MSME Lending Founder",
+    "active": true
+  },
+  {
+    "id": "sanjay-sharma-aye",
+    "name": "Sanjay Sharma",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/sanjaysharmaaye/recent-activity/all/",
+    "role_type": "MD & Founder, Aye Finance",
+    "segment": "MSME Lending Founder",
+    "active": true
+  },
+  {
+    "id": "prashanth-ranganathan",
+    "name": "Prashanth Ranganathan",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/prashanthranganathan/recent-activity/all/",
+    "role_type": "Ex-CEO PayU Finance / Founder",
+    "segment": "Lending Fintech Founder",
+    "active": true
+  },
+  {
+    "id": "anuj-kacker-freo",
+    "name": "Anuj Kacker",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/anujkacker/recent-activity/all/",
+    "role_type": "Co-Founder, Freo (MoneyTap)",
+    "segment": "Lending Fintech Founder",
+    "active": true
+  },
+  {
+    "id": "bala-parthasarathy",
+    "name": "Bala Parthasarathy",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/balap/recent-activity/all/",
+    "role_type": "Co-Founder & Chairman, Freo",
+    "segment": "Lending Fintech Founder",
+    "active": true
+  },
+  {
+    "id": "bhavin-patel-lendenclub",
+    "name": "Bhavin Patel",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/bhavinpatellendenclub/recent-activity/all/",
+    "role_type": "Co-Founder & CEO, LenDenClub",
+    "segment": "P2P Lending Founder",
+    "active": true
+  },
+  {
+    "id": "anil-kumar-samunnati",
+    "name": "Anil Kumar SG",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/anilkumarsg/recent-activity/all/",
+    "role_type": "Founder & CEO, Samunnati",
+    "segment": "Agri Credit Leader",
+    "active": true
+  },
+  {
+    "id": "prasanna-rao-arya",
+    "name": "Prasanna Rao",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/prasannaraoarya/recent-activity/all/",
+    "role_type": "Co-Founder & CEO, Arya.ag",
+    "segment": "Agri Credit Leader",
+    "active": true
+  },
+  {
+    "id": "pushkar-mukewar-drip",
+    "name": "Pushkar Mukewar",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/pushkarmukewar/recent-activity/all/",
+    "role_type": "Co-Founder & CEO, Drip Capital",
+    "segment": "Trade Finance Founder",
+    "active": true
+  },
+  {
+    "id": "sucharita-mukherjee",
+    "name": "Sucharita Mukherjee",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/sucharitamukherjee/recent-activity/all/",
+    "role_type": "Co-Founder & CEO, Kaleidofin",
+    "segment": "Credit Scoring & Inclusion",
+    "active": true
+  },
+  {
+    "id": "puneet-gupta-kaleidofin",
+    "name": "Puneet Gupta",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/puneetguptakaleidofin/recent-activity/all/",
+    "role_type": "Co-Founder, Kaleidofin",
+    "segment": "Credit Inclusion Founder",
+    "active": true
+  },
+  {
+    "id": "monish-anand-myshubhlife",
+    "name": "Monish Anand",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/monishanand/recent-activity/all/",
+    "role_type": "Founder & CEO, MyShubhLife",
+    "segment": "Digital Lending Founder",
+    "active": true
+  },
+  {
+    "id": "gaurav-chopra-indialends",
+    "name": "Gaurav Chopra",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/gauravchopraindialends/recent-activity/all/",
+    "role_type": "Founder & CEO, IndiaLends",
+    "segment": "Digital Credit Marketplace",
+    "active": true
+  },
+  {
+    "id": "satyam-kumar-loantap",
+    "name": "Satyam Kumar",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/satyamloantap/recent-activity/all/",
+    "role_type": "Co-Founder & CEO, LoanTap",
+    "segment": "Digital Credit Founder",
+    "active": true
+  },
+  {
+    "id": "rishabh-goel-credgenics",
+    "name": "Rishabh Goel",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/rishabhgoelcredgenics/recent-activity/all/",
+    "role_type": "Co-Founder & CEO, Credgenics",
+    "segment": "Collections Tech Leader",
+    "active": true
+  },
+  {
+    "id": "anand-agrawal-credgenics",
+    "name": "Anand Agrawal",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/anandagrawalcredgenics/recent-activity/all/",
+    "role_type": "Co-Founder & CPTO, Credgenics",
+    "segment": "Collections Tech Leader",
+    "active": true
+  },
+  {
+    "id": "v-raman-kumar-cashe",
+    "name": "V. Raman Kumar",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/vramankumar/recent-activity/all/",
+    "role_type": "Founder Chairman, CASHe",
+    "segment": "Digital Credit Leader",
+    "active": true
+  },
+  {
+    "id": "joginder-rana-cashe",
+    "name": "Joginder Rana",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/joginderrana/recent-activity/all/",
+    "role_type": "Vice Chairman & MD, CASHe",
+    "segment": "Digital Credit Leader",
+    "active": true
+  },
+  {
+    "id": "dilip-asbe-npci",
+    "name": "Dilip Asbe",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/dilipasbe/recent-activity/all/",
+    "role_type": "MD & CEO, NPCI",
+    "segment": "DPI & Payments Rail",
+    "active": true
+  },
+  {
+    "id": "praveena-rai-npci",
+    "name": "Praveena Rai",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/praveenarai/recent-activity/all/",
+    "role_type": "MD & CEO, MCX / Ex-COO NPCI",
+    "segment": "Financial Market Leader",
+    "active": true
+  },
+  {
+    "id": "alok-misra-mfin",
+    "name": "Dr. Alok Misra",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/dr-alok-misra/recent-activity/all/",
+    "role_type": "CEO & Director, MFIN India",
+    "segment": "Microfinance SRO Authority",
+    "active": true
+  },
+  {
+    "id": "jiji-mammen-sadhan",
+    "name": "Jiji Mammen",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/jijimammen/recent-activity/all/",
+    "role_type": "Executive Director & CEO, Sa-Dhan",
+    "segment": "Microfinance SRO Authority",
+    "active": true
+  },
+  {
+    "id": "sugandh-saxena-face",
+    "name": "Sugandh Saxena",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/sugandhsaxena/recent-activity/all/",
+    "role_type": "CEO, FACE (Fintech Association for Consumer Empowerment)",
+    "segment": "Digital Lending SRO",
+    "active": true
+  },
+  {
+    "id": "jatinder-handoo-dlai",
+    "name": "Jatinder Handoo",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/jatinderhandoo/recent-activity/all/",
+    "role_type": "CEO, Digital Lenders Association of India (DLAI)",
+    "segment": "Digital Lending SRO",
+    "active": true
+  },
+  {
+    "id": "raman-aggarwal-fidc",
+    "name": "Raman Aggarwal",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/raman-aggarwal-fidc/recent-activity/all/",
+    "role_type": "Director, FIDC / NBFC Industry Leader",
+    "segment": "NBFC SRO Authority",
+    "active": true
+  },
+  {
+    "id": "ram-rastogi-fcc",
+    "name": "Ram Rastogi",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ramrastogi/recent-activity/all/",
+    "role_type": "Chairman, FinTech Convergence Council",
+    "segment": "Fintech Policy Voice",
+    "active": true
+  },
+  {
+    "id": "kv-kamath-nabfid",
+    "name": "K.V. Kamath",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/kv-kamath-nabfid/recent-activity/all/",
+    "role_type": "Chairman, NaBFID / Banking Legend",
+    "segment": "Banking Stalwart",
+    "active": true
+  },
+  {
+    "id": "tamal-bandyopadhyay",
+    "name": "Tamal Bandyopadhyay",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/tamal-bandyopadhyay-banking/recent-activity/all/",
+    "role_type": "Senior Banking Author, Columnist & Journalist",
+    "segment": "Banking Analyst & Author",
+    "active": true
+  },
+  {
+    "id": "sugata-ghosh-et",
+    "name": "Sugata Ghosh",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/sugata-ghosh-et/recent-activity/all/",
+    "role_type": "Associate Editor, The Economic Times (Banking & Finance)",
+    "segment": "Financial Journalist",
+    "active": true
+  },
+  {
+    "id": "gopika-gopakumar-livemint",
+    "name": "Gopika Gopakumar",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/gopikagopakumar/recent-activity/all/",
+    "role_type": "Senior Editor, Mint (Banking & Credit Markets)",
+    "segment": "Financial Journalist",
+    "active": true
+  },
+  {
+    "id": "mahesh-makhija-ey",
+    "name": "Mahesh Makhija",
+    "category": "Fintech Influencers & Lending CXOs",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/maheshmakhija/recent-activity/all/",
+    "role_type": "Partner & Financial Services Technology Leader, EY India",
+    "segment": "Fintech Advisory",
+    "active": true
   }
 ]
