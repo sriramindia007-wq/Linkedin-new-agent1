@@ -48,9 +48,10 @@ async function postCommentToLinkedin(postId, postUrl, commentText) {
       await new Promise(r => setTimeout(r, 1000));
     }
 
-    let commentBox = await page.$("div.editor-content, div.ql-editor[role='textbox'], div[aria-label*='Add a comment'], div[role='textbox']");
+    // 2026 LinkedIn Tiptap ProseMirror Editor
+    let commentBox = await page.$("div.tiptap.ProseMirror, div[aria-label*='Text editor for creating comment'], div[contenteditable='true'][role='textbox'], div.editor-content, div[role='textbox']");
     if (!commentBox) {
-      commentBox = await page.$("div[data-placeholder*='comment']");
+      commentBox = await page.$("div[data-placeholder*='comment'], div.ql-editor[role='textbox']");
     }
 
     if (!commentBox) {
@@ -63,27 +64,28 @@ async function postCommentToLinkedin(postId, postUrl, commentText) {
     await commentBox.click();
     await new Promise(r => setTimeout(r, 500));
 
-    // Natural jitter typing
+    // Natural human jitter typing
     for (const char of commentText) {
       await page.keyboard.type(char);
-      await new Promise(r => setTimeout(r, Math.floor(Math.random() * 40) + 20));
+      await new Promise(r => setTimeout(r, Math.floor(Math.random() * 30) + 15));
     }
     await new Promise(r => setTimeout(r, 1000));
 
-    let submitBtn = await page.$("button.comments-comment-box__submit-button, button[type='submit'].artdeco-button--primary, button.comments-comment-box__submit-button--cr");
+    // Locate the active Submit Comment button
+    let submitBtn = await page.$("button:has-text('Comment'):not([disabled]):not([aria-label='Comment']), button:has-text('Post'):not([disabled]), button.comments-comment-box__submit-button, button[type='submit'].artdeco-button--primary");
     if (!submitBtn) {
       submitBtn = await page.$("button:has-text('Comment'), button:has-text('Post')");
     }
 
     if (!submitBtn) {
       await context.close();
-      const err = "Could not locate submit button.";
+      const err = "Could not locate submit button on LinkedIn.";
       markPostStatus(postId, "ERROR", err);
       return { success: false, message: err };
     }
 
     await submitBtn.click();
-    await new Promise(r => setTimeout(r, 3000));
+    await new Promise(r => setTimeout(r, 4000));
 
     markPostStatus(postId, "POSTED");
     await context.close();

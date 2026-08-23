@@ -10,7 +10,7 @@
     "post_text": "Congratulations to the winners of the Axis Bank Top 50 SMEs State Awards – Gujarat Edition. These exceptional businesses embody the ambition, innovation, and resilience that continue to drive India's growth story.\nFor decades, Axis Bank has partnered with India's MSMEs, supporting their growth through relevant financial solutions, industry insights, and meaningful engagement. The Top 50 SMEs State Awards, presented in association with India SME Forum, is an extension of that commitment, recognizing businesses that are driving innovation, creating impact, and contributing to India's economic progress.\nThe Gujarat edition marks the launch of a national platform dedicated to celebrating SME excellence. The inaugural edition brought together industry leaders, policymakers, and entrepreneurs to recognize businesses driving innovation, growth, and impact. We look forward to taking this platform across India and celebrating many more enterprises powering the nation's progress.\n\nMunish Sharda | Sanjeev Moghe | VIJAY SHETTY | Prashanth T S | Rakesh Bhojnagarwala | RATUL MUKHOPADHYAY | Rohan Shrivastava | RAJENDRA JAIKUMAR | Priyavrat Sharma | Brejesh B Chalill | Vinod Kumar W. | Sushma Morthania | India SME Forum\n…more",
     "published_relative": "2d •",
     "scraped_at": "2026-08-23T04:23:07.426Z",
-    "status": "PENDING",
+    "status": "ERROR",
     "priority_score": 83,
     "impact_badge": "⭐ High Impact (Domain Match)",
     "post_type_badge": "⚡ Digital Lending & Credit",
@@ -23,7 +23,10 @@
       "value_add": "Congratulations to the Axis Bank and India SME Forum teams on launching this vital platform in Gujarat! Recognizing the resilience of grassroots entrepreneurs is essential, especially as formal credit increasingly becomes the catalyst for scaling India's manufacturing and trade hubs.",
       "provocative_question": "As platforms like this highlight top-tier SMEs, how can institutional lenders better scale cash-flow based underwriting to reach the broader tier-2 and tier-3 manufacturing clusters that still struggle with formal credit access?",
       "executive_perspective": "Celebrating SME excellence reinforces the symbiotic relationship between institutional banking and grassroots enterprise. Expanding formal credit to these innovators while sustaining underwriting discipline will be the true test of India's next phase of economic expansion."
-    }
+    },
+    "selected_style": "custom",
+    "approved_comment": "Congratulations to the Axis Bank and India SME Forum teams on launching this vital platform in Gujarat! Recognizing the resilience of grassroots entrepreneurs is essential, especially as formal credit increasingly becomes the catalyst for scaling India's manufacturing and trade hubs.",
+    "error_message": "Could not locate comment text area on LinkedIn post."
   },
   {
     "id": "post_live_7496859287021907968",
@@ -71,9 +74,9 @@
       "API Infrastructure"
     ],
     "generated_comments": {
-      "value_add": "Congratulations to the Sahamati team on securing Shri Gandhi R for SamvAAd 2026. Having someone with his central banking depth anchor discussions on the Account Aggregator framework is invaluable as the ecosystem scales toward deeper consent-based data sharing.",
-      "provocative_question": "With stalwarts like Shri Gandhi R guiding the dialogue, how can the AA ecosystem accelerate adoption beyond traditional lending to truly unlock cash-flow-based underwriting for underserved MSMEs?",
-      "executive_perspective": "Shri Gandhi's institutional perspective has always bridged regulatory vision with practical execution. Platforms like SamvAAd are vital for aligning regulators, banks, and fintechs to ensure data empowerment infrastructure scales with robust governance."
+      "value_add": "From an institutional credit perspective, sustainable growth for Reserve Bank requires maintaining steadfast underwriting policy standards and robust risk governance across evolving market and liquidity cycles.",
+      "provocative_question": "As the broader Indian financial sector navigates changing credit demand and liquidity conditions, what core operational metrics is your leadership monitoring most closely?",
+      "executive_perspective": "Long-term banking and lending success is anchored in disciplined risk management, transparent governance, and building customer trust across credit cycles."
     }
   },
   {
