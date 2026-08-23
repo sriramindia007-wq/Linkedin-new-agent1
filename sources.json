@@ -6,6 +6,7 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/nbfcadvisor/posts/",
     "role_type": "NBFC & Microfinance Advisory",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -15,6 +16,7 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/microfinance-institutions-network/posts/",
     "role_type": "RBI Recognized Microfinance SRO",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -24,8 +26,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/sa-dhan/posts/",
     "role_type": "Microfinance SRO & Policy Body",
-    "active": true,
-    "segment": "Microfinance SRO"
+    "segment": "Microfinance SRO",
+    "active": true
   },
   {
     "id": "creditaccess-grameen",
@@ -34,8 +36,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/creditaccess-grameen-limited/posts/",
     "role_type": "India's #1 Largest NBFC-MFI",
-    "active": true,
-    "segment": "Microfinance"
+    "segment": "Microfinance",
+    "active": true
   },
   {
     "id": "svatantra-microfin",
@@ -44,6 +46,7 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/svatantra-microfin-pvt-ltd/posts/",
     "role_type": "Top 2 NBFC-MFI (Post-Chaitanya)",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -53,8 +56,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/spandana-sphoorty-financial-limited/posts/",
     "role_type": "Major Listed NBFC-MFI",
-    "active": true,
-    "segment": "Microfinance"
+    "segment": "Microfinance",
+    "active": true
   },
   {
     "id": "fusion-microfinance",
@@ -63,6 +66,7 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/fusion-microfinance-limited/posts/",
     "role_type": "Listed Rural NBFC-MFI",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -72,8 +76,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/muthoot-microfin-limited/posts/",
     "role_type": "Listed NBFC-MFI",
-    "active": true,
-    "segment": "Microfinance"
+    "segment": "Microfinance",
+    "active": true
   },
   {
     "id": "satin-creditcare",
@@ -82,8 +86,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/satin-creditcare-network-limited/posts/",
     "role_type": "North India Microfinance Leader",
-    "active": true,
-    "segment": "Microfinance"
+    "segment": "Microfinance",
+    "active": true
   },
   {
     "id": "asirvad-microfinance",
@@ -92,6 +96,7 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/asirvad-microfinance-limited/posts/",
     "role_type": "Pan-India NBFC-MFI",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -101,8 +106,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/annapurna-finance-pvt-ltd/posts/",
     "role_type": "East India Microfinance Leader",
-    "active": true,
-    "segment": "Microfinance"
+    "segment": "Microfinance",
+    "active": true
   },
   {
     "id": "arohan-financial",
@@ -111,8 +116,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/arohan-financial-services-limited/posts/",
     "role_type": "East & North-East NBFC-MFI",
-    "active": true,
-    "segment": "Microfinance"
+    "segment": "Microfinance",
+    "active": true
   },
   {
     "id": "belstar-microfinance",
@@ -121,16 +126,16 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/belstar-microfinance-limited/posts/",
     "role_type": "Muthoot Finance Subsidiary MFI",
-    "active": true,
-    "segment": "Microfinance"
+    "segment": "Microfinance",
+    "active": true
   },
   {
     "id": "search-los-bre",
     "name": "Global Search: LOS Architecture & BRE",
     "category": "M2P LOS Competitors & Tech",
     "type": "search",
-    "query": "\"loan origination system\" OR \"LOS architecture\" OR \"BRE engine\" India",
     "role_type": "Global LOS Tech Intelligence",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -138,8 +143,8 @@
     "name": "Global Search: Co-Lending & FLDG Governance",
     "category": "Regulatory, Government & Policy",
     "type": "search",
-    "query": "\"co-lending\" OR \"FLDG\" OR \"default loss guarantee\" RBI",
     "role_type": "Regulatory & Co-Origination Intelligence",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -147,8 +152,8 @@
     "name": "Global Search: MSME Cashflow Credit & TReDS",
     "category": "Supply Chain Finance (SCF) & TReDS",
     "type": "search",
-    "query": "\"cashflow based lending\" OR \"TReDS\" OR \"MSME credit underwriting\" India",
     "role_type": "MSME & Cashflow Credit Insights",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -156,8 +161,8 @@
     "name": "Global Search: Gross NPA & Asset Quality",
     "category": "Data, KYC, AI Underwriting & Collections",
     "type": "search",
-    "query": "\"gross NPA\" OR \"bad loans\" OR \"asset quality\" bank NBFC India",
     "role_type": "Asset Quality & Risk Analytics",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -165,8 +170,8 @@
     "name": "Global Search: ULI & Account Aggregator",
     "category": "Regulatory, Government & Policy",
     "type": "search",
-    "query": "\"Unified Lending Interface\" OR \"ULI\" OR \"Account Aggregator\" RBI credit",
     "role_type": "DPI Credit Infrastructure",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -174,8 +179,8 @@
     "name": "Global Search: Credit on UPI & Embedded Lending",
     "category": "Digital Lending Fintechs",
     "type": "search",
-    "query": "\"credit on UPI\" OR \"UPI credit line\" NPCI lending",
     "role_type": "Next-Gen Consumer Credit",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -183,8 +188,8 @@
     "name": "Hashtag: #digitallending",
     "category": "Digital Lending Fintechs",
     "type": "hashtag",
-    "hashtag": "#digitallending",
     "role_type": "Global Digital Lending Stream",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -192,8 +197,8 @@
     "name": "Hashtag: #colending",
     "category": "Regulatory, Government & Policy",
     "type": "hashtag",
-    "hashtag": "#colending",
     "role_type": "Co-Lending Ecosystem Stream",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -201,8 +206,8 @@
     "name": "Hashtag: #lendingtech",
     "category": "M2P LOS Competitors & Tech",
     "type": "hashtag",
-    "hashtag": "#lendingtech",
     "role_type": "Lending Technology Ecosystem",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -210,8 +215,8 @@
     "name": "Hashtag: #msmelending",
     "category": "Supply Chain Finance (SCF) & TReDS",
     "type": "hashtag",
-    "hashtag": "#msmelending",
     "role_type": "MSME Lending & Credit Flow",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -221,23 +226,18 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/banknbfc-com/posts/",
     "role_type": "Banking & NBFC Industry Intelligence",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "credgenics",
     "name": "Credgenics",
-    "role_type": "Collections & Debt Resolution SaaS",
-    "organization": "Credgenics",
     "category": "M2P LOS Competitors & Tech",
     "type": "company",
     "url": "https://www.linkedin.com/company/credgenics/posts/",
-    "vertical_tags": [
-      "collections",
-      "recovery"
-    ],
-    "notes": "Collections automation",
-    "active": true,
-    "segment": "Collections Tech"
+    "role_type": "Collections & Debt Resolution SaaS",
+    "segment": "Collections Tech",
+    "active": true
   },
   {
     "id": "bankbazaar",
@@ -246,22 +246,17 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/bankbazaar-com/posts/",
     "role_type": "Retail Loan & Credit Card Marketplace",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "paisabazaar",
     "name": "Paisabazaar",
-    "role_type": "Aggregator",
-    "organization": "Paisabazaar",
     "category": "Digital Lending Fintechs & BNPL",
     "type": "company",
     "url": "https://www.linkedin.com/company/paisabazaar/posts/",
-    "website_url": null,
-    "vertical_tags": [
-      "loan marketplace",
-      "credit health"
-    ],
-    "notes": "Loan product aggregator",
+    "role_type": "Aggregator",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -271,23 +266,18 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/piramal-finance/posts/",
     "role_type": "Affordable Housing & MSME Lender",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "tata-capital",
     "name": "Tata Capital",
-    "role_type": "Tata Group Conglomerate NBFC",
-    "organization": "Tata Capital",
     "category": "NBFCs & Retail/Gold/Vehicle Lenders",
     "type": "company",
     "url": "https://www.linkedin.com/company/tata-capital/posts/",
-    "vertical_tags": [
-      "retail",
-      "corporate"
-    ],
-    "notes": "Large NBFC",
-    "active": true,
-    "segment": "Diversified NBFC"
+    "role_type": "Tata Group Conglomerate NBFC",
+    "segment": "Diversified NBFC",
+    "active": true
   },
   {
     "id": "poonawalla-fincorp",
@@ -296,6 +286,7 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/poonawalla-fincorp/posts/",
     "role_type": "Digital-First Retail & MSME NBFC",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -305,8 +296,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/cholamandalam-investment-and-finance-company-limited/posts/",
     "role_type": "Vehicle & Home Equity NBFC",
-    "active": true,
-    "segment": "Vehicle Finance"
+    "segment": "Vehicle Finance",
+    "active": true
   },
   {
     "id": "lt-finance",
@@ -315,6 +306,7 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/ltfinance/posts/",
     "role_type": "Retail, Farm, 2W & Micro Loans",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -324,6 +316,7 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/navi-technologies/posts/",
     "role_type": "Digital Home & Personal Loans",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -333,6 +326,7 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/money-view/posts/",
     "role_type": "Digital Personal Credit & MSME",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -342,8 +336,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/incred-financial-services/posts/",
     "role_type": "Diversified MSME & Retail Lender",
-    "active": true,
-    "segment": "MSME & Retail"
+    "segment": "MSME & Retail",
+    "active": true
   },
   {
     "id": "fibe-india",
@@ -351,21 +345,18 @@
     "category": "MSME & Digital Lending NBFCs",
     "type": "company",
     "url": "https://www.linkedin.com/company/fibe-india/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "m1xchange",
     "name": "M1xchange",
-    "role_type": "SCF Platform",
-    "organization": "M1xchange",
     "category": "Supply Chain Finance (SCF) & TReDS",
     "type": "company",
     "url": "https://www.linkedin.com/company/m1xchange/posts/",
-    "vertical_tags": [
-      "SCF",
-      "corporate"
-    ],
-    "notes": "SCF exchange (TReDS)",
+    "role_type": "SCF Platform",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -375,23 +366,17 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/rxil/posts/",
     "role_type": "TReDS Invoice Discounting Platform",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "invoicemart-treds",
     "name": "Invoicemart (TReDS)",
-    "role_type": "SCF Platform",
-    "organization": "Invoicemart",
     "category": "Supply Chain Finance (SCF) & TReDS",
     "type": "company",
     "url": "https://www.linkedin.com/company/invoicemart/posts/",
-    "website_url": null,
-    "vertical_tags": [
-      "SCF",
-      "TReDS",
-      "invoice discounting"
-    ],
-    "notes": "Invoice discounting / TReDS platform",
+    "role_type": "SCF Platform",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -401,6 +386,7 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/aavas-financiers-limited/posts/",
     "role_type": "Affordable Housing Finance",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -410,6 +396,7 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/homefirst-finance-company/posts/",
     "role_type": "Technology-Driven Housing Finance",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -419,8 +406,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/five-star-business-finance-limited/posts/",
     "role_type": "Small Business & Self-Employed Secured NBFC",
-    "active": true,
-    "segment": "MSME Secured"
+    "segment": "MSME Secured",
+    "active": true
   },
   {
     "id": "etbfsi",
@@ -428,6 +415,8 @@
     "category": "Industry Media & Communities",
     "type": "company",
     "url": "https://www.linkedin.com/company/etbfsi/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -436,6 +425,8 @@
     "category": "Industry Media & Communities",
     "type": "company",
     "url": "https://www.linkedin.com/company/finsamudra/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -444,6 +435,8 @@
     "category": "Industry Media & Communities",
     "type": "company",
     "url": "https://www.linkedin.com/company/gencfo/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -452,6 +445,8 @@
     "category": "Regulatory & Industry Bodies",
     "type": "company",
     "url": "https://www.linkedin.com/company/rbi-innovation-hub/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -460,15 +455,9 @@
     "category": "Regulatory & Industry Bodies",
     "type": "company",
     "url": "https://www.linkedin.com/company/reserve-bank-of-india/posts/",
-    "active": true,
     "role_type": "Regulator",
-    "organization": "Reserve Bank of India",
-    "website_url": "https://www.rbi.org.in/",
-    "vertical_tags": [
-      "regulatory",
-      "guidelines"
-    ],
-    "notes": "RBI official site (circulars & guidelines)"
+    "segment": "Lending",
+    "active": true
   },
   {
     "id": "sahamati",
@@ -476,9 +465,9 @@
     "category": "Regulatory, Government & Policy",
     "type": "company",
     "url": "https://www.linkedin.com/company/sahamati/posts/",
-    "active": true,
     "role_type": "Account Aggregator Ecosystem SRO",
-    "segment": "DPI Infrastructure"
+    "segment": "DPI Infrastructure",
+    "active": true
   },
   {
     "id": "dlai",
@@ -486,6 +475,8 @@
     "category": "Regulatory & Industry Bodies",
     "type": "company",
     "url": "https://www.linkedin.com/company/dlai-india/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -494,6 +485,8 @@
     "category": "Regulatory & Industry Bodies",
     "type": "company",
     "url": "https://www.linkedin.com/company/face-fintech/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -502,15 +495,9 @@
     "category": "M2P LOS Competitors & Tech",
     "type": "company",
     "url": "https://www.linkedin.com/company/perfios/posts/",
-    "active": true,
     "role_type": "B2B SaaS IDP & Financial Analytics",
-    "organization": "Perfios",
-    "vertical_tags": [
-      "data aggregation",
-      "credit analytics"
-    ],
-    "notes": "Statement parsing and data aggregation",
-    "segment": "Underwriting Tech"
+    "segment": "Underwriting Tech",
+    "active": true
   },
   {
     "id": "pennant",
@@ -518,6 +505,8 @@
     "category": "M2P LOS Competitors & Tech",
     "type": "company",
     "url": "https://www.linkedin.com/company/pennant-technologies/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -526,14 +515,9 @@
     "category": "M2P LOS Competitors & Tech",
     "type": "company",
     "url": "https://www.linkedin.com/company/finflux/posts/",
-    "active": true,
     "role_type": "LOS Vendor",
-    "organization": "Finflux",
-    "vertical_tags": [
-      "LOS",
-      "lending platform"
-    ],
-    "notes": "Indian LOS vendor"
+    "segment": "Lending",
+    "active": true
   },
   {
     "id": "nucleus-software",
@@ -541,14 +525,9 @@
     "category": "M2P LOS Competitors & Tech",
     "type": "company",
     "url": "https://www.linkedin.com/company/nucleus-software/posts/",
-    "active": true,
     "role_type": "LOS Vendor",
-    "organization": "Nucleus Software",
-    "vertical_tags": [
-      "LOS",
-      "core lending"
-    ],
-    "notes": "Enterprise LOS vendor"
+    "segment": "Lending",
+    "active": true
   },
   {
     "id": "lentra",
@@ -556,6 +535,8 @@
     "category": "M2P LOS Competitors & Tech",
     "type": "company",
     "url": "https://www.linkedin.com/company/lentra/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -564,9 +545,9 @@
     "category": "M2P LOS Competitors & Tech",
     "type": "company",
     "url": "https://www.linkedin.com/company/decimal-technologies/posts/",
-    "active": true,
     "role_type": "No-Code Digital Banking & LOS",
-    "segment": "Lending Tech"
+    "segment": "Lending Tech",
+    "active": true
   },
   {
     "id": "turnkey-lender",
@@ -574,6 +555,8 @@
     "category": "M2P LOS Competitors & Tech",
     "type": "company",
     "url": "https://www.linkedin.com/company/turnkey-lender/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -582,6 +565,8 @@
     "category": "M2P LOS Competitors & Tech",
     "type": "company",
     "url": "https://www.linkedin.com/company/nelito-systems-ltd/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -590,6 +575,8 @@
     "category": "M2P LOS Competitors & Tech",
     "type": "company",
     "url": "https://www.linkedin.com/company/intellect-design-arena-ltd/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -598,6 +585,8 @@
     "category": "M2P LOS Competitors & Tech",
     "type": "company",
     "url": "https://www.linkedin.com/company/newgen-software/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -606,14 +595,9 @@
     "category": "Digital Lending Fintechs & BNPL",
     "type": "company",
     "url": "https://www.linkedin.com/company/lendingkart-technologies/posts/",
-    "active": true,
     "role_type": "Fintech",
-    "organization": "Lendingkart Technologies",
-    "vertical_tags": [
-      "MSME",
-      "lending"
-    ],
-    "notes": "MSME fintech lender"
+    "segment": "Lending",
+    "active": true
   },
   {
     "id": "neogrowth",
@@ -621,9 +605,9 @@
     "category": "Digital Lending Fintechs",
     "type": "company",
     "url": "https://www.linkedin.com/company/neogrowth-credit-pvt-ltd/posts/",
-    "active": true,
     "role_type": "POS & Merchant Turnover Loans",
-    "segment": "MSME Retail"
+    "segment": "MSME Retail",
+    "active": true
   },
   {
     "id": "aye-finance",
@@ -631,9 +615,9 @@
     "category": "NBFCs & Retail/Gold/Vehicle Lenders",
     "type": "company",
     "url": "https://www.linkedin.com/company/aye-finance-p-ltd/posts/",
-    "active": true,
     "role_type": "Cluster-Based MSME Lending",
-    "segment": "MSME Lending"
+    "segment": "MSME Lending",
+    "active": true
   },
   {
     "id": "kinara-capital",
@@ -641,9 +625,9 @@
     "category": "NBFCs & Retail/Gold/Vehicle Lenders",
     "type": "company",
     "url": "https://www.linkedin.com/company/kinara-capital/posts/",
-    "active": true,
     "role_type": "Collateral-Free MSME Manufacturing Loans",
-    "segment": "MSME Lending"
+    "segment": "MSME Lending",
+    "active": true
   },
   {
     "id": "incred",
@@ -651,6 +635,8 @@
     "category": "MSME & Digital Lending NBFCs",
     "type": "company",
     "url": "https://www.linkedin.com/company/incred/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -659,9 +645,9 @@
     "category": "NBFCs & Retail/Gold/Vehicle Lenders",
     "type": "company",
     "url": "https://www.linkedin.com/company/protium-in/posts/",
-    "active": true,
     "role_type": "Engineering Finance for MSME Growth",
-    "segment": "MSME & Fintech"
+    "segment": "MSME & Fintech",
+    "active": true
   },
   {
     "id": "ugro-capital",
@@ -669,6 +655,8 @@
     "category": "MSME & Digital Lending NBFCs",
     "type": "company",
     "url": "https://www.linkedin.com/company/ugrocapital/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -677,6 +665,8 @@
     "category": "MSME & Digital Lending NBFCs",
     "type": "company",
     "url": "https://www.linkedin.com/company/oxyzo-financial-services/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -685,14 +675,9 @@
     "category": "Digital Lending Fintechs & BNPL",
     "type": "company",
     "url": "https://www.linkedin.com/company/flexiloans/posts/",
-    "active": true,
     "role_type": "Fintech",
-    "organization": "FlexiLoans",
-    "vertical_tags": [
-      "SME",
-      "business loans"
-    ],
-    "notes": "SME lending fintech"
+    "segment": "Lending",
+    "active": true
   },
   {
     "id": "indifi",
@@ -700,14 +685,9 @@
     "category": "Digital Lending Fintechs & BNPL",
     "type": "company",
     "url": "https://www.linkedin.com/company/indifi-technologies/posts/",
-    "active": true,
     "role_type": "Fintech",
-    "organization": "Indifi Technologies",
-    "vertical_tags": [
-      "MSME",
-      "SME lending"
-    ],
-    "notes": "SME-focused lender"
+    "segment": "Lending",
+    "active": true
   },
   {
     "id": "vivriti-capital",
@@ -715,6 +695,8 @@
     "category": "MSME & Digital Lending NBFCs",
     "type": "company",
     "url": "https://www.linkedin.com/company/vivriti-capital/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -723,6 +705,8 @@
     "category": "MSME & Digital Lending NBFCs",
     "type": "company",
     "url": "https://www.linkedin.com/company/northernarc/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -731,6 +715,8 @@
     "category": "MSME & Digital Lending NBFCs",
     "type": "company",
     "url": "https://www.linkedin.com/company/mintifi/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -739,6 +725,8 @@
     "category": "AI Underwriting & Credit Risk",
     "type": "company",
     "url": "https://www.linkedin.com/company/scoredata/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -747,6 +735,8 @@
     "category": "AI Underwriting & Credit Risk",
     "type": "company",
     "url": "https://www.linkedin.com/company/arya-ai/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -755,6 +745,8 @@
     "category": "AI Underwriting & Credit Risk",
     "type": "company",
     "url": "https://www.linkedin.com/company/jocata-financial-advisory-services/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -763,14 +755,9 @@
     "category": "AI Underwriting & Credit Risk",
     "type": "company",
     "url": "https://www.linkedin.com/company/creditvidya/posts/",
-    "active": true,
     "role_type": "Data Vendor",
-    "organization": "CreditVidya",
-    "vertical_tags": [
-      "alternative data",
-      "scoring"
-    ],
-    "notes": "Alt-data credit scoring"
+    "segment": "Lending",
+    "active": true
   },
   {
     "id": "bureau-id",
@@ -778,6 +765,8 @@
     "category": "AI Underwriting & Credit Risk",
     "type": "company",
     "url": "https://www.linkedin.com/company/bureauid/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -786,9 +775,9 @@
     "category": "M2P LOS Competitors & Tech",
     "type": "company",
     "url": "https://www.linkedin.com/company/hyperverge/posts/",
-    "active": true,
     "role_type": "AI Onboarding & Face Biometrics",
-    "segment": "Onboarding Tech"
+    "segment": "Onboarding Tech",
+    "active": true
   },
   {
     "id": "idfy",
@@ -796,9 +785,9 @@
     "category": "M2P LOS Competitors & Tech",
     "type": "company",
     "url": "https://www.linkedin.com/company/idfy/posts/",
-    "active": true,
     "role_type": "Video KYC & Identity Verification",
-    "segment": "Onboarding Tech"
+    "segment": "Onboarding Tech",
+    "active": true
   },
   {
     "id": "karza-technologies",
@@ -806,14 +795,9 @@
     "category": "Data, KYC, AI Underwriting & Collections",
     "type": "company",
     "url": "https://www.linkedin.com/company/karza-technologies/posts/",
-    "active": true,
     "role_type": "KYC / Data",
-    "organization": "Karza Technologies",
-    "vertical_tags": [
-      "KYC",
-      "fraud"
-    ],
-    "notes": "Data & KYC provider"
+    "segment": "Lending",
+    "active": true
   },
   {
     "id": "hdfc-bank",
@@ -821,14 +805,9 @@
     "category": "Incumbent Banks & SFBs",
     "type": "company",
     "url": "https://www.linkedin.com/company/hdfcbank/posts/",
-    "active": true,
     "role_type": "Incumbent Bank",
-    "organization": "HDFC Bank",
-    "vertical_tags": [
-      "home loans",
-      "retail"
-    ],
-    "notes": "Private bank"
+    "segment": "Lending",
+    "active": true
   },
   {
     "id": "icici-bank",
@@ -836,14 +815,9 @@
     "category": "Incumbent Banks & SFBs",
     "type": "company",
     "url": "https://www.linkedin.com/company/icici-bank/posts/",
-    "active": true,
     "role_type": "Incumbent Bank",
-    "organization": "ICICI Bank",
-    "vertical_tags": [
-      "retail",
-      "MSME"
-    ],
-    "notes": "Private bank"
+    "segment": "Lending",
+    "active": true
   },
   {
     "id": "axis-bank",
@@ -851,14 +825,9 @@
     "category": "Incumbent Banks & SFBs",
     "type": "company",
     "url": "https://www.linkedin.com/company/axis-bank/posts/",
-    "active": true,
     "role_type": "Incumbent Bank",
-    "organization": "Axis Bank",
-    "vertical_tags": [
-      "retail",
-      "vehicle"
-    ],
-    "notes": "Private bank"
+    "segment": "Lending",
+    "active": true
   },
   {
     "id": "kotak-mahindra-bank",
@@ -866,13 +835,9 @@
     "category": "Incumbent Banks & SFBs",
     "type": "company",
     "url": "https://www.linkedin.com/company/kotak-mahindra-bank/posts/",
-    "active": true,
     "role_type": "Incumbent Bank",
-    "organization": "Kotak Mahindra Bank",
-    "vertical_tags": [
-      "digital lending"
-    ],
-    "notes": "Private bank"
+    "segment": "Lending",
+    "active": true
   },
   {
     "id": "federal-bank",
@@ -880,6 +845,8 @@
     "category": "Banks & Regulators",
     "type": "company",
     "url": "https://www.linkedin.com/company/federal-bank/posts/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -888,6 +855,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/harshvardhanlunia/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -896,6 +865,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/shachindra-nath/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -904,6 +875,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/hardika-shah/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -912,6 +885,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/sanjay-sharma-aye/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -920,6 +895,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/manish-lunia-flexiloans/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -928,6 +905,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/alokmittal/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -936,6 +915,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/akshay-mehrotra-fibe/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -944,6 +925,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/gaurav-chopra-indialends/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -952,6 +935,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/anup-agarwal-mintifi/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -960,6 +945,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/madhusudan-ekambaram/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -968,6 +955,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/anuj-kacker/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -976,6 +965,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/ranvir-singh-kissht/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -984,6 +975,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/sashank-rishyasringa/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -992,6 +985,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/gauravhinduja/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -1000,6 +995,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/alok-bansal-b05423/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -1008,6 +1005,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/naveenkukreja/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -1016,6 +1015,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/bhavin-patel-lendenclub/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -1024,6 +1025,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/rajatgandhi/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -1032,6 +1035,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/bgmahesh/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -1040,6 +1045,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/jatinder-handoo/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -1048,6 +1055,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/sugandh-saxena/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -1056,6 +1065,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/amoldethe/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -1064,6 +1075,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/v-vaidyanathan-idfc/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -1072,6 +1085,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/sameershetty/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -1080,6 +1095,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/sabyasachigoswami/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -1088,6 +1105,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/ramgopalsubramani/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -1096,6 +1115,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/deepaksharma/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -1104,6 +1125,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/jasuja/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -1112,6 +1135,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/shinjinikumar/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -1120,6 +1145,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/vivekbelgavi/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -1128,6 +1155,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/madhusudananr/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -1136,6 +1165,8 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/prabhuranganathan/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -1144,931 +1175,628 @@
     "category": "Top 50 Digital Lending Influencers",
     "type": "person",
     "url": "https://www.linkedin.com/in/ramanathanrv/recent-activity/all/",
+    "role_type": "Indian Financial Institution",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "signzy",
     "name": "Signzy",
-    "role_type": "Digital Onboarding & eSign Workflows",
-    "organization": "Signzy",
     "category": "M2P LOS Competitors & Tech",
     "type": "company",
     "url": "https://www.linkedin.com/company/signzy/posts/",
-    "vertical_tags": [
-      "KYC",
-      "onboarding"
-    ],
-    "notes": "KYC automation vendor",
-    "active": true,
-    "segment": "Onboarding Tech"
+    "role_type": "Digital Onboarding & eSign Workflows",
+    "segment": "Onboarding Tech",
+    "active": true
   },
   {
     "id": "finshots",
     "name": "Finshots",
-    "role_type": "Media",
-    "organization": "Finshots",
     "category": "Industry Media & Communities",
     "type": "company",
-    "website_url": "https://finshots.in/",
     "url": "https://www.linkedin.com/company/finshots/posts/",
-    "vertical_tags": [
-      "media",
-      "fintech"
-    ],
-    "notes": "Fintech explainers and analysis",
+    "role_type": "Media",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "state-bank-of-india",
     "name": "State Bank of India",
-    "role_type": "Incumbent Bank",
-    "organization": "SBI",
     "category": "Incumbent Banks & SFBs",
     "type": "company",
     "url": "https://www.linkedin.com/company/state-bank-of-india/posts/",
-    "vertical_tags": [
-      "home loans",
-      "corporate",
-      "retail"
-    ],
-    "notes": "Public sector bank",
+    "role_type": "Incumbent Bank",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "idfc-first-bank",
     "name": "IDFC First Bank",
-    "role_type": "Incumbent Bank",
-    "organization": "IDFC First Bank",
     "category": "Incumbent Banks & SFBs",
     "type": "company",
     "url": "https://www.linkedin.com/company/idfc-first-bank/posts/",
-    "vertical_tags": [
-      "retail",
-      "personal"
-    ],
-    "notes": "Digital initiatives",
+    "role_type": "Incumbent Bank",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "indusind-bank",
     "name": "IndusInd Bank",
-    "role_type": "Incumbent Bank",
-    "organization": "IndusInd Bank",
     "category": "Incumbent Banks & SFBs",
     "type": "company",
     "url": "https://www.linkedin.com/company/indusind-bank/posts/",
-    "vertical_tags": [
-      "vehicle",
-      "retail"
-    ],
-    "notes": "Bank with digital products",
+    "role_type": "Incumbent Bank",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "au-small-finance-bank",
     "name": "AU Small Finance Bank",
-    "role_type": "Incumbent Bank",
-    "organization": "AU Small Finance Bank",
     "category": "Incumbent Banks & SFBs",
     "type": "company",
     "url": "https://www.linkedin.com/company/au-small-finance-bank/posts/",
-    "vertical_tags": [
-      "MSME",
-      "retail"
-    ],
-    "notes": "SFB focus",
+    "role_type": "Incumbent Bank",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "bajaj-finance",
     "name": "Bajaj Finance",
-    "role_type": "NBFC",
-    "organization": "Bajaj Finance",
     "category": "NBFCs & Retail/Gold/Vehicle Lenders",
     "type": "company",
     "url": "https://www.linkedin.com/company/bajaj-finserv/posts/",
-    "vertical_tags": [
-      "consumer",
-      "personal",
-      "BNPL"
-    ],
-    "notes": "Large NBFC lender",
+    "role_type": "NBFC",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "mahindra-finance",
     "name": "Mahindra & Mahindra Financial Services",
-    "role_type": "Rural Auto & Tractor NBFC",
-    "organization": "Mahindra Finance",
     "category": "NBFCs & Retail/Gold/Vehicle Lenders",
     "type": "company",
     "url": "https://www.linkedin.com/company/mahindra-finance/posts/",
-    "vertical_tags": [
-      "vehicle",
-      "EV"
-    ],
-    "notes": "Vehicle and rural finance",
-    "active": true,
-    "segment": "Vehicle & Tractor"
+    "role_type": "Rural Auto & Tractor NBFC",
+    "segment": "Vehicle & Tractor",
+    "active": true
   },
   {
     "id": "shriram-finance",
     "name": "Shriram Finance",
-    "role_type": "NBFC",
-    "organization": "Shriram Finance",
     "category": "NBFCs & Retail/Gold/Vehicle Lenders",
     "type": "company",
     "url": "https://www.linkedin.com/company/shriram-finance/posts/",
-    "vertical_tags": [
-      "vehicle",
-      "MSME"
-    ],
-    "notes": "Regional NBFC group",
+    "role_type": "NBFC",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "muthoot-finance",
     "name": "Muthoot Finance",
-    "role_type": "India's #1 Gold Financing NBFC",
-    "organization": "Muthoot Finance",
     "category": "NBFCs & Retail/Gold/Vehicle Lenders",
     "type": "company",
     "url": "https://www.linkedin.com/company/muthoot-finance/posts/",
-    "vertical_tags": [
-      "gold loans"
-    ],
-    "notes": "Gold loan leader",
-    "active": true,
-    "segment": "Gold Loans"
+    "role_type": "India's #1 Gold Financing NBFC",
+    "segment": "Gold Loans",
+    "active": true
   },
   {
     "id": "manappuram-finance",
     "name": "Manappuram Finance",
-    "role_type": "NBFC",
-    "organization": "Manappuram Finance",
     "category": "NBFCs & Retail/Gold/Vehicle Lenders",
     "type": "company",
     "url": "https://www.linkedin.com/company/manappuram-finance-limited/posts/",
-    "vertical_tags": [
-      "gold loans"
-    ],
-    "notes": "Gold loan leader",
+    "role_type": "NBFC",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "fullerton-india-smfg-india-credit",
     "name": "Fullerton India / SMFG India Credit",
-    "role_type": "NBFC",
-    "organization": "Fullerton India",
     "category": "NBFCs & Retail/Gold/Vehicle Lenders",
     "type": "company",
     "url": "https://www.linkedin.com/company/fullerton-india/posts/",
-    "vertical_tags": [
-      "personal",
-      "MSME"
-    ],
-    "notes": "Consumer and SME lending",
+    "role_type": "NBFC",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "iifl-finance",
     "name": "IIFL Finance",
-    "role_type": "NBFC",
-    "organization": "IIFL Finance",
     "category": "NBFCs & Retail/Gold/Vehicle Lenders",
     "type": "company",
     "url": "https://www.linkedin.com/company/iifl-finance/posts/",
-    "vertical_tags": [
-      "gold loans",
-      "personal"
-    ],
-    "notes": "Large NBFC",
+    "role_type": "NBFC",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "aditya-birla-finance",
     "name": "Aditya Birla Finance",
-    "role_type": "NBFC",
-    "organization": "Aditya Birla Finance",
     "category": "NBFCs & Retail/Gold/Vehicle Lenders",
     "type": "company",
     "url": "https://www.linkedin.com/company/aditya-birla-capital/posts/",
-    "vertical_tags": [
-      "consumer",
-      "business"
-    ],
-    "notes": "Group NBFC",
+    "role_type": "NBFC",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "home-credit-india",
     "name": "Home Credit India",
-    "role_type": "NBFC",
-    "organization": "Home Credit India",
     "category": "NBFCs & Retail/Gold/Vehicle Lenders",
     "type": "company",
     "url": "https://www.linkedin.com/company/home-credit-india/posts/",
-    "vertical_tags": [
-      "consumer",
-      "personal"
-    ],
-    "notes": "Consumer finance",
+    "role_type": "NBFC",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "capital-float-axio",
     "name": "Capital Float / axio",
-    "role_type": "Fintech",
-    "organization": "Capital Float",
     "category": "Digital Lending Fintechs & BNPL",
     "type": "company",
     "url": "https://www.linkedin.com/company/capitalfloat/posts/",
-    "vertical_tags": [
-      "SME",
-      "consumer"
-    ],
-    "notes": "SME and consumer lending",
+    "role_type": "Fintech",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "kreditbee",
     "name": "KreditBee",
-    "role_type": "Personal Credit & Instant Lending",
-    "organization": "KreditBee",
     "category": "Digital Lending Fintechs",
     "type": "company",
     "url": "https://www.linkedin.com/company/kreditbee/posts/",
-    "vertical_tags": [
-      "personal loans",
-      "consumer"
-    ],
-    "notes": "Personal loan fintech",
-    "active": true,
-    "segment": "Consumer Fintech"
+    "role_type": "Personal Credit & Instant Lending",
+    "segment": "Consumer Fintech",
+    "active": true
   },
   {
     "id": "earlysalary-fibe",
     "name": "EarlySalary / Fibe",
-    "role_type": "Fintech",
-    "organization": "EarlySalary",
     "category": "Digital Lending Fintechs & BNPL",
     "type": "company",
     "url": "https://www.linkedin.com/company/earlysalary/posts/",
-    "vertical_tags": [
-      "short term",
-      "personal"
-    ],
-    "notes": "Short-term credit provider",
+    "role_type": "Fintech",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "zestmoney",
     "name": "ZestMoney",
-    "role_type": "Fintech",
-    "organization": "ZestMoney",
     "category": "Digital Lending Fintechs & BNPL",
     "type": "company",
     "url": "https://www.linkedin.com/company/zestmoney/posts/",
-    "vertical_tags": [
-      "BNPL",
-      "consumer"
-    ],
-    "notes": "BNPL player",
+    "role_type": "Fintech",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "simpl",
     "name": "Simpl",
-    "role_type": "Fintech",
-    "organization": "Simpl",
     "category": "Digital Lending Fintechs & BNPL",
     "type": "company",
     "url": "https://www.linkedin.com/company/simpl/posts/",
-    "vertical_tags": [
-      "BNPL",
-      "checkout"
-    ],
-    "notes": "BNPL checkout provider",
+    "role_type": "Fintech",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "razorpay",
     "name": "Razorpay",
-    "role_type": "Fintech",
-    "organization": "Razorpay",
     "category": "Digital Lending Fintechs & BNPL",
     "type": "company",
     "url": "https://www.linkedin.com/company/razorpay/posts/",
-    "vertical_tags": [
-      "merchant lending",
-      "BNPL"
-    ],
-    "notes": "Payments + lending integrations",
+    "role_type": "Fintech",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "pine-labs",
     "name": "Pine Labs",
-    "role_type": "Fintech",
-    "organization": "Pine Labs",
     "category": "Digital Lending Fintechs & BNPL",
     "type": "company",
     "url": "https://www.linkedin.com/company/pinelabs/posts/",
-    "vertical_tags": [
-      "merchant BNPL",
-      "POS"
-    ],
-    "notes": "POS finance & merchant BNPL",
+    "role_type": "Fintech",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "paytm-lending",
     "name": "Paytm Lending",
-    "role_type": "Fintech",
-    "organization": "Paytm",
     "category": "Digital Lending Fintechs & BNPL",
     "type": "company",
     "url": "https://www.linkedin.com/company/paytm/posts/",
-    "vertical_tags": [
-      "consumer",
-      "merchant"
-    ],
-    "notes": "Payments platform with lending",
+    "role_type": "Fintech",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "phonepe-credit",
     "name": "PhonePe Credit",
-    "role_type": "Fintech",
-    "organization": "PhonePe",
     "category": "Digital Lending Fintechs & BNPL",
     "type": "company",
     "url": "https://www.linkedin.com/company/phonepe/posts/",
-    "vertical_tags": [
-      "BNPL",
-      "merchant"
-    ],
-    "notes": "PhonePe credit initiatives",
+    "role_type": "Fintech",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "lazypay",
     "name": "LazyPay",
-    "role_type": "Fintech",
-    "organization": "LazyPay",
     "category": "Digital Lending Fintechs & BNPL",
     "type": "company",
     "url": "https://www.linkedin.com/company/lazypay/posts/",
-    "vertical_tags": [
-      "BNPL",
-      "consumer"
-    ],
-    "notes": "BNPL player",
+    "role_type": "Fintech",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "slice",
     "name": "Slice",
-    "role_type": "Fintech",
-    "organization": "Slice",
     "category": "Digital Lending Fintechs & BNPL",
     "type": "company",
     "url": "https://www.linkedin.com/company/sliceit/posts/",
-    "vertical_tags": [
-      "cards",
-      "BNPL"
-    ],
-    "notes": "Card + BNPL startup",
+    "role_type": "Fintech",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "kredx",
     "name": "KredX",
-    "role_type": "SCF Platform",
-    "organization": "KredX",
     "category": "Supply Chain Finance (SCF) & TReDS",
     "type": "company",
     "url": "https://www.linkedin.com/company/kredx/posts/",
-    "vertical_tags": [
-      "SCF",
-      "supply chain"
-    ],
-    "notes": "SCF marketplace",
+    "role_type": "SCF Platform",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "fis",
     "name": "FIS",
-    "role_type": "Enterprise Vendor",
-    "organization": "FIS",
     "category": "Enterprise Vendors & Core Tech",
     "type": "company",
     "url": "https://www.linkedin.com/company/fis/posts/",
-    "vertical_tags": [
-      "enterprise lending"
-    ],
-    "notes": "Global enterprise fintech vendor",
+    "role_type": "Enterprise Vendor",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "fiserv",
     "name": "Fiserv",
-    "role_type": "Enterprise Vendor",
-    "organization": "Fiserv",
     "category": "Enterprise Vendors & Core Tech",
     "type": "company",
     "url": "https://www.linkedin.com/company/fiserv/posts/",
-    "vertical_tags": [
-      "enterprise lending"
-    ],
-    "notes": "Payments & lending tech",
+    "role_type": "Enterprise Vendor",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "yodlee",
     "name": "Yodlee",
-    "role_type": "Data Aggregator",
-    "organization": "Yodlee",
     "category": "Data, KYC, AI Underwriting & Collections",
     "type": "company",
     "url": "https://www.linkedin.com/company/yodlee/posts/",
-    "vertical_tags": [
-      "data aggregation"
-    ],
-    "notes": "Account aggregation provider",
+    "role_type": "Data Aggregator",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "finbox",
     "name": "FinBox",
-    "role_type": "Data Vendor",
-    "organization": "FinBox",
     "category": "Data, KYC, AI Underwriting & Collections",
     "type": "company",
     "url": "https://www.linkedin.com/company/finbox/posts/",
-    "vertical_tags": [
-      "bank statement parsing",
-      "scoring"
-    ],
-    "notes": "Financial data APIs",
+    "role_type": "Data Vendor",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "onfido",
     "name": "Onfido",
-    "role_type": "KYC Vendor",
-    "organization": "Onfido",
     "category": "Data, KYC, AI Underwriting & Collections",
     "type": "company",
     "url": "https://www.linkedin.com/company/onfido/posts/",
-    "vertical_tags": [
-      "KYC",
-      "identity verification"
-    ],
-    "notes": "Global identity verification",
+    "role_type": "KYC Vendor",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "zest-ai",
     "name": "Zest AI",
-    "role_type": "AI Underwriting",
-    "organization": "Zest AI",
     "category": "Data, KYC, AI Underwriting & Collections",
     "type": "company",
     "url": "https://www.linkedin.com/company/zest-ai/posts/",
-    "vertical_tags": [
-      "AI underwriting"
-    ],
-    "notes": "AI credit decisioning",
+    "role_type": "AI Underwriting",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "cams",
     "name": "CAMS",
-    "role_type": "Data Partner",
-    "organization": "CAMS",
     "category": "Credit Bureaus & Market Infrastructure",
     "type": "company",
     "url": "https://www.linkedin.com/company/camsindia/posts/",
-    "vertical_tags": [
-      "data",
-      "payments"
-    ],
-    "notes": "Mutual fund & payments infrastructure",
+    "role_type": "Data Partner",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "transunion-cibil",
     "name": "TransUnion CIBIL",
-    "role_type": "Credit Bureau",
-    "organization": "TransUnion CIBIL",
     "category": "Credit Bureaus & Market Infrastructure",
     "type": "company",
     "url": "https://www.linkedin.com/company/transunion-cibil/posts/",
-    "vertical_tags": [
-      "credit bureau",
-      "data"
-    ],
-    "notes": "Credit bureau",
+    "role_type": "Credit Bureau",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "experian",
     "name": "Experian",
-    "role_type": "Credit Bureau",
-    "organization": "Experian",
     "category": "Credit Bureaus & Market Infrastructure",
     "type": "company",
     "url": "https://www.linkedin.com/company/experian/posts/",
-    "vertical_tags": [
-      "credit bureau",
-      "data"
-    ],
-    "notes": "Global bureau",
+    "role_type": "Credit Bureau",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "equifax",
     "name": "Equifax",
-    "role_type": "Credit Bureau",
-    "organization": "Equifax",
     "category": "Credit Bureaus & Market Infrastructure",
     "type": "company",
     "url": "https://www.linkedin.com/company/equifax/posts/",
-    "vertical_tags": [
-      "credit bureau",
-      "data"
-    ],
-    "notes": "Global bureau",
+    "role_type": "Credit Bureau",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "significant-systems",
     "name": "Significant Systems",
-    "role_type": "Systems Integrator",
-    "organization": "Significant Systems",
     "category": "Enterprise Vendors & Core Tech",
     "type": "company",
     "url": "https://www.linkedin.com/company/significant-systems/posts/",
-    "vertical_tags": [
-      "integration",
-      "SI"
-    ],
-    "notes": "System integrator (representative)",
+    "role_type": "Systems Integrator",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "shriram-transport-finance",
     "name": "Shriram Transport Finance",
-    "role_type": "NBFC",
-    "organization": "Shriram Transport Finance",
     "category": "NBFCs & Retail/Gold/Vehicle Lenders",
     "type": "company",
     "url": "https://www.linkedin.com/company/shriram-transport-finance-company-limited/posts/",
-    "website_url": null,
-    "vertical_tags": [
-      "vehicle",
-      "commercial"
-    ],
-    "notes": "Commercial vehicle finance specialist",
+    "role_type": "NBFC",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "sundaram-finance",
     "name": "Sundaram Finance",
-    "role_type": "Commercial Vehicle & Equipment NBFC",
-    "organization": "Sundaram Finance",
     "category": "NBFCs & Retail/Gold/Vehicle Lenders",
     "type": "company",
     "url": "https://www.linkedin.com/company/sundaram-finance-limited/posts/",
-    "website_url": null,
-    "vertical_tags": [
-      "vehicle finance"
-    ],
-    "notes": "Vehicle finance NBFC",
-    "active": true,
-    "segment": "Vehicle Finance"
+    "role_type": "Commercial Vehicle & Equipment NBFC",
+    "segment": "Vehicle Finance",
+    "active": true
   },
   {
     "id": "orix-india",
     "name": "Orix India",
-    "role_type": "NBFC",
-    "organization": "Orix India",
     "category": "NBFCs & Retail/Gold/Vehicle Lenders",
     "type": "company",
     "url": "https://www.linkedin.com/company/orix-india/posts/",
-    "website_url": null,
-    "vertical_tags": [
-      "EV",
-      "vehicle finance",
-      "leasing"
-    ],
-    "notes": "Leasing & fleet finance",
+    "role_type": "NBFC",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "hdfc-ltd",
     "name": "HDFC Ltd",
-    "role_type": "Home Loans",
-    "organization": "HDFC Ltd",
     "category": "NBFCs & Retail/Gold/Vehicle Lenders",
     "type": "company",
     "url": "https://www.linkedin.com/company/hdfc-limited/posts/",
-    "website_url": null,
-    "vertical_tags": [
-      "home loans",
-      "LAP"
-    ],
-    "notes": "Primary mortgage lender",
+    "role_type": "Home Loans",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "lic-housing",
     "name": "LIC Housing Finance",
-    "role_type": "India's Largest Institutional HFC",
-    "organization": "LIC Housing Finance",
     "category": "NBFCs & Retail/Gold/Vehicle Lenders",
     "type": "company",
     "url": "https://www.linkedin.com/company/lic-housing-finance-ltd/posts/",
-    "website_url": null,
-    "vertical_tags": [
-      "home loans",
-      "LAP"
-    ],
-    "notes": "Housing finance NBFC",
-    "active": true,
-    "segment": "Housing Finance"
+    "role_type": "India's Largest Institutional HFC",
+    "segment": "Housing Finance",
+    "active": true
   },
   {
     "id": "bankbazaar",
     "name": "BankBazaar",
-    "role_type": "Aggregator",
-    "organization": "BankBazaar",
     "category": "Digital Lending Fintechs & BNPL",
     "type": "company",
     "url": "https://www.linkedin.com/company/bankbazaar/posts/",
-    "website_url": null,
-    "vertical_tags": [
-      "loan marketplace",
-      "co-branded cards"
-    ],
-    "notes": "Loan product aggregator",
+    "role_type": "Aggregator",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "m2p-fintech",
     "name": "M2P Fintech",
-    "role_type": "Financial Infrastructure & Enterprise LOS",
-    "organization": "M2P Fintech",
     "category": "M2P LOS Competitors & Tech",
     "type": "company",
     "url": "https://www.linkedin.com/company/m2p-fintech/posts/",
-    "website_url": null,
-    "vertical_tags": [
-      "LOS",
-      "platform",
-      "integration"
-    ],
-    "notes": "M2P corporate page & enterprise LOS",
-    "active": true,
-    "segment": "Lending Tech"
+    "role_type": "Financial Infrastructure & Enterprise LOS",
+    "segment": "Lending Tech",
+    "active": true
   },
   {
     "id": "npci",
     "name": "NPCI",
-    "role_type": "Payments Regulator",
-    "organization": "NPCI",
     "category": "Data, KYC, AI Underwriting & Collections",
     "type": "company",
     "url": "https://www.linkedin.com/company/national-payments-corporation-of-india/posts/",
-    "website_url": null,
-    "vertical_tags": [
-      "payments",
-      "UPI",
-      "infrastructure"
-    ],
-    "notes": "Payments infrastructure & schemes",
+    "role_type": "Payments Regulator",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "payu",
     "name": "PayU",
-    "role_type": "Payments / Lending",
-    "organization": "PayU",
     "category": "Data, KYC, AI Underwriting & Collections",
     "type": "company",
     "url": "https://www.linkedin.com/company/payu/posts/",
-    "website_url": null,
-    "vertical_tags": [
-      "merchant payments",
-      "lending"
-    ],
-    "notes": "Payments gateway with lending products",
+    "role_type": "Payments / Lending",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "crisil",
     "name": "CRISIL Limited",
-    "role_type": "S&P Global Rating Agency",
-    "organization": "CRISIL",
     "category": "Industry Media & Communities",
     "type": "company",
     "url": "https://www.linkedin.com/company/crisil/posts/",
-    "website_url": null,
-    "vertical_tags": [
-      "research",
-      "credit",
-      "ratings"
-    ],
-    "notes": "Authoritative credit & sector research",
-    "active": true,
-    "segment": "Rating Agency"
+    "role_type": "S&P Global Rating Agency",
+    "segment": "Rating Agency",
+    "active": true
   },
   {
     "id": "icra",
     "name": "ICRA",
-    "role_type": "Moody's Affiliate Rating Agency",
-    "organization": "ICRA",
     "category": "Industry Media & Communities",
     "type": "company",
     "url": "https://www.linkedin.com/company/icra-limited/posts/",
-    "website_url": null,
-    "vertical_tags": [
-      "research",
-      "ratings"
-    ],
-    "notes": "Rating agency research",
-    "active": true,
-    "segment": "Rating Agency"
+    "role_type": "Moody's Affiliate Rating Agency",
+    "segment": "Rating Agency",
+    "active": true
   },
   {
     "id": "moneycontrol",
     "name": "Moneycontrol",
-    "role_type": "Media",
-    "organization": "Moneycontrol",
     "category": "Industry Media & Communities",
     "type": "company",
     "url": "https://www.linkedin.com/company/moneycontrol/posts/",
-    "website_url": "https://www.moneycontrol.com/",
-    "vertical_tags": [
-      "news",
-      "finance",
-      "banking"
-    ],
-    "notes": "Mainstream finance news site",
+    "role_type": "Media",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "livemint",
     "name": "LiveMint",
-    "role_type": "Media",
-    "organization": "LiveMint",
     "category": "Industry Media & Communities",
     "type": "company",
     "url": "https://www.linkedin.com/company/livemint/posts/",
-    "website_url": "https://www.livemint.com/",
-    "vertical_tags": [
-      "business",
-      "policy",
-      "fintech"
-    ],
-    "notes": "Business & policy coverage",
+    "role_type": "Media",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "inc42",
     "name": "Inc42",
-    "role_type": "Media",
-    "organization": "Inc42",
     "category": "Industry Media & Communities",
     "type": "company",
     "url": "https://www.linkedin.com/company/inc42/posts/",
-    "website_url": "https://inc42.com/",
-    "vertical_tags": [
-      "startups",
-      "fintech"
-    ],
-    "notes": "Startup & fintech reporting",
+    "role_type": "Media",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "yourstory",
     "name": "YourStory",
-    "role_type": "Media",
-    "organization": "YourStory",
     "category": "Industry Media & Communities",
     "type": "company",
     "url": "https://www.linkedin.com/company/yourstory-media/posts/",
-    "website_url": "https://yourstory.com/",
-    "vertical_tags": [
-      "startups",
-      "fintech"
-    ],
-    "notes": "Startup coverage & profiles",
+    "role_type": "Media",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "nbfc-advisor",
     "name": "NBFC Advisor",
-    "role_type": "Media / Advisory",
-    "organization": "NBFC Advisor",
     "category": "Industry Media & Communities",
     "type": "company",
     "url": "https://nbfcadvisor.com/",
-    "website_url": "https://nbfcadvisor.com/",
-    "vertical_tags": [
-      "NBFC",
-      "analysis",
-      "regulatory"
-    ],
-    "notes": "NBFC-focused news & advisory",
+    "role_type": "Media / Advisory",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "ministry-of-finance-goi",
     "name": "Ministry of Finance (GoI)",
-    "role_type": "Government",
-    "organization": "Ministry of Finance",
     "category": "Regulatory & Industry Bodies",
     "type": "company",
     "url": "https://www.linkedin.com/company/ministry-of-finance-government-of-india/posts/",
-    "website_url": "https://www.finmin.nic.in/",
-    "vertical_tags": [
-      "policy",
-      "finance"
-    ],
-    "notes": "Policy releases and press notes",
+    "role_type": "Government",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "meity-govt-of-india",
     "name": "MeitY (Govt of India)",
-    "role_type": "Government",
-    "organization": "Ministry of Electronics & IT",
     "category": "Regulatory & Industry Bodies",
     "type": "company",
     "url": "https://www.linkedin.com/company/meity/posts/",
-    "website_url": "https://www.meity.gov.in/",
-    "vertical_tags": [
-      "fintech",
-      "policy",
-      "DPDP"
-    ],
-    "notes": "Fintech & digital policy inputs",
+    "role_type": "Government",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "msme-ministry-india",
     "name": "Ministry of Micro, Small and Medium Enterprises (Govt of India)",
     "category": "Regulatory, Government & Policy",
-    "role_type": "Government / MSME Policy & CGTMSE",
     "type": "company",
     "url": "https://www.linkedin.com/company/ministry-of-micro-small-and-medium-enterprises-government-of-india/posts/",
+    "role_type": "Government / MSME Policy & CGTMSE",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "sidbi-india",
     "name": "SIDBI (Small Industries Development Bank of India)",
     "category": "Regulatory, Government & Policy",
-    "role_type": "DFI / MSME Refinancing & Co-Lending",
     "type": "company",
     "url": "https://www.linkedin.com/company/sidbi-small-industries-development-bank-of-india/posts/",
+    "role_type": "DFI / MSME Refinancing & Co-Lending",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "abhinav-bhardwaj",
     "name": "Abhinav Bhardwaj",
     "category": "Top Industry Influencers & CXOs",
-    "role_type": "Fintech & Lending Executive",
     "type": "profile",
     "url": "https://www.linkedin.com/in/abhinavbhardwaj02/",
+    "role_type": "Fintech & Lending Executive",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "business-protection-101",
     "name": "Business Protection 101 (Newsletter)",
     "category": "Fintech Media & Communities",
-    "role_type": "Fintech & Risk Newsletter",
     "type": "newsletter",
     "url": "https://www.linkedin.com/newsletters/business-protection-101-7195287270453624832/",
+    "role_type": "Fintech & Risk Newsletter",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "cxolanes",
     "name": "CXO Lanes",
     "category": "Fintech Media & Communities",
-    "role_type": "Executive & Fintech Community",
     "type": "company",
     "url": "https://www.linkedin.com/company/cxolanes/posts/",
+    "role_type": "Executive & Fintech Community",
+    "segment": "Lending",
     "active": true
   },
   {
     "id": "unifiedfintech",
     "name": "Unified Fintech",
     "category": "M2P LOS Competitors & Tech",
-    "role_type": "Digital Lending & Banking Platform",
     "type": "company",
     "url": "https://www.linkedin.com/company/unifiedfintech/posts/",
+    "role_type": "Digital Lending & Banking Platform",
+    "segment": "Lending",
     "active": true
   },
   {
@@ -2078,7 +1806,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/sidbiofficial/posts/",
     "role_type": "Principal MSME Development Institution",
-    "segment": "Government & MSME"
+    "segment": "Government & MSME",
+    "active": true
   },
   {
     "id": "ncgtc",
@@ -2087,7 +1816,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/ncgtc/posts/",
     "role_type": "Govt Credit Guarantee Trustee (CGS / ECLGS)",
-    "segment": "Government & MSME"
+    "segment": "Government & MSME",
+    "active": true
   },
   {
     "id": "cgtmse",
@@ -2096,7 +1826,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/cgtmse-official/posts/",
     "role_type": "Collateral-Free MSME Credit Guarantee",
-    "segment": "Government & MSME"
+    "segment": "Government & MSME",
+    "active": true
   },
   {
     "id": "mudra",
@@ -2105,7 +1836,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/mudrabank/posts/",
     "role_type": "Pradhan Mantri MUDRA Yojana Refinance",
-    "segment": "Government & MSME"
+    "segment": "Government & MSME",
+    "active": true
   },
   {
     "id": "nabard",
@@ -2114,7 +1846,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/nabardonline/posts/",
     "role_type": "Apex Agriculture & Rural Credit Institution",
-    "segment": "Government & Rural"
+    "segment": "Government & Rural",
+    "active": true
   },
   {
     "id": "nhb",
@@ -2123,7 +1856,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/national-housing-bank/posts/",
     "role_type": "Principal Housing Finance Regulatory Agency",
-    "segment": "Government & Housing"
+    "segment": "Government & Housing",
+    "active": true
   },
   {
     "id": "exim-bank",
@@ -2132,7 +1866,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/indiaeximbank/posts/",
     "role_type": "Export-Import Financing Institution",
-    "segment": "Government & Trade"
+    "segment": "Government & Trade",
+    "active": true
   },
   {
     "id": "ireda",
@@ -2141,7 +1876,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/iredaofficial/posts/",
     "role_type": "Green Energy & Clean Tech NBFC",
-    "segment": "Government NBFC"
+    "segment": "Government NBFC",
+    "active": true
   },
   {
     "id": "pfc",
@@ -2150,7 +1886,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/power-finance-corporation-ltd/posts/",
     "role_type": "Navratna Power Infrastructure NBFC",
-    "segment": "Government NBFC"
+    "segment": "Government NBFC",
+    "active": true
   },
   {
     "id": "rec",
@@ -2159,7 +1896,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/rec-limited/posts/",
     "role_type": "Maharatna Power & Infra NBFC",
-    "segment": "Government NBFC"
+    "segment": "Government NBFC",
+    "active": true
   },
   {
     "id": "ifci",
@@ -2168,7 +1906,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/ifci-limited/posts/",
     "role_type": "Industrial Development Finance Institution",
-    "segment": "Government & Industrial"
+    "segment": "Government & Industrial",
+    "active": true
   },
   {
     "id": "hudco",
@@ -2177,7 +1916,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/housing-and-urban-development-corp--ltd-/posts/",
     "role_type": "Urban Infrastructure & Housing NBFC",
-    "segment": "Government & Housing"
+    "segment": "Government & Housing",
+    "active": true
   },
   {
     "id": "iifcl",
@@ -2186,7 +1926,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/iifcl-official/posts/",
     "role_type": "Core Infrastructure Long-Term Lender",
-    "segment": "Government & Infra"
+    "segment": "Government & Infra",
+    "active": true
   },
   {
     "id": "ecgc",
@@ -2195,7 +1936,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/ecgc-ltd/posts/",
     "role_type": "Export Credit Insurance & Risk Mitigant",
-    "segment": "Government & Trade"
+    "segment": "Government & Trade",
+    "active": true
   },
   {
     "id": "rbi",
@@ -2204,7 +1946,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/reserve-bank-of-india-rbi/posts/",
     "role_type": "Central Banking & Credit Regulator",
-    "segment": "Regulator"
+    "segment": "Regulator",
+    "active": true
   },
   {
     "id": "npci",
@@ -2213,7 +1956,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/national-payments-corporation-of-india-npci-/posts/",
     "role_type": "Retail Payments & Credit on UPI Rails",
-    "segment": "DPI Infrastructure"
+    "segment": "DPI Infrastructure",
+    "active": true
   },
   {
     "id": "mfin-india",
@@ -2222,7 +1966,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/mfin-microfinance-institutions-network/posts/",
     "role_type": "RBI-Recognized Microfinance SRO",
-    "segment": "Microfinance SRO"
+    "segment": "Microfinance SRO",
+    "active": true
   },
   {
     "id": "fidc-india",
@@ -2231,7 +1976,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/finance-industry-development-council/posts/",
     "role_type": "Apex Representative Body for NBFCs",
-    "segment": "NBFC SRO"
+    "segment": "NBFC SRO",
+    "active": true
   },
   {
     "id": "veritas-finance",
@@ -2240,7 +1986,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/veritas-finance-pvt-ltd/posts/",
     "role_type": "MSME Secured Lending (DRHP Filed)",
-    "segment": "MSME Secured"
+    "segment": "MSME Secured",
+    "active": true
   },
   {
     "id": "ugro-capital",
@@ -2249,7 +1996,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/ugro-capital/posts/",
     "role_type": "Data-Tech MSME NBFC (GRO Score)",
-    "segment": "MSME Fintech"
+    "segment": "MSME Fintech",
+    "active": true
   },
   {
     "id": "vistaar-finance",
@@ -2258,7 +2006,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/vistaar-financial-services-pvt--ltd-/posts/",
     "role_type": "MSME Secured Term Loans",
-    "segment": "MSME Secured"
+    "segment": "MSME Secured",
+    "active": true
   },
   {
     "id": "finova-capital",
@@ -2267,7 +2016,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/finovacapital/posts/",
     "role_type": "Semi-Urban MSME & Home Loans",
-    "segment": "MSME Secured"
+    "segment": "MSME Secured",
+    "active": true
   },
   {
     "id": "mas-financial",
@@ -2276,7 +2026,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/mas-financial-services-limited/posts/",
     "role_type": "Retail & Wholesaling NBFC",
-    "segment": "MSME & Retail"
+    "segment": "MSME & Retail",
+    "active": true
   },
   {
     "id": "fedfina",
@@ -2285,7 +2036,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/fedfina/posts/",
     "role_type": "Gold Loan & MSME LAP NBFC",
-    "segment": "MSME & Gold"
+    "segment": "MSME & Gold",
+    "active": true
   },
   {
     "id": "sbfc-finance",
@@ -2294,7 +2046,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/sbfc-finance/posts/",
     "role_type": "MSME Secured LAP & Gold Loans",
-    "segment": "MSME Secured"
+    "segment": "MSME Secured",
+    "active": true
   },
   {
     "id": "capri-global",
@@ -2303,7 +2056,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/capri-global-capital-limited/posts/",
     "role_type": "MSME, Gold & Construction Finance",
-    "segment": "MSME & Gold"
+    "segment": "MSME & Gold",
+    "active": true
   },
   {
     "id": "arthmate",
@@ -2312,7 +2066,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/arthmate/posts/",
     "role_type": "Embedded MSME Credit & Co-Lending Cloud",
-    "segment": "MSME Fintech"
+    "segment": "MSME Fintech",
+    "active": true
   },
   {
     "id": "electronica-finance",
@@ -2321,7 +2076,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/electronica-finance-limited/posts/",
     "role_type": "Machine & Equipment MSME Finance",
-    "segment": "MSME Equipment"
+    "segment": "MSME Equipment",
+    "active": true
   },
   {
     "id": "lendingkart",
@@ -2330,7 +2086,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/lendingkart/posts/",
     "role_type": "Unsecured MSME Working Capital SaaS",
-    "segment": "MSME Fintech"
+    "segment": "MSME Fintech",
+    "active": true
   },
   {
     "id": "indifi",
@@ -2339,7 +2096,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/indifi/posts/",
     "role_type": "Vertical MSME Lending Marketplace",
-    "segment": "MSME Fintech"
+    "segment": "MSME Fintech",
+    "active": true
   },
   {
     "id": "progcap",
@@ -2348,7 +2106,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/progcap/posts/",
     "role_type": "Supply Chain & Retailer Working Capital",
-    "segment": "Supply Chain Finance"
+    "segment": "Supply Chain Finance",
+    "active": true
   },
   {
     "id": "vayana-network",
@@ -2357,7 +2116,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/vayana-network/posts/",
     "role_type": "Trade Financing & TReDS Integrator",
-    "segment": "Supply Chain Finance"
+    "segment": "Supply Chain Finance",
+    "active": true
   },
   {
     "id": "vivriti-capital",
@@ -2366,7 +2126,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/vivriticapital/posts/",
     "role_type": "Mid-Market Enterprise & Anchor SCF",
-    "segment": "Enterprise Lending"
+    "segment": "Enterprise Lending",
+    "active": true
   },
   {
     "id": "clix-capital",
@@ -2375,7 +2136,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/clix-capital/posts/",
     "role_type": "Digital MSME & School Financing",
-    "segment": "MSME & Retail"
+    "segment": "MSME & Retail",
+    "active": true
   },
   {
     "id": "oxyzo",
@@ -2384,7 +2146,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/oxyzo-financial-services-pvt-ltd/posts/",
     "role_type": "B2B Raw Material & Purchase Financing",
-    "segment": "Supply Chain Finance"
+    "segment": "Supply Chain Finance",
+    "active": true
   },
   {
     "id": "dmi-finance",
@@ -2393,7 +2156,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/dmi-finance-private-limited/posts/",
     "role_type": "Digital Embedded Credit & Real Estate",
-    "segment": "Embedded Credit"
+    "segment": "Embedded Credit",
+    "active": true
   },
   {
     "id": "bajaj-finance",
@@ -2402,7 +2166,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/bajaj-finance/posts/",
     "role_type": "India's #1 Retail & Consumer NBFC",
-    "segment": "Retail & Consumer"
+    "segment": "Retail & Consumer",
+    "active": true
   },
   {
     "id": "shriram-finance",
@@ -2411,7 +2176,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/shriram-finance-limited/posts/",
     "role_type": "Largest Retail & CV Lending NBFC",
-    "segment": "Vehicle & MSME"
+    "segment": "Vehicle & MSME",
+    "active": true
   },
   {
     "id": "aditya-birla-finance",
@@ -2420,7 +2186,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/aditya-birla-finance-limited/posts/",
     "role_type": "Diversified Corporate & MSME NBFC",
-    "segment": "Diversified NBFC"
+    "segment": "Diversified NBFC",
+    "active": true
   },
   {
     "id": "lt-finance",
@@ -2429,7 +2196,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/lt-finance/posts/",
     "role_type": "Retailized Lending NBFC",
-    "segment": "Retail & Rural"
+    "segment": "Retail & Rural",
+    "active": true
   },
   {
     "id": "poonawalla-fincorp",
@@ -2438,7 +2206,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/poonawallafincorp/posts/",
     "role_type": "Digital Consumer & MSME NBFC",
-    "segment": "Consumer & MSME"
+    "segment": "Consumer & MSME",
+    "active": true
   },
   {
     "id": "bajaj-housing",
@@ -2447,7 +2216,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/bajaj-housing-finance-limited/posts/",
     "role_type": "Premier Housing Finance Entity",
-    "segment": "Housing Finance"
+    "segment": "Housing Finance",
+    "active": true
   },
   {
     "id": "pnb-housing",
@@ -2456,7 +2226,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/pnb-housing-finance-limited/posts/",
     "role_type": "Prime & Affordable Housing Finance",
-    "segment": "Housing Finance"
+    "segment": "Housing Finance",
+    "active": true
   },
   {
     "id": "aadhar-housing",
@@ -2465,7 +2236,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/aadharhousing/posts/",
     "role_type": "Low-Income Affordable Housing HFC",
-    "segment": "Affordable Housing"
+    "segment": "Affordable Housing",
+    "active": true
   },
   {
     "id": "aavas-financiers",
@@ -2474,7 +2246,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/aavas-financiers-ltd/posts/",
     "role_type": "Rural & Semi-Urban Affordable HFC",
-    "segment": "Affordable Housing"
+    "segment": "Affordable Housing",
+    "active": true
   },
   {
     "id": "home-first-finance",
@@ -2483,7 +2256,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/homefirstindia/posts/",
     "role_type": "Tech-Driven Affordable Housing HFC",
-    "segment": "Affordable Housing"
+    "segment": "Affordable Housing",
+    "active": true
   },
   {
     "id": "india-shelter",
@@ -2492,7 +2266,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/indiashelter/posts/",
     "role_type": "Self-Employed Affordable Housing HFC",
-    "segment": "Affordable Housing"
+    "segment": "Affordable Housing",
+    "active": true
   },
   {
     "id": "can-fin-homes",
@@ -2501,7 +2276,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/can-fin-homes-limited/posts/",
     "role_type": "Canara Bank Sponsored HFC",
-    "segment": "Housing Finance"
+    "segment": "Housing Finance",
+    "active": true
   },
   {
     "id": "repco-home",
@@ -2510,7 +2286,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/repco-home-finance-limited/posts/",
     "role_type": "South India Retail HFC",
-    "segment": "Housing Finance"
+    "segment": "Housing Finance",
+    "active": true
   },
   {
     "id": "vastu-housing",
@@ -2519,7 +2296,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/vastu-housing-finance-corporation-ltd/posts/",
     "role_type": "Digitally-Enabled Affordable HFC",
-    "segment": "Affordable Housing"
+    "segment": "Affordable Housing",
+    "active": true
   },
   {
     "id": "shriram-housing",
@@ -2528,7 +2306,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/shriram-housing-finance-ltd/posts/",
     "role_type": "Affordable Housing Finance",
-    "segment": "Affordable Housing"
+    "segment": "Affordable Housing",
+    "active": true
   },
   {
     "id": "piramal-housing",
@@ -2537,7 +2316,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/piramal-capital-housing-finance/posts/",
     "role_type": "Retail Housing & LAP NBFC",
-    "segment": "Housing Finance"
+    "segment": "Housing Finance",
+    "active": true
   },
   {
     "id": "hero-housing",
@@ -2546,7 +2326,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/herohousingfinance/posts/",
     "role_type": "Hero Group Housing Finance",
-    "segment": "Housing Finance"
+    "segment": "Housing Finance",
+    "active": true
   },
   {
     "id": "smfg-housing",
@@ -2555,7 +2336,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/smfg-india-home-finance/posts/",
     "role_type": "Sumitomo Mitsui Group HFC",
-    "segment": "Affordable Housing"
+    "segment": "Affordable Housing",
+    "active": true
   },
   {
     "id": "aviom-housing",
@@ -2564,7 +2346,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/aviom-india-housing-finance/posts/",
     "role_type": "Micro-Mortgage HFC for Rural Women",
-    "segment": "Affordable Housing"
+    "segment": "Affordable Housing",
+    "active": true
   },
   {
     "id": "ummeed-housing",
@@ -2573,7 +2356,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/ummeedhousingfinance/posts/",
     "role_type": "Informal Income Affordable HFC",
-    "segment": "Affordable Housing"
+    "segment": "Affordable Housing",
+    "active": true
   },
   {
     "id": "tvs-credit",
@@ -2582,7 +2366,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/tvs-credit-services-ltd-/posts/",
     "role_type": "Two-Wheeler, Tractor & Used Car",
-    "segment": "Vehicle Finance"
+    "segment": "Vehicle Finance",
+    "active": true
   },
   {
     "id": "hero-fincorp",
@@ -2591,7 +2376,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/hero-fincorp/posts/",
     "role_type": "Two-Wheeler & Used Car NBFC",
-    "segment": "Vehicle Finance"
+    "segment": "Vehicle Finance",
+    "active": true
   },
   {
     "id": "muthoot-capital",
@@ -2600,7 +2386,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/muthoot-capital-services-ltd/posts/",
     "role_type": "Two-Wheeler & Used Car Loans",
-    "segment": "Vehicle Finance"
+    "segment": "Vehicle Finance",
+    "active": true
   },
   {
     "id": "sk-finance",
@@ -2609,7 +2396,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/skfin/posts/",
     "role_type": "Used Commercial Vehicle & MSME",
-    "segment": "Vehicle & MSME"
+    "segment": "Vehicle & MSME",
+    "active": true
   },
   {
     "id": "hinduja-finance",
@@ -2618,7 +2406,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/hinduja-leyland-finance/posts/",
     "role_type": "Commercial Vehicle & Construction Equipment",
-    "segment": "Vehicle Finance"
+    "segment": "Vehicle Finance",
+    "active": true
   },
   {
     "id": "kogta-financial",
@@ -2627,7 +2416,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/kogta-financial-i-ltd/posts/",
     "role_type": "Used CV, Car, Tractor & MSME",
-    "segment": "Vehicle & MSME"
+    "segment": "Vehicle & MSME",
+    "active": true
   },
   {
     "id": "berar-finance",
@@ -2636,7 +2426,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/berar-finance-limited/posts/",
     "role_type": "Central India Two-Wheeler NBFC",
-    "segment": "Vehicle Finance"
+    "segment": "Vehicle Finance",
+    "active": true
   },
   {
     "id": "manappuram-finance",
@@ -2645,7 +2436,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/manappuram-finance-ltd/posts/",
     "role_type": "Gold Loan & Diversified NBFC",
-    "segment": "Gold Loans"
+    "segment": "Gold Loans",
+    "active": true
   },
   {
     "id": "muthoot-fincorp",
@@ -2654,7 +2446,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/muthootfincorp/posts/",
     "role_type": "Gold & MSME Retail Loans",
-    "segment": "Gold Loans"
+    "segment": "Gold Loans",
+    "active": true
   },
   {
     "id": "rupeek",
@@ -2663,7 +2456,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/rupeek/posts/",
     "role_type": "Digital Doorstep Gold Loan Platform",
-    "segment": "Gold Fintech"
+    "segment": "Gold Fintech",
+    "active": true
   },
   {
     "id": "indel-money",
@@ -2672,7 +2466,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/indel-money-limited/posts/",
     "role_type": "Gold Loan NBFC (South India)",
-    "segment": "Gold Loans"
+    "segment": "Gold Loans",
+    "active": true
   },
   {
     "id": "kosamattam-finance",
@@ -2681,7 +2476,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/kosamattam-finance-ltd/posts/",
     "role_type": "Gold Loan NBFC (Kerala)",
-    "segment": "Gold Loans"
+    "segment": "Gold Loans",
+    "active": true
   },
   {
     "id": "svatantra-microfin",
@@ -2690,7 +2486,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/svatantra-microfin-ltd/posts/",
     "role_type": "Top 2 Microfinance Institution",
-    "segment": "Microfinance"
+    "segment": "Microfinance",
+    "active": true
   },
   {
     "id": "fusion-microfinance",
@@ -2699,7 +2496,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/fusion-microfinance-pvt-ltd/posts/",
     "role_type": "Women-Empowered NBFC-MFI",
-    "segment": "Microfinance"
+    "segment": "Microfinance",
+    "active": true
   },
   {
     "id": "asirvad-microfinance",
@@ -2708,7 +2506,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/asirvad-micro-finance-limited/posts/",
     "role_type": "Manappuram Subsidiary MFI",
-    "segment": "Microfinance"
+    "segment": "Microfinance",
+    "active": true
   },
   {
     "id": "arman-financial",
@@ -2717,7 +2516,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/arman-financial-services-ltd/posts/",
     "role_type": "Listed MFI & Two-Wheeler NBFC",
-    "segment": "Microfinance"
+    "segment": "Microfinance",
+    "active": true
   },
   {
     "id": "midland-microfin",
@@ -2726,7 +2526,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/midland-microfin-ltd/posts/",
     "role_type": "Punjab-Based NBFC-MFI",
-    "segment": "Microfinance"
+    "segment": "Microfinance",
+    "active": true
   },
   {
     "id": "lentra",
@@ -2735,7 +2536,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/lentra-ai/posts/",
     "role_type": "Cloud-Native Banking LOS",
-    "segment": "Lending Tech"
+    "segment": "Lending Tech",
+    "active": true
   },
   {
     "id": "fibe",
@@ -2744,7 +2546,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/fibeindia/posts/",
     "role_type": "Consumer Lending & Salary Advances",
-    "segment": "Consumer Fintech"
+    "segment": "Consumer Fintech",
+    "active": true
   },
   {
     "id": "finbox",
@@ -2753,7 +2556,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/finbox-in/posts/",
     "role_type": "Embedded Lending & Risk API",
-    "segment": "Lending Tech"
+    "segment": "Lending Tech",
+    "active": true
   },
   {
     "id": "bureau-id",
@@ -2762,7 +2566,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/bureau-id/posts/",
     "role_type": "Fraud Prevention & Risk Intelligence",
-    "segment": "Risk Tech"
+    "segment": "Risk Tech",
+    "active": true
   },
   {
     "id": "setu",
@@ -2771,7 +2576,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/setu-co/posts/",
     "role_type": "Account Aggregator & Open Banking",
-    "segment": "DPI Infrastructure"
+    "segment": "DPI Infrastructure",
+    "active": true
   },
   {
     "id": "decentro",
@@ -2780,7 +2586,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/decentro-in/posts/",
     "role_type": "API Banking & eNACH Mandates",
-    "segment": "API Banking"
+    "segment": "API Banking",
+    "active": true
   },
   {
     "id": "jocata",
@@ -2789,7 +2596,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/jocata/posts/",
     "role_type": "Digital Lending Platform (Sumpoorn)",
-    "segment": "Lending Tech"
+    "segment": "Lending Tech",
+    "active": true
   },
   {
     "id": "trackwizz",
@@ -2798,7 +2606,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/tss-consultancy-pvt-ltd/posts/",
     "role_type": "AML & Lending Compliance Software",
-    "segment": "Compliance Tech"
+    "segment": "Compliance Tech",
+    "active": true
   },
   {
     "id": "spocto",
@@ -2807,7 +2616,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/spocto/posts/",
     "role_type": "AI Debt Collections Platform",
-    "segment": "Collections Tech"
+    "segment": "Collections Tech",
+    "active": true
   },
   {
     "id": "yubi",
@@ -2816,7 +2626,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/yubiglobal/posts/",
     "role_type": "Co-Lending & Debt Marketplace",
-    "segment": "Co-Lending Platform"
+    "segment": "Co-Lending Platform",
+    "active": true
   },
   {
     "id": "transunion-cibil",
@@ -2825,7 +2636,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/transunion-cibil-india/posts/",
     "role_type": "India's #1 Credit Bureau",
-    "segment": "Credit Bureau"
+    "segment": "Credit Bureau",
+    "active": true
   },
   {
     "id": "experian-india",
@@ -2834,7 +2646,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/experian-india/posts/",
     "role_type": "Credit Bureau & Risk Analytics",
-    "segment": "Credit Bureau"
+    "segment": "Credit Bureau",
+    "active": true
   },
   {
     "id": "crif-high-mark",
@@ -2843,7 +2656,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/crif-high-mark/posts/",
     "role_type": "Microfinance & Commercial Bureau",
-    "segment": "Credit Bureau"
+    "segment": "Credit Bureau",
+    "active": true
   },
   {
     "id": "equifax-india",
@@ -2852,7 +2666,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/equifax-india/posts/",
     "role_type": "Credit Information Company",
-    "segment": "Credit Bureau"
+    "segment": "Credit Bureau",
+    "active": true
   },
   {
     "id": "care-ratings",
@@ -2861,7 +2676,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/careratings/posts/",
     "role_type": "Credit Rating Agency",
-    "segment": "Rating Agency"
+    "segment": "Rating Agency",
+    "active": true
   },
   {
     "id": "india-ratings",
@@ -2870,7 +2686,8 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/india-ratings-and-research/posts/",
     "role_type": "Fitch Group Agency",
-    "segment": "Rating Agency"
+    "segment": "Rating Agency",
+    "active": true
   },
   {
     "id": "acuite-ratings",
@@ -2879,6 +2696,647 @@
     "type": "company",
     "url": "https://www.linkedin.com/company/acuite-ratings-&-research-limited/posts/",
     "role_type": "MSME & Bond Rating Agency",
-    "segment": "Rating Agency"
+    "segment": "Rating Agency",
+    "active": true
+  },
+  {
+    "id": "paisalo-digital",
+    "name": "Paisalo Digital Limited",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/paisalo-digital-limited/posts/",
+    "role_type": "Rural Small Ticket & Co-Lending NBFC",
+    "segment": "Tier-2 Rural & MSME",
+    "active": true
+  },
+  {
+    "id": "satya-microcapital",
+    "name": "Satya MicroCapital Limited",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/satya-microcapital-ltd/posts/",
+    "role_type": "Tech-Driven North India NBFC-MFI",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "namdev-finvest",
+    "name": "Namdev Finvest Private Limited",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/namdev-finvest/posts/",
+    "role_type": "Rural MSME & Green Mobility NBFC (Rajasthan)",
+    "segment": "Tier-2 MSME & EV",
+    "active": true
+  },
+  {
+    "id": "sarvagram",
+    "name": "SarvaGram Solutions",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/sarvagram/posts/",
+    "role_type": "Rural Household & Farm Tech Lending",
+    "segment": "Tier-2 Rural Lending",
+    "active": true
+  },
+  {
+    "id": "ziploan",
+    "name": "ZipLoan (Blueemi)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/ziploan/posts/",
+    "role_type": "Digital Small Business Loans for Kiranas",
+    "segment": "Tier-2 MSME Fintech",
+    "active": true
+  },
+  {
+    "id": "revfin",
+    "name": "Revfin Services",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/revfin/posts/",
+    "role_type": "EV Financing & Commercial E-Rickshaw NBFC",
+    "segment": "Tier-2 Clean Mobility",
+    "active": true
+  },
+  {
+    "id": "shiksha-finance",
+    "name": "Shiksha Finance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/shiksha-finance/posts/",
+    "role_type": "Affordable Private School & Education NBFC",
+    "segment": "Tier-2 Education Loans",
+    "active": true
+  },
+  {
+    "id": "digamber-capfin",
+    "name": "Digamber Capfin Limited",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/digamber-capfin-ltd/posts/",
+    "role_type": "Rajasthan & North India NBFC-MFI",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "akme-fintrade",
+    "name": "Akme Fintrade (Aasaan Loans)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/aasaanloans/posts/",
+    "role_type": "Rural Commercial Vehicle & MSME (Udaipur)",
+    "segment": "Tier-2 Vehicle & MSME",
+    "active": true
+  },
+  {
+    "id": "sonata-finance",
+    "name": "Sonata Finance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/sonata-finance-pvt-ltd/posts/",
+    "role_type": "North India Rural NBFC-MFI (UP/Bihar)",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "svcl-microfinance",
+    "name": "SVCL (Singhal Value Capital)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/svcl/posts/",
+    "role_type": "Rural Microfinance NBFC",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "mufin-green",
+    "name": "Mufin Green Finance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/mufingreenfinance/posts/",
+    "role_type": "Listed Green Energy & EV NBFC",
+    "segment": "Tier-2 Clean Mobility",
+    "active": true
+  },
+  {
+    "id": "light-microfinance",
+    "name": "Light Microfinance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/light-microfinance-pvt-ltd/posts/",
+    "role_type": "Gujarat & Rajasthan NBFC-MFI",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "arth-microfinance",
+    "name": "ARTH (Impact NBFC)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/arthimpact/posts/",
+    "role_type": "Micro-Merchant Working Capital NBFC",
+    "segment": "Tier-2 MSME Fintech",
+    "active": true
+  },
+  {
+    "id": "varthana",
+    "name": "Varthana (Thirumeni Finance)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/varthana/posts/",
+    "role_type": "Affordable School Infrastructure Loans",
+    "segment": "Tier-2 Education Loans",
+    "active": true
+  },
+  {
+    "id": "auxilo-finserve",
+    "name": "Auxilo Finserve",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/auxilofinserve/posts/",
+    "role_type": "Higher Education & Global Student Loans",
+    "segment": "Tier-2 Education Loans",
+    "active": true
+  },
+  {
+    "id": "avanse-financial",
+    "name": "Avanse Financial Services",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/avanse-financial-services-ltd-/posts/",
+    "role_type": "Premier Education Focused NBFC",
+    "segment": "Tier-2 Education Loans",
+    "active": true
+  },
+  {
+    "id": "propelld",
+    "name": "Propelld",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/propelld/posts/",
+    "role_type": "Skilling & Higher Ed Financing NBFC",
+    "segment": "Tier-2 Education Fintech",
+    "active": true
+  },
+  {
+    "id": "grayquest",
+    "name": "GrayQuest",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/grayquest/posts/",
+    "role_type": "Zero-Cost Monthly Education Fee Financing",
+    "segment": "Tier-2 Education Fintech",
+    "active": true
+  },
+  {
+    "id": "eduvanz",
+    "name": "Eduvanz Financing",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/eduvanz/posts/",
+    "role_type": "Vocational & Professional Skilling Loans",
+    "segment": "Tier-2 Education Fintech",
+    "active": true
+  },
+  {
+    "id": "dvara-kgfs",
+    "name": "Dvara KGFS (Dvara Kshetriya Gramin)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/dvara-kgfs/posts/",
+    "role_type": "Remote Rural Wealth Management & Lending",
+    "segment": "Tier-2 Rural NBFC",
+    "active": true
+  },
+  {
+    "id": "samunnati",
+    "name": "Samunnati Financial Intermediation",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/samunnati/posts/",
+    "role_type": "Agri-Value Chain & FPO Financing",
+    "segment": "Tier-2 Agri Finance",
+    "active": true
+  },
+  {
+    "id": "arya-ag",
+    "name": "Arya.ag (Aryadhan Financial)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/arya-ag/posts/",
+    "role_type": "Warehouse Receipt Financing & Grain Collateral",
+    "segment": "Tier-2 Agri Finance",
+    "active": true
+  },
+  {
+    "id": "jai-kisan",
+    "name": "Jai Kisan",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/jai-kisan/posts/",
+    "role_type": "Rural Farmer & Input Dealer Credit",
+    "segment": "Tier-2 Agri Fintech",
+    "active": true
+  },
+  {
+    "id": "chemmanur-gold",
+    "name": "Boby Chemmanur International Group",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/chemmanur-credits-and-investments-ltd/posts/",
+    "role_type": "Gold Loans & Micro-Investments",
+    "segment": "Tier-2 Gold Loans",
+    "active": true
+  },
+  {
+    "id": "svamaan-financial",
+    "name": "Svamaan Financial Services",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/svamaan-financial-services/posts/",
+    "role_type": "Rural Women MSME Micro-Lending",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "repco-microfinance",
+    "name": "Repco Micro Finance Limited",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/repco-micro-finance-ltd/posts/",
+    "role_type": "Govt-Promoted South India MFI",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "wheelsemi",
+    "name": "WheelsEMI (Autovert)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/wheelsemi/posts/",
+    "role_type": "Affordable Pre-Owned Two-Wheeler Loans",
+    "segment": "Tier-2 Auto Loans",
+    "active": true
+  },
+  {
+    "id": "three-wheels-united",
+    "name": "Three Wheels United",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/three-wheels-united/posts/",
+    "role_type": "Tech-Enabled Auto-Rickshaw & EV Lenders",
+    "segment": "Tier-2 Clean Mobility",
+    "active": true
+  },
+  {
+    "id": "oto-capital",
+    "name": "OTO Capital",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/oto-capital/posts/",
+    "role_type": "Digital Two-Wheeler Leasing & Financing",
+    "segment": "Tier-2 Auto Fintech",
+    "active": true
+  },
+  {
+    "id": "vidyut-tech",
+    "name": "Vidyut Tech",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/vidyuttech/posts/",
+    "role_type": "EV Commercial Vehicle Battery Financing",
+    "segment": "Tier-2 Clean Mobility",
+    "active": true
+  },
+  {
+    "id": "turnocabs",
+    "name": "Turno (EV Commercial Lending)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/turno-club/posts/",
+    "role_type": "Commercial EV Fleet Financing & Battery Tech",
+    "segment": "Tier-2 Clean Mobility",
+    "active": true
+  },
+  {
+    "id": "ecofy",
+    "name": "Ecofy (Climate NBFC)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/ecofy-finance/posts/",
+    "role_type": "Green Loans for Rooftop Solar & EVs",
+    "segment": "Tier-2 Climate NBFC",
+    "active": true
+  },
+  {
+    "id": "kredx",
+    "name": "KredX (Minions NBFC)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/kredx-india/posts/",
+    "role_type": "Invoice Discounting & Supply Chain SaaS",
+    "segment": "Tier-2 Supply Chain",
+    "active": true
+  },
+  {
+    "id": "rupifi",
+    "name": "Rupifi",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/rupifi/posts/",
+    "role_type": "B2B Buy Now Pay Later for Marketplaces",
+    "segment": "Tier-2 B2B Fintech",
+    "active": true
+  },
+  {
+    "id": "velocity-in",
+    "name": "Velocity.in",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/velocity-in/posts/",
+    "role_type": "Revenue-Based Financing for D2C Brands",
+    "segment": "Tier-2 Alternative Lending",
+    "active": true
+  },
+  {
+    "id": "recur-club",
+    "name": "Recur Club",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/recur-club/posts/",
+    "role_type": "SaaS Subscription Cashflow Financing",
+    "segment": "Tier-2 Alternative Lending",
+    "active": true
+  },
+  {
+    "id": "grip-invest",
+    "name": "Grip Invest",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/grip-invest/posts/",
+    "role_type": "Asset-Backed Corporate Leasing & Bonds",
+    "segment": "Tier-2 Asset Leasing",
+    "active": true
+  },
+  {
+    "id": "western-capital",
+    "name": "Western Capital Advisors",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/western-capital-advisors/posts/",
+    "role_type": "Mid-Market Corporate & Real Estate NBFC",
+    "segment": "Tier-2 Corporate NBFC",
+    "active": true
+  },
+  {
+    "id": "choice-finserv",
+    "name": "Choice Finserv (Choice International)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/choicefinserv/posts/",
+    "role_type": "Retail SME, LAP & Solar Finance",
+    "segment": "Tier-2 SME Lending",
+    "active": true
+  },
+  {
+    "id": "grihum-housing",
+    "name": "Grihum Housing Finance (Poonawalla Housing)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/grihumhousingfinance/posts/",
+    "role_type": "Affordable Housing Finance Company",
+    "segment": "Tier-2 Affordable Housing",
+    "active": true
+  },
+  {
+    "id": "vfs-capital",
+    "name": "Village Financial Services (VFS Capital)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/vfs-capital/posts/",
+    "role_type": "Pioneer Microfinance NBFC in Eastern India",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "sambandh-finserve",
+    "name": "Sambandh Finserve",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/sambandh-finserve/posts/",
+    "role_type": "Odisha & Tribal Area Microfinance",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "adhikar-microfinance",
+    "name": "Adhikar Microfinance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/adhikar-microfinance/posts/",
+    "role_type": "Eastern India Rural Microcredit",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "margdarshak-financial",
+    "name": "Margdarshak Financial Services",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/margdarshak-financial-services/posts/",
+    "role_type": "UP & Bihar Rural Microfinance",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "saija-finance",
+    "name": "Saija Finance Private Limited",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/saija-finance/posts/",
+    "role_type": "Bihar-Based Microfinance Institution",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "jagaran-microfin",
+    "name": "Jagaran Microfin",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/jagaran-microfin/posts/",
+    "role_type": "West Bengal & Assam NBFC-MFI",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "centrum-microcredit",
+    "name": "Centrum Microcredit Limited",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/centrum-microcredit-limited/posts/",
+    "role_type": "Urban Microfinance & Small Business",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "ambit-finvest",
+    "name": "Ambit Finvest",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/ambit-finvest/posts/",
+    "role_type": "MSME Secured & Business Loans NBFC",
+    "segment": "Tier-2 MSME",
+    "active": true
+  },
+  {
+    "id": "capsave-finance",
+    "name": "Capsave Finance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/capsave-finance/posts/",
+    "role_type": "Supply Chain & Working Capital NBFC",
+    "segment": "Tier-2 Supply Chain",
+    "active": true
+  },
+  {
+    "id": "crdright",
+    "name": "CredRight",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/credright/posts/",
+    "role_type": "Chit-Fund Data Driven MSME NBFC",
+    "segment": "Tier-2 MSME Fintech",
+    "active": true
+  },
+  {
+    "id": "klm-axiva",
+    "name": "KLM Axiva Finvest",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/klm-axiva-finvest-ltd/posts/",
+    "role_type": "Gold Loan & Micro-LAP NBFC (Kerala)",
+    "segment": "Tier-2 Gold Loans",
+    "active": true
+  },
+  {
+    "id": "muthoot-mercantile",
+    "name": "Muthoot Mercantile Limited",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/muthoot-mercantile-limited/posts/",
+    "role_type": "Gold Loan NBFC",
+    "segment": "Tier-2 Gold Loans",
+    "active": true
+  },
+  {
+    "id": "maxvalue-credits",
+    "name": "Maxvalue Credits and Investments",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/maxvaluecredits/posts/",
+    "role_type": "Gold Loan & Two-Wheeler NBFC",
+    "segment": "Tier-2 Gold Loans",
+    "active": true
+  },
+  {
+    "id": "star-housing-finance",
+    "name": "Star Housing Finance Limited",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/star-housing-finance-limited/posts/",
+    "role_type": "Low-Ticket Rural Affordable HFC",
+    "segment": "Tier-2 Housing Finance",
+    "active": true
+  },
+  {
+    "id": "religare-finvest",
+    "name": "Religare Finvest Limited (RFL)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/religare-finvest-limited/posts/",
+    "role_type": "SME Working Capital & LAP NBFC",
+    "segment": "Tier-2 SME Lending",
+    "active": true
+  },
+  {
+    "id": "trucap-finance",
+    "name": "TruCap Finance (Dhanvarsha)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/trucapfinance/posts/",
+    "role_type": "Gold & MSME Co-Lending NBFC",
+    "segment": "Tier-2 MSME & Gold",
+    "active": true
+  },
+  {
+    "id": "krazybee",
+    "name": "KrazyBee (KreditBee NBFC)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/krazybee/posts/",
+    "role_type": "Systemically Important Digital NBFC",
+    "segment": "Tier-2 Digital Credit",
+    "active": true
+  },
+  {
+    "id": "subhlakshmi-finance",
+    "name": "Subhlakshmi Finance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/subhlakshmi-finance-pvt-ltd/posts/",
+    "role_type": "Rural MSME & Agri NBFC",
+    "segment": "Tier-2 Rural Lending",
+    "active": true
+  },
+  {
+    "id": "finfrock-nbft",
+    "name": "Fingrowth Co-operative NBFC",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/fingrowth/posts/",
+    "role_type": "Community MSME Lender",
+    "segment": "Tier-2 MSME",
+    "active": true
+  },
+  {
+    "id": "manba-finance",
+    "name": "Manba Finance Limited",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/manba-finance-limited/posts/",
+    "role_type": "Two-Wheeler & EV Financing (Mumbai)",
+    "segment": "Tier-2 Auto Loans",
+    "active": true
+  },
+  {
+    "id": "transactree-faircent",
+    "name": "Faircent (Transactree Technologies)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/faircent/posts/",
+    "role_type": "P2P Lending & Micro-Enterprise Credit",
+    "segment": "Tier-2 P2P Lending",
+    "active": true
+  },
+  {
+    "id": "iifl-samasta",
+    "name": "IIFL Samasta Finance Limited",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/iifl-samasta/posts/",
+    "role_type": "Rural Women Microfinance NBFC",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "cent-bank-housing",
+    "name": "Cent Bank Home Finance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/cent-bank-home-finance-limited/posts/",
+    "role_type": "Central Bank Sponsored HFC",
+    "segment": "Tier-2 Housing Finance",
+    "active": true
   }
 ]
