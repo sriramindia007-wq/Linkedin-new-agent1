@@ -216,6 +216,29 @@
       
       <!-- 1. Review & Approve Tab -->
       <div class="tab-pane fade show active" id="tab-review" role="tabpanel">
+        <!-- ⚡ Active Crawling & Estimated Time Remaining Banner -->
+        <div id="scrapeActiveBanner" class="alert alert-info border border-info border-opacity-25 d-flex align-items-center justify-content-between p-3 mb-4 shadow-sm rounded-3 d-none">
+          <div>
+            <div class="fw-bold text-dark"><span class="spinner-border spinner-border-sm text-info me-2"></span> ⚡ Crawling &amp; QA Auditing 541 Indian Lending Sources...</div>
+            <div class="small text-muted mt-1" id="scrapeProgressDetail">Initializing...</div>
+          </div>
+          <div class="text-end">
+            <span class="badge bg-info text-white fs-6 px-3 py-2" id="scrapePercentBadge">0%</span>
+          </div>
+        </div>
+
+        <!-- In-App Completion Notification Banner -->
+        <div id="scrapeCompleteToast" class="alert alert-success alert-dismissible fade show shadow-sm border border-success border-opacity-25 d-none p-3 mb-4 rounded-3" role="alert">
+          <div class="d-flex align-items-center">
+            <i class="fa-solid fa-circle-check text-success fs-3 me-3"></i>
+            <div>
+              <div class="fw-bold text-success" id="scrapeToastTitle">🎉 Scrape &amp; QA Certification Complete!</div>
+              <div class="small text-dark" id="scrapeToastBody">Your review queue has been refreshed with qualifying &lt;48h lending posts. All non-lending noise (FCNR/deposits/hiring) was automatically blocked.</div>
+            </div>
+          </div>
+          <button type="button" class="btn-close" onclick="document.getElementById('scrapeCompleteToast').classList.add('d-none')"></button>
+        </div>
+
         <div id="postsContainer">
           <div class="text-center py-5 text-muted">
             <div class="spinner-border text-primary mb-2" role="status"></div>
@@ -912,10 +935,17 @@
       if (pollInterval) clearInterval(pollInterval);
       
       const btn = document.getElementById("btnScrape");
+      const banner = document.getElementById("scrapeActiveBanner");
+      const toast = document.getElementById("scrapeCompleteToast");
+      const detail = document.getElementById("scrapeProgressDetail");
+      const badge = document.getElementById("scrapePercentBadge");
+
       if (btn) {
         btn.disabled = true;
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Scraping...';
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Crawling...';
       }
+      if (banner) banner.classList.remove("d-none");
+      if (toast) toast.classList.add("d-none");
 
       pollInterval = setInterval(async () => {
         try {
@@ -924,11 +954,25 @@
           const job = data.activeScrapeJob;
 
           if (job && job.isRunning) {
+            const prog = job.progress || 0;
+            const tot = job.total || 541;
+            const src = job.currentSource || "Scanning network...";
+            const percent = Math.min(99, Math.round((prog / Math.max(1, tot)) * 100));
+
+            const remSec = job.estimatedSecondsRemaining || Math.max(15, Math.round(((tot - prog) * 2.5)));
+            const min = Math.floor(remSec / 60);
+            const sec = remSec % 60;
+            const timeStr = min > 0 ? `~${min}m ${sec}s remaining` : `~${sec}s remaining`;
+
             if (btn) {
-              const prog = job.progress || 0;
-              const tot = job.total || 145;
-              const src = job.currentSource || "Scanning...";
-              btn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span> [${prog}/${tot}] ${escapeHtml(src.substring(0, 15))}...`;
+              btn.disabled = true;
+              btn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span> [${prog}/${tot}] ${timeStr}`;
+            }
+
+            if (banner) banner.classList.remove("d-none");
+            if (badge) badge.innerText = `${percent}%`;
+            if (detail) {
+              detail.innerHTML = `Source <strong>${prog}</strong> of <strong>${tot}</strong> (<em>${escapeHtml(src)}</em>) • <span class="badge bg-light text-dark border ms-1"><i class="fa-solid fa-stopwatch text-warning me-1"></i>${timeStr}</span>`;
             }
           } else {
             clearInterval(pollInterval);
@@ -937,12 +981,22 @@
               btn.disabled = false;
               btn.innerHTML = '<i class="fa-solid fa-play me-1"></i> Run Scraper';
             }
-            const count = (job && typeof job.newPosts === "number") ? job.newPosts : 0;
-            if (count > 0) {
-              alert(`🎉 Scrape Complete! Ingested ${count} new qualifying <48h lending posts.`);
-            } else {
-              alert("✅ Scrape Complete! All recent lending posts are already in your queue (non-lending noise was filtered out).");
+            if (banner) banner.classList.add("d-none");
+
+            // Show in-app Completion Notification Banner
+            if (toast) {
+              const count = (job && typeof job.newPosts === "number") ? job.newPosts : 0;
+              const titleEl = document.getElementById("scrapeToastTitle");
+              const bodyEl = document.getElementById("scrapeToastBody");
+              if (titleEl) titleEl.innerHTML = `🎉 Scrape &amp; QA Certification Complete!`;
+              if (bodyEl) {
+                bodyEl.innerHTML = count > 0 
+                  ? `Ingested <strong>${count} fresh &lt;48h lending posts</strong> across 541 sources. Non-lending noise (FCNR/deposits/hiring) was automatically blocked.`
+                  : `All recent lending posts from 541 sources are up to date in your review queue. Non-lending noise was filtered out.`;
+              }
+              toast.classList.remove("d-none");
             }
+
             loadPendingPosts();
             loadCompetitorPosts();
             loadStats();
@@ -1490,6 +1544,24 @@
         alert("Error saving settings: " + e.message);
       }
     }
+
+    // Initial load & Active Scrape Check on startup
+    document.addEventListener("DOMContentLoaded", () => {
+      loadPendingPosts();
+      loadCompetitorPosts();
+      loadStats();
+      loadSources();
+      loadPersona();
+      loadMLLearningStats();
+      fetch("/api/scheduler-status")
+        .then(r => r.json())
+        .then(data => {
+          if (data.activeScrapeJob && data.activeScrapeJob.isRunning) {
+            startScrapeProgressPolling();
+          }
+        })
+        .catch(() => {});
+    });
 
     // Force unregister any legacy PWA ServiceWorker
     if ("serviceWorker" in navigator) {

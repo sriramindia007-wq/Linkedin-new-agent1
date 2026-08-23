@@ -3,31 +3,64 @@ const { loadMemory } = require('./mlPreferenceEngine');
 /**
  * Autonomous Lending Relevance Agent
  * 
- * Analyzes posts from BFSI entities and filters out non-lending noise
- * (e.g. CSR sports, job hiring, internal office celebrations)
- * while promoting high-value lending, credit, and risk content.
+ * Strict Domain Gatekeeper:
+ * Audits every candidate post from banks, NBFCs, and FinTechs to ensure
+ * only genuine lending, credit, underwriting, risk, and regulatory posts pass.
+ * 
+ * Strictly rejects: FCNR / NRI deposits, savings accounts, credit card promos,
+ * mutual funds, insurance, sports CSR, and job vacancies.
  */
 
 const LENDING_CORE_KEYWORDS = [
-  "lending", "loan", "loans", "credit", "underwriting", "msme", "sme", "nbfc", "bank", "banking",
+  "lending", "loan", "loans", "credit", "underwriting", "msme", "sme", "nbfc",
   "aum", "asset quality", "npa", "stage-3", "stage 3", "delinquency", "collections", "recovery",
   "co-lending", "fl dg", "fldg", "rbi", "bre", "los", "origination", "disbursement", "drhp",
   "ipo", "capital base", "housing finance", "lap", "mortgage", "vehicle finance", "auto loan",
-  "gold loan", "account aggregator", "uli", "credit on upi", "cibil", "rating", "provisioning"
+  "gold loan", "account aggregator", "uli", "credit on upi", "cibil", "rating", "provisioning",
+  "working capital", "supply chain finance", "invoice discounting", "credit guarantee", "cgtmse",
+  "ncgtc", "microfinance", "mfi", "jlg", "shg", "priority sector", "psl", "secured lending"
 ];
 
-const NOISE_FILTER_PATTERNS = [
-  /we're\s+hiring/i,
-  /apply\s+today/i,
-  /job\s+vacancy/i,
-  /opening\s+for\s+the\s+role/i,
+const STRICT_NOISE_FILTER_PATTERNS = [
+  // 1. Retail Deposits & Wealth Products (Non-Lending)
+  /fcnr/i,
+  /nris+deposit/i,
+  /fixeds+deposit/i,
+  /recurrings+deposit/i,
+  /savingss+account/i,
+  /demats+account/i,
+  /mutuals+fund/i,
+  /forexs+card/i,
+  /terms+insurance/i,
+  /lifes+insurance/i,
+  /healths+insurance/i,
+  /motors+insurance/i,
+  /discounts+ons+flight/i,
+  /cashbacks+offer/i,
+  /credits+cards+reward/i,
+  /credits+cards+offer/i,
+  /dinings+delights/i,
+  /books+nows+fors+d+%/i,
+  /interests+rates+ons+yours+fcnr/i,
+  /interests+rates+ons+yours+deposit/i,
+
+  // 2. HR, Hiring & Job Vacancies
+  /we'res+hiring/i,
+  /applys+today/i,
+  /jobs+vacancy/i,
+  /openings+fors+thes+role/i,
+  /sends+yours+resume/i,
+  /joins+ours+teams+as/i,
+
+  // 3. Generic CSR Sports & Celebrations
   /archery/i,
-  /sports\s+for\s+development/i,
-  /cricket\s+tournament/i,
-  /marathon\s+run/i,
-  /festive\s+wishes/i,
-  /happy\s+diwali/i,
-  /happy\s+new\s+year/i
+  /sportss+fors+development/i,
+  /crickets+tournament/i,
+  /marathons+run/i,
+  /festives+wishes/i,
+  /happys+diwali/i,
+  /happys+news+year/i,
+  /independences+day/i
 ];
 
 function analyzeLendingRelevance(postText, authorName = "", sourceCategory = "") {
@@ -37,14 +70,14 @@ function analyzeLendingRelevance(postText, authorName = "", sourceCategory = "")
 
   const cleanText = postText.toLowerCase();
 
-  // 1. Check against Noise Patterns
-  for (const pattern of NOISE_FILTER_PATTERNS) {
+  // 1. Check against Strict Non-Lending & Product Noise Patterns
+  for (const pattern of STRICT_NOISE_FILTER_PATTERNS) {
     if (pattern.test(cleanText)) {
       return {
         isRelevant: false,
-        category: "IRRELEVANT_NOISE",
-        score: 15,
-        reason: `Contains non-lending noise pattern: ${pattern}`
+        category: "NON_LENDING_NOISE",
+        score: 10,
+        reason: `Strictly blocked by non-lending filter: ${pattern}`
       };
     }
   }
@@ -55,14 +88,14 @@ function analyzeLendingRelevance(postText, authorName = "", sourceCategory = "")
     if (cleanText.includes(negKw.toLowerCase()) && !cleanText.includes("lending") && !cleanText.includes("credit")) {
       return {
         isRelevant: false,
-        category: "IRRELEVANT_NOISE",
-        score: 20,
+        category: "ML_LEARNED_NOISE",
+        score: 15,
         reason: `Matches ML learned negative filter: "${negKw}"`
       };
     }
   }
 
-  // 3. Count Core Lending Keyword Hits
+  // 3. Count Core Lending Keyword Hits (Requires true lending substance)
   let coreMatches = 0;
   LENDING_CORE_KEYWORDS.forEach(kw => {
     if (cleanText.includes(kw)) coreMatches++;
@@ -77,7 +110,7 @@ function analyzeLendingRelevance(postText, authorName = "", sourceCategory = "")
     };
   }
 
-  if (coreMatches === 1 || cleanText.includes("fintech") || cleanText.includes("governance") || cleanText.includes("board")) {
+  if (coreMatches === 1 && (cleanText.includes("fintech") || cleanText.includes("governance") || cleanText.includes("rbi") || cleanText.includes("board"))) {
     return {
       isRelevant: true,
       category: "ADJACENT_ECOSYSTEM",
@@ -89,12 +122,13 @@ function analyzeLendingRelevance(postText, authorName = "", sourceCategory = "")
   return {
     isRelevant: false,
     category: "LOW_RELEVANCE",
-    score: 40,
-    reason: "Lacks sufficient lending, credit, or risk substance"
+    score: 35,
+    reason: "Lacks core lending, credit, underwriting, or risk substance"
   };
 }
 
 module.exports = {
   analyzeLendingRelevance,
-  LENDING_CORE_KEYWORDS
+  LENDING_CORE_KEYWORDS,
+  STRICT_NOISE_FILTER_PATTERNS
 };
