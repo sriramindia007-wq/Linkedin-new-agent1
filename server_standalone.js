@@ -386,6 +386,19 @@ How is your team currently handling data reconciliation when telemetry streams s
     return sendJSON(res, { posts: posts.slice(0, 50), total: posts.length, page: 1, totalPages: Math.ceil(posts.length / 50) });
   }
 
+  if (pathname === "/api/sync-following" && method === "POST") {
+    try {
+      const { syncSriramFollowingNetwork } = safeRequire("followingMonitorAgent");
+      if (syncSriramFollowingNetwork) {
+        const result = await syncSriramFollowingNetwork();
+        return sendJSON(res, { success: true, ...result });
+      }
+      return sendJSON(res, { success: false, error: "Following agent not found" }, 500);
+    } catch (e) {
+      return sendJSON(res, { success: false, error: e.message }, 500);
+    }
+  }
+
   if (pathname === "/api/competitor-posts" && method === "GET") {
     let posts = loadPosts();
     const competitorCategory = "M2P LOS Competitors & Tech";

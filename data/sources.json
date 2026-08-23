@@ -4098,5 +4098,1295 @@
     "role_type": "Women Empowerment Lending",
     "segment": "Tier-2 Microfinance",
     "active": true
+  },
+  {
+    "id": "otobids",
+    "name": "OTOBIDS",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/100007787/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "aditya_birla_capital",
+    "name": "Aditya Birla Capital",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/40439053/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "bargad_ai",
+    "name": "Bargad.ai",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/92842393/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "xaqua__",
+    "name": "xAQUA ✓",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/78768043/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "systematic_services___solution",
+    "name": "Systematic Services & Solutions",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/110242826/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "namdev_finvest_limited",
+    "name": "Namdev Finvest Limited",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/35888761/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "saarathi_finance",
+    "name": "Saarathi Finance",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/105299801/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "lendingplate",
+    "name": "lendingplate",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/78728844/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "drivn",
+    "name": "DRIVN",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/109907125/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "novafusion_capital",
+    "name": "NovaFusion Capital",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/109369955/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "society_of_independent_directo",
+    "name": "Society of Independent Directors",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/110348588/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "koreminds",
+    "name": "KoreMinds",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/109311050/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "institute_of_directors__iod___",
+    "name": "Institute of Directors (IOD), India",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/1543878/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "cxo_lanes",
+    "name": "CXO Lanes",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/102508560/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "loanyard_capital",
+    "name": "LOANYARD CAPITAL",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/121114188/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "ilss_centre_of_excellence_for_",
+    "name": "ILSS Centre of Excellence for Board & Governance",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/114423948/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "exponent_one",
+    "name": "Exponent ONE",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/112094295/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "evfin",
+    "name": "evfin",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/96237325/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "india_fintech_foundation__sro_",
+    "name": "India Fintech Foundation (SRO-FT DF)",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/106674214/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "control_risks",
+    "name": "Control Risks",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/163205/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "evreporter",
+    "name": "EVreporter",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/26659459/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "gogreen_capital",
+    "name": "GoGreen Capital",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/106301569/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "evwire_in_powered_by_entrepren",
+    "name": "EVwire.in Powered by Entrepreneur Media",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/77760887/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "vahura_onboard",
+    "name": "Vahura OnBoard",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/111517532/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "association_of_independent_dir",
+    "name": "Association of Independent Directors of India",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/13198221/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "corporate_governance___iica",
+    "name": "Corporate Governance @ IICA",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/101195268/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "boardpac",
+    "name": "BoardPAC",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/6616532/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "vivifi_india",
+    "name": "Vivifi India",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/18932674/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "board_stewardship",
+    "name": "Board Stewardship",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/91328280/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "indian_institute_of_corporate_",
+    "name": "Indian Institute of Corporate Affairs",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/13348212/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "the_boardroom_blueprint",
+    "name": "The Boardroom Blueprint",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/116003795/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "aham_housing_finance",
+    "name": "Aham Housing Finance",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/31017662/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "finx_banking_conclave",
+    "name": "FinX Banking Conclave",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/109634401/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "mynd_fintech",
+    "name": "MYND Fintech",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/68794673/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "tapfin",
+    "name": "TapFin",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/96115827/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "ugro_capital",
+    "name": "UGRO Capital",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/14477734/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "purple_finance_ltd",
+    "name": "Purple Finance Ltd",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/82090977/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "finreg_insights",
+    "name": "FinReg Insights",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/142909152/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "manba_finance_ltd",
+    "name": "Manba Finance Ltd",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/13379053/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "all_india_ev",
+    "name": "All India EV",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/78737306/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "gxs_bank",
+    "name": "GXS Bank",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/76649002/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "superbank",
+    "name": "Superbank",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/88899851/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "tbx__formerly_transbnk_",
+    "name": "TBX (formerly TransBnk)",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/81778054/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "tng_digital",
+    "name": "TNG Digital",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/99424823/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "landeed___yc",
+    "name": "Landeed | YC",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/82289134/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "souhoola",
+    "name": "Souhoola",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/29357375/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "alliance_bank_malaysia_berhad",
+    "name": "Alliance Bank Malaysia Berhad",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/3362806/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "bank_simpanan_nasional",
+    "name": "Bank Simpanan Nasional",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/14633236/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "bank_muamalat",
+    "name": "Bank Muamalat",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/99061/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "bank_negara_malaysia",
+    "name": "Bank Negara Malaysia",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/400053/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "sme_bank_malaysia",
+    "name": "SME Bank Malaysia",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/18852402/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "maybank",
+    "name": "Maybank",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/12799/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "affin_group",
+    "name": "AFFIN Group",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/110757/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "agrobank__malaysia",
+    "name": "Agrobank, Malaysia",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/1147765/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "public_bank",
+    "name": "Public Bank",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/3754607/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "invoicemart",
+    "name": "Invoicemart",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/27249238/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "m1xchange",
+    "name": "M1xchange",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/13220626/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "boost_bank",
+    "name": "Boost Bank",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/20427862/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "rhb_banking_group",
+    "name": "RHB Banking Group",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/23953/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "touch__n_go_group",
+    "name": "Touch 'n Go Group",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/13756034/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "aeon_bank",
+    "name": "AEON Bank",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/81519296/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "ambank_group",
+    "name": "AmBank Group",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/611157/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "gxbank",
+    "name": "GXBank",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/96890858/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "bank_rakyat_malaysia",
+    "name": "Bank Rakyat Malaysia",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/468093/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "mbsb_bank_berhad",
+    "name": "MBSB Bank Berhad",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/5788008/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "bank_islam_malaysia_berhad",
+    "name": "Bank Islam Malaysia Berhad",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/62265/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "oneconnect_financial_technolog",
+    "name": "OneConnect Financial Technology",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/14441210/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "ryt_bank",
+    "name": "Ryt Bank",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/96660909/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "varthana",
+    "name": "Varthana",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/3125592/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "lendingkart",
+    "name": "Lendingkart",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/9195040/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "tvs_credit_services_ltd_",
+    "name": "TVS Credit Services Ltd.",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/1481214/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "indifi",
+    "name": "Indifi",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/10200195/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "aps_resources_international",
+    "name": "APS Resources International",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/30598480/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "loandna",
+    "name": "loanDNA",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/107178207/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "national_credit_guarantee_trus",
+    "name": "National Credit Guarantee Trustee Company Ltd.",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/69446297/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "sibiliti",
+    "name": "Sibiliti",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/96425255/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "kreditiq",
+    "name": "KreditIQ",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/107255063/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "nbfc_hub",
+    "name": "NBFC Hub",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/105603496/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "new_street_tech",
+    "name": "NEW STREET TECH",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/20405070/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "creditnirvana___a_perfios_comp",
+    "name": "CreditNirvana - A Perfios Company",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/655207/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "receivables_exchange_of_india_",
+    "name": "Receivables Exchange of India Ltd (RXIL)",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/13343541/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "brac",
+    "name": "BRAC",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/2967972/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "varashakti_housing_finance_pri",
+    "name": "Varashakti Housing Finance Private Limited",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/85179031/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "mannjal",
+    "name": "MANNJAL",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/89687147/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "ettech",
+    "name": "ETtech",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/18013817/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "credmart_services_private_limi",
+    "name": "Credmart Services Private Limited",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/103139193/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "resurgent_india_limited",
+    "name": "Resurgent India Limited",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/692618/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "consentin_by_leegality",
+    "name": "Consentin by Leegality",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/107161255/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "ltm",
+    "name": "LTM",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/111713452/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "world_fintech_summit",
+    "name": "World Fintech Summit",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/105820205/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "ai_for_professionals",
+    "name": "AI For Professionals",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/20326311/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "nbfc_advisor",
+    "name": "NBFC Advisor",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/100554916/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "muthoot_mcred_limited",
+    "name": "Muthoot MCred Limited",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/112420166/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "productnation_ispirt",
+    "name": "ProductNation/iSPIRT",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/3117368/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "bread_financial",
+    "name": "Bread Financial",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/84108929/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "businessnext",
+    "name": "BUSINESSNEXT",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/72231092/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "ministry_of_micro__small_and_m",
+    "name": "Ministry of Micro, Small and Medium Enterprises, Government of India",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/86224327/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "lendsystem",
+    "name": "Lendsystem",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/112150940/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "guidepoint",
+    "name": "Guidepoint",
+    "category": "Sriram Followed Pages (India)",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/22244/posts/",
+    "role_type": "Indian BFSI / Governance / Tech Entity",
+    "segment": "Followed Company",
+    "active": true
+  },
+  {
+    "id": "manish_mayank",
+    "name": "Manish Mayank",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAAGTDX8BfVYeNf_AKfH_E3hsH8wTUhwe0zA/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "utkarsh_bhasin",
+    "name": "Utkarsh Bhasin",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAACpPofYBYqqBukjaCqIhXmd89bW2bLDyhbI/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "adarsh_kumar_singh",
+    "name": "Adarsh Kumar Singh",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAADi_LiYBvQdJmP2bt74FGeMocWGJB51xQbk/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "amlan_singh",
+    "name": "AMLAN SINGH",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAAILIO0BEx97Z8IFZXRaNqg3pKn4UERLDGE/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "senthil_kumar",
+    "name": "Senthil Kumar",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAAH1liMBt1SW9HrR9KgcKSg5gk6Vu4Ge4Wo/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "umesh_revankar",
+    "name": "Umesh Revankar",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAAVV_EoBpML-Y0_ImEY9tPI2fN434zg9fD0/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "sanam_makkar",
+    "name": "Sanam Makkar",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAAjjp68B3T2vIzwfryAeGt3kGQQUbfR2dd0/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "status_is_reachable",
+    "name": "Status is reachable",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAAQUkNQBs_sfBhfTC021Gsd-o5Ork5U2sy4/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "status_is_reachable",
+    "name": "Status is reachable",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAADCrY-4BNO7G3n8re8M7mEvOF0j0PkF2Jdk/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "abhishek_poddar",
+    "name": "Abhishek Poddar",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAAAs-EgBBePkGaqVti-UvL7V0ylVBsdDmBs/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "sandeep_gambhir",
+    "name": "Sandeep Gambhir",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAATLQwgBjSKZW6gQP4xu5InGLFrpBSemtFY/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "bipin_preet_singh",
+    "name": "Bipin Preet Singh",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAACFbycBn2L-8OfnOAya1vu2y2580oi7c4Y/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "gyaneshwar_kumar_singh",
+    "name": "Gyaneshwar Kumar Singh",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAADeGkJ0By6D11gcCPse-fRPIGUUHvUmXQbQ/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "amitesh_tripathi",
+    "name": "Amitesh Tripathi",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAATgrLwBLxhzPuhSy2ACBwySia5P3P39Pk0/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "amit_sethia",
+    "name": "Amit Sethia",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAAH36YgBh2w1eK2grM4eb-19HbE2rEqysEU/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "himanshu_srivastava",
+    "name": "Himanshu Srivastava",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAAN6ApwBvT-_qF9dt2e92C5kD81V0YfxBmg/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "manish_kankani",
+    "name": "Manish Kankani",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAAAkxyMBTa5LmdWbKRAnjYG0LlkxX3-v0lk/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "pankaj_gupta",
+    "name": "PANKAJ GUPTA",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAALbKgEBhNpZleLCMx94Ycim2xksgdfEf2U/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "aksh_sinha",
+    "name": "Aksh Sinha",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAAGeC48Bq-Ngln245xkOd_xHirjxS5AFZ7Q/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "partha_sengupta",
+    "name": "Partha Sengupta",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAAPrEiEB8r7yLepu3GmPSP93yvrxB2IzI94/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "manish_rathi",
+    "name": "MANISH RATHI",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAAFtX98BoGnujK1NvXS0LbMKbkLrGvR2vJ8/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "indunath_chaudhary____________",
+    "name": "Indunath Chaudhary- इन्दुनाथ चौधरी",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAAO3v18B0CyEawA2-DyenmDOifODY1rBlD4/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "rohit_mehta",
+    "name": "Rohit Mehta",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAAISofsBwd69eTwSraR0YvfSHmYU6Xdv9qA/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "rukmani_k",
+    "name": "Rukmani K",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAAEHyJcBc1CfEd5npSOt8hH54_Ork_1a1ck/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "himanshu_arora",
+    "name": "Himanshu Arora",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAAPPilEBpKf3E99ZS18e80d8zSFxiffVc6k/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "bally_s_kehal",
+    "name": "Bally S Kehal",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAAJPWDQBFD760ooCrKhzUjFQhN7JZhwi2rI/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "deepak_gupta",
+    "name": "Deepak Gupta",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAAHQK0kBF22rW8BMlwzZZTQRXCA88p6KWF0/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "damania_bhavin",
+    "name": "Damania Bhavin",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAAKyNtIBOOs20sOrgkBHfNCKB7yj-A78W1c/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "deepak_goyal",
+    "name": "Deepak Goyal",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAADREQkBJd5PoRAbX-EbSou7te2YvER78NE/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
+  },
+  {
+    "id": "ankur_bhardwaj",
+    "name": "Ankur Bhardwaj",
+    "category": "Sriram Followed Leaders (India)",
+    "type": "person",
+    "url": "https://www.linkedin.com/in/ACoAAALMwkUBeB9n6nHh1hv5HEhiKQjvHqTfOs4/recent-activity/all/",
+    "role_type": "Indian Banking / FinTech / Governance Leader",
+    "segment": "Followed Leader",
+    "active": true
   }
 ]
