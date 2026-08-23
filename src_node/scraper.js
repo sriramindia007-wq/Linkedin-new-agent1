@@ -22,7 +22,7 @@ const { calculateRelevance } = require("./relevanceScorer");
 const { generateCommentsForPost } = require("./commentGenerator");
 const { auditPostCandidate } = require("./qaAgent");
 
-const SESSION_DIR = path.join(__dirname, "session_data");
+const SESSION_DIR = path.resolve(__dirname.includes('src_node') || __dirname.includes('src') ? path.join(__dirname, '..', 'session_data') : path.join(__dirname, 'session_data'));
 const MAX_POST_AGE_HOURS = 48;
 const HEADLESS = process.env.HEADLESS_BROWSER !== "false";
 const CONCURRENCY_LIMIT = 4; // Optimal parallelism for stability and memory

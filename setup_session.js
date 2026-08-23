@@ -2,7 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const { chromium } = require("playwright");
 
-const SESSION_DIR = path.join(__dirname, "session_data");
+const SESSION_DIR = path.resolve(__dirname.includes('src_node') || __dirname.includes('src') ? path.join(__dirname, '..', 'session_data') : path.join(__dirname, 'session_data'));
 
 async function launchBrowser() {
   const options = {

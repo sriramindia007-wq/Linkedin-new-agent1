@@ -2,7 +2,7 @@ const path = require("path");
 const { chromium } = require("playwright");
 const { markPostStatus } = require("./db");
 
-const SESSION_DIR = path.join(__dirname, "session_data");
+const SESSION_DIR = path.resolve(__dirname.includes('src_node') || __dirname.includes('src') ? path.join(__dirname, '..', 'session_data') : path.join(__dirname, 'session_data'));
 const HEADLESS = process.env.HEADLESS_BROWSER !== "false";
 
 async function launchPosterContext() {

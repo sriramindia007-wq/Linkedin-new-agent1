@@ -3,7 +3,7 @@ const path = require('path');
 const { chromium } = require('playwright');
 const { loadSources, saveSources } = require('./db');
 
-const SESSION_DIR = path.join(__dirname, 'session_data');
+const SESSION_DIR = path.resolve(__dirname.includes('src_node') || __dirname.includes('src') ? path.join(__dirname, '..', 'session_data') : path.join(__dirname, 'session_data'));
 
 function canonicalUrl(url) {
   if (!url) return '';
