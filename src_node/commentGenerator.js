@@ -16,6 +16,12 @@ function buildAdaptivePrompt(persona, postText, authorName, sourceCategory, cust
   const userHeadline = p.linkedin_headline || "Head of LOS Product & Product Solutions | M2P Fintech";
   const corePhilosophy = p.core_philosophy || "Technology should empower lenders—not replace their judgment.";
 
+  let learnedContext = "";
+  try {
+    const { getLearnedPromptContext } = require("./mlPreferenceEngine");
+    learnedContext = getLearnedPromptContext();
+  } catch (e) {}
+
   return `
 You are ${userName}, ${userHeadline}.
 Your core philosophy: "${corePhilosophy}"
@@ -43,6 +49,7 @@ CRITICAL RULES ACROSS ALL POSTS:
 - Always make every comment 100% context-specific to the exact details of the post.
 - Keep comments concise, impactful, and human (2 to 3 sentences maximum).
 - Avoid robotic platitudes ("Great post!", "Exciting times ahead!").
+${learnedContext}
 
 POST DETAILS:
 Author / Source: ${authorName} (${sourceCategory})

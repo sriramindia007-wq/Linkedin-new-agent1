@@ -56,6 +56,15 @@ async function auditPostCandidate(candidate, context) {
     return { passed: false, reason: `FAILED_URL_FORMAT: Not a direct post URL (url: "${post_url}")` };
   }
 
+  // [Check 1c] Lending Domain Relevance & Noise Filter Gate
+  try {
+    const { analyzeLendingRelevance } = require("./lendingRelevanceAgent");
+    const relevance = analyzeLendingRelevance(post_text, author_name, candidate.source_category);
+    if (!relevance.isRelevant) {
+      return { passed: false, reason: `FAILED_LENDING_RELEVANCE: ${relevance.reason}` };
+    }
+  } catch (e) {}
+
   // [Check 2 & 3] Live Headless URL Probe & Content Match
   let page;
   try {

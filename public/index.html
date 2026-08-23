@@ -200,6 +200,11 @@
         </button>
       </li>
       <li class="nav-item" role="presentation">
+        <button class="nav-link text-success fw-bold" id="tab-learning-btn" data-bs-toggle="tab" data-bs-target="#tab-learning" type="button" role="tab" onclick="loadMLLearningStats()">
+          <i class="fa-solid fa-brain me-1"></i> 🧠 ML Self-Learning
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
         <button class="nav-link" id="tab-persona-btn" data-bs-toggle="tab" data-bs-target="#tab-persona" type="button" role="tab">
           <i class="fa-solid fa-user-gear me-1"></i> Sriram Ganesan Persona
         </button>
@@ -452,6 +457,66 @@
             </div>
             <button type="submit" class="btn btn-primary px-4 fw-bold">Save All Settings</button>
           </form>
+      <!-- 8. 🧠 ML Self-Learning & Steering Tab -->
+      <div class="tab-pane fade" id="tab-learning" role="tabpanel">
+        <div class="card p-4 shadow-sm border-0 mb-4 bg-white rounded-3">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+              <h5 class="fw-bold mb-1 text-success"><i class="fa-solid fa-brain me-2"></i> Adaptive Machine Learning &amp; Persona Steering</h5>
+              <p class="text-muted small mb-0">The system continuously self-learns from your custom guidance inputs, comment approvals, and skipped posts:</p>
+            </div>
+            <button class="btn btn-sm btn-outline-success" onclick="loadMLLearningStats()">
+              <i class="fa-solid fa-rotate me-1"></i> Refresh Learning Memory
+            </button>
+          </div>
+
+          <div class="row g-4 mt-1">
+            <!-- Positive Directives -->
+            <div class="col-md-6">
+              <div class="p-3 bg-light rounded-3 border h-100">
+                <h6 class="fw-bold text-success mb-2"><i class="fa-solid fa-circle-check me-2"></i> Learned Positive Directives (From Steer/Regenerate)</h6>
+                <div class="small text-muted mb-3">These nuances are automatically injected into future Gemini AI comment generations:</div>
+                <div id="mlPositiveDirectives">
+                  <div class="spinner-border spinner-border-sm text-success" role="status"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Negative Filters -->
+            <div class="col-md-6">
+              <div class="p-3 bg-light rounded-3 border h-100">
+                <h6 class="fw-bold text-danger mb-2"><i class="fa-solid fa-ban me-2"></i> Automated Noise Filters (Learned From Skip/Reject)</h6>
+                <div class="small text-muted mb-3">Posts matching these patterns are automatically filtered out before reaching your queue:</div>
+                <div id="mlNegativeKeywords">
+                  <div class="spinner-border spinner-border-sm text-danger" role="status"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 p-3 bg-light rounded-3 border">
+            <h6 class="fw-bold text-primary mb-2"><i class="fa-solid fa-sliders me-2"></i> Persona Angle Distribution</h6>
+            <div class="row text-center mt-3" id="mlStyleStats">
+              <div class="col-4">
+                <div class="p-2 bg-white rounded border">
+                  <div class="fw-bold text-primary fs-5" id="statStyleValueAdd">12</div>
+                  <div class="small text-muted">💡 Practitioner's LOS Nuance</div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="p-2 bg-white rounded border">
+                  <div class="fw-bold text-warning fs-5" id="statStyleQuestion">8</div>
+                  <div class="small text-muted">❓ Governance &amp; Risk Inquiry</div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="p-2 bg-white rounded border">
+                  <div class="fw-bold text-success fs-5" id="statStyleExecutive">10</div>
+                  <div class="small text-muted">📊 Strategic Outlook</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -805,6 +870,38 @@
         }
       } catch (err) {
         alert("Error skipping post: " + err.message);
+      }
+    }
+
+    async function loadMLLearningStats() {
+      try {
+        const res = await fetch("/api/ml-learning-stats");
+        const data = await res.json();
+
+        const posEl = document.getElementById("mlPositiveDirectives");
+        if (posEl) {
+          const directives = data.learnedPositiveDirectives || [];
+          posEl.innerHTML = directives.length > 0
+            ? directives.map(d => `<div class="p-2 mb-2 bg-white rounded border border-success border-opacity-25 small fw-semibold text-dark"><i class="fa-solid fa-check text-success me-2"></i>${escapeHtml(d)}</div>`).join("")
+            : '<div class="text-muted small">No custom directives learned yet. Use "Steer / Regenerate AI Comment" on any card to train the AI.</div>';
+        }
+
+        const negEl = document.getElementById("mlNegativeKeywords");
+        if (negEl) {
+          const negs = data.learnedNegativeKeywords || [];
+          negEl.innerHTML = negs.length > 0
+            ? negs.map(k => `<span class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25 p-2 me-1 mb-1 d-inline-block"><i class="fa-solid fa-ban me-1"></i>${escapeHtml(k)}</span>`).join("")
+            : '<div class="text-muted small">No negative patterns recorded yet.</div>';
+        }
+
+        if (data.approvedStyleDistribution) {
+          const s = data.approvedStyleDistribution;
+          if (document.getElementById("statStyleValueAdd")) document.getElementById("statStyleValueAdd").innerText = s.value_add || 0;
+          if (document.getElementById("statStyleQuestion")) document.getElementById("statStyleQuestion").innerText = s.provocative_question || 0;
+          if (document.getElementById("statStyleExecutive")) document.getElementById("statStyleExecutive").innerText = s.executive_perspective || 0;
+        }
+      } catch (err) {
+        console.error("Error loading ML stats:", err);
       }
     }
 

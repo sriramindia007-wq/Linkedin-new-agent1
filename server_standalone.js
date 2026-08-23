@@ -393,6 +393,12 @@ How is your team currently handling data reconciliation when telemetry streams s
     return sendJSON(res, competitorPosts);
   }
 
+  if (pathname === "/api/ml-learning-stats" && method === "GET") {
+    const { loadMemory } = safeRequire("mlPreferenceEngine");
+    const memory = loadMemory ? loadMemory() : {};
+    return sendJSON(res, memory);
+  }
+
   if (pathname === "/api/regenerate-comment" && method === "POST") {
     const body = await parseBody(req);
     const { postId, customGuidance } = body;
@@ -403,6 +409,12 @@ How is your team currently handling data reconciliation when telemetry streams s
     if (!post) return sendJSON(res, { success: false, error: "Post not found" }, 404);
 
     try {
+      // Record user guidance to ML self-learning model
+      if (customGuidance) {
+        const { recordRegenerationGuidance } = safeRequire("mlPreferenceEngine");
+        if (recordRegenerationGuidance) recordRegenerationGuidance(customGuidance, post.post_text);
+      }
+
       const { generateCommentsForPost } = safeRequire("commentGenerator");
       const newComments = await generateCommentsForPost(post.post_text, post.author_name, post.source_category, customGuidance || "");
       const updatedPost = updatePostComments(postId, newComments);
@@ -414,6 +426,12 @@ How is your team currently handling data reconciliation when telemetry streams s
 
   if (pathname === "/api/approve" && method === "POST") {
     const body = await parseBody(req);
+    const posts = loadPosts();
+    const post = posts.find(p => p.id === body.postId);
+    if (post) {
+      const { recordApprovedComment } = safeRequire("mlPreferenceEngine");
+      if (recordApprovedComment) recordApprovedComment(post, body.selectedStyle, body.commentText);
+    }
     const updated = approveComment(body.postId, body.selectedStyle, body.commentText);
     return sendJSON(res, { success: true, post: updated });
   }
@@ -437,6 +455,9 @@ How is your team currently handling data reconciliation when telemetry streams s
 
     approveComment(postId, selectedStyle || "custom", finalComment);
 
+    const { recordApprovedComment } = safeRequire("mlPreferenceEngine");
+    if (recordApprovedComment) recordApprovedComment(post, selectedStyle || "custom", finalComment);
+
     try {
       const { postCommentToLinkedIn } = safeRequire("poster");
       const result = await postCommentToLinkedIn(postId, post.post_url, finalComment);
@@ -453,6 +474,12 @@ How is your team currently handling data reconciliation when telemetry streams s
 
   if ((pathname === "/api/reject" || pathname === "/api/skip") && method === "POST") {
     const body = await parseBody(req);
+    const posts = loadPosts();
+    const post = posts.find(p => p.id === body.postId);
+    if (post) {
+      const { recordSkippedPost } = safeRequire("mlPreferenceEngine");
+      if (recordSkippedPost) recordSkippedPost(post);
+    }
     const updated = markPostStatus(body.postId, "REJECTED");
     return sendJSON(res, { success: true, message: "Post skipped and blacklisted permanently", post: updated });
   }
