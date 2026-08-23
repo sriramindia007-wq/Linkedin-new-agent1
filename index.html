@@ -734,8 +734,9 @@
           card.remove();
           loadStats();
           loadHistory();
+          alert("🎉 " + (data.message || "Comment successfully posted to LinkedIn!"));
         } else {
-          alert("Posting error: " + data.error);
+          alert("Posting Error: " + (data.error || data.message || "Could not publish comment."));
           card.style.opacity = "1";
         }
       } catch (err) {

@@ -97,7 +97,7 @@
     "post_text": "Financing India’s EV Mobility Revolution. We sincerely appreciate Mr. Abhay Singh, Founder & Director, Bundela Fin Corp, for participating in the insightful panel discussion on “Financing India’s EV Mobility Revolution” at India’s First Auto Loan & Leasing FinX Banking Conclave, held on August 19th in Mumbai. As the EV ecosystem continues to expand, collaboration between EV manufacturers, lenders, fintechs and mobility stakeholders will be crucial to making EV financing more accessible and risk-resilient.",
     "published_relative": "13h",
     "scraped_at": "2026-08-23T03:29:12.138Z",
-    "status": "PENDING",
+    "status": "APPROVED",
     "priority_score": 88,
     "impact_badge": "🔥 Top Priority (High LOS / Strategic Relevance)",
     "post_type_badge": "⚡ EV Mobility & Clean Finance",
@@ -113,6 +113,8 @@
       "value_add": "Congratulations to Abhay Singh and the Bundela Fin Corp team on an insightful discussion on EV mobility finance! Expanding clean mobility lending requires specialized underwriting that accounts for dynamic battery lifecycle depreciation while providing accessible credit to commercial fleet operators.",
       "provocative_question": "As EV adoption accelerates across commercial fleets, how are specialized lenders structuring risk-sharing frameworks with OEMs to mitigate residual battery value uncertainty over the asset life?",
       "executive_perspective": "Pioneering EV mobility finance hinges on innovative underwriting structures that align manufacturer guarantees with real-time operational telemetry."
-    }
+    },
+    "selected_style": "custom",
+    "approved_comment": "Congratulations to Abhay Singh and the Bundela Fin Corp team on an insightful discussion on EV mobility finance! Expanding clean mobility lending requires specialized underwriting that accounts for dynamic battery lifecycle depreciation while providing accessible credit to commercial fleet operators."
   }
 ]

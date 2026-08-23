@@ -409,14 +409,34 @@ How is your team currently handling data reconciliation when telemetry streams s
 
   if (pathname === "/api/post-now" && method === "POST") {
     const body = await parseBody(req);
-    approveComment(body.postId, body.selectedStyle, body.commentText);
+    const { postId, selectedStyle, commentText } = body;
+    if (!postId) return sendJSON(res, { success: false, error: "Missing postId" }, 400);
+
+    const posts = loadPosts();
+    const post = posts.find(p => p.id === postId);
+    if (!post) return sendJSON(res, { success: false, error: "Post not found" }, 404);
+
+    const finalComment = (commentText && commentText.trim().length > 0)
+      ? commentText.trim()
+      : (post.approved_comment || (post.generated_comments && post.generated_comments.value_add) || "");
+
+    if (!finalComment) {
+      return sendJSON(res, { success: false, error: "Please write or select a comment before posting." }, 400);
+    }
+
+    approveComment(postId, selectedStyle || "custom", finalComment);
+
     try {
       const { postCommentToLinkedIn } = safeRequire("poster");
-      const result = await postCommentToLinkedIn(body.postId);
-      return sendJSON(res, result);
+      const result = await postCommentToLinkedIn(postId, post.post_url, finalComment);
+      if (result.success) {
+        markPostStatus(postId, "POSTED");
+        return sendJSON(res, { success: true, message: result.message || "Comment successfully posted to LinkedIn!" });
+      } else {
+        return sendJSON(res, { success: false, error: result.message || "Failed to post comment to LinkedIn" });
+      }
     } catch (e) {
-      markPostStatus(body.postId, "POSTED");
-      return sendJSON(res, { success: true, message: "Comment simulated/posted successfully!" });
+      return sendJSON(res, { success: false, error: e.message || "Posting exception occurred" }, 500);
     }
   }
 
