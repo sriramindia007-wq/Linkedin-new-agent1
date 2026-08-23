@@ -1,14 +1,22 @@
-﻿const fs = require("fs");
+const fs = require("fs");
 const path = require("path");
 
-const DATA_DIR = path.join(__dirname, "..", "data");
-const POSTS_FILE = path.join(DATA_DIR, "posts.json");
-const SOURCES_FILE = path.join(DATA_DIR, "sources.json");
-const PERSONA_FILE = path.join(DATA_DIR, "persona.json");
-
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
+function getResolvedPath(filename) {
+  const candidates = [
+    path.join(__dirname, filename),
+    path.join(__dirname, "data", filename),
+    path.join(__dirname, "..", "data", filename)
+  ];
+  for (const c of candidates) {
+    if (fs.existsSync(c)) return c;
+  }
+  return path.join(__dirname, filename);
 }
+
+const POSTS_FILE = getResolvedPath("posts.json");
+const SOURCES_FILE = getResolvedPath("sources.json");
+const PERSONA_FILE = getResolvedPath("persona.json");
+const REJECTED_FILE = getResolvedPath("rejected_posts.json");
 
 function readCleanJson(filePath) {
   if (!fs.existsSync(filePath)) return null;
@@ -25,6 +33,29 @@ function readCleanJson(filePath) {
 function normalizeKey(str) {
   if (!str) return "";
   return str.trim().substring(0, 80).toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+function loadRejectedSet() {
+  const list = readCleanJson(REJECTED_FILE);
+  if (!Array.isArray(list)) return new Set();
+  return new Set(list);
+}
+
+function saveRejectedItem(urlOrKey) {
+  if (!urlOrKey) return;
+  const set = loadRejectedSet();
+  set.add(urlOrKey);
+  try {
+    fs.writeFileSync(REJECTED_FILE, JSON.stringify(Array.from(set), null, 2), "utf-8");
+  } catch (e) {}
+}
+
+function isPostBlacklisted(postUrl = "", postText = "") {
+  const set = loadRejectedSet();
+  if (postUrl && set.has(postUrl)) return true;
+  const textKey = normalizeKey(postText);
+  if (textKey && set.has(textKey)) return true;
+  return false;
 }
 
 function loadPosts() {
@@ -46,9 +77,15 @@ function loadPosts() {
 
 function savePosts(posts) {
   fs.writeFileSync(POSTS_FILE, JSON.stringify(posts, null, 2), "utf-8");
+  // Also keep data/posts.json synced if present
+  const alt = path.join(__dirname, "data", "posts.json");
+  if (fs.existsSync(path.dirname(alt))) {
+    try { fs.writeFileSync(alt, JSON.stringify(posts, null, 2), "utf-8"); } catch (e) {}
+  }
 }
 
 function postExists(postUrl, authorName = "", postText = "") {
+  if (isPostBlacklisted(postUrl, postText)) return true;
   const posts = loadPosts();
   const textKey = normalizeKey(postText);
   return posts.some(p => {
@@ -56,6 +93,38 @@ function postExists(postUrl, authorName = "", postText = "") {
     if (textKey && normalizeKey(p.post_text) === textKey) return true;
     return false;
   });
+}
+
+function getPostsPaged({ status = "PENDING", category = "ALL", page = 1, limit = 50 }) {
+  let all = loadPosts();
+
+  if (status && status !== "ALL") {
+    all = all.filter(p => p.status === status);
+  }
+  if (category && category !== "ALL") {
+    all = all.filter(p => p.source_category === category);
+  }
+
+  // Filter out any blacklisted items for PENDING status
+  if (status === "PENDING") {
+    all = all.filter(p => !isPostBlacklisted(p.post_url, p.post_text));
+  }
+
+  const total = all.length;
+  const pageNum = Math.max(1, parseInt(page, 10) || 1);
+  const pageSize = Math.max(1, parseInt(limit, 10) || 50);
+  const totalPages = Math.ceil(total / pageSize) || 1;
+  const offset = (pageNum - 1) * pageSize;
+  const slice = all.slice(offset, offset + pageSize);
+
+  return {
+    posts: slice,
+    total,
+    page: pageNum,
+    limit: pageSize,
+    totalPages,
+    hasMore: pageNum < totalPages
+  };
 }
 
 function insertPost(postData) {
@@ -122,6 +191,11 @@ function markPostStatus(postId, status, errorMsg = null) {
   if (p) {
     p.status = status;
     if (status === "POSTED") p.posted_at = new Date().toISOString();
+    if (status === "REJECTED") {
+      if (p.post_url) saveRejectedItem(p.post_url);
+      const k = normalizeKey(p.post_text);
+      if (k) saveRejectedItem(k);
+    }
     if (errorMsg) p.error_message = errorMsg;
     savePosts(posts);
   }
@@ -131,14 +205,22 @@ function markPostStatus(postId, status, errorMsg = null) {
 function getStats() {
   const posts = loadPosts();
   const sources = loadSources();
-  return {
-    pending: posts.filter(p => p.status === "PENDING").length,
-    approved: posts.filter(p => p.status === "APPROVED").length,
-    posted: posts.filter(p => p.status === "POSTED").length,
-    rejected: posts.filter(p => p.status === "REJECTED").length,
+  const stats = {
+    pending: 0,
+    approved: 0,
+    posted: 0,
+    rejected: 0,
     sources_count: sources.length,
-    total: posts.length
+    total: posts.length,
+    last_scrape: posts.length > 0 ? posts[0].scraped_at : new Date().toISOString()
   };
+  for (const p of posts) {
+    if (p.status === "PENDING") stats.pending++;
+    else if (p.status === "APPROVED") stats.approved++;
+    else if (p.status === "POSTED") stats.posted++;
+    else if (p.status === "REJECTED") stats.rejected++;
+  }
+  return stats;
 }
 
 function loadSources() {
@@ -151,7 +233,8 @@ function saveSources(sources) {
 }
 
 function loadPersona() {
-  return readCleanJson(PERSONA_FILE) || {};
+  const data = readCleanJson(PERSONA_FILE);
+  return data || {};
 }
 
 function savePersona(persona) {
@@ -162,6 +245,9 @@ module.exports = {
   loadPosts,
   savePosts,
   postExists,
+  getPostsPaged,
+  isPostBlacklisted,
+  saveRejectedItem,
   insertPost,
   updatePostComments,
   approveComment,

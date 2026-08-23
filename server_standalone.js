@@ -365,6 +365,17 @@ How is your team currently handling data reconciliation when telemetry streams s
   }
 
   if (pathname === "/api/posts" && method === "GET") {
+    const { getPostsPaged } = safeRequire("db");
+    if (getPostsPaged) {
+      const pagedResult = getPostsPaged({
+        status: query.status || "PENDING",
+        category: query.category || "ALL",
+        page: parseInt(query.page, 10) || 1,
+        limit: parseInt(query.limit, 10) || 50
+      });
+      return sendJSON(res, pagedResult);
+    }
+
     let posts = loadPosts();
     if (query.status && query.status !== "ALL") {
       posts = posts.filter(p => p.status === query.status);
@@ -372,7 +383,7 @@ How is your team currently handling data reconciliation when telemetry streams s
     if (query.category && query.category !== "ALL") {
       posts = posts.filter(p => p.source_category === query.category);
     }
-    return sendJSON(res, posts);
+    return sendJSON(res, { posts: posts.slice(0, 50), total: posts.length, page: 1, totalPages: Math.ceil(posts.length / 50) });
   }
 
   if (pathname === "/api/competitor-posts" && method === "GET") {
@@ -440,10 +451,10 @@ How is your team currently handling data reconciliation when telemetry streams s
     }
   }
 
-  if (pathname === "/api/reject" && method === "POST") {
+  if ((pathname === "/api/reject" || pathname === "/api/skip") && method === "POST") {
     const body = await parseBody(req);
     const updated = markPostStatus(body.postId, "REJECTED");
-    return sendJSON(res, { success: true, post: updated });
+    return sendJSON(res, { success: true, message: "Post skipped and blacklisted permanently", post: updated });
   }
 
   // 1-Click Single LinkedIn URL Ingestion
