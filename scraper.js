@@ -268,7 +268,7 @@ async function scrapeSingleSource(context, src, maxPosts = 2) {
 }
 
 /**
- * Phase 1: Direct Personal Feed & Global Discovery Queries
+ * Phase 1: Direct Personal Feed & Global Discovery Queries (2026 React SPA Engine)
  */
 async function scrapeFeedAndDiscovery(context) {
   const discoveryTargets = [
@@ -283,30 +283,59 @@ async function scrapeFeedAndDiscovery(context) {
     let page = null;
     try {
       page = await context.newPage();
-      await page.goto(dt.url, { waitUntil: "domcontentloaded", timeout: 8000 });
-      await page.evaluate(() => window.scrollBy(0, 800));
-      await new Promise(r => setTimeout(r, 2000));
+      await page.goto(dt.url, { waitUntil: "domcontentloaded", timeout: 15000 });
+      
+      // Dynamic scrolling to trigger React DOM rendering
+      for (let s = 0; s < 3; s++) {
+        await page.evaluate(() => window.scrollBy(0, 1200));
+        await new Promise(r => setTimeout(r, 1200));
+      }
 
       const posts = await page.evaluate(() => {
-        const cards = document.querySelectorAll("div.feed-shared-update-v2, div[data-urn*='urn:li:activity'], article.base-main-card");
         const list = [];
-        for (const c of cards) {
-          if (list.length >= 5) break;
-          const textEl = c.querySelector("div.update-components-text, .feed-shared-update-v2__description, span.break-words, .feed-shared-text, .attributed-text-segment-list__content");
-          const text = textEl ? textEl.innerText.trim() : "";
-          const authorEl = c.querySelector("span.update-components-actor__title span[dir='ltr'], .feed-shared-actor__name, a.app-aware-link span[dir='ltr'], .update-components-actor__name");
-          const author = authorEl ? authorEl.innerText.trim() : "";
-          const timeEl = c.querySelector("span.update-components-actor__sub-description span[aria-hidden='true'], time, span.feed-shared-actor__sub-description");
-          const time = timeEl ? timeEl.innerText.trim() : "Recent (<48h)";
-          const urn = c.getAttribute("data-urn") || c.getAttribute("data-id") || "";
+        const seenUrns = new Set();
+        
+        // Scan all elements that contain activity URNs in 2026 React layout
+        const allWithUrn = document.querySelectorAll('[data-urn*="activity:"], [data-id*="activity:"], [componentkey*="activity:"], div.feed-shared-update-v2');
+        
+        for (const el of allWithUrn) {
+          if (list.length >= 8) break;
+          
+          let actId = "";
+          const str = (el.getAttribute("componentkey") || "") + " " + (el.getAttribute("data-urn") || "") + " " + (el.getAttribute("id") || "") + " " + (el.getAttribute("data-id") || "");
+          const match = str.match(/urn:li:activity:(\d{15,})/);
+          if (match && match[1]) {
+            actId = match[1];
+          }
 
-          if (text && text.length >= 35) {
-            let directUrl = window.location.href;
-            if (urn.includes("activity:")) {
-              const actId = urn.split("activity:")[1].split("?")[0].replace(/[^0-9]/g, "");
-              if (actId && actId.length >= 15) directUrl = `https://www.linkedin.com/feed/update/urn:li:activity:${actId}/`;
+          if (!actId) {
+            const timeLink = el.querySelector('a[href*="activity:"]');
+            if (timeLink) {
+              const h = timeLink.getAttribute('href') || '';
+              const m = h.match(/urn:li:activity:(\d{15,})/);
+              if (m) actId = m[1];
             }
-            list.push({ text, author: author || "LinkedIn Lending Leader", time, directUrl });
+          }
+
+          if (!actId || seenUrns.has(actId)) continue;
+          seenUrns.add(actId);
+
+          const directUrl = `https://www.linkedin.com/feed/update/urn:li:activity:${actId}/`;
+
+          // Find container text
+          const container = el.closest('div.feed-shared-update-v2, div[data-view-name], div[componentkey*="activity:"], div') || el;
+          const text = container.innerText ? container.innerText.trim() : "";
+          
+          // Extract author
+          const authorMatch = text.match(/^([^\n]+)/);
+          const author = authorMatch ? authorMatch[1].replace(/Feed post|Suggested/i, "").trim() : "LinkedIn Lending Leader";
+
+          // Extract relative timestamp
+          const timeMatch = text.match(/\b(\d+[hmdw]|yesterday|just now|now)\b/i);
+          const time = timeMatch ? timeMatch[0] : "Recent (<48h)";
+
+          if (text.length >= 50 && directUrl.includes("urn:li:activity:")) {
+            list.push({ text, author, time, directUrl });
           }
         }
         return list;
@@ -322,7 +351,7 @@ async function scrapeFeedAndDiscovery(context) {
         const comments = await generateCommentsForPost(p.text, p.author, dt.category);
 
         const postItem = {
-          id: `post_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+          id: `post_live_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
           source_id: dt.name.toLowerCase().replace(/[^a-z0-9]/g, "_"),
           source_name: dt.name,
           source_category: dt.category,
