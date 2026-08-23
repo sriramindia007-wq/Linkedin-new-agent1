@@ -10,7 +10,7 @@
     "post_text": "Congratulations to the winners of the Axis Bank Top 50 SMEs State Awards – Gujarat Edition. These exceptional businesses embody the ambition, innovation, and resilience that continue to drive India's growth story.\nFor decades, Axis Bank has partnered with India's MSMEs, supporting their growth through relevant financial solutions, industry insights, and meaningful engagement. The Top 50 SMEs State Awards, presented in association with India SME Forum, is an extension of that commitment, recognizing businesses that are driving innovation, creating impact, and contributing to India's economic progress.\nThe Gujarat edition marks the launch of a national platform dedicated to celebrating SME excellence. The inaugural edition brought together industry leaders, policymakers, and entrepreneurs to recognize businesses driving innovation, growth, and impact. We look forward to taking this platform across India and celebrating many more enterprises powering the nation's progress.\n\nMunish Sharda | Sanjeev Moghe | VIJAY SHETTY | Prashanth T S | Rakesh Bhojnagarwala | RATUL MUKHOPADHYAY | Rohan Shrivastava | RAJENDRA JAIKUMAR | Priyavrat Sharma | Brejesh B Chalill | Vinod Kumar W. | Sushma Morthania | India SME Forum\n…more",
     "published_relative": "2d •",
     "scraped_at": "2026-08-23T04:23:07.426Z",
-    "status": "ERROR",
+    "status": "PENDING",
     "priority_score": 99,
     "impact_badge": "⭐ High Impact (Domain Match)",
     "post_type_badge": "⚡ Digital Lending & Credit",
@@ -24,9 +24,32 @@
       "provocative_question": "As platforms like this highlight top-tier SMEs, how can institutional lenders better scale cash-flow based underwriting to reach the broader tier-2 and tier-3 manufacturing clusters that still struggle with formal credit access?",
       "executive_perspective": "Celebrating SME excellence reinforces the symbiotic relationship between institutional banking and grassroots enterprise. Expanding formal credit to these innovators while sustaining underwriting discipline will be the true test of India's next phase of economic expansion."
     },
-    "selected_style": "custom",
-    "approved_comment": "Congratulations to the Axis Bank and India SME Forum teams on launching this vital platform in Gujarat! Recognizing the resilience of grassroots entrepreneurs is essential, especially as formal credit increasingly becomes the catalyst for scaling India's manufacturing and trade hubs.",
-    "error_message": "Could not locate comment text area on LinkedIn post."
+    "error_message": "page.goto: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.linkedin.com/feed/update/urn:li:activity:7496145693741568000/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+  },
+  {
+    "id": "post_live_7496110035966636032",
+    "source_id": "fedfina",
+    "source_name": "Fedbank Financial Services (Fedfina)",
+    "source_category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "author_name": "Fedbank Financial Services (Fedfina)",
+    "author_headline": "Fedbank Financial Services (Fedfina) on LinkedIn",
+    "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7496110035966636032/",
+    "post_text": "We are delighted to welcome Mr. Praful Rajpopat to Fedfina as Chief Credit Officer.\n \nA Chartered Accountant and PGDBM from Emeritus Institute of Management, Singapore, Praful brings 20+ years of leadership experience across banking and NBFCs, with expertise in Credit Underwriting, Risk Management, and Digital Transformation.\n \nHe has held key roles at Federal Bank, SMFG India, Tyger Housing Finance, and Credit Saison India, driving credit excellence and portfolio quality.\n \nWe look forward to his leadership and valuable contributions to Fedfina’s continued growth.\n \n\nhashtag\n#WelcomeOnBoard \nhashtag\n#Fedfina \nhashtag\n#LeadershipAnnouncement \nhashtag\n#CreditLeadership \nhashtag\n#RiskManagement \nhashtag\n#GrowingTogether \nhashtag\n#YourBestHappensHere\n…more",
+    "published_relative": "2d •",
+    "scraped_at": "2026-08-23T05:17:14.267Z",
+    "status": "PENDING",
+    "priority_score": 99,
+    "impact_badge": "🔥 Top Priority",
+    "post_type_badge": "🏡 Housing, LAP, LRD & LAS",
+    "badge_color": "danger",
+    "relevance_tags": [
+      "Underwriting"
+    ],
+    "generated_comments": {
+      "value_add": "Congratulations to the Fedfina team and welcoming Praful Rajpopat! Bringing over two decades of expertise spanning retail credit, risk governance, and digital transformation is precisely what NBFCs need today as they scale portfolios while keeping Gross Stage-3 in check.",
+      "provocative_question": "As retail and gold-backed portfolios scale rapidly through digital channels, how do you see seasoned credit leaders balancing automated decisioning workflows with deep-dive qualitative underwriting for nuanced borrowers?",
+      "executive_perspective": "Securing robust credit leadership is a critical catalyst for retail and MSME-focused NBFCs. Expanding lending capacity securely requires aligning data-driven underwriting with strict governance and institutional risk appetite to ensure long-term asset quality."
+    }
   },
   {
     "id": "post_live_7496109068626055169",
@@ -39,7 +62,7 @@
     "post_text": "We are honoured to welcome Shri Gandhi R, Former Deputy Governor, Reserve Bank of India (RBI), and Non-Executive Chairman, Sahamati, as a distinguished speaker at SamvAAd 2026.\n\nMr. Gandhi brings over four decades of experience spanning central banking, financial regulation, capital markets, and policy. His deep institutional perspective continues to contribute meaningfully to the evolution of India’s financial ecosystem.\n\nWe look forward to his insights at SamvAAd.\n\n📅 15 October 2026\n📍 Grand Hyatt Mumbai\n\nSamvAAd 2026, powered by IGNOSIS AI\nInnovation Challenge Partner: IIMA Ventures\nKnowledge Partner: IIITD Innovation & Incubation Center\n\nRegister Now: https://lnkd.in/dbtex9m6\n\n\nhashtag\n#SamvAAd2026xIgnosisAI \nhashtag\n#SamvAAd2026 \nhashtag\n#Sahamati \nhashtag\n#ReserveBankOfIndia \nhashtag\n#FinancialEcosystem\n…more",
     "published_relative": "2d •",
     "scraped_at": "2026-08-23T04:34:49.440Z",
-    "status": "ERROR",
+    "status": "PENDING",
     "priority_score": 92,
     "impact_badge": "📌 Moderate Relevance",
     "post_type_badge": "🇮🇳 DPI: ULI & Account Aggregator",
@@ -52,10 +75,7 @@
       "value_add": "Congratulations to the Sahamati team on securing Shri Gandhi R for SamvAAd 2026. Having someone with his central banking depth anchor discussions on the Account Aggregator framework is invaluable as the ecosystem scales toward deeper consent-based data sharing.",
       "provocative_question": "With stalwarts like Shri Gandhi R guiding the dialogue, how can the AA ecosystem accelerate adoption beyond traditional lending to truly unlock cash-flow-based underwriting for underserved MSMEs?",
       "executive_perspective": "Shri Gandhi's institutional perspective has always bridged regulatory vision with practical execution. Platforms like SamvAAd are vital for aligning regulators, banks, and fintechs to ensure data empowerment infrastructure scales with robust governance."
-    },
-    "selected_style": "custom",
-    "approved_comment": "Congratulations to the Sahamati team on securing Shri Gandhi R for SamvAAd 2026. Having someone with his central banking depth anchor discussions on the Account Aggregator framework is invaluable as the ecosystem scales toward deeper consent-based data sharing.",
-    "error_message": "Could not locate comment text area on LinkedIn post."
+    }
   },
   {
     "id": "post_live_7496800905388990464",
@@ -83,26 +103,81 @@
     }
   },
   {
-    "id": "post_live_7496529292843978754",
-    "source_id": "crisil_limited",
-    "source_name": "CRISIL Limited",
-    "source_category": "Industry Media & Communities",
-    "author_name": "CRISIL Limited",
-    "author_headline": "CRISIL Limited on LinkedIn",
-    "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7496529292843978754/",
-    "post_text": "Effective KYC and AML frameworks are critical to identifying financial crime risks and strengthening compliance across financial institutions.\n\nJoin our 𝐊𝐘𝐂 𝐚𝐧𝐝 𝐀𝐌𝐋 𝐆𝐮𝐢𝐝𝐞𝐥𝐢𝐧𝐞𝐬 𝐚𝐧𝐝 𝐁𝐞𝐬𝐭 𝐏𝐫𝐚𝐜𝐭𝐢𝐜𝐞𝐬 virtual programme to understand evolving money laundering risks, strengthen your knowledge of CDD and EDD, identify key red flags, and gain insights into FATF, UN Sanctions, OFAC guidelines, and effective AML practices.\n\n📅 Date: 16–17 September 2026\n📍 Format: Virtual | Duration: 2 Days\n💰 Fees: Rs. 10,000 + applicable taxes\n\nIdeal for compliance professionals in NBFCs and banks, as well as middle and senior-level executives in BFSI working across internal audit, operational risk management, and product development.\n\nRegister now: https://lnkd.in/dRvzF9X8 \n\n\nhashtag\n#CrisilIntelligence \nhashtag\n#TrainingProgram \nhashtag\n#KYC \nhashtag\n#AML \nhashtag\n#Compliance \nhashtag\n#RiskManagement \nhashtag\n#Banking \nhashtag\n#BFSI \nhashtag\n#ProfessionalDevelopment\n…more",
-    "published_relative": "1d •",
-    "scraped_at": "2026-08-23T04:33:39.933Z",
+    "id": "post_live_7496157116500692992",
+    "source_id": "finbox",
+    "source_name": "FinBox",
+    "source_category": "M2P LOS Competitors & Tech",
+    "author_name": "FinBox",
+    "author_headline": "FinBox on LinkedIn",
+    "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7496157116500692992/",
+    "post_text": "Bringing AI-native credit infra on ground at World Financial Innovation Series (WFIS) Philippines!\n\nBFSI leaders are getting together in Manila to talk about what's next for financial services. AI is changing how lenders make credit decisions, but only if the data behind those decisions is right, and that's the conversation we're bringing to the table this year.\n\nCatch Bindesh Pandey, our SVP & Head - International Sales & Alliances, on stage for a session and swing by Booth P13 to talk through it further.\n\n📍 25th - 26th August 2026 | Manila Marriott Hotel\n\nSee you in Manila.\n\nRajat Deshpande Srijan Nagar Nikhil Bhawsinka Mayank Jain Bindesh Pandey Lucky Sharma Prateek Mohnot Spandan Bhatnagar Amit Didolkar Rupali Julka Anwesh Das Kunal Breja \n\nhashtag\n#WFIS2026 \nhashtag\n#WFISPhilippines \nhashtag\n#FinBox \nhashtag\n#CreditInfrastructure \nhashtag\n#DigitalLending \nhashtag\n#AInative\n…more",
+    "published_relative": "2d • Edited •",
+    "scraped_at": "2026-08-23T05:20:20.513Z",
     "status": "PENDING",
     "priority_score": 92,
-    "impact_badge": "📌 Moderate Relevance",
-    "post_type_badge": "📊 Credit Growth & Banking Dynamics",
-    "badge_color": "warning",
-    "relevance_tags": [],
+    "impact_badge": "🔥 Top Priority",
+    "post_type_badge": "⚡ Digital Lending & Credit",
+    "badge_color": "danger",
+    "relevance_tags": [
+      "Rules Engine"
+    ],
     "generated_comments": {
-      "value_add": "Strong KYC and AML frameworks are the backbone of resilient lending operations, particularly as digital onboarding scales across NBFCs and banks. Staying aligned with evolving CDD, EDD, and global sanctions standards like OFAC and FATF is essential for safeguarding institutional integrity while expanding formal credit access.",
-      "provocative_question": "As regulatory expectations around AML and financial crime risk intensify, how are compliance and product teams balancing stricter EDD requirements with the need for frictionless digital onboarding?",
-      "executive_perspective": "For financial institutions, robust risk management and regulatory compliance must evolve in lockstep with digital transformation. Programs like this are vital for equipping middle and senior leadership with the insights needed to navigate complex compliance landscapes without compromising operational agility."
+      "value_add": "Congratulations to the FinBox team on taking AI-native credit infrastructure to WFIS Philippines. As cross-border lending tech evolves, the real differentiator for lenders will remain clean, real-time alternative data pipelines coupled with strict, no-code BRE policy orchestration to keep risk governance watertight.",
+      "provocative_question": "As AI-driven credit decisioning scales across diverse Southeast Asian markets, how are lenders balancing automated data ingestion with localized credit policies to prevent drift in underwriting standards?",
+      "executive_perspective": "Expanding credit infrastructure globally highlights a crucial industry shift: technology must empower lenders to process alternative data streams intelligently while ensuring every automated decision stays firmly anchored in institutional risk appetite."
+    }
+  },
+  {
+    "id": "post_live_7496140599985762304",
+    "source_id": "idfy",
+    "source_name": "IDfy",
+    "source_category": "M2P LOS Competitors & Tech",
+    "author_name": "IDfy",
+    "author_headline": "IDfy on LinkedIn",
+    "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7496140599985762304/",
+    "post_text": "Today, on National Fintech Day, we're celebrating an industry that continues to evolve and reshape how India transacts.\n\nAs the industry looks ahead, we're revisiting the conversations shaping its next chapter.\n\nLast week, we hosted The Trust Continuum, in partnership with PwC India, where leaders from across banking and payments came together to share their perspectives on what growth without compromise looks like in practice.\n\nWe wrapped up the evening with a quick rapid-fire round with our guests.\n\nTake a look at how the conversation unfolded.\n\nAshok Hariharan | Malcolm Gomes | Paritosh Desai | Rahul Lakhani | Prakarsh Paritosh | Eshita Singh | Vicky Khandelwal | Rahul Bohora | Pravriti Sharma | Prakhar Chawla | Apoorva Singh | Manshika Vaikkath | Sushant Kulkarni | Viraaj dubey | Yashwant Lodha\n…more",
+    "published_relative": "2d •",
+    "scraped_at": "2026-08-23T05:21:00.177Z",
+    "status": "PENDING",
+    "priority_score": 92,
+    "impact_badge": "🔥 Top Priority",
+    "post_type_badge": "⚡ Digital Lending & Credit",
+    "badge_color": "danger",
+    "relevance_tags": [
+      "API Infrastructure",
+      "Fintech"
+    ],
+    "generated_comments": {
+      "value_add": "Happy National Fintech Day to the entire ecosystem! Events like 'The Trust Continuum' highlight a vital truth: as digital origination scales, robust identity verification and trust architectures must evolve in tandem to protect both lenders and borrowers.",
+      "provocative_question": "As fraud vectors grow more sophisticated alongside rapid digital onboarding, how are risk leaders balancing seamless customer acquisition with deeper, multi-layered identity verification?",
+      "executive_perspective": "True growth without compromise in digital lending requires embedding trust and compliance directly into the workflow from day one, ensuring speed never outpaces risk governance."
+    }
+  },
+  {
+    "id": "post_live_7496446834916204544",
+    "source_id": "trackwizz",
+    "source_name": "TrackWizz (TSS Consultancy)",
+    "source_category": "M2P LOS Competitors & Tech",
+    "author_name": "TrackWizz (TSS Consultancy)",
+    "author_headline": "TrackWizz (TSS Consultancy) on LinkedIn",
+    "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7496446834916204544/",
+    "post_text": "With India’s financial ecosystem undergoing rapid transformation, the next generation of financial crime risks calls for stronger institutional preparedness, deeper expertise and continued capacity building across the Reporting Entity ecosystem.\n\nAgainst this backdrop, ARIFAC is hosting FinSight - an invitation-only leadership forum as part of Global Fintech Fest 2026, bringing senior AML/CFT leadership into a forward-looking dialogue on strengthening India’s financial integrity and resilience.\n\n📍 9–10 September 2026 | Jio World Centre & Trident, BKC, Mumbai\nFinSight@GFF2026 will convene Designated Directors and Principal Officers from across the Reporting Entity ecosystem, including banks, NBFCs and HFCs, UCBs, and payment system operators along with other financial sector participants.\n\nThe programme will feature regulatory dialogue, industry perspectives, leadership discussions, technology showcases and capacity-building engagements, with addresses and presentations by senior representatives from Financial Intelligence Unit (FIU-IND), I4C, Reserve Bank of India (RBI), CERSAI India, Department of Telecommunications, Reserve Bank Innovation Hub (RBIH) and National Payments Corporation Of India (NPCI).\n\nThe forum will explore emerging priorities across AML/CFT, financial intelligence, cyber-enabled financial crime and fraud prevention, with a focus on strengthening institutional capabilities and preparing the financial ecosystem for the evolving nature of financial crime.\n\nParticipation is by invite-only.\nDesignated Directors and Principal Officers interested in participating may submit an Expression of Interest via this form -\nhttps://lnkd.in/dJEDU_w8 \n\nPlease Note: Submission of an EOI does not guarantee participation; confirmed invitations will be shared separately based on eligibility and relevancy to the forum.\n\n\nhashtag\n#FinSight \nhashtag\n#GFF2026 \nhashtag\n#AML \nhashtag\n#CFT \nhashtag\n#FinancialCrime \nhashtag\n#FinancialIntelligence \nhashtag\n#CyberFraud \nhashtag\n#Compliance \nhashtag\n#RiskManagement \nhashtag\n#CapacityBuilding\n\nGaurav Chopra Sandeep Jhingran Garima Kalgutker Yashaswi Shah Harshali Saigal\n…more",
+    "published_relative": "2d • Edited •",
+    "scraped_at": "2026-08-23T05:31:26.035Z",
+    "status": "PENDING",
+    "priority_score": 92,
+    "impact_badge": "🔥 Top Priority",
+    "post_type_badge": "🇮🇳 DPI: ULI & Account Aggregator",
+    "badge_color": "danger",
+    "relevance_tags": [
+      "RBI Regulations",
+      "API Infrastructure",
+      "Fintech"
+    ],
+    "generated_comments": {
+      "value_add": "Congratulations to the TrackWizz and ARIFAC teams on curating FinSight at GFF 2026. Integrating robust AML, CFT, and fraud prevention directly into our digital onboarding workflows and loan origination pipelines is essential to safeguarding the reporting entity ecosystem against evolving cyber-financial threats.",
+      "provocative_question": "As financial crime patterns grow increasingly sophisticated, how can lenders balance tighter real-time AML/CFT controls with seamless, friction-free digital credit delivery for underserved borrowers?",
+      "executive_perspective": "Safeguarding India's financial integrity requires proactive institutional preparedness across banks and NBFCs. Aligning technology architectures with regulatory oversight from FIU-IND and RBI is critical to scaling lending capacity while maintaining uncompromising risk governance."
     }
   },
   {
@@ -131,72 +206,28 @@
     }
   },
   {
-    "id": "post_live_7496566600666341377",
-    "source_id": "hdfc_bank",
-    "source_name": "HDFC Bank",
-    "source_category": "Incumbent Banks & SFBs",
-    "author_name": "HDFC Bank",
-    "author_headline": "HDFC Bank on LinkedIn",
-    "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7496566600666341377/",
-    "post_text": "If you are an NRI, you don’t want to miss this! 📢\n\nYour last chance to get a 6% interest rate on your FCNR deposits is here! 📈 ⏳\n\n🔗 Click the link below to book now!\nhttps://lnkd.in/dmvMtG8N\n\n\nhashtag\n#HDFCBank \nhashtag\n#NRI \nhashtag\n#FCNRDeposit \nhashtag\n#NRIInvestment \nhashtag\n#NRIbanking \nhashtag\n#InterestRates \nhashtag\n#FixedDeposit \nhashtag\n#NRICommunity \nhashtag\n#SecureYourFuture\n…more",
-    "published_relative": "1d •",
-    "scraped_at": "2026-08-23T04:19:25.015Z",
+    "id": "post_live_7496135423862317056",
+    "source_id": "equifax-india",
+    "source_name": "Equifax India",
+    "source_category": "Industry Media & Communities",
+    "author_name": "Equifax India",
+    "author_headline": "Equifax India on LinkedIn",
+    "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7496135423862317056/",
+    "post_text": "Data science isn't just about writing code. It’s about how you think. 💡\n\nMeet Ann Mathew, a Trainee Data Scientist at Equifax India who turned a steep corporate learning curve into global client impact.\n\nEntering the complex world of credit risk, Ann didn’t stay behind the scenes. In just her first year, she stepped up to drive a major Middle East client engagement, translating complex business requirements into actionable data for executive decision-making.\n\nHer impact didn't stop there. Ann quickly scaled her skills to:\n🔹 Optimize enterprise efficiency through large-scale SAS to Python automations.\n🔹 Contribute to strict regulatory scoring models to strengthen financial compliance.\n🔹 Explore supervised and unsupervised learning techniques for custom risk models.\n\nHow do you master that level of modeling so early in your career? A culture that values problem-solving over raw syntax.\n\n\"What makes Equifax stand out is its strong emphasis on the thought process,\" Ann shares. \"It’s not just about technical skills; it’s about how you build business logic. When I was unsure, my managers took the time to break down complex concepts, building my confidence to deliver.\"\n\nReal business impact. Advanced risk modeling. A culture that values your mind.\n\n𝐃𝐨𝐧'𝐭 𝐣𝐮𝐬𝐭 𝐬𝐭𝐚𝐫𝐭 𝐲𝐨𝐮𝐫 𝐜𝐚𝐫𝐞𝐞𝐫. 𝐏𝐨𝐰𝐞𝐫 𝐘𝐨𝐮𝐫 𝐏𝐨𝐬𝐬𝐢𝐛𝐥𝐞. 🚀\n\nLaunch your journey with our Data & Analytics team today:\n🔗 𝐒𝐞𝐚𝐫𝐜𝐡 𝐎𝐩𝐞𝐧 𝐑𝐨𝐥𝐞𝐬: https://lnkd.in/eXmztcqH\n🔗 𝐉𝐨𝐢𝐧 𝐎𝐮𝐫 𝐓𝐚𝐥𝐞𝐧𝐭 𝐂𝐨𝐦𝐦𝐮𝐧𝐢𝐭𝐲: https://lnkd.in/dtnQwCEp\n\n\nhashtag\n#PowerYourPossible \nhashtag\n#EquifaxLaunchpad \nhashtag\n#OneEquifax\n…more",
+    "published_relative": "2d •",
+    "scraped_at": "2026-08-23T05:32:58.049Z",
     "status": "PENDING",
     "priority_score": 88,
-    "impact_badge": "💡 Regular Impact",
-    "post_type_badge": "⚡ Digital Lending & Credit",
-    "badge_color": "warning",
-    "relevance_tags": [],
+    "impact_badge": "🔥 Top Priority",
+    "post_type_badge": "💳 Retail & Wholesale Lending",
+    "badge_color": "danger",
+    "relevance_tags": [
+      "Rules Engine"
+    ],
     "generated_comments": {
-      "value_add": "Congratulations to the HDFC Bank team on this timely initiative. Capturing and retaining sticky NRI deposits through competitive FCNR rates remains a masterclass in strengthening domestic liquidity buffers amidst shifting global interest rate cycles.",
-      "provocative_question": "With global rate cycles showing signs of stabilization, how are large institutions balancing the cost of locking in these attractive FCNR yields against potential shifts in future asset-liability management?",
-      "executive_perspective": "Securing stable foreign currency deposits is a crucial pillar for major banks as they look to fortify their balance sheets and support domestic credit expansion. Offering transparent, high-yield avenues for the NRI community ensures a resilient source of long-term capital for the Indian banking sector."
-    }
-  },
-  {
-    "id": "post_live_7496061056201441281",
-    "source_id": "state_bank_of_india",
-    "source_name": "State Bank of India",
-    "source_category": "Incumbent Banks & SFBs",
-    "author_name": "State Bank of India",
-    "author_headline": "State Bank of India on LinkedIn",
-    "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7496061056201441281/",
-    "post_text": "Experience a simpler way to bank with SBI Whatsapp Banking. Send your requests through voice messages and access essential banking services—quickly, conveniently and with less typing.\n\nStart by saying \"Hi\" via text or voice message on 9022690226.\n\nYour feedback matters to us. Please share it with us at: https://lnkd.in/d6HwdCQw\n \n\nhashtag\n#SBI \nhashtag\n#TheBankerToEveryIndian \nhashtag\n#WhatsappBanking\n…more",
-    "published_relative": "2d • Edited •",
-    "scraped_at": "2026-08-23T04:20:06.063Z",
-    "status": "PENDING",
-    "priority_score": 88,
-    "impact_badge": "💡 Regular Impact",
-    "post_type_badge": "⚡ Digital Lending & Credit",
-    "badge_color": "warning",
-    "relevance_tags": [],
-    "generated_comments": {
-      "value_add": "Great to see SBI making banking more accessible through voice-enabled WhatsApp integration. Reducing friction through intuitive interfaces is a massive leap for digital adoption, especially for customers who prefer conversational interactions over complex app navigation.",
-      "provocative_question": "As conversational banking scales to handle voice notes, how do institutions balance the convenience of natural language interfaces with the stringent data security and consent protocols required for financial transactions?",
-      "executive_perspective": "Conversational banking bridges the last-mile digital divide by meeting customers where they already spend time. Incumbents leveraging platforms like WhatsApp for core touchpoints are setting a new benchmark for accessible, high-engagement customer service."
-    }
-  },
-  {
-    "id": "post_live_7496870270851493888",
-    "source_id": "icici_bank",
-    "source_name": "ICICI Bank",
-    "source_category": "Incumbent Banks & SFBs",
-    "author_name": "ICICI Bank",
-    "author_headline": "ICICI Bank on LinkedIn",
-    "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7496870270851493888/",
-    "post_text": "Learn how to spot investment scams and protect your money from fraudulent schemes.\n\nStay one step ahead of digital scams. \nKnow more about safe banking tips, prevalent cyber financial frauds, and best practices on our Safe Banking microsite.\n\nRead more: https://lnkd.in/dZJfm4bD\n…more",
-    "published_relative": "18h •",
-    "scraped_at": "2026-08-23T04:21:00.338Z",
-    "status": "PENDING",
-    "priority_score": 88,
-    "impact_badge": "💡 Regular Impact",
-    "post_type_badge": "⚡ Digital Lending & Credit",
-    "badge_color": "warning",
-    "relevance_tags": [],
-    "generated_comments": {
-      "value_add": "Equipping customers with the knowledge to spot financial fraud is just as critical as deploying backend security layers. ICICI Bank's focus on proactive customer awareness goes a long way in building digital trust across the broader ecosystem.",
-      "provocative_question": "With fraudsters constantly evolving their tactics, how can financial institutions better balance friction-free digital onboarding with robust, real-time fraud deterrence?",
-      "executive_perspective": "As digital adoption scales across India, financial literacy and cyber-hygiene must be treated as core components of enterprise governance and risk management."
+      "value_add": "Congratulations to Ann Mathew and the Equifax India team! Translating technical syntax into robust risk modeling and regulatory compliance is where data science truly creates value for modern credit bureaus.",
+      "provocative_question": "With legacy language migrations like SAS to Python becoming standard, how are teams balancing automated optimization with the human judgment required for complex credit risk governance?",
+      "executive_perspective": "Developing young talent to bridge the gap between technical data science and actual credit policy governance is critical for scaling resilient risk models across global financial markets."
     }
   },
   {
@@ -222,52 +253,6 @@
       "value_add": "Congratulations to Hitarth and Ankush on joining the Credgenics team! In fintech, scaling both technology infrastructure and recovery operations in tandem is critical for maintaining healthy asset quality across lending portfolios.",
       "provocative_question": "As debt management and resolution grow increasingly data-driven, how is the focus shifting toward early-stage intervention rather than late-stage recovery within modern tech platforms?",
       "executive_perspective": "Bringing in top-tier talent to drive debt recovery and technology solutions is a clear indicator of how critical end-to-end lifecycle management has become for lending institutions navigating today's credit landscape."
-    }
-  },
-  {
-    "id": "post_live_7496491046349053953",
-    "source_id": "icici_bank",
-    "source_name": "ICICI Bank",
-    "source_category": "Incumbent Banks & SFBs",
-    "author_name": "ICICI Bank",
-    "author_headline": "ICICI Bank on LinkedIn",
-    "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7496491046349053953/",
-    "post_text": "Growing your foreign currency savings could be easier than you think.\n\nDiscover the different ways you can fund an FCNR (B) Deposit and get started.\nWatch the video to know more.\n\nT&C apply. \nThe scheme is valid till August 31, 2026.\n\n{Fund an FCNR (B) Deposit, FCNR (B) Deposit Funding options, Foreign Currency Investment for NRI, NRI, ICICI Bank NRI\nServices}\n…more",
-    "published_relative": "1d •",
-    "scraped_at": "2026-08-23T04:21:26.724Z",
-    "status": "PENDING",
-    "priority_score": 75,
-    "impact_badge": "💡 Regular Impact",
-    "post_type_badge": "⚡ Digital Lending & Credit",
-    "badge_color": "warning",
-    "relevance_tags": [],
-    "generated_comments": {
-      "value_add": "Simplifying funding pathways for FCNR(B) deposits is a great move to attract NRI capital while offering depositors currency risk hedging. Structuring these cross-border inflows efficiently requires robust back-end operational workflows and compliance guardrails to ensure seamless onboarding.",
-      "provocative_question": "As banks increasingly digitize NRI wealth propositions, what role do automated repatriation and compliance checks play in scaling foreign currency deposit mobilization without adding friction?",
-      "executive_perspective": "Offering flexible funding options for foreign currency deposits enhances an institution's ability to capture global NRI liquidity. Long-term success in this segment relies on balancing aggressive acquisition with airtight regulatory compliance and seamless digital execution."
-    }
-  },
-  {
-    "id": "post_live_7496510445063794688",
-    "source_id": "equitas_small_finance_bank",
-    "source_name": "Equitas Small Finance Bank",
-    "source_category": "Incumbent Banks & SFBs",
-    "author_name": "Equitas Small Finance Bank",
-    "author_headline": "Equitas Small Finance Bank on LinkedIn",
-    "post_url": "https://www.linkedin.com/feed/update/urn:li:activity:7496510445063794688/",
-    "post_text": "The best years deserve benefits that keep up. 🤩\n\nThis National Senior Citizens’ Day, celebrate life on your own terms with an Equitas Maxima Fixed Deposit.\n\n✅ Attractive interest rates\n✅ Monthly or quarterly interest payouts\n✅ Credit Card against your Fixed Deposit\n✅ Designed for long-term financial goals\n\nDownload the Equitas 2.0 App and book your Equitas Maxima Fixed Deposit today. Click the link in bio.\n\n\nhashtag\n#Equitas \nhashtag\n#NationalSeniorCitizensDay \nhashtag\n#SeniorCitizens \nhashtag\n#FixedDeposit \nhashtag\n#LifeStartsAt60\n…more",
-    "published_relative": "1d •",
-    "scraped_at": "2026-08-23T04:25:55.174Z",
-    "status": "PENDING",
-    "priority_score": 75,
-    "impact_badge": "💡 Regular Impact",
-    "post_type_badge": "⚡ Digital Lending & Credit",
-    "badge_color": "warning",
-    "relevance_tags": [],
-    "generated_comments": {
-      "value_add": "Congratulations to the Equitas team on marking National Senior Citizens' Day with tailored offerings like the Maxima FD. Providing structured yield options alongside liquidity enablers like credit cards against FDs demonstrates how SFBs are effectively catering to the evolving financial security needs of our senior demographic.",
-      "provocative_question": "As digital adoption grows among retirees, how are banks balancing seamless self-service journeys on apps like Equitas 2.0 with the necessary security layers and human assistance that senior customers often prefer?",
-      "executive_perspective": "Products designed specifically for long-term financial goals and regular payouts play a vital role in reinforcing trust in the formal banking sector. It's encouraging to see SFBs leverage digital channels to make wealth management and secure fixed-income options more accessible for senior citizens."
     }
   }
 ]
