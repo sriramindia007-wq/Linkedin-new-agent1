@@ -17,9 +17,10 @@ const path = require("path");
 const https = require("https");
 const { chromium } = require("playwright");
 const { loadSources, insertPost, postExists, loadPersona } = require("./db");
-const { calculateRelevance } = require("./relevanceScorer");
 const { evaluatePostContext } = require("./contentGatekeeper");
+const { calculateRelevance } = require("./relevanceScorer");
 const { generateCommentsForPost } = require("./commentGenerator");
+const { auditPostCandidate } = require("./qaAgent");
 
 const SESSION_DIR = path.join(__dirname, "session_data");
 const MAX_POST_AGE_HOURS = 48;
@@ -241,6 +242,14 @@ async function scrapeSingleSource(context, src, maxPosts = 2) {
             generated_comments: comments
           };
 
+          // Strict 4-Step QA Agent Audit
+          const qaResult = await auditPostCandidate(postItem, context);
+          if (!qaResult.passed) {
+            console.log(`[QA Gatekeeper] Discarded ${postItem.id}: ${qaResult.reason}`);
+            continue;
+          }
+
+          console.log(`[QA Gatekeeper] ✅ Certified ${postItem.id} (${postItem.author_name})`);
           insertPost(postItem);
           results.push(postItem);
           if (results.length >= maxPosts) break;
@@ -370,6 +379,14 @@ async function scrapeFeedAndDiscovery(context) {
           generated_comments: comments
         };
 
+        // Strict 4-Step QA Agent Audit
+        const qaResult = await auditPostCandidate(postItem, context);
+        if (!qaResult.passed) {
+          console.log(`[QA Gatekeeper Discovery] Discarded ${postItem.id}: ${qaResult.reason}`);
+          continue;
+        }
+
+        console.log(`[QA Gatekeeper Discovery] ✅ Certified ${postItem.id} (${postItem.author_name})`);
         insertPost(postItem);
         added++;
       }
