@@ -736,7 +736,7 @@
           </div>
 
           <!-- Actions -->
-          <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
             <div>
               <button class="btn btn-success fw-bold me-2 px-3" onclick="postNow('${p.id}')">
                 <i class="fa-solid fa-paper-plane me-1"></i> 🚀 Approve &amp; Post Now
@@ -744,11 +744,14 @@
               <button class="btn btn-outline-success fw-semibold me-2" onclick="markAsManuallyPosted('${p.id}')" title="I posted this manually on LinkedIn - move to Posted History with manual tag">
                 <i class="fa-solid fa-tag me-1"></i> 🏷️ Mark as Manually Posted
               </button>
+              <button class="btn btn-outline-warning fw-semibold me-2" onclick="moveToCompetitorRadar('${p.id}')" title="Move this post to Competitor Radar tab for intelligence tracking">
+                <i class="fa-solid fa-building-shield me-1"></i> 🏢 Move to Competitor
+              </button>
               <button class="btn btn-outline-primary fw-semibold me-2" onclick="approveDraft('${p.id}')">
                 <i class="fa-solid fa-check me-1"></i> Approve Draft
               </button>
             </div>
-            <button class="btn btn-link text-danger text-decoration-none small" onclick="rejectPost('${p.id}')">
+            <button class="btn btn-link text-danger text-decoration-none small" onclick="rejectPost('${p.id}')" title="Skip this specific post (does NOT block the company page or author)">
               <i class="fa-solid fa-trash-can me-1"></i> Skip Post
             </button>
           </div>
@@ -797,6 +800,35 @@
       }
     }
 
+    async function moveToCompetitorRadar(postId) {
+      const note = prompt("Enter an optional note for this competitor intelligence item:", "Competitor Product & Strategic Update");
+      if (note === null) return; // Cancelled
+
+      const card = document.getElementById(`card-${postId}`);
+      if (card) card.style.opacity = "0.5";
+
+      try {
+        const res = await fetch("/api/mark-as-competitor", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ postId, note: note || "Competitor Intel" })
+        });
+        const data = await res.json();
+        if (data.success) {
+          if (card) card.remove();
+          loadStats();
+          loadCompetitorPosts();
+          alert("🏢 Post successfully moved to the 'Competitor Radar' tab!");
+        } else {
+          alert("Error: " + (data.error || "Failed to move post"));
+          if (card) card.style.opacity = "1";
+        }
+      } catch (err) {
+        alert("Action failed: " + err.message);
+        if (card) card.style.opacity = "1";
+      }
+    }
+
     async function forceResetScraper() {
       try {
         await fetch("/api/reset-scraper", { method: "POST" });
@@ -825,7 +857,7 @@
             <div class="text-center py-5 bg-white rounded-3 border">
               <i class="fa-solid fa-building fa-2x text-muted mb-2"></i>
               <h6>No competitor updates in the last 48 hours</h6>
-              <p class="text-muted small">Click "Refresh Competitors" above to scan rival platforms.</p>
+              <p class="text-muted small">Posts from competitor sources and items marked 'Move to Competitor' appear here.</p>
             </div>`;
           return;
         }
@@ -834,7 +866,8 @@
           <div class="post-card border-danger border-opacity-25 mb-3">
             <div class="d-flex justify-content-between align-items-start mb-2">
               <div>
-                <span class="badge bg-danger badge-priority me-2">🏢 M2P LOS Competitor</span>
+                <span class="badge bg-danger badge-priority me-2">🏢 Competitor Intel</span>
+                ${p.competitor_note ? `<span class="badge bg-warning bg-opacity-10 text-dark border border-warning border-opacity-25 me-2"><i class="fa-solid fa-tag me-1 text-warning"></i>${escapeHtml(p.competitor_note)}</span>` : ''}
                 <span class="badge-time"><i class="fa-regular fa-clock me-1"></i> ${p.published_relative || '1d'}</span>
               </div>
               <a href="${p.post_url}" target="_blank" class="btn btn-sm btn-outline-danger">

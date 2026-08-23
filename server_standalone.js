@@ -377,6 +377,15 @@ How is your team currently handling data reconciliation when telemetry streams s
     }
 
     let posts = loadPosts();
+    
+    // Always exclude REJECTED and POSTED from pending review
+    posts = posts.filter(p => p.status !== "REJECTED" && p.status !== "POSTED" && p.status !== "COMPETITOR_RADAR");
+
+    // Competitors are routed to the dedicated Competitor Radar tab
+    if (!query.includeCompetitors) {
+      posts = posts.filter(p => p.source_category !== "M2P LOS Competitors & Tech" && !p.competitor_intel);
+    }
+
     if (query.status && query.status !== "ALL") {
       posts = posts.filter(p => p.status === query.status);
     }
@@ -409,8 +418,37 @@ How is your team currently handling data reconciliation when telemetry streams s
   if (pathname === "/api/competitor-posts" && method === "GET") {
     let posts = loadPosts();
     const competitorCategory = "M2P LOS Competitors & Tech";
-    let competitorPosts = posts.filter(p => p.source_category === competitorCategory);
+    let competitorPosts = posts.filter(p => p.source_category === competitorCategory || p.competitor_intel || p.status === "COMPETITOR_RADAR");
     return sendJSON(res, competitorPosts);
+  }
+
+  // 1-Click Move Post to Competitor Radar
+  if (pathname === "/api/mark-as-competitor" && method === "POST") {
+    const body = await parseBody(req);
+    const { postId, note } = body;
+    let posts = loadPosts();
+    const post = posts.find(p => p.id === postId);
+    if (!post) return sendJSON(res, { success: false, error: "Post not found" }, 404);
+
+    post.source_category = "M2P LOS Competitors & Tech";
+    post.competitor_intel = true;
+    post.competitor_note = note || "Flagged as Competitor Intel";
+    post.status = "COMPETITOR_RADAR";
+    
+    savePosts(posts);
+    const dbFiles = [
+      path.join(__dirname, 'posts.json'),
+      path.join(__dirname, 'data', 'posts.json'),
+      path.join(__dirname, 'src_node', 'data', 'posts.json'),
+      path.join(__dirname, 'src_node', 'posts.json')
+    ];
+    dbFiles.forEach(f => {
+      try {
+        if (fs.existsSync(path.dirname(f))) fs.writeFileSync(f, JSON.stringify(posts, null, 2), 'utf-8');
+      } catch (e) {}
+    });
+
+    return sendJSON(res, { success: true, message: "Moved to Competitor Radar!", post });
   }
 
   if (pathname === "/api/ml-learning-stats" && method === "GET") {

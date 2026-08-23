@@ -69,20 +69,28 @@ function recordRegenerationGuidance(customGuidance, postText) {
 }
 
 /**
- * Record when user skips or rejects a post to learn negative patterns
+ * Record when user skips or rejects a post to learn negative topic patterns
+ * CRITICAL SAFETY GUARANTEE: Only non-lending topics/keywords are learned.
+ * The monitored company page or individual author is NEVER blacklisted or penalized.
  */
 function recordSkippedPost(post) {
   if (!post || !post.post_text) return;
   const mem = loadMemory();
   
-  // Extract non-lending keywords
+  // Extract purely non-lending topic keywords (FCNR, deposits, cards, hiring, sports)
   const text = post.post_text.toLowerCase();
-  const candidateKeywords = ["hiring", "apply today", "sports", "archery", "cricket", "marathon", "celebration", "award ceremony", "csr"];
+  const nonLendingCandidates = [
+    "fcnr", "nri deposit", "fixed deposit", "recurring deposit", "savings account",
+    "credit card reward", "credit card offer", "forex card", "demat account",
+    "mutual fund", "term insurance", "life insurance", "motor insurance",
+    "hiring", "apply today", "job vacancy", "sports", "cricket", "marathon",
+    "celebration", "award ceremony", "festive wishes"
+  ];
   
-  candidateKeywords.forEach(kw => {
+  nonLendingCandidates.forEach(kw => {
     if (text.includes(kw) && !mem.learnedNegativeKeywords.includes(kw)) {
       mem.learnedNegativeKeywords.push(kw);
-      console.log(`🧠 [ML Engine] Added negative filter pattern: "${kw}" from skipped post`);
+      console.log(`🧠 [ML Engine] Added non-lending filter pattern: "${kw}" from skipped post`);
     }
   });
 
