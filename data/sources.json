@@ -3798,5 +3798,305 @@
     "role_type": "Partner & Financial Services Technology Leader, EY India",
     "segment": "Fintech Advisory",
     "active": true
+  },
+  {
+    "id": "cashpor-micro-credit",
+    "name": "Cashpor Micro Credit",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/cashpor-micro-credit/posts/",
+    "role_type": "Not-for-Profit MFI in UP & Bihar",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "shikhar-microfinance",
+    "name": "Shikhar Microfinance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/shikhar-microfinance/posts/",
+    "role_type": "Delhi-NCR & UP Microfinance",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "sarvodaya-nano",
+    "name": "Sarvodaya Nano Finance Limited",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/sarvodaya-nano-finance-limited/posts/",
+    "role_type": "Rural Inclusion Microfinance",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "mahashakti-foundation",
+    "name": "Mahashakti Foundation",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/mahashakti-foundation/posts/",
+    "role_type": "Odisha Rural Livelihoods MFI",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "samavesh-microfinance",
+    "name": "Samavesh Microfinance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/samavesh-microfinance/posts/",
+    "role_type": "Semi-Urban Microcredit Institution",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "sambhav-microfinance",
+    "name": "Sambhav Microfinance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/sambhav-microfinance/posts/",
+    "role_type": "Central India Microcredit",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "idf-financial",
+    "name": "IDF Financial Services Private Limited",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/idf-financial-services/posts/",
+    "role_type": "Karnataka-Based Microfinance NBFC",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "navachetana-microfin",
+    "name": "Navachetana Microfin Services",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/navachetana-microfin-services/posts/",
+    "role_type": "South India Rural JLG Lending",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "smile-microfinance",
+    "name": "S.M.I.L.E. Microfinance Limited",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/smile-microfinance-limited/posts/",
+    "role_type": "Tamil Nadu Rural Women Microfinance",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "nabfins",
+    "name": "NABFINS (NABARD Financial Services)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/nabard-financial-services-limited/posts/",
+    "role_type": "NABARD Subsidiary Microfinance NBFC",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "sanghamithra-rural",
+    "name": "Sanghamithra Rural Financial Services",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/sanghamithra-rural-financial-services/posts/",
+    "role_type": "Non-Profit SHG-Bank Linkage Microfinance",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "chaitanya-india",
+    "name": "Chaitanya India Fin Credit (Svatantra)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/chaitanya-india-fin-credit-pvt-ltd/posts/",
+    "role_type": "Karnataka & Maharashtra Rural MFI",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "sewa-rural-finance",
+    "name": "SEWA Rural Microfinance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/sewa-bank/posts/",
+    "role_type": "Self Employed Women Microfinance",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "bwda-finance",
+    "name": "BWDA Finance Limited",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/bwda-finance-limited/posts/",
+    "role_type": "Bullock-cart Workers & SHG Microfinance",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "asa-international-india",
+    "name": "ASA International India Microfinance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/asa-international-india-microfinance-limited/posts/",
+    "role_type": "Global Low-Income Microcredit NBFC",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "bopa-microfinance",
+    "name": "BOPA Microfinance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/bopa-microfinance/posts/",
+    "role_type": "Financial Inclusion Equity & MFI",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "grameen-shakti",
+    "name": "Grameen Shakti Microfinance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/grameen-shakti-microfinance/posts/",
+    "role_type": "Rural Bengal & Odisha Microfinance",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "sneh-microfinance",
+    "name": "Sneh Microfinance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/sneh-microfinance/posts/",
+    "role_type": "Women Entrepreneurship Microfinance",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "humana-people-micro",
+    "name": "Humana People to People Microfinance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/humana-people-to-people-india/posts/",
+    "role_type": "Social Development Microcredit",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "rgvn-microfinance",
+    "name": "RGVN (North East) Microfinance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/rgvn-microfinance/posts/",
+    "role_type": "Assam & North-East Rural MFI",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "bandhan-konnagar",
+    "name": "Bandhan-Konnagar (Targeting Ultra Poor)",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/bandhan-konnagar/posts/",
+    "role_type": "Ultra-Poor Livelihood Graduation MFI",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "jagriti-microfin-mfi",
+    "name": "Jagriti Microfin",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/jagriti-microfin/posts/",
+    "role_type": "Eastern India Rural Microcredit",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "vaya-finserv",
+    "name": "Vaya Finserv Private Limited",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/vaya-finserv-private-limited/posts/",
+    "role_type": "Tech-Driven Business Correspondent & MFI",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "pahal-financial",
+    "name": "Pahal Financial Services",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/pahal-financial-services-pvt--ltd-/posts/",
+    "role_type": "Gujarat, MP & Maharashtra NBFC-MFI",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "ski-capital-micro",
+    "name": "SKI Capital Microfinance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/ski-capital-services-ltd/posts/",
+    "role_type": "Semi-Urban Microfinance",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "agora-microfinance",
+    "name": "Agora Microfinance India",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/agora-microfinance-india-limited/posts/",
+    "role_type": "Mumbai Urban Slum Microfinance",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "gulaothi-microfinance",
+    "name": "Gulaothi Microfinance",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/gulaothi-microfinance/posts/",
+    "role_type": "Western UP Rural Microfinance",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "prayas-financial",
+    "name": "Prayas Financial Services",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/prayas-financial-services/posts/",
+    "role_type": "Gujarat Rural Microcredit",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "satin-finserv",
+    "name": "Satin Finserv Limited",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/satin-finserv-limited/posts/",
+    "role_type": "MSME Secured & Micro-LAP NBFC",
+    "segment": "Tier-2 Microfinance",
+    "active": true
+  },
+  {
+    "id": "arth-microfinance-india",
+    "name": "Arth Microfinance India",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders",
+    "type": "company",
+    "url": "https://www.linkedin.com/company/arth-microfinance/posts/",
+    "role_type": "Women Empowerment Lending",
+    "segment": "Tier-2 Microfinance",
+    "active": true
   }
 ]

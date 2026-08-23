@@ -196,7 +196,7 @@
       </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="tab-sources-btn" data-bs-toggle="tab" data-bs-target="#tab-sources" type="button" role="tab">
-          <i class="fa-solid fa-bullseye me-1"></i> Target Sources (145)
+          <i class="fa-solid fa-bullseye me-1"></i> Target Sources (<span id="tabSourcesCount">411</span>)
         </button>
       </li>
       <li class="nav-item" role="presentation">
@@ -551,7 +551,10 @@
         document.getElementById("statPending").innerText = data.pending ?? data.PENDING ?? 0;
         document.getElementById("statApproved").innerText = data.approved ?? data.APPROVED ?? 0;
         document.getElementById("statPosted").innerText = data.posted ?? data.POSTED ?? 0;
-        document.getElementById("statSources").innerText = data.sources_count || 145;
+        document.getElementById("statSources").innerText = data.sources_count || 411;
+        if (document.getElementById("tabSourcesCount")) {
+          document.getElementById("tabSourcesCount").innerText = data.sources_count || 411;
+        }
         if (data.last_scrape) {
           const d = new Date(data.last_scrape);
           const formattedIST = d.toLocaleString("en-IN", {
