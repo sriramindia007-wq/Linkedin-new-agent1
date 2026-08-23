@@ -222,8 +222,11 @@
             <div class="fw-bold text-dark"><span class="spinner-border spinner-border-sm text-info me-2"></span> ⚡ Crawling &amp; QA Auditing 541 Indian Lending Sources...</div>
             <div class="small text-muted mt-1" id="scrapeProgressDetail">Initializing...</div>
           </div>
-          <div class="text-end">
+          <div class="text-end d-flex align-items-center gap-2">
             <span class="badge bg-info text-white fs-6 px-3 py-2" id="scrapePercentBadge">0%</span>
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="forceResetScraper()" title="Cancel / Reset Crawl State">
+              <i class="fa-solid fa-stop me-1"></i> Reset
+            </button>
           </div>
         </div>
 
@@ -738,6 +741,9 @@
               <button class="btn btn-success fw-bold me-2 px-3" onclick="postNow('${p.id}')">
                 <i class="fa-solid fa-paper-plane me-1"></i> 🚀 Approve &amp; Post Now
               </button>
+              <button class="btn btn-outline-success fw-semibold me-2" onclick="markAsManuallyPosted('${p.id}')" title="I posted this manually on LinkedIn - move to Posted History with manual tag">
+                <i class="fa-solid fa-tag me-1"></i> 🏷️ Mark as Manually Posted
+              </button>
               <button class="btn btn-outline-primary fw-semibold me-2" onclick="approveDraft('${p.id}')">
                 <i class="fa-solid fa-check me-1"></i> Approve Draft
               </button>
@@ -757,6 +763,54 @@
       const commentText = window.__postComments?.[postId]?.[styleKey] || "";
       const editor = document.getElementById(`editor-${postId}`);
       if (editor) editor.value = commentText;
+    }
+
+    async function markAsManuallyPosted(postId) {
+      const editor = document.getElementById(`editor-${postId}`);
+      const commentText = editor ? editor.value : "";
+      
+      const customTag = prompt("Enter a custom note or tag for this post (optional):", "Manually Posted on LinkedIn");
+      if (customTag === null) return; // Cancelled
+
+      const card = document.getElementById(`card-${postId}`);
+      if (card) card.style.opacity = "0.5";
+
+      try {
+        const res = await fetch("/api/mark-manually-posted", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ postId, commentText, manualTag: customTag || "Manually Posted on LinkedIn" })
+        });
+        const data = await res.json();
+        if (data.success) {
+          if (card) card.remove();
+          loadStats();
+          loadHistory();
+          alert("✅ Post successfully tagged and moved to your 'Posted History' tab!");
+        } else {
+          alert("Error: " + (data.error || "Failed to mark post"));
+          if (card) card.style.opacity = "1";
+        }
+      } catch (err) {
+        alert("Action failed: " + err.message);
+        if (card) card.style.opacity = "1";
+      }
+    }
+
+    async function forceResetScraper() {
+      try {
+        await fetch("/api/reset-scraper", { method: "POST" });
+        const banner = document.getElementById("scrapeActiveBanner");
+        if (banner) banner.classList.add("d-none");
+        const btn = document.getElementById("btnScrape");
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-play me-1"></i> Run Scraper';
+        }
+        alert("✅ Crawl state has been reset successfully.");
+      } catch (e) {
+        alert("Reset error: " + e.message);
+      }
     }
 
     async function loadCompetitorPosts() {

@@ -1,7 +1,7 @@
 [
   {
     "name": "JSESSIONID",
-    "value": "ajax:1435980340722192052",
+    "value": "ajax:1634501900540529158",
     "domain": ".www.linkedin.com",
     "path": "/",
     "expires": -1,
@@ -21,20 +21,20 @@
   },
   {
     "name": "bcookie",
-    "value": "\"v=2&e03b2f58-a9b3-483a-8ffe-b7b8e5af5a43\"",
+    "value": "\"v=2&27a22219-5d70-4942-810a-82130fad0883\"",
     "domain": ".linkedin.com",
     "path": "/",
-    "expires": 1819019703.844904,
+    "expires": 1819023808.727882,
     "httpOnly": false,
     "secure": true,
     "sameSite": "None"
   },
   {
     "name": "bscookie",
-    "value": "\"v=1&202608231114343a847ad5-a2ea-4ed6-8cef-bb1c13611e48AQHxMF2BnlfUiJNudt8J8PrAXN-EJVNv\"",
+    "value": "\"v=1&20260823122223d9f3d224-0a37-45d8-805f-a6e0bca4a6ddAQH86t9BuHZu7hpc_74lO52K8TjGTgL5\"",
     "domain": ".www.linkedin.com",
     "path": "/",
-    "expires": 1819019703.845095,
+    "expires": 1819023808.728067,
     "httpOnly": true,
     "secure": true,
     "sameSite": "None"
@@ -44,27 +44,17 @@
     "value": "Asia/Calcutta",
     "domain": ".www.linkedin.com",
     "path": "/",
-    "expires": 1788693301,
+    "expires": 1788697353,
     "httpOnly": false,
     "secure": false,
     "sameSite": "Lax"
   },
   {
-    "name": "NID",
-    "value": "534=C1narhkXMNFJTTfGOuaTnTJaQrF37xUTDG2tNsfXjNxnok1_DqoE84ga4PexsrL3VM6ucWad0A-pEXWjoJUqdbAbzS3UqbWB389h7hyK8poQ-JoyKxE1TERPb4e54V_FXLU8Fq-YliDDob4CBxjKEdoBvfganFnafajqh8Wn2mmC7wfWf4xEpjwXGJr5VfVYZkHfenE",
-    "domain": ".google.com",
-    "path": "/",
-    "expires": 1803294894.047245,
-    "httpOnly": true,
-    "secure": true,
-    "sameSite": "None"
-  },
-  {
     "name": "li_at",
-    "value": "AQEDAQOb1YEDe1cQAAABoC5Uo4wAAAGgUmEnjE4Asv5S5lcPkCTdmr7ecKf_t0uoyxH4w8EFTorm61Fin3OMsmeuvlh25jhUOe2wNIQbMn0Q-2ToMz185YSQ29Nt7mlD0uiS82_GCDD22spTEfxQoTWJ",
+    "value": "AQEDAQOb1YEFbc-KAAABoC6TX9AAAAGgUp_j0E4AAFebYldwIQLUdtFT3Spf9qO7UZF0m38QiLAQdw8RgB_RRvaH8UYB6uLet-XXQs0TghYnq6jFxt6JOM-JhTNHQaRNt0-kMbBWBOj9uGKh5ndYVa7x",
     "domain": ".www.linkedin.com",
     "path": "/",
-    "expires": 1819019694.348626,
+    "expires": 1819023805.666306,
     "httpOnly": true,
     "secure": true,
     "sameSite": "None"
@@ -74,17 +64,17 @@
     "value": "true",
     "domain": ".linkedin.com",
     "path": "/",
-    "expires": 1819019694.349049,
+    "expires": 1819023805.666603,
     "httpOnly": false,
     "secure": true,
     "sameSite": "None"
   },
   {
     "name": "li_rm",
-    "value": "AQGZHmP222paqgAAAaAuVKOrVHIUc2clBVMS0KtvDjVBo9lwUj2muSzAUQJibCDwf4axewhWFloMfxmNnE_5wilzpi8vruIn0_SXxc1oMQPGEcpmb7-V-DavaC7tvuLnR21xiPUj413-jHFxldtd2DcHj15VYe8uTSRCjg03-FsPHgk1R0GWIw8xrrCCa3BdRCXskYrd_rVODjOiwkb1_yfR8Y3sPzsiqAsi3OmeUBfievQ8sqGpH6m4WNhE6Zweum3pqgrcovIiwmr-JEvtdaqm9-cOuIONr1aSZSssLgEHyE2NgQEtaXlQ4OAa9aeExauFc1IfNHZTi3mwTiprxA",
+    "value": "AQGHSVPMzctLdwAAAaAuk1_vi1dZq6cKot8N8Uu1ZcsTMAiRefKjPc-gQL2pJ1Fw3_LkBCyDlbd5HoLpzQZHdzd4KL-MzKzPfFjbW0lfBzLJdy_uPQb0ZewDH7BYJ11xXTOQNSelaVD8J74kXVGIFfbW_E0KYwmgwe7f9kr2EBw8j25ZbnzormZqjcbXXmxyxXnjsboy7xPJGSD-mNcu2VIuNny-w-c_Dqb1w3wvAzvFf35XT4Kv0oF1uAUFjQ9m22PUYI2kSIhVgQT6uSHElHEdyay_IVVQNJL82xMPB2RvDAuo9adbSKw-JiUAhpg8hdLAR0NZkO0J0Bm6uSc2wQ",
     "domain": ".www.linkedin.com",
     "path": "/",
-    "expires": 1819019694.349142,
+    "expires": 1819023805.666689,
     "httpOnly": true,
     "secure": true,
     "sameSite": "None"
@@ -94,17 +84,17 @@
     "value": "sdui-flagship:0.1.50277+SduiFlagship0",
     "domain": ".linkedin.com",
     "path": "/",
-    "expires": 1819019703.844643,
+    "expires": 1819023807.724576,
     "httpOnly": false,
     "secure": false,
     "sameSite": "Lax"
   },
   {
     "name": "lidc",
-    "value": "\"b=OB85:s=O:r=O:a=O:p=O:g=5375:u=1425:x=1:i=1787483694:t=1787535168:v=2:sig=AQFxNtbG8yEWTCDK8uMWhDxeE9BTnM-X\"",
+    "value": "\"b=OB85:s=O:r=O:a=O:p=O:g=5375:u=1425:x=1:i=1787487805:t=1787535168:v=2:sig=AQHZgZHe6KiEx_o3wKIvH6wrVOnHewjq\"",
     "domain": ".linkedin.com",
     "path": "/",
-    "expires": 1787535169.547424,
+    "expires": 1787535169.728225,
     "httpOnly": false,
     "secure": true,
     "sameSite": "None"

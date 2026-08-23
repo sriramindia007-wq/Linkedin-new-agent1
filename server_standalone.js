@@ -399,6 +399,13 @@ How is your team currently handling data reconciliation when telemetry streams s
     }
   }
 
+  if (pathname === "/api/posted-history" && method === "GET") {
+    let posts = loadPosts();
+    let history = posts.filter(p => p.status === "POSTED");
+    history.sort((a, b) => new Date(b.posted_at || b.scraped_at) - new Date(a.posted_at || a.scraped_at));
+    return sendJSON(res, history);
+  }
+
   if (pathname === "/api/competitor-posts" && method === "GET") {
     let posts = loadPosts();
     const competitorCategory = "M2P LOS Competitors & Tech";
@@ -483,6 +490,56 @@ How is your team currently handling data reconciliation when telemetry streams s
     } catch (e) {
       return sendJSON(res, { success: false, error: e.message || "Posting exception occurred" }, 500);
     }
+  }
+
+  // 1-Click Manual Post Tagging (Moves to Posted History with custom tag)
+  if (pathname === "/api/mark-manually-posted" && method === "POST") {
+    const body = await parseBody(req);
+    const { postId, commentText, manualTag } = body;
+    let posts = loadPosts();
+    const post = posts.find(p => p.id === postId);
+    if (!post) {
+      return sendJSON(res, { success: false, error: "Post not found" }, 404);
+    }
+
+    const finalComment = commentText || post.approved_comment || (post.generated_comments && post.generated_comments.value_add) || "";
+    approveComment(postId, post.selected_style || "custom", finalComment);
+    markPostStatus(postId, "POSTED");
+
+    post.manual_post = true;
+    post.manual_tag = manualTag || "Manually Posted on LinkedIn";
+    post.posted_at = new Date().toISOString();
+    
+    // Sync all database locations
+    const dbFiles = [
+      path.join(__dirname, 'posts.json'),
+      path.join(__dirname, 'data', 'posts.json'),
+      path.join(__dirname, 'src_node', 'data', 'posts.json'),
+      path.join(__dirname, 'src_node', 'posts.json')
+    ];
+    dbFiles.forEach(f => {
+      try {
+        if (fs.existsSync(path.dirname(f))) fs.writeFileSync(f, JSON.stringify(posts, null, 2), 'utf-8');
+      } catch (e) {}
+    });
+
+    const { recordApprovedComment } = safeRequire("mlPreferenceEngine");
+    if (recordApprovedComment) recordApprovedComment(post, post.selected_style || "custom", finalComment);
+
+    return sendJSON(res, { success: true, message: "Marked as manually posted & moved to Posted History!", post });
+  }
+
+  // Force Reset Stuck Scraper Job
+  if (pathname === "/api/reset-scraper" && method === "POST") {
+    activeScrapeJob = {
+      isRunning: false,
+      progress: 0,
+      total: 0,
+      currentSource: "Ready",
+      newPosts: 0,
+      status: "Idle"
+    };
+    return sendJSON(res, { success: true, message: "Scraper state reset successfully." });
   }
 
   if ((pathname === "/api/reject" || pathname === "/api/skip") && method === "POST") {
