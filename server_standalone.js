@@ -438,6 +438,17 @@ How is your team currently handling data reconciliation when telemetry streams s
     return sendJSON(res, competitorPosts);
   }
 
+  if (pathname === "/api/governance-posts" && method === "GET") {
+    let posts = loadPosts();
+    let govPosts = posts.filter(p => 
+      p.source_category === "Board Leadership & Governance" || 
+      p.source_category === "Corporate Governance & Board Oversight" ||
+      p.id.startsWith("gov_") ||
+      (p.relevance_tags && (p.relevance_tags.includes("IICA") || p.relevance_tags.includes("Governance") || p.relevance_tags.includes("Boardroom")))
+    );
+    return sendJSON(res, govPosts);
+  }
+
   if (pathname === "/api/news-posts" && method === "GET") {
     const { loadMarketNews, fetchAllExternalNews } = safeRequire("externalNewsEngine") || {};
     let newsArticles = loadMarketNews ? loadMarketNews() : [];
