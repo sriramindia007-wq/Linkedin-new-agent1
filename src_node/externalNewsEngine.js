@@ -4,7 +4,19 @@ const fs = require('fs');
 const path = require('path');
 const { generateCommentsForPost } = require('./commentGenerator');
 
-const NEWS_DB_FILE = path.join(__dirname, 'data', 'market_news.json');
+const possiblePaths = [
+  path.join(__dirname, 'data', 'market_news.json'),
+  path.join(__dirname, '..', 'data', 'market_news.json'),
+  path.join(__dirname, 'market_news.json'),
+  path.join(__dirname, '..', 'market_news.json')
+];
+
+function getNewsFilePath() {
+  for (const p of possiblePaths) {
+    if (fs.existsSync(p)) return p;
+  }
+  return path.join(__dirname, 'data', 'market_news.json');
+}
 
 const SEARCH_STREAMS = [
   {
@@ -88,8 +100,9 @@ function parseGoogleRss(xml, streamTopic) {
 
 function loadMarketNews() {
   try {
-    if (fs.existsSync(NEWS_DB_FILE)) {
-      return JSON.parse(fs.readFileSync(NEWS_DB_FILE, 'utf-8'));
+    const file = getNewsFilePath();
+    if (fs.existsSync(file)) {
+      return JSON.parse(fs.readFileSync(file, 'utf-8'));
     }
   } catch (e) {}
   return [];
@@ -97,9 +110,18 @@ function loadMarketNews() {
 
 function saveMarketNews(newsList) {
   try {
-    const dir = path.dirname(NEWS_DB_FILE);
+    const file = getNewsFilePath();
+    const dir = path.dirname(file);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(NEWS_DB_FILE, JSON.stringify(newsList, null, 2), 'utf-8');
+    fs.writeFileSync(file, JSON.stringify(newsList, null, 2), 'utf-8');
+    
+    // Also mirror to root data
+    const mirror = path.join(__dirname, 'data', 'market_news.json');
+    if (file !== mirror) {
+      const mDir = path.dirname(mirror);
+      if (!fs.existsSync(mDir)) fs.mkdirSync(mDir, { recursive: true });
+      fs.writeFileSync(mirror, JSON.stringify(newsList, null, 2), 'utf-8');
+    }
   } catch (e) {
     console.error('Error saving market news:', e.message);
   }
