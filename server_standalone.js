@@ -32,6 +32,10 @@ const {
   approveComment, 
   updatePostComments,
   markPostStatus, 
+  markPostAsManuallyPosted,
+  markPostAsCompetitor,
+  recordPersistedAction,
+  getPostsPaged,
   getStats, 
   loadSources, 
   saveSources, 
@@ -427,28 +431,8 @@ How is your team currently handling data reconciliation when telemetry streams s
   if (pathname === "/api/mark-as-competitor" && method === "POST") {
     const body = await parseBody(req);
     const { postId, note } = body;
-    let posts = loadPosts();
-    const post = posts.find(p => p.id === postId);
+    const post = markPostAsCompetitor(postId, note || "Flagged as Competitor Intel");
     if (!post) return sendJSON(res, { success: false, error: "Post not found" }, 404);
-
-    post.source_category = "M2P LOS Competitors & Tech";
-    post.competitor_intel = true;
-    post.competitor_note = note || "Flagged as Competitor Intel";
-    post.status = "COMPETITOR_RADAR";
-    
-    savePosts(posts);
-    const dbFiles = [
-      path.join(__dirname, 'posts.json'),
-      path.join(__dirname, 'data', 'posts.json'),
-      path.join(__dirname, 'src_node', 'data', 'posts.json'),
-      path.join(__dirname, 'src_node', 'posts.json')
-    ];
-    dbFiles.forEach(f => {
-      try {
-        if (fs.existsSync(path.dirname(f))) fs.writeFileSync(f, JSON.stringify(posts, null, 2), 'utf-8');
-      } catch (e) {}
-    });
-
     return sendJSON(res, { success: true, message: "Moved to Competitor Radar!", post });
   }
 
@@ -535,35 +519,13 @@ How is your team currently handling data reconciliation when telemetry streams s
   if (pathname === "/api/mark-manually-posted" && method === "POST") {
     const body = await parseBody(req);
     const { postId, commentText, manualTag } = body;
-    let posts = loadPosts();
-    const post = posts.find(p => p.id === postId);
+    const post = markPostAsManuallyPosted(postId, commentText, manualTag || "Manually Posted on LinkedIn");
     if (!post) {
       return sendJSON(res, { success: false, error: "Post not found" }, 404);
     }
 
-    const finalComment = commentText || post.approved_comment || (post.generated_comments && post.generated_comments.value_add) || "";
-    approveComment(postId, post.selected_style || "custom", finalComment);
-    markPostStatus(postId, "POSTED");
-
-    post.manual_post = true;
-    post.manual_tag = manualTag || "Manually Posted on LinkedIn";
-    post.posted_at = new Date().toISOString();
-    
-    // Sync all database locations
-    const dbFiles = [
-      path.join(__dirname, 'posts.json'),
-      path.join(__dirname, 'data', 'posts.json'),
-      path.join(__dirname, 'src_node', 'data', 'posts.json'),
-      path.join(__dirname, 'src_node', 'posts.json')
-    ];
-    dbFiles.forEach(f => {
-      try {
-        if (fs.existsSync(path.dirname(f))) fs.writeFileSync(f, JSON.stringify(posts, null, 2), 'utf-8');
-      } catch (e) {}
-    });
-
     const { recordApprovedComment } = safeRequire("mlPreferenceEngine");
-    if (recordApprovedComment) recordApprovedComment(post, post.selected_style || "custom", finalComment);
+    if (recordApprovedComment) recordApprovedComment(post, post.selected_style || "custom", commentText || post.approved_comment);
 
     return sendJSON(res, { success: true, message: "Marked as manually posted & moved to Posted History!", post });
   }

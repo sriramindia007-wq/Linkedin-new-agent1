@@ -17,6 +17,7 @@ const POSTS_FILE = getResolvedPath("posts.json");
 const SOURCES_FILE = getResolvedPath("sources.json");
 const PERSONA_FILE = getResolvedPath("persona.json");
 const REJECTED_FILE = getResolvedPath("rejected_posts.json");
+const PERSISTED_ACTIONS_FILE = getResolvedPath("persisted_actions.json");
 
 function readCleanJson(filePath) {
   if (!fs.existsSync(filePath)) return null;
@@ -32,7 +33,51 @@ function readCleanJson(filePath) {
 
 function normalizeKey(str) {
   if (!str) return "";
-  return str.trim().substring(0, 80).toLowerCase().replace(/[^a-z0-9]/g, "");
+  return str.trim().substring(0, 100).toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+function loadPersistedActions() {
+  const data = readCleanJson(PERSISTED_ACTIONS_FILE);
+  if (data && typeof data === "object" && !Array.isArray(data)) {
+    return {
+      by_id: data.by_id || {},
+      by_url: data.by_url || {},
+      by_text_key: data.by_text_key || {}
+    };
+  }
+  return { by_id: {}, by_url: {}, by_text_key: {} };
+}
+
+function savePersistedActions(actions) {
+  try {
+    fs.writeFileSync(PERSISTED_ACTIONS_FILE, JSON.stringify(actions, null, 2), "utf-8");
+    const alt = path.join(__dirname, "data", "persisted_actions.json");
+    if (fs.existsSync(path.dirname(alt))) {
+      try { fs.writeFileSync(alt, JSON.stringify(actions, null, 2), "utf-8"); } catch (e) {}
+    }
+  } catch (e) {
+    console.error("Error saving persisted actions:", e.message);
+  }
+}
+
+function recordPersistedAction(post, updates = {}) {
+  if (!post) return;
+  const actions = loadPersistedActions();
+  const id = post.id;
+  const url = post.post_url;
+  const textKey = normalizeKey(post.post_text);
+
+  const payload = {
+    ...updates,
+    updated_at: new Date().toISOString()
+  };
+
+  if (id) actions.by_id[id] = { ...(actions.by_id[id] || {}), ...payload };
+  if (url) actions.by_url[url] = { ...(actions.by_url[url] || {}), ...payload };
+  if (textKey) actions.by_text_key[textKey] = { ...(actions.by_text_key[textKey] || {}), ...payload };
+
+  savePersistedActions(actions);
+  console.log(`🛡️ [State Guardian] Permanently locked action for "${post.author_name || id}": ${JSON.stringify(updates)}`);
 }
 
 function loadRejectedSet() {
@@ -55,6 +100,12 @@ function isPostBlacklisted(postUrl = "", postText = "") {
   if (postUrl && set.has(postUrl)) return true;
   const textKey = normalizeKey(postText);
   if (textKey && set.has(textKey)) return true;
+
+  // Check persisted actions for REJECTED
+  const actions = loadPersistedActions();
+  if (postUrl && actions.by_url[postUrl]?.status === "REJECTED") return true;
+  if (textKey && actions.by_text_key[textKey]?.status === "REJECTED") return true;
+
   return false;
 }
 
@@ -62,13 +113,24 @@ function loadPosts() {
   const data = readCleanJson(POSTS_FILE);
   if (!Array.isArray(data)) return [];
   
-  // Deduplicate on read
+  const actions = loadPersistedActions();
   const seen = new Set();
   const unique = [];
+
   for (const p of data) {
-    const k = normalizeKey(p.post_text) || p.post_url;
+    const k = normalizeKey(p.post_text) || p.post_url || p.id;
     if (k && !seen.has(k)) {
       seen.add(k);
+
+      // Apply immutable persisted actions
+      const act = actions.by_id[p.id] || 
+                  (p.post_url ? actions.by_url[p.post_url] : null) || 
+                  (p.post_text ? actions.by_text_key[normalizeKey(p.post_text)] : null);
+
+      if (act) {
+        Object.assign(p, act);
+      }
+
       unique.push(p);
     }
   }
@@ -77,11 +139,16 @@ function loadPosts() {
 
 function savePosts(posts) {
   fs.writeFileSync(POSTS_FILE, JSON.stringify(posts, null, 2), "utf-8");
-  // Also keep data/posts.json synced if present
-  const alt = path.join(__dirname, "data", "posts.json");
-  if (fs.existsSync(path.dirname(alt))) {
-    try { fs.writeFileSync(alt, JSON.stringify(posts, null, 2), "utf-8"); } catch (e) {}
-  }
+  const altLocations = [
+    path.join(__dirname, "data", "posts.json"),
+    path.join(__dirname, "src_node", "data", "posts.json"),
+    path.join(__dirname, "src_node", "posts.json")
+  ];
+  altLocations.forEach(loc => {
+    try {
+      if (fs.existsSync(path.dirname(loc))) fs.writeFileSync(loc, JSON.stringify(posts, null, 2), "utf-8");
+    } catch (e) {}
+  });
 }
 
 function postExists(postUrl, authorName = "", postText = "") {
@@ -98,16 +165,15 @@ function postExists(postUrl, authorName = "", postText = "") {
 function getPostsPaged({ status = "PENDING", category = "ALL", page = 1, limit = 50 }) {
   let all = loadPosts();
 
-  if (status && status !== "ALL") {
+  // Strict filtering for PENDING review: exclude POSTED, REJECTED, and COMPETITOR_RADAR
+  if (status === "PENDING") {
+    all = all.filter(p => p.status === "PENDING" && !p.manual_post && !p.competitor_intel && p.source_category !== "M2P LOS Competitors & Tech");
+  } else if (status && status !== "ALL") {
     all = all.filter(p => p.status === status);
   }
+
   if (category && category !== "ALL") {
     all = all.filter(p => p.source_category === category);
-  }
-
-  // Filter out any blacklisted items for PENDING status
-  if (status === "PENDING") {
-    all = all.filter(p => !isPostBlacklisted(p.post_url, p.post_text));
   }
 
   const total = all.length;
@@ -168,6 +234,7 @@ function updatePostComments(postId, newComments) {
   const p = posts.find(item => item.id === postId);
   if (p) {
     p.generated_comments = newComments;
+    recordPersistedAction(p, { generated_comments: newComments });
     savePosts(posts);
   }
   return p;
@@ -180,6 +247,7 @@ function approveComment(postId, style, commentText) {
     p.selected_style = style;
     p.approved_comment = commentText;
     p.status = "APPROVED";
+    recordPersistedAction(p, { status: "APPROVED", selected_style: style, approved_comment: commentText });
     savePosts(posts);
   }
   return p;
@@ -197,6 +265,54 @@ function markPostStatus(postId, status, errorMsg = null) {
       if (k) saveRejectedItem(k);
     }
     if (errorMsg) p.error_message = errorMsg;
+    
+    recordPersistedAction(p, {
+      status,
+      posted_at: p.posted_at || (status === "POSTED" ? new Date().toISOString() : undefined),
+      error_message: errorMsg
+    });
+    savePosts(posts);
+  }
+  return p;
+}
+
+function markPostAsManuallyPosted(postId, commentText = "", manualTag = "Manually Posted on LinkedIn") {
+  const posts = loadPosts();
+  const p = posts.find(item => item.id === postId);
+  if (p) {
+    p.status = "POSTED";
+    p.manual_post = true;
+    p.manual_tag = manualTag;
+    p.posted_at = new Date().toISOString();
+    if (commentText) p.approved_comment = commentText;
+
+    recordPersistedAction(p, {
+      status: "POSTED",
+      manual_post: true,
+      manual_tag: manualTag,
+      posted_at: p.posted_at,
+      approved_comment: p.approved_comment
+    });
+    savePosts(posts);
+  }
+  return p;
+}
+
+function markPostAsCompetitor(postId, note = "Competitor Intel") {
+  const posts = loadPosts();
+  const p = posts.find(item => item.id === postId);
+  if (p) {
+    p.status = "COMPETITOR_RADAR";
+    p.source_category = "M2P LOS Competitors & Tech";
+    p.competitor_intel = true;
+    p.competitor_note = note;
+
+    recordPersistedAction(p, {
+      status: "COMPETITOR_RADAR",
+      source_category: "M2P LOS Competitors & Tech",
+      competitor_intel: true,
+      competitor_note: note
+    });
     savePosts(posts);
   }
   return p;
@@ -215,7 +331,7 @@ function getStats() {
     last_scrape: posts.length > 0 ? posts[0].scraped_at : new Date().toISOString()
   };
   for (const p of posts) {
-    if (p.status === "PENDING") stats.pending++;
+    if (p.status === "PENDING" && !p.manual_post && !p.competitor_intel && p.source_category !== "M2P LOS Competitors & Tech") stats.pending++;
     else if (p.status === "APPROVED") stats.approved++;
     else if (p.status === "POSTED") stats.posted++;
     else if (p.status === "REJECTED") stats.rejected++;
@@ -246,15 +362,17 @@ module.exports = {
   savePosts,
   postExists,
   getPostsPaged,
-  isPostBlacklisted,
-  saveRejectedItem,
   insertPost,
   updatePostComments,
   approveComment,
   markPostStatus,
+  markPostAsManuallyPosted,
+  markPostAsCompetitor,
+  recordPersistedAction,
   getStats,
   loadSources,
   saveSources,
   loadPersona,
-  savePersona
+  savePersona,
+  isPostBlacklisted
 };
