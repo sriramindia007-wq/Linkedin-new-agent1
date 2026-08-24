@@ -278,43 +278,64 @@ function markPostStatus(postId, status, errorMsg = null) {
 
 function markPostAsManuallyPosted(postId, commentText = "", manualTag = "Manually Posted on LinkedIn") {
   const posts = loadPosts();
-  const p = posts.find(item => item.id === postId);
-  if (p) {
+  let p = posts.find(item => item.id === postId);
+  if (!p) {
+    p = {
+      id: postId,
+      author_name: "LinkedIn Post",
+      status: "POSTED",
+      manual_post: true,
+      manual_tag: manualTag,
+      posted_at: new Date().toISOString(),
+      approved_comment: commentText
+    };
+    posts.unshift(p);
+  } else {
     p.status = "POSTED";
     p.manual_post = true;
     p.manual_tag = manualTag;
     p.posted_at = new Date().toISOString();
     if (commentText) p.approved_comment = commentText;
-
-    recordPersistedAction(p, {
-      status: "POSTED",
-      manual_post: true,
-      manual_tag: manualTag,
-      posted_at: p.posted_at,
-      approved_comment: p.approved_comment
-    });
-    savePosts(posts);
   }
+
+  recordPersistedAction(p, {
+    status: "POSTED",
+    manual_post: true,
+    manual_tag: manualTag,
+    posted_at: p.posted_at,
+    approved_comment: p.approved_comment
+  });
+  savePosts(posts);
   return p;
 }
 
 function markPostAsCompetitor(postId, note = "Competitor Intel") {
   const posts = loadPosts();
-  const p = posts.find(item => item.id === postId);
-  if (p) {
-    p.status = "COMPETITOR_RADAR";
-    p.source_category = "M2P LOS Competitors & Tech";
-    p.competitor_intel = true;
-    p.competitor_note = note;
-
-    recordPersistedAction(p, {
+  let p = posts.find(item => item.id === postId);
+  if (!p) {
+    p = {
+      id: postId,
+      author_name: "Competitor Source",
       status: "COMPETITOR_RADAR",
       source_category: "M2P LOS Competitors & Tech",
       competitor_intel: true,
       competitor_note: note
-    });
-    savePosts(posts);
+    };
+    posts.unshift(p);
+  } else {
+    p.status = "COMPETITOR_RADAR";
+    p.source_category = "M2P LOS Competitors & Tech";
+    p.competitor_intel = true;
+    p.competitor_note = note;
   }
+
+  recordPersistedAction(p, {
+    status: "COMPETITOR_RADAR",
+    source_category: "M2P LOS Competitors & Tech",
+    competitor_intel: true,
+    competitor_note: note
+  });
+  savePosts(posts);
   return p;
 }
 

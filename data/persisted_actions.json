@@ -1,0 +1,21 @@
+{
+  "by_id": {
+    "test_regression_post_1787543514569": {
+      "status": "POSTED",
+      "manual_post": true,
+      "manual_tag": "Regression Test Tag",
+      "posted_at": "2026-08-24T03:51:54.576Z",
+      "approved_comment": "Test manual comment",
+      "updated_at": "2026-08-24T03:51:54.577Z"
+    },
+    "test_comp_post_1787543514611": {
+      "status": "COMPETITOR_RADAR",
+      "source_category": "M2P LOS Competitors & Tech",
+      "competitor_intel": true,
+      "competitor_note": "Regression Competitor Intel",
+      "updated_at": "2026-08-24T03:51:54.615Z"
+    }
+  },
+  "by_url": {},
+  "by_text_key": {}
+}
