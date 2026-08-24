@@ -24,6 +24,20 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
+  <script>
+    // Hard purge stale service workers and caches on mobile/desktop PWA
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(registrations => {
+        for (let reg of registrations) reg.unregister();
+      });
+    }
+    if ('caches' in window) {
+      caches.keys().then(names => {
+        for (let name of names) caches.delete(name);
+      });
+    }
+  </script>
+
   <style>
     :root {
       --primary-navy: #0b192c;
@@ -51,7 +65,7 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     .brand-title {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       font-weight: 800;
       letter-spacing: -0.02em;
     }
@@ -61,18 +75,16 @@
       background: #ffffff;
       border: 1px solid var(--card-border);
       border-radius: 14px;
-      padding: 18px 20px;
+      padding: 16px 18px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.02), 0 4px 12px rgba(0,0,0,0.03);
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
     }
     .metric-card:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 20px -4px rgba(0,0,0,0.08);
     }
     .metric-label {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -80,24 +92,32 @@
       margin-bottom: 4px;
     }
     .metric-value {
-      font-size: 1.85rem;
+      font-size: 1.75rem;
       font-weight: 800;
       line-height: 1.1;
     }
 
-    /* Streamlined Navigation Tabs */
+    /* Streamlined Mobile Scrollable Navigation Tabs */
     .nav-executive {
       border-bottom: 2px solid var(--card-border);
-      gap: 6px;
+      gap: 4px;
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
     }
+    .nav-executive::-webkit-scrollbar { display: none; }
     .nav-executive .nav-link {
       color: var(--text-muted);
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       border: none;
       border-bottom: 3px solid transparent;
-      padding: 12px 18px;
+      padding: 12px 16px;
       border-radius: 8px 8px 0 0;
+      white-space: nowrap;
+      flex-shrink: 0;
       transition: all 0.15s ease-in-out;
     }
     .nav-executive .nav-link:hover {
@@ -116,8 +136,8 @@
       background: #ffffff;
       border: 1px solid var(--card-border);
       border-radius: 16px;
-      padding: 24px;
-      margin-bottom: 24px;
+      padding: 22px;
+      margin-bottom: 22px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.03), 0 8px 24px -4px rgba(0,0,0,0.04);
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
@@ -148,8 +168,8 @@
       background: #f8fafc;
       border-left: 4px solid var(--primary-blue);
       border-radius: 0 8px 8px 0;
-      padding: 16px;
-      margin: 14px 0;
+      padding: 14px;
+      margin: 12px 0;
       font-size: 0.95rem;
       line-height: 1.65;
       color: #1e293b;
@@ -215,7 +235,7 @@
       background: linear-gradient(135deg, #0b192c 0%, #1e3a8a 100%);
       color: #ffffff;
       border-radius: 14px;
-      padding: 18px 24px;
+      padding: 18px 22px;
       box-shadow: 0 4px 16px rgba(11, 25, 44, 0.15);
     }
   </style>
@@ -225,77 +245,77 @@
   <!-- Top Executive Navbar -->
   <nav class="navbar navbar-expand-lg app-navbar px-3 px-md-4 py-2 text-white sticky-top shadow-sm">
     <div class="container-fluid">
-      <div class="d-flex align-items-center gap-3">
+      <div class="d-flex align-items-center gap-2 gap-md-3">
         <span class="brand-title text-white d-flex align-items-center gap-2">
-          <i class="fa-brands fa-linkedin text-info fs-4"></i>
-          <span>M2P Lending &amp; Credit Intelligence</span>
+          <i class="fa-brands fa-linkedin text-info fs-5"></i>
+          <span>M2P Lending Agent</span>
         </span>
-        <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-25 px-2 py-1 small d-none d-md-inline-flex align-items-center gap-1">
-          <span class="spinner-grow spinner-grow-sm" style="width: 6px; height: 6px;"></span> Active Engine
-        </span>
+        <button class="btn btn-sm btn-outline-info fw-bold px-2 px-md-3 d-flex align-items-center gap-1 shadow-sm" id="btnQuickRefresh" onclick="refreshActiveTab(true)" title="Force Refresh Active Feed & Cache">
+          <i class="fa-solid fa-rotate" id="quickRefreshIcon"></i> <span class="d-none d-sm-inline">Refresh</span>
+        </button>
       </div>
 
       <div class="d-flex align-items-center gap-2">
-        <button class="btn btn-sm btn-outline-light fw-semibold px-3 d-flex align-items-center gap-2" onclick="openSourcesModal()">
-          <i class="fa-solid fa-list-check text-info"></i> <span class="d-none d-sm-inline">540 Monitored Sources</span>
+        <button class="btn btn-sm btn-outline-light fw-semibold px-2 px-md-3 d-flex align-items-center gap-2" onclick="openSourcesModal()">
+          <i class="fa-solid fa-list-check text-info"></i> <span class="d-none d-md-inline">563 Sources</span>
         </button>
-        <button class="btn btn-sm btn-outline-light fw-semibold px-3 d-flex align-items-center gap-2" onclick="openMLLearningModal()">
-          <i class="fa-solid fa-brain text-success"></i> <span class="d-none d-sm-inline">ML Brain</span>
+        <button class="btn btn-sm btn-outline-light fw-semibold px-2 px-md-3 d-flex align-items-center gap-2" onclick="openMLLearningModal()">
+          <i class="fa-solid fa-brain text-success"></i> <span class="d-none d-md-inline">ML Brain</span>
         </button>
         <button class="btn btn-sm btn-primary fw-bold px-3 d-flex align-items-center gap-2" onclick="openLlmModal()">
-          <i class="fa-solid fa-gear"></i> Settings
+          <i class="fa-solid fa-gear"></i> <span class="d-none d-sm-inline">Settings</span>
         </button>
       </div>
     </div>
   </nav>
 
-  <div class="container py-4">
+  <div class="container py-3 py-md-4">
 
     <!-- Top Automated Schedule Banner -->
     <div class="schedule-header-card mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
       <div class="d-flex align-items-center gap-3">
-        <div class="bg-white text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+        <div class="bg-white text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
           <i class="fa-solid fa-clock-rotate-left fs-5 text-primary"></i>
         </div>
         <div>
-          <div class="fw-bold fs-6">⏰ 24/7 Automated Daily Scraper Active</div>
-          <div class="small text-white-50">Runs at <strong>07:00 AM &amp; 06:00 PM IST</strong> &bull; Last Refreshed: <strong id="statLastScrapeTime" class="text-warning">24 Aug, 08:24 AM IST</strong></div>
+          <div class="fw-bold fs-6">⏰ 24/7 Automated Daily Cloud Engine</div>
+          <div class="small text-white-50">Runs at <strong>07:00 AM &amp; 06:00 PM IST</strong> &bull; Last Sync: <strong id="statLastScrapeTime" class="text-warning">24 Aug, 10:00 AM IST</strong></div>
         </div>
       </div>
       <div class="d-flex gap-2">
         <button class="btn btn-warning btn-sm fw-bold px-3 shadow-sm" onclick="triggerInstantCategory('M2P LOS Competitors & Tech')">
-          <i class="fa-solid fa-bolt me-1"></i> Scan Competitors (3s)
+          <i class="fa-solid fa-bolt me-1"></i> Competitors (3s)
         </button>
         <button class="btn btn-light btn-sm fw-bold px-3 text-primary shadow-sm" onclick="triggerInstantCategory('Regulatory, Government & Policy')">
-          <i class="fa-solid fa-bolt me-1"></i> Scan Regulators (3s)
+          <i class="fa-solid fa-bolt me-1"></i> Regulators (3s)
         </button>
       </div>
     </div>
 
     <!-- Executive Metric Cards -->
-    <div class="row g-3 mb-4" id="statsRow">
+    <div class="row g-2 g-md-3 mb-4" id="statsRow">
       <div class="col-6 col-md-3">
         <div class="metric-card border-start border-warning border-4">
-          <div class="metric-label">Pending Review (&lt;48h)</div>
+          <div class="metric-label">Lending Review</div>
           <div class="metric-value text-warning" id="statPending">0</div>
         </div>
       </div>
       <div class="col-6 col-md-3">
         <div class="metric-card border-start border-info border-4">
-          <div class="metric-label">Market &amp; Funding News</div>
-          <div class="metric-value text-info" id="statNewsCount">0</div>
+          <div class="metric-label">Market News</div>
+          <div class="metric-value text-info" id="statNewsCount">80</div>
         </div>
       </div>
       <div class="col-6 col-md-3">
         <div class="metric-card border-start border-success border-4">
-          <div class="metric-label">Posted to LinkedIn</div>
+          <div class="metric-label">Posted History</div>
           <div class="metric-value text-success" id="statPosted">0</div>
         </div>
       </div>
       <div class="col-6 col-md-3">
         <div class="metric-card border-start border-primary border-4">
-          <div class="metric-label">Monitored Institutions</div>
-          <div class="metric-value text-primary" id="statSources">540</div>
+          <div class="metric-label">Institutions</div>
+          <div class="metric-value text-primary" id="statSources">563</div>
         </div>
       </div>
     </div>
@@ -304,28 +324,28 @@
     <div class="card p-3 mb-4 bg-white border-0 shadow-sm rounded-4">
       <div class="row align-items-center g-3">
         <div class="col-lg-6">
-          <label class="form-label fw-bold small text-muted text-uppercase mb-1"><i class="fa-solid fa-satellite-dish text-primary me-1"></i> Fast Scraper Engine (Strict &lt;48h Only)</label>
+          <label class="form-label fw-bold small text-muted text-uppercase mb-1"><i class="fa-solid fa-satellite-dish text-primary me-1"></i> Fast Scraper Engine (&lt;48h Strict)</label>
           <div class="d-flex gap-2">
             <select class="form-select form-select-sm" id="scrapeCategorySelect">
-              <option value="ALL">All 540 Monitored Sources &amp; Streams</option>
-              <option value="M2P LOS Competitors & Tech">M2P LOS Competitors &amp; Tech (Perfios, Lentra, Nucleus, etc.)</option>
-              <option value="Regulatory, Government & Policy">Regulatory &amp; Policy (RBI, RBIH, SIDBI, MSME Ministry)</option>
+              <option value="ALL">All 563 Monitored Sources &amp; Streams</option>
+              <option value="M2P LOS Competitors & Tech">M2P LOS Competitors (Perfios, Lentra, Nucleus, etc.)</option>
+              <option value="Board Leadership & Governance">Board Leadership &amp; Governance (IICA, Directors)</option>
+              <option value="Regulatory, Government & Policy">Regulatory &amp; Policy (RBI, SIDBI, MSME)</option>
               <option value="Fintech Media & Communities">Fintech Media (ETBFSI, FinSamudra, GenCFO)</option>
               <option value="Incumbent & SFB Banks">Incumbent Banks &amp; SFBs (SBI, HDFC, ICICI, AU)</option>
               <option value="NBFCs & Asset Lenders">NBFCs &amp; Asset Lenders (UGRO, Shriram, Svatantra)</option>
               <option value="Digital Lending Fintechs">Digital Lending Fintechs (Lendingkart, KreditBee)</option>
-              <option value="Top Industry Influencers & CXOs">Top Industry Influencers &amp; CXOs</option>
             </select>
             <button class="btn btn-primary btn-sm px-3 text-nowrap fw-bold" id="btnScrape" onclick="triggerScrape()">
-              <i class="fa-solid fa-play me-1"></i> Run Scraper
+              <i class="fa-solid fa-play me-1"></i> Run
             </button>
           </div>
         </div>
 
         <div class="col-lg-6">
-          <label class="form-label fw-bold small text-muted text-uppercase mb-1"><i class="fa-solid fa-bolt text-info me-1"></i> 1-Click LinkedIn URL Ingest</label>
+          <label class="form-label fw-bold small text-muted text-uppercase mb-1"><i class="fa-solid fa-bolt text-info me-1"></i> 1-Click LinkedIn Ingest</label>
           <div class="input-group input-group-sm">
-            <input type="text" class="form-control font-monospace" id="directPostUrlInput" placeholder="Paste LinkedIn URL or shortlink (lnkd.in)...">
+            <input type="text" class="form-control font-monospace" id="directPostUrlInput" placeholder="Paste LinkedIn URL or lnkd.in...">
             <button class="btn btn-info text-white fw-bold px-3" id="btnIngestUrl" onclick="ingestDirectUrl()">
               <i class="fa-solid fa-arrow-right me-1"></i> Ingest
             </button>
@@ -338,8 +358,8 @@
     <!-- Streamlined 6 Executive Tabs -->
     <ul class="nav nav-executive mb-4" id="mainTab" role="tablist">
       <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="tab-review-btn" data-bs-toggle="tab" data-bs-target="#tab-review" type="button" role="tab">
-          <i class="fa-solid fa-inbox me-1"></i> Lending Review (<span id="tabReviewCount">26</span>)
+        <button class="nav-link active" id="tab-review-btn" data-bs-toggle="tab" data-bs-target="#tab-review" type="button" role="tab" onclick="loadPendingPosts()">
+          <i class="fa-solid fa-inbox me-1"></i> Lending Review (<span id="tabReviewCount">0</span>)
         </button>
       </li>
       <li class="nav-item" role="presentation">
@@ -378,7 +398,7 @@
         <!-- Active Crawl Progress Banner -->
         <div id="scrapeActiveBanner" class="alert alert-info border border-info border-opacity-25 d-flex align-items-center justify-content-between p-3 mb-4 shadow-sm rounded-3 d-none">
           <div>
-            <div class="fw-bold text-dark"><span class="spinner-border spinner-border-sm text-info me-2"></span> ⚡ Crawling &amp; QA Auditing 541 Indian Lending Sources...</div>
+            <div class="fw-bold text-dark"><span class="spinner-border spinner-border-sm text-info me-2"></span> ⚡ Crawling &amp; QA Auditing 563 Indian Lending Sources...</div>
             <div class="small text-muted mt-1" id="scrapeProgressDetail">Initializing...</div>
           </div>
           <div class="text-end d-flex align-items-center gap-2">
@@ -395,7 +415,7 @@
             <i class="fa-solid fa-circle-check text-success fs-3 me-3"></i>
             <div>
               <div class="fw-bold text-success" id="scrapeToastTitle">🎉 Scrape &amp; QA Certification Complete!</div>
-              <div class="small text-dark" id="scrapeToastBody">Your review queue has been refreshed with qualifying &lt;48h lending posts. All non-lending noise was automatically filtered.</div>
+              <div class="small text-dark" id="scrapeToastBody">Your review queue has been refreshed with qualifying lending posts. All non-lending noise was automatically filtered.</div>
             </div>
           </div>
           <button type="button" class="btn-close" onclick="document.getElementById('scrapeCompleteToast').classList.add('d-none')"></button>
@@ -415,7 +435,7 @@
           <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
             <div>
               <h5 class="fw-bold mb-0 text-info"><i class="fa-solid fa-newspaper me-1"></i> 📰 Indian Fintech, Lending &amp; Funding News</h5>
-              <small class="text-muted">Live headlines from ETBFSI, LiveMint, Business Standard, Moneycontrol, Inc42, YourStory, Entrackr &amp; Funding rounds</small>
+              <small class="text-muted">Live articles from Mint, Financial Express, ETBFSI, Business Standard, NDTV Profit &amp; Funding rounds</small>
             </div>
             <button class="btn btn-outline-info btn-sm fw-bold px-3" id="btnRefreshNews" onclick="triggerNewsCrawl()">
               <i class="fa-solid fa-rotate me-1"></i> Refresh Market News
@@ -433,7 +453,7 @@
           <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
             <div>
               <h5 class="fw-bold mb-0 text-dark"><i class="fa-solid fa-landmark me-1 text-warning"></i> 🏛️ Board Leadership, IICA &amp; Independent Directors</h5>
-              <small class="text-muted">Tracking IICA (Indian Institute of Corporate Affairs), Institute of Directors (IOD), Boardroom Appointments &amp; Risk Committees</small>
+              <small class="text-muted">Tracking IICA, Institute of Directors (IOD), Boardroom Appointments &amp; 22+ Curated Independent Directors</small>
             </div>
             <button class="btn btn-outline-warning btn-sm fw-bold text-dark px-3" id="btnRefreshGovernance" onclick="triggerGovernanceCrawl()">
               <i class="fa-solid fa-rotate me-1"></i> Refresh Governance Intel
@@ -472,7 +492,7 @@
                 <tr>
                   <th>Author / Source</th>
                   <th>Category</th>
-                  <th>Published Comment</th>
+                  <th>Published Comment / Repost</th>
                   <th>Posted At</th>
                   <th>Post Link</th>
                 </tr>
@@ -571,18 +591,18 @@
     </div>
   </div>
 
-  <!-- MODAL 1: 540 Sources Directory -->
+  <!-- MODAL 1: 563 Sources Directory -->
   <div class="modal fade" id="sourcesModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
       <div class="modal-content border-0 shadow">
         <div class="modal-header bg-light">
-          <h5 class="modal-title fw-bold"><i class="fa-solid fa-list-check text-primary me-2"></i> 540 Target Monitored Institutions &amp; CXOs</h5>
+          <h5 class="modal-title fw-bold"><i class="fa-solid fa-list-check text-primary me-2"></i> 563 Target Monitored Institutions &amp; CXOs</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <div class="d-flex justify-content-between align-items-center mb-3">
             <input type="text" class="form-control form-control-sm w-50" id="sourceSearch" placeholder="Search by name, category, or keyword..." onkeyup="filterSourcesTable()" />
-            <span class="badge bg-primary px-3 py-2 fs-6" id="modalSourceCount">540 Sources</span>
+            <span class="badge bg-primary px-3 py-2 fs-6" id="modalSourceCount">563 Sources</span>
           </div>
           <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
@@ -709,6 +729,24 @@
     let currentPersonaConfig = {};
     window.__postComments = window.__postComments || {};
 
+    // Mobile-First Resilient API Fetch with Cache-Buster
+    async function apiFetch(url, options = {}) {
+      const cacheBuster = (url.includes('?') ? '&' : '?') + '_ts=' + Date.now();
+      const res = await fetch(url + cacheBuster, {
+        ...options,
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+          ...(options.headers || {})
+        }
+      });
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`HTTP ${res.status}: ${text.substring(0, 100)}`);
+      }
+      return await res.json();
+    }
+
     function escapeHtml(text) {
       if (!text) return "";
       return text.toString()
@@ -736,11 +774,10 @@
 
     async function loadStats() {
       try {
-        const res = await fetch("/api/stats");
-        const data = await res.json();
+        const data = await apiFetch("/api/stats");
         if (document.getElementById("statPending")) document.getElementById("statPending").innerText = data.pending !== undefined ? data.pending : 0;
         if (document.getElementById("statPosted")) document.getElementById("statPosted").innerText = data.posted !== undefined ? data.posted : 0;
-        if (document.getElementById("statSources")) document.getElementById("statSources").innerText = data.sources_count || 540;
+        if (document.getElementById("statSources")) document.getElementById("statSources").innerText = data.sources_count || 563;
         if (document.getElementById("tabReviewCount")) document.getElementById("tabReviewCount").innerText = data.pending !== undefined ? data.pending : 0;
       } catch (e) {
         console.error("Error loading stats:", e);
@@ -760,14 +797,14 @@
 
       return `
         <div class="post-card" id="card-${p.id}">
-          <div class="d-flex justify-content-between align-items-start mb-2">
+          <div class="d-flex justify-content-between align-items-start mb-2 flex-wrap gap-2">
             <div class="d-flex flex-wrap align-items-center gap-2">
               <span class="chip chip-danger"><i class="fa-solid fa-fire text-danger me-1"></i> Score: ${p.priority_score || 95}/100</span>
               <span class="chip chip-primary">${escapeHtml(p.post_type_badge || '⚡ Digital Lending')}</span>
               <span class="chip chip-dark"><i class="fa-regular fa-clock me-1"></i> ${p.published_relative || '1d'}</span>
             </div>
             <a href="${p.post_url}" target="_blank" class="btn btn-sm btn-outline-primary fw-semibold">
-              <i class="fa-brands fa-linkedin me-1"></i> Open on LinkedIn <i class="fa-solid fa-arrow-up-right-from-square ms-1 small"></i>
+              <i class="fa-brands fa-linkedin me-1"></i> Open Post <i class="fa-solid fa-arrow-up-right-from-square ms-1 small"></i>
             </a>
           </div>
 
@@ -845,39 +882,6 @@
       `;
     }
 
-    function selectStyle(postId, styleKey) {
-      document.querySelectorAll(`#card-${postId} .style-pill`).forEach(btn => btn.classList.remove("active"));
-      const targetBtn = document.getElementById(`btn-${postId}-${styleKey}`);
-      if (targetBtn) targetBtn.classList.add("active");
-      const commentText = window.__postComments?.[postId]?.[styleKey] || "";
-      const editor = document.getElementById(`editor-${postId}`);
-      if (editor) editor.value = commentText;
-    }
-
-    async function loadPendingPosts() {
-      const container = document.getElementById("postsContainer");
-      if (!container) return;
-      try {
-        const res = await fetch("/api/posts?status=PENDING&limit=50");
-        const data = await res.json();
-        const posts = Array.isArray(data) ? data : (data.posts || []);
-
-        if (!posts || posts.length === 0) {
-          container.innerHTML = `
-            <div class="text-center py-5 bg-white rounded-4 p-4 border">
-              <i class="fa-solid fa-circle-check fa-3x text-success mb-3"></i>
-              <h5>Review Queue is Clear!</h5>
-              <p class="text-muted">All qualifying lending posts have been reviewed. Click "Run Scraper" above to fetch fresh updates.</p>
-            </div>`;
-          return;
-        }
-
-        container.innerHTML = posts.map(p => renderPostCard(p)).join("");
-      } catch (err) {
-        container.innerHTML = `<div class="alert alert-danger">Error loading posts: ${err.message}</div>`;
-      }
-    }
-
     function renderNewsCard(n) {
       window.__postComments[n.id] = n.generated_takes || {};
       const takes = n.generated_takes || {};
@@ -887,7 +891,7 @@
 
       return `
         <div class="post-card" id="card-${n.id}">
-          <div class="d-flex justify-content-between align-items-start mb-2">
+          <div class="d-flex justify-content-between align-items-start mb-2 flex-wrap gap-2">
             <div class="d-flex flex-wrap align-items-center gap-2">
               <span class="chip chip-info"><i class="fa-solid fa-newspaper me-1"></i> ${escapeHtml(n.publisher || 'Financial Media')}</span>
               <span class="chip chip-primary">${escapeHtml(n.source_category || 'Lending & Markets')}</span>
@@ -959,6 +963,15 @@
       `;
     }
 
+    function selectStyle(postId, styleKey) {
+      document.querySelectorAll(`#card-${postId} .style-pill`).forEach(btn => btn.classList.remove("active"));
+      const targetBtn = document.getElementById(`btn-${postId}-${styleKey}`);
+      if (targetBtn) targetBtn.classList.add("active");
+      const commentText = window.__postComments?.[postId]?.[styleKey] || "";
+      const editor = document.getElementById(`editor-${postId}`);
+      if (editor) editor.value = commentText;
+    }
+
     function selectNewsStyle(articleId, styleKey) {
       document.querySelectorAll(`#card-${articleId} .style-pill`).forEach(btn => btn.classList.remove("active"));
       const targetBtn = document.getElementById(`btn-${articleId}-${styleKey}`);
@@ -990,12 +1003,11 @@
       const editor = document.getElementById(`editor-${articleId}`);
       const repostText = editor ? editor.value : "";
       try {
-        const res = await fetch("/api/mark-news-reposted", {
+        const data = await apiFetch("/api/mark-news-reposted", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ articleId, repostText })
         });
-        const data = await res.json();
         if (data.success) {
           const card = document.getElementById(`card-${articleId}`);
           if (card) card.remove();
@@ -1010,7 +1022,7 @@
 
     async function skipNewsArticle(articleId) {
       try {
-        await fetch("/api/skip-news", {
+        await apiFetch("/api/skip-news", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ articleId })
@@ -1023,19 +1035,41 @@
       }
     }
 
+    async function loadPendingPosts() {
+      const container = document.getElementById("postsContainer");
+      if (!container) return;
+      try {
+        const data = await apiFetch("/api/posts?status=PENDING&limit=50");
+        const posts = Array.isArray(data) ? data : (data.posts || []);
+
+        if (!posts || posts.length === 0) {
+          container.innerHTML = `
+            <div class="text-center py-5 bg-white rounded-4 p-4 border">
+              <i class="fa-solid fa-circle-check fa-3x text-success mb-3"></i>
+              <h5>Review Queue is Clear!</h5>
+              <p class="text-muted">All qualifying lending posts have been reviewed. Click "Run Scraper" above to fetch fresh updates.</p>
+            </div>`;
+          return;
+        }
+
+        container.innerHTML = posts.map(p => renderPostCard(p)).join("");
+      } catch (err) {
+        container.innerHTML = `<div class="alert alert-danger">Error loading posts: ${err.message}</div>`;
+      }
+    }
+
     async function loadNewsPosts() {
       const container = document.getElementById("newsContainer");
       if (!container) return;
       try {
-        const res = await fetch("/api/news-posts");
-        const posts = await res.json();
+        const posts = await apiFetch("/api/news-posts");
         if (document.getElementById("statNewsCount")) document.getElementById("statNewsCount").innerText = posts.length || 0;
         if (!posts || posts.length === 0) {
           container.innerHTML = `
             <div class="text-center py-5 bg-white rounded-4 border p-4">
               <i class="fa-solid fa-newspaper fa-2x text-info mb-2"></i>
-              <h6>No market news in the last 48 hours</h6>
-              <p class="text-muted small">Click "Refresh Market News" above to scan ETBFSI, LiveMint, Business Standard &amp; Funding portals.</p>
+              <h6>No market news currently archived</h6>
+              <p class="text-muted small">Click "Refresh Market News" above to scan Mint, Financial Express &amp; ETBFSI.</p>
             </div>`;
           return;
         }
@@ -1049,14 +1083,13 @@
       const container = document.getElementById("governanceContainer");
       if (!container) return;
       try {
-        const res = await fetch("/api/governance-posts");
-        const posts = await res.json();
+        const posts = await apiFetch("/api/governance-posts");
         if (!posts || posts.length === 0) {
           container.innerHTML = `
             <div class="text-center py-5 bg-white rounded-4 border p-4">
               <i class="fa-solid fa-landmark fa-2x text-warning mb-2"></i>
-              <h6>No boardroom governance updates in the last 48 hours</h6>
-              <p class="text-muted small">Click "Refresh Governance Intel" above to scan IICA, IOD &amp; Boardroom Appointments.</p>
+              <h6>No boardroom governance updates currently</h6>
+              <p class="text-muted small">Click "Refresh Governance Intel" above to scan IICA, IOD &amp; Directors.</p>
             </div>`;
           return;
         }
@@ -1070,8 +1103,7 @@
       const container = document.getElementById("competitorsContainer");
       if (!container) return;
       try {
-        const res = await fetch("/api/competitor-posts");
-        const posts = await res.json();
+        const posts = await apiFetch("/api/competitor-posts");
         if (!posts || posts.length === 0) {
           container.innerHTML = `
             <div class="text-center py-5 bg-white rounded-4 border p-4">
@@ -1089,8 +1121,7 @@
 
     async function loadHistory() {
       try {
-        const res = await fetch("/api/posted-history");
-        const data = await res.json();
+        const data = await apiFetch("/api/posted-history");
         const tbody = document.getElementById("historyTableBody");
         if (!data || data.length === 0) {
           tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">No comments published yet.</td></tr>';
@@ -1103,14 +1134,33 @@
               ${p.manual_post ? `<div class="mt-1"><span class="chip chip-success small"><i class="fa-solid fa-tag me-1"></i>${escapeHtml(p.manual_tag || 'Manually Posted')}</span></div>` : ''}
             </td>
             <td><span class="chip chip-primary">${escapeHtml(p.source_category || 'BFSI')}</span></td>
-            <td><div class="small text-muted" style="max-width: 380px;">${escapeHtml(p.approved_comment || '')}</div></td>
+            <td><div class="small text-muted" style="max-width: 380px;">${escapeHtml(p.approved_comment || p.repost_text || '')}</div></td>
             <td><small class="text-muted">${p.posted_at ? new Date(p.posted_at).toLocaleString() : 'Recent'}</small></td>
-            <td><a href="${p.post_url}" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fa-brands fa-linkedin me-1"></i> View</a></td>
+            <td><a href="${p.post_url || p.article_url}" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fa-brands fa-linkedin me-1"></i> View</a></td>
           </tr>
         `).join("");
       } catch (e) {
         console.error("Error loading history:", e);
       }
+    }
+
+    async function refreshActiveTab(showToast = false) {
+      const icon = document.getElementById("quickRefreshIcon");
+      if (icon) icon.classList.add("fa-spin");
+      loadStats();
+      
+      const activeTabEl = document.querySelector("#mainTab .nav-link.active");
+      const tabId = activeTabEl ? activeTabEl.getAttribute("id") : "tab-review-btn";
+
+      if (tabId === "tab-review-btn") await loadPendingPosts();
+      else if (tabId === "tab-news-btn") await loadNewsPosts();
+      else if (tabId === "tab-governance-btn") await loadGovernancePosts();
+      else if (tabId === "tab-competitors-btn") await loadCompetitorPosts();
+      else if (tabId === "tab-history-btn") await loadHistory();
+
+      setTimeout(() => {
+        if (icon) icon.classList.remove("fa-spin");
+      }, 600);
     }
 
     async function postNow(postId) {
@@ -1122,12 +1172,11 @@
       if (card) card.style.opacity = "0.5";
 
       try {
-        const res = await fetch("/api/post-now", {
+        const data = await apiFetch("/api/post-now", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ postId, commentText, selectedStyle: "custom" })
         });
-        const data = await res.json();
         if (data.success) {
           if (card) card.remove();
           loadStats();
@@ -1153,12 +1202,11 @@
       if (card) card.style.opacity = "0.5";
 
       try {
-        const res = await fetch("/api/mark-manually-posted", {
+        const data = await apiFetch("/api/mark-manually-posted", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ postId, commentText, manualTag: customTag || "Manually Posted on LinkedIn" })
         });
-        const data = await res.json();
         if (data.success) {
           if (card) card.remove();
           loadStats();
@@ -1182,12 +1230,11 @@
       if (card) card.style.opacity = "0.5";
 
       try {
-        const res = await fetch("/api/mark-as-competitor", {
+        const data = await apiFetch("/api/mark-as-competitor", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ postId, note: note || "Competitor Intel" })
         });
-        const data = await res.json();
         if (data.success) {
           if (card) card.remove();
           loadStats();
@@ -1207,7 +1254,7 @@
       const editor = document.getElementById(`editor-${postId}`);
       const commentText = editor ? editor.value : "";
       try {
-        await fetch("/api/approve", {
+        await apiFetch("/api/approve", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ postId, commentText, selectedStyle: "approved" })
@@ -1224,7 +1271,7 @@
     async function rejectPost(postId) {
       if (!confirm("Skip this specific post? (Note: The author/company will continue to be monitored for future lending updates)")) return;
       try {
-        await fetch("/api/skip", {
+        await apiFetch("/api/skip", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ postId })
@@ -1246,12 +1293,11 @@
       btn.innerHTML = `<span class="spinner-border spinner-border-sm"></span>`;
 
       try {
-        const res = await fetch("/api/regenerate-comment", {
+        const data = await apiFetch("/api/regenerate-comment", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ postId, customGuidance })
         });
-        const data = await res.json();
         if (data.success && data.comments) {
           const c = data.comments;
           window.__postComments[postId] = c;
@@ -1274,14 +1320,14 @@
         btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Scanning News...';
       }
       try {
-        await fetch("/api/trigger-news-scrape", { method: "POST" });
+        await apiFetch("/api/trigger-news-scrape", { method: "POST" });
         setTimeout(() => {
           loadNewsPosts();
           if (btn) {
             btn.disabled = false;
             btn.innerHTML = '<i class="fa-solid fa-rotate me-1"></i> Refresh Market News';
           }
-        }, 5000);
+        }, 3000);
       } catch (e) {
         if (btn) btn.disabled = false;
       }
@@ -1294,14 +1340,14 @@
         btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Scanning Governance...';
       }
       try {
-        await fetch("/api/trigger-governance-scrape", { method: "POST" });
+        await apiFetch("/api/trigger-governance-scrape", { method: "POST" });
         setTimeout(() => {
           loadGovernancePosts();
           if (btn) {
             btn.disabled = false;
             btn.innerHTML = '<i class="fa-solid fa-rotate me-1"></i> Refresh Governance Intel';
           }
-        }, 5000);
+        }, 3000);
       } catch (e) {
         if (btn) btn.disabled = false;
       }
@@ -1315,7 +1361,7 @@
         btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Crawling...';
       }
       try {
-        await fetch("/api/scrape", {
+        await apiFetch("/api/scrape", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ category: cat })
@@ -1328,7 +1374,7 @@
 
     async function triggerInstantCategory(categoryName) {
       try {
-        await fetch("/api/scrape", {
+        await apiFetch("/api/scrape", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ category: categoryName })
@@ -1350,13 +1396,12 @@
 
       pollInterval = setInterval(async () => {
         try {
-          const res = await fetch("/api/scheduler-status");
-          const data = await res.json();
+          const data = await apiFetch("/api/scheduler-status");
           const job = data.activeScrapeJob;
 
           if (job && job.isRunning) {
             const prog = job.progress || 0;
-            const tot = job.total || 540;
+            const tot = job.total || 563;
             const percent = Math.min(99, Math.round((prog / Math.max(1, tot)) * 100));
             if (badge) badge.innerText = `${percent}%`;
             if (detail) detail.innerHTML = `Source <strong>${prog}</strong> of <strong>${tot}</strong> (<em>${escapeHtml(job.currentSource || 'Scanning...')}</em>)`;
@@ -1365,7 +1410,7 @@
             pollInterval = null;
             if (btn) {
               btn.disabled = false;
-              btn.innerHTML = '<i class="fa-solid fa-play me-1"></i> Run Scraper';
+              btn.innerHTML = '<i class="fa-solid fa-play me-1"></i> Run';
             }
             if (banner) banner.classList.add("d-none");
             loadPendingPosts();
@@ -1377,13 +1422,13 @@
 
     async function forceResetScraper() {
       try {
-        await fetch("/api/reset-scraper", { method: "POST" });
+        await apiFetch("/api/reset-scraper", { method: "POST" });
         const banner = document.getElementById("scrapeActiveBanner");
         if (banner) banner.classList.add("d-none");
         const btn = document.getElementById("btnScrape");
         if (btn) {
           btn.disabled = false;
-          btn.innerHTML = '<i class="fa-solid fa-play me-1"></i> Run Scraper';
+          btn.innerHTML = '<i class="fa-solid fa-play me-1"></i> Run';
         }
         alert("✅ Crawl state reset.");
       } catch (e) {}
@@ -1401,12 +1446,11 @@
       msgDiv.innerHTML = '<span class="text-info"><i class="fa-solid fa-spinner fa-spin"></i> Ingesting post & generating AI comments...</span>';
 
       try {
-        const res = await fetch("/api/ingest-url", {
+        const data = await apiFetch("/api/ingest-url", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ url })
         });
-        const data = await res.json();
         if (data.success) {
           msgDiv.innerHTML = '<span class="text-success fw-bold"><i class="fa-solid fa-circle-check"></i> ' + data.message + '</span>';
           document.getElementById("directPostUrlInput").value = "";
@@ -1431,12 +1475,11 @@
       btn.disabled = true;
       btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Generating...';
       try {
-        const res = await fetch("/api/generate-viral-post", {
+        const data = await apiFetch("/api/generate-viral-post", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ format, topic })
         });
-        const data = await res.json();
         if (data.success && data.post) {
           document.getElementById("viralPostOutput").value = data.post;
         }
@@ -1460,12 +1503,11 @@
       const resultDiv = document.getElementById("hookGradeResult");
       if (!draft.trim()) return alert("Please paste a draft hook first.");
       try {
-        const res = await fetch("/api/boost-hook", {
+        const data = await apiFetch("/api/boost-hook", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ draft })
         });
-        const data = await res.json();
         resultDiv.classList.remove("d-none");
         resultDiv.innerHTML = `<strong>Virality Score: ${data.score}/100</strong><br><small>${data.suggestions.join(' ')}</small>`;
       } catch (e) {
@@ -1475,12 +1517,11 @@
 
     async function generateFirstCommentDrop() {
       try {
-        const res = await fetch("/api/boost-first-comment", {
+        const data = await apiFetch("/api/boost-first-comment", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({})
         });
-        const data = await res.json();
         document.getElementById("firstCommentOutput").value = data.firstComment || "";
       } catch (e) {}
     }
@@ -1489,12 +1530,11 @@
       const name = document.getElementById("commenterNameInput").value || "Colleague";
       const comment = document.getElementById("userCommentInput").value || "";
       try {
-        const res = await fetch("/api/boost-reply", {
+        const data = await apiFetch("/api/boost-reply", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name, comment })
         });
-        const data = await res.json();
         document.getElementById("replyAssistantOutput").value = data.reply || "";
       } catch (e) {}
     }
@@ -1502,8 +1542,7 @@
     // Modals
     async function openSourcesModal() {
       try {
-        const res = await fetch("/api/sources");
-        allSources = await res.json();
+        allSources = await apiFetch("/api/sources");
         document.getElementById("modalSourceCount").innerText = `${allSources.length} Sources`;
         renderSourcesTable(allSources);
         const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById("sourcesModal"));
@@ -1540,8 +1579,7 @@
 
     async function openMLLearningModal() {
       try {
-        const res = await fetch("/api/ml-learning-stats");
-        const data = await res.json();
+        const data = await apiFetch("/api/ml-learning-stats");
 
         const posEl = document.getElementById("mlPositiveDirectives");
         if (posEl) {
@@ -1573,8 +1611,7 @@
 
     async function openLlmModal() {
       try {
-        const res = await fetch("/api/persona");
-        currentPersonaConfig = await res.json();
+        currentPersonaConfig = await apiFetch("/api/persona");
         document.getElementById("modalPTitle").value = currentPersonaConfig.user_name || "Sriram Ganesan";
         document.getElementById("modalPHeadline").value = currentPersonaConfig.linkedin_headline || "";
         document.getElementById("modalPFocus").value = (currentPersonaConfig.focus_areas || []).join("\n");
@@ -1614,7 +1651,7 @@
       if (prov === "openai") updated.openai_api_key = keyVal;
 
       try {
-        await fetch("/api/persona", {
+        await apiFetch("/api/persona", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updated)
