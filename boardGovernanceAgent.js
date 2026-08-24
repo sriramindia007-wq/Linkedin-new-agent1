@@ -30,6 +30,8 @@ const GOVERNANCE_SOURCES = [
   { name: "Smitaa Magi", url: "https://www.linkedin.com/in/smitaa-magi-898879157/recent-activity/all/", category: "Board Leadership & Governance" },
   { name: "Dr. Dilip Kumar Mishra", url: "https://www.linkedin.com/in/dr-dilip-kumar-mishra-7a091b54/recent-activity/all/", category: "Board Leadership & Governance" },
   { name: "Seema Bhatnagar", url: "https://www.linkedin.com/in/seema-bhatnagar-97156612/recent-activity/all/", category: "Board Leadership & Governance" },
+  { name: "Addapa S Kumar", url: "https://www.linkedin.com/in/addapaskumar/recent-activity/all/", category: "Board Leadership & Governance" },
+  { name: "Prashanth Pereira", url: "https://www.linkedin.com/in/prashanth-pereira-4693931/recent-activity/all/", category: "Board Leadership & Governance" },
   { name: "M. Damodaran (Ex-SEBI Chairman)", url: "https://www.linkedin.com/in/m-damodaran-70b97017/recent-activity/all/", category: "Board Leadership & Governance" },
   { name: "Nawshir Mirza (Independent Director)", url: "https://www.linkedin.com/in/nawshir-mirza-03a08815/recent-activity/all/", category: "Board Leadership & Governance" },
   { name: "Shailesh Haribhakti (Board Chairman)", url: "https://www.linkedin.com/in/shailesh-haribhakti-03610411/recent-activity/all/", category: "Board Leadership & Governance" },

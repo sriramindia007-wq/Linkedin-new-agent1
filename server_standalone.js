@@ -107,6 +107,17 @@ async function triggerBackgroundScrape(sourceIds = null, maxPosts = 2, label = "
         activeScrapeJob.currentSource = srcName;
       });
 
+      // Also automatically run External News & Board Governance pipelines in background
+      try {
+        const { fetchAllExternalNews } = safeRequire("externalNewsEngine");
+        if (fetchAllExternalNews) await fetchAllExternalNews();
+      } catch (e) {}
+
+      try {
+        const { scrapeBoardAndGovernance } = safeRequire("boardGovernanceAgent");
+        if (scrapeBoardAndGovernance) await scrapeBoardAndGovernance();
+      } catch (e) {}
+
       lastScrapeTime = new Date().toISOString();
       const elapsedSec = Math.round((Date.now() - startTime) / 1000);
       activeScrapeJob = {
