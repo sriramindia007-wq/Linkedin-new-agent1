@@ -428,28 +428,62 @@ How is your team currently handling data reconciliation when telemetry streams s
   }
 
   if (pathname === "/api/news-posts" && method === "GET") {
-    let posts = loadPosts();
-    let newsPosts = posts.filter(p => p.source_category === "Fintech & Lending News" || p.source_category === "Industry Media & Communities" || p.source_category === "Fintech Media & Ecosystem News");
-    return sendJSON(res, newsPosts);
-  }
-
-  if (pathname === "/api/governance-posts" && method === "GET") {
-    let posts = loadPosts();
-    let govPosts = posts.filter(p => p.source_category === "Board Leadership & Governance" || p.source_category === "Corporate Governance & Board Oversight");
-    return sendJSON(res, govPosts);
+    const { loadMarketNews, fetchAllExternalNews } = safeRequire("externalNewsEngine") || {};
+    let newsArticles = loadMarketNews ? loadMarketNews() : [];
+    if (!newsArticles || newsArticles.length === 0) {
+      if (fetchAllExternalNews) {
+        fetchAllExternalNews().catch(e => console.error(e));
+      }
+    }
+    return sendJSON(res, (newsArticles || []).filter(n => n.status !== "REJECTED" && n.status !== "POSTED"));
   }
 
   if (pathname === "/api/trigger-news-scrape" && method === "POST") {
     try {
-      const { scrapeNewsAndFunding } = safeRequire("newsMediaAgent");
-      if (scrapeNewsAndFunding) {
-        scrapeNewsAndFunding().catch(e => console.error(e));
-        return sendJSON(res, { success: true, message: "News & Funding crawl launched!" });
+      const { fetchAllExternalNews } = safeRequire("externalNewsEngine");
+      if (fetchAllExternalNews) {
+        const result = await fetchAllExternalNews();
+        return sendJSON(res, { success: true, message: `Fetched ${result.count || 0} fresh articles!`, result });
       }
-      return sendJSON(res, { success: false, error: "News agent not found" }, 500);
+      return sendJSON(res, { success: false, error: "News engine not found" }, 500);
     } catch (e) {
       return sendJSON(res, { success: false, error: e.message }, 500);
     }
+  }
+
+  if (pathname === "/api/mark-news-reposted" && method === "POST") {
+    const body = await parseBody(req);
+    const { articleId, repostText } = body;
+    const { loadMarketNews, saveMarketNews } = safeRequire("externalNewsEngine") || {};
+    let news = loadMarketNews ? loadMarketNews() : [];
+    const item = news.find(n => n.id === articleId);
+    if (item) {
+      item.status = "POSTED";
+      item.reposted_at = new Date().toISOString();
+      item.repost_text = repostText;
+      saveMarketNews(news);
+
+      const { markPostAsManuallyPosted } = safeRequire("db");
+      if (markPostAsManuallyPosted) {
+        markPostAsManuallyPosted(articleId, repostText, `Authority Repost (${item.publisher || 'Media'})`);
+      }
+      return sendJSON(res, { success: true, message: "Marked as Reposted on LinkedIn!" });
+    }
+    return sendJSON(res, { success: false, error: "Article not found" }, 404);
+  }
+
+  if (pathname === "/api/skip-news" && method === "POST") {
+    const body = await parseBody(req);
+    const { articleId } = body;
+    const { loadMarketNews, saveMarketNews } = safeRequire("externalNewsEngine") || {};
+    let news = loadMarketNews ? loadMarketNews() : [];
+    const item = news.find(n => n.id === articleId);
+    if (item) {
+      item.status = "REJECTED";
+      saveMarketNews(news);
+      return sendJSON(res, { success: true, message: "Article skipped" });
+    }
+    return sendJSON(res, { success: false, error: "Article not found" }, 404);
   }
 
   if (pathname === "/api/trigger-governance-scrape" && method === "POST") {

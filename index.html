@@ -878,6 +878,151 @@
       }
     }
 
+    function renderNewsCard(n) {
+      window.__postComments[n.id] = n.generated_takes || {};
+      const takes = n.generated_takes || {};
+      const defaultTake = takes.architectural_take || takes.risk_lens || takes.strategic_outlook || "";
+      
+      const fullRepostDraft = `${n.headline}\n\n${defaultTake}\n\nSource: ${n.publisher} (${n.article_url})\n\n#DigitalLending #Fintech #BFSI #LoanOrigination #CreditRisk #M2PFintech`;
+
+      return `
+        <div class="post-card" id="card-${n.id}">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <div class="d-flex flex-wrap align-items-center gap-2">
+              <span class="chip chip-info"><i class="fa-solid fa-newspaper me-1"></i> ${escapeHtml(n.publisher || 'Financial Media')}</span>
+              <span class="chip chip-primary">${escapeHtml(n.source_category || 'Lending & Markets')}</span>
+              <span class="chip chip-dark"><i class="fa-regular fa-clock me-1"></i> ${n.published_at ? new Date(n.published_at).toLocaleDateString() : 'Recent'}</span>
+            </div>
+            <a href="${n.article_url}" target="_blank" class="btn btn-sm btn-outline-info fw-semibold">
+              <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Read Original News Article
+            </a>
+          </div>
+
+          <h5 class="fw-bold mt-2 mb-1 text-dark">
+            <a href="${n.article_url}" target="_blank" class="text-dark text-decoration-none hover-primary">
+              ${escapeHtml(n.headline)}
+            </a>
+          </h5>
+          <div class="small text-muted mb-2"><i class="fa-solid fa-building me-1"></i> Reported by ${escapeHtml(n.publisher)}</div>
+
+          <!-- Tags -->
+          <div class="d-flex flex-wrap gap-1 mb-2">
+            ${(n.relevance_tags || []).map(t => `<span class="badge bg-light text-secondary border font-monospace small">${escapeHtml(t)}</span>`).join("")}
+          </div>
+
+          <!-- Article Summary Box -->
+          <div class="post-content-box border-start border-4 border-info">
+            <div class="small text-muted fw-bold text-uppercase mb-1"><i class="fa-solid fa-bullhorn text-info me-1"></i> News Summary:</div>
+            <div>${escapeHtml(n.summary || n.headline)}</div>
+          </div>
+
+          <!-- Style Selection -->
+          <div class="mb-2">
+            <label class="form-label fw-bold small text-muted text-uppercase mb-1">Select Persona Perspective for Repost:</label>
+            <div class="d-flex flex-wrap">
+              <button type="button" class="style-pill active" id="btn-${n.id}-architectural_take" onclick="selectNewsStyle('${n.id}', 'architectural_take')">
+                💡 Practitioner's LOS Take
+              </button>
+              <button type="button" class="style-pill" id="btn-${n.id}-risk_lens" onclick="selectNewsStyle('${n.id}', 'risk_lens')">
+                ❓ Risk &amp; Governance Lens
+              </button>
+              <button type="button" class="style-pill" id="btn-${n.id}-strategic_outlook" onclick="selectNewsStyle('${n.id}', 'strategic_outlook')">
+                📊 Market Growth Outlook
+              </button>
+            </div>
+          </div>
+
+          <!-- Formatted Standalone Repost Draft -->
+          <div class="mb-3">
+            <label class="form-label fw-bold small text-dark"><i class="fa-solid fa-pen-nib text-primary me-1"></i> Sriram's LinkedIn Post Draft (Ready to Publish):</label>
+            <textarea class="form-control comment-editor" id="editor-${n.id}" rows="5">${escapeHtml(fullRepostDraft)}</textarea>
+          </div>
+
+          <!-- Actions Bar -->
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 pt-2 border-top">
+            <div class="d-flex flex-wrap gap-2">
+              <button class="btn btn-primary btn-sm fw-bold px-3 shadow-sm" onclick="copyAndOpenLinkedIn('${n.id}')">
+                <i class="fa-brands fa-linkedin me-1"></i> 📋 Copy &amp; Open LinkedIn Post Composer
+              </button>
+              <button class="btn btn-sm btn-outline-success fw-semibold" onclick="markNewsAsReposted('${n.id}')" title="I published this post on LinkedIn - move to Posted History">
+                <i class="fa-solid fa-check me-1"></i> 🏷️ Mark as Reposted on LinkedIn
+              </button>
+              <button class="btn btn-sm btn-outline-secondary" onclick="copyNewsText('${n.id}')">
+                <i class="fa-regular fa-copy me-1"></i> Copy Text
+              </button>
+            </div>
+            <button class="btn btn-link text-danger text-decoration-none small" onclick="skipNewsArticle('${n.id}')" title="Skip this news item">
+              <i class="fa-solid fa-trash-can me-1"></i> Skip News
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function selectNewsStyle(articleId, styleKey) {
+      document.querySelectorAll(`#card-${articleId} .style-pill`).forEach(btn => btn.classList.remove("active"));
+      const targetBtn = document.getElementById(`btn-${articleId}-${styleKey}`);
+      if (targetBtn) targetBtn.classList.add("active");
+      const takeText = window.__postComments?.[articleId]?.[styleKey] || "";
+      const headlineEl = document.querySelector(`#card-${articleId} h5 a`);
+      const headline = headlineEl ? headlineEl.innerText.trim() : "";
+      const editor = document.getElementById(`editor-${articleId}`);
+      if (editor) {
+        editor.value = `${headline}\n\n${takeText}\n\n#DigitalLending #Fintech #BFSI #LoanOrigination #CreditRisk #M2PFintech`;
+      }
+    }
+
+    function copyNewsText(articleId) {
+      const editor = document.getElementById(`editor-${articleId}`);
+      if (editor) {
+        editor.select();
+        document.execCommand("copy");
+        alert("📋 Repost draft copied to clipboard!");
+      }
+    }
+
+    function copyAndOpenLinkedIn(articleId) {
+      copyNewsText(articleId);
+      window.open("https://www.linkedin.com/feed/?shareActive=true", "_blank");
+    }
+
+    async function markNewsAsReposted(articleId) {
+      const editor = document.getElementById(`editor-${articleId}`);
+      const repostText = editor ? editor.value : "";
+      try {
+        const res = await fetch("/api/mark-news-reposted", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ articleId, repostText })
+        });
+        const data = await res.json();
+        if (data.success) {
+          const card = document.getElementById(`card-${articleId}`);
+          if (card) card.remove();
+          loadStats();
+          loadHistory();
+          alert("✅ Moved to Posted History!");
+        }
+      } catch (e) {
+        alert("Error: " + e.message);
+      }
+    }
+
+    async function skipNewsArticle(articleId) {
+      try {
+        await fetch("/api/skip-news", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ articleId })
+        });
+        const card = document.getElementById(`card-${articleId}`);
+        if (card) card.remove();
+        loadStats();
+      } catch (e) {
+        alert("Error: " + e.message);
+      }
+    }
+
     async function loadNewsPosts() {
       const container = document.getElementById("newsContainer");
       if (!container) return;
@@ -894,7 +1039,7 @@
             </div>`;
           return;
         }
-        container.innerHTML = posts.map(p => renderPostCard(p)).join("");
+        container.innerHTML = posts.map(p => renderNewsCard(p)).join("");
       } catch (err) {
         container.innerHTML = `<div class="alert alert-danger">Error loading news: ${err.message}</div>`;
       }
