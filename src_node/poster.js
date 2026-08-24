@@ -64,14 +64,17 @@ async function postCommentToLinkedin(postId, postUrl, commentText) {
     return { success: false, message: "Missing post URL or comment text" };
   }
 
+  const startTime = Date.now();
   let context;
   try {
     context = await launchPosterContext();
     const page = context.pages().length ? context.pages()[0] : await context.newPage();
 
-    console.log(`[Poster] Navigating to ${postUrl}...`);
-    await page.goto(postUrl, { waitUntil: "domcontentloaded", timeout: 45000 });
-    await new Promise(r => setTimeout(r, 3500));
+    console.log(`[Poster] ⚡ Fast Navigating to ${postUrl}...`);
+    await page.goto(postUrl, { waitUntil: "domcontentloaded", timeout: 20000 }).catch(async () => {
+      await page.goto(postUrl, { waitUntil: "commit", timeout: 15000 });
+    });
+    await new Promise(r => setTimeout(r, 1200));
 
     // Check login, authwall, or guest sign-in modal
     const isGuestOrLoggedOut = await page.evaluate(() => {
@@ -98,15 +101,15 @@ async function postCommentToLinkedin(postId, postUrl, commentText) {
     }
 
     // Scroll slightly to trigger lazy-loaded comment container
-    await page.evaluate(() => window.scrollBy(0, 450));
-    await new Promise(r => setTimeout(r, 1200));
+    await page.evaluate(() => window.scrollBy(0, 350));
+    await new Promise(r => setTimeout(r, 400));
 
-    // Try clicking the comment action button to reveal input if collapsed
+    // Reveal collapsed comment box if present
     try {
       const commentBtn = await page.$("button[aria-label*='Comment'], button.comment-button, button.artdeco-button--tertiary, button:has-text('Comment')");
       if (commentBtn) {
         await commentBtn.click().catch(() => {});
-        await new Promise(r => setTimeout(r, 1500));
+        await new Promise(r => setTimeout(r, 600));
       }
     } catch (e) {}
 
@@ -149,19 +152,15 @@ async function postCommentToLinkedin(postId, postUrl, commentText) {
       return { success: false, message: err };
     }
 
-    // Focus and click the editor
+    // Focus editor and insert text instantly with native keyboard event
     await commentBox.click({ force: true }).catch(() => {});
-    await new Promise(r => setTimeout(r, 600));
+    await new Promise(r => setTimeout(r, 200));
 
-    // Type comment text with natural human jitter
-    console.log(`[Poster] Typing executive comment (${commentText.length} chars)...`);
-    for (const char of commentText) {
-      await page.keyboard.type(char);
-      await new Promise(r => setTimeout(r, Math.floor(Math.random() * 25) + 15));
-    }
-    await new Promise(r => setTimeout(r, 1500));
+    console.log(`[Poster] ⚡ Fast Inserting comment (${commentText.length} chars)...`);
+    await page.keyboard.insertText(commentText);
+    await new Promise(r => setTimeout(r, 400));
 
-    // Locate the active Submit Comment button
+    // Locate active Submit Comment button
     const SUBMIT_SELECTORS = [
       "button:has-text('Comment'):not([disabled]):not([aria-label='Comment'])",
       "button.comments-comment-box__submit-button:not([disabled])",
@@ -179,7 +178,7 @@ async function postCommentToLinkedin(postId, postUrl, commentText) {
           const disabled = await btn.isDisabled().catch(() => false);
           if (!disabled) {
             submitBtn = btn;
-            console.log(`[Poster] Located active submit button via selector: ${s}`);
+            console.log(`[Poster] Located active submit button: ${s}`);
             break;
           }
         }
@@ -199,12 +198,13 @@ async function postCommentToLinkedin(postId, postUrl, commentText) {
 
     console.log("[Poster] Submitting comment...");
     await submitBtn.click({ force: true });
-    await new Promise(r => setTimeout(r, 5000));
+    await new Promise(r => setTimeout(r, 1800));
 
+    const duration = ((Date.now() - startTime) / 1000).toFixed(1);
     markPostStatus(postId, "POSTED");
     await context.close();
-    console.log("[Poster] 🎉 Comment successfully published to LinkedIn!");
-    return { success: true, message: "Comment successfully posted to LinkedIn!" };
+    console.log(`[Poster] 🎉 Comment successfully published to LinkedIn in ${duration}s!`);
+    return { success: true, message: `Comment posted to LinkedIn in ${duration}s!` };
   } catch (err) {
     if (context) await context.close().catch(() => {});
     console.error("[Poster] Exception:", err.message);
