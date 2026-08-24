@@ -427,6 +427,44 @@ How is your team currently handling data reconciliation when telemetry streams s
     return sendJSON(res, competitorPosts);
   }
 
+  if (pathname === "/api/news-posts" && method === "GET") {
+    let posts = loadPosts();
+    let newsPosts = posts.filter(p => p.source_category === "Fintech & Lending News" || p.source_category === "Industry Media & Communities" || p.source_category === "Fintech Media & Ecosystem News");
+    return sendJSON(res, newsPosts);
+  }
+
+  if (pathname === "/api/governance-posts" && method === "GET") {
+    let posts = loadPosts();
+    let govPosts = posts.filter(p => p.source_category === "Board Leadership & Governance" || p.source_category === "Corporate Governance & Board Oversight");
+    return sendJSON(res, govPosts);
+  }
+
+  if (pathname === "/api/trigger-news-scrape" && method === "POST") {
+    try {
+      const { scrapeNewsAndFunding } = safeRequire("newsMediaAgent");
+      if (scrapeNewsAndFunding) {
+        scrapeNewsAndFunding().catch(e => console.error(e));
+        return sendJSON(res, { success: true, message: "News & Funding crawl launched!" });
+      }
+      return sendJSON(res, { success: false, error: "News agent not found" }, 500);
+    } catch (e) {
+      return sendJSON(res, { success: false, error: e.message }, 500);
+    }
+  }
+
+  if (pathname === "/api/trigger-governance-scrape" && method === "POST") {
+    try {
+      const { scrapeBoardAndGovernance } = safeRequire("boardGovernanceAgent");
+      if (scrapeBoardAndGovernance) {
+        scrapeBoardAndGovernance().catch(e => console.error(e));
+        return sendJSON(res, { success: true, message: "Board Leadership & Governance crawl launched!" });
+      }
+      return sendJSON(res, { success: false, error: "Governance agent not found" }, 500);
+    } catch (e) {
+      return sendJSON(res, { success: false, error: e.message }, 500);
+    }
+  }
+
   // 1-Click Move Post to Competitor Radar
   if (pathname === "/api/mark-as-competitor" && method === "POST") {
     const body = await parseBody(req);
