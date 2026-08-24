@@ -7,216 +7,364 @@
   
   <!-- PWA & Mobile Standalone Tags -->
   <link rel="manifest" href="/manifest.json" />
-  <meta name="theme-color" content="#004182" />
+  <meta name="theme-color" content="#0b192c" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="LendingAgent" />
   <link rel="apple-touch-icon" href="/icon-192.png" />
   <link rel="icon" type="image/svg+xml" href="/icon.svg" />
-  <script>
-    // Automatic cache purger to prevent stale PWA rendering
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(regs => {
-        for (let reg of regs) reg.unregister();
-      });
-    }
-    if ('caches' in window) {
-      caches.keys().then(keys => {
-        for (let key of keys) caches.delete(key);
-      });
-    }
-  </script>
-
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap 5.3 & FontAwesome 6.5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
   <style>
-    body { background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #0f172a; }
-    .navbar { background-color: #004182; color: #ffffff; }
-    .nav-tabs .nav-link { color: #475569; font-weight: 600; border: none; border-bottom: 3px solid transparent; padding: 12px 18px; }
-    .nav-tabs .nav-link.active { color: #004182; font-weight: 700; border-bottom: 3px solid #004182; background: transparent; }
-    .card-metric { border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); transition: transform 0.2s; }
-    .card-metric:hover { transform: translateY(-2px); }
-    .post-card { background: #ffffff; border-radius: 12px; border: 1px solid #e2e8f0; padding: 22px; margin-bottom: 24px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
-    .badge-cat { background-color: #e0f2fe; color: #0369a1; font-weight: 600; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; }
-    .badge-time { background-color: #f1f5f9; color: #475569; font-weight: 500; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; }
-    .badge-priority { font-size: 0.8rem; font-weight: 700; padding: 5px 10px; border-radius: 6px; }
-    .badge-posttype { font-size: 0.8rem; font-weight: 600; padding: 5px 10px; border-radius: 6px; background-color: #fef3c7; color: #92400e; }
-    .tag-pill { background-color: #f8fafc; border: 1px solid #cbd5e1; color: #334155; font-size: 0.75rem; padding: 3px 8px; border-radius: 4px; font-weight: 500; }
-    .post-content-box { background-color: #f8fafc; border-left: 4px solid #004182; border-radius: 4px; padding: 14px; margin: 12px 0; font-size: 0.95rem; line-height: 1.6; }
-    .style-pill { cursor: pointer; border-radius: 20px; font-size: 0.85rem; padding: 6px 14px; margin-right: 8px; margin-bottom: 8px; border: 1px solid #cbd5e1; background: #ffffff; transition: all 0.2s; }
-    .style-pill.active { background-color: #004182; color: #ffffff; border-color: #004182; font-weight: 600; }
-    .comment-editor { border-radius: 8px; font-size: 0.95rem; line-height: 1.5; border: 1px solid #cbd5e1; }
-    .schedule-banner { background: linear-gradient(135deg, #004182 0%, #0284c7 100%); color: #ffffff; border-radius: 12px; }
+    :root {
+      --primary-navy: #0b192c;
+      --primary-blue: #1e3a8a;
+      --accent-blue: #0284c7;
+      --accent-teal: #0d9488;
+      --accent-emerald: #059669;
+      --accent-amber: #d97706;
+      --bg-slate: #f8fafc;
+      --card-border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+    }
+
+    body {
+      background-color: var(--bg-slate);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Modern Navbar */
+    .app-navbar {
+      background: linear-gradient(135deg, #0b192c 0%, #1e293b 100%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    /* Executive Metric Cards */
+    .metric-card {
+      background: #ffffff;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02), 0 4px 12px rgba(0,0,0,0.03);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .metric-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px -4px rgba(0,0,0,0.08);
+    }
+    .metric-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .metric-value {
+      font-size: 1.85rem;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    /* Streamlined Navigation Tabs */
+    .nav-executive {
+      border-bottom: 2px solid var(--card-border);
+      gap: 6px;
+    }
+    .nav-executive .nav-link {
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      border-bottom: 3px solid transparent;
+      padding: 12px 18px;
+      border-radius: 8px 8px 0 0;
+      transition: all 0.15s ease-in-out;
+    }
+    .nav-executive .nav-link:hover {
+      color: var(--primary-blue);
+      background: rgba(30, 58, 138, 0.04);
+    }
+    .nav-executive .nav-link.active {
+      color: var(--primary-blue);
+      font-weight: 700;
+      border-bottom: 3px solid var(--primary-blue);
+      background: transparent;
+    }
+
+    /* Elevated Post Cards */
+    .post-card {
+      background: #ffffff;
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03), 0 8px 24px -4px rgba(0,0,0,0.04);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .post-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04), 0 12px 28px -6px rgba(0,0,0,0.06);
+    }
+
+    /* Badge Chips */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    .chip-primary { background: #eff6ff; color: #1e40af; border: 1px solid #dbeafe; }
+    .chip-warning { background: #fffbeb; color: #92400e; border: 1px solid #fef3c7; }
+    .chip-success { background: #f0fdf4; color: #166534; border: 1px solid #dcfce7; }
+    .chip-info { background: #ecfeff; color: #155e75; border: 1px solid #cffafe; }
+    .chip-danger { background: #fef2f2; color: #991b1b; border: 1px solid #fee2e2; }
+    .chip-dark { background: #f8fafc; color: #334155; border: 1px solid #e2e8f0; }
+
+    /* Post Content Quote Box */
+    .post-content-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--primary-blue);
+      border-radius: 0 8px 8px 0;
+      padding: 16px;
+      margin: 14px 0;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: #1e293b;
+    }
+
+    /* Style Pills */
+    .style-pill {
+      cursor: pointer;
+      border-radius: 30px;
+      font-size: 0.82rem;
+      padding: 6px 14px;
+      margin-right: 6px;
+      margin-bottom: 6px;
+      border: 1px solid var(--card-border);
+      background: #ffffff;
+      color: #334155;
+      font-weight: 500;
+      transition: all 0.15s ease;
+    }
+    .style-pill:hover {
+      border-color: #94a3b8;
+      background: #f1f5f9;
+    }
+    .style-pill.active {
+      background: var(--primary-navy);
+      color: #ffffff;
+      border-color: var(--primary-navy);
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(11, 25, 44, 0.25);
+    }
+
+    /* Action Buttons */
+    .btn-action-primary {
+      background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+      border: none;
+      color: #ffffff;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+      transition: all 0.15s;
+    }
+    .btn-action-primary:hover {
+      background: linear-gradient(135deg, #047857 0%, #059669 100%);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .comment-editor {
+      border-radius: 10px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      border: 1px solid #cbd5e1;
+      padding: 12px;
+    }
+    .comment-editor:focus {
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.12);
+    }
+
+    /* Top Schedule Header */
+    .schedule-header-card {
+      background: linear-gradient(135deg, #0b192c 0%, #1e3a8a 100%);
+      color: #ffffff;
+      border-radius: 14px;
+      padding: 18px 24px;
+      box-shadow: 0 4px 16px rgba(11, 25, 44, 0.15);
+    }
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg px-4 py-3 shadow-sm">
+  <!-- Top Executive Navbar -->
+  <nav class="navbar navbar-expand-lg app-navbar px-3 px-md-4 py-2 text-white sticky-top shadow-sm">
     <div class="container-fluid">
-      <span class="navbar-brand text-white fw-bold mb-0 h1 d-flex align-items-center gap-2">
-        <i class="fa-brands fa-linkedin fa-lg text-info"></i> Lending Intelligence & Comment Agent
-      </span>
       <div class="d-flex align-items-center gap-3">
-        <button class="btn btn-outline-info btn-sm fw-bold px-3 d-flex align-items-center gap-2" onclick="openLlmModal()">
-          <i class="fa-solid fa-brain"></i> 🤖 AI Persona &amp; LLM Settings
+        <span class="brand-title text-white d-flex align-items-center gap-2">
+          <i class="fa-brands fa-linkedin text-info fs-4"></i>
+          <span>M2P Lending &amp; Credit Intelligence</span>
+        </span>
+        <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-25 px-2 py-1 small d-none d-md-inline-flex align-items-center gap-1">
+          <span class="spinner-grow spinner-grow-sm" style="width: 6px; height: 6px;"></span> Active Engine
+        </span>
+      </div>
+
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-sm btn-outline-light fw-semibold px-3 d-flex align-items-center gap-2" onclick="openSourcesModal()">
+          <i class="fa-solid fa-list-check text-info"></i> <span class="d-none d-sm-inline">540 Monitored Sources</span>
         </button>
-        <span class="text-white-50 small d-none d-md-inline">Sriram Ganesan | Head - LOS Product &amp; Solutions (M2P Fintech)</span>
+        <button class="btn btn-sm btn-outline-light fw-semibold px-3 d-flex align-items-center gap-2" onclick="openMLLearningModal()">
+          <i class="fa-solid fa-brain text-success"></i> <span class="d-none d-sm-inline">ML Brain</span>
+        </button>
+        <button class="btn btn-sm btn-primary fw-bold px-3 d-flex align-items-center gap-2" onclick="openLlmModal()">
+          <i class="fa-solid fa-gear"></i> Settings
+        </button>
       </div>
     </div>
   </nav>
 
   <div class="container py-4">
-    
+
     <!-- Top Automated Schedule Banner -->
-    <div class="schedule-banner p-3 mb-4 shadow-sm d-flex flex-wrap align-items-center justify-content-between gap-3 text-white rounded-3">
+    <div class="schedule-header-card mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
       <div class="d-flex align-items-center gap-3">
-        <div class="bg-white text-primary rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
-          <i class="fa-solid fa-clock fa-lg"></i>
+        <div class="bg-white text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+          <i class="fa-solid fa-clock-rotate-left fs-5 text-primary"></i>
         </div>
         <div>
-          <div class="fw-bold fs-6">⏰ Automated Daily Scraper Active</div>
-          <div class="small text-white-50">Scheduled: <strong>07:00 AM &amp; 06:00 PM</strong> &bull; Last Refreshed: <strong id="statLastScrapeTime" class="text-warning">22 Aug, 09:03 AM IST</strong></div>
+          <div class="fw-bold fs-6">⏰ 24/7 Automated Daily Scraper Active</div>
+          <div class="small text-white-50">Runs at <strong>07:00 AM &amp; 06:00 PM IST</strong> &bull; Last Refreshed: <strong id="statLastScrapeTime" class="text-warning">24 Aug, 08:24 AM IST</strong></div>
         </div>
       </div>
       <div class="d-flex gap-2">
-        <button class="btn btn-warning btn-sm fw-bold px-3" onclick="triggerInstantCategory('M2P LOS Competitors & Tech')">
-          <i class="fa-solid fa-bolt me-1"></i> ⚡ Instant Scrape Competitors (3s)
+        <button class="btn btn-warning btn-sm fw-bold px-3 shadow-sm" onclick="triggerInstantCategory('M2P LOS Competitors & Tech')">
+          <i class="fa-solid fa-bolt me-1"></i> Scan Competitors (3s)
         </button>
-        <button class="btn btn-light btn-sm fw-bold px-3 text-primary" onclick="triggerInstantCategory('Regulatory, Government & Policy')">
-          <i class="fa-solid fa-bolt me-1"></i> ⚡ Instant Scrape Regulators (3s)
+        <button class="btn btn-light btn-sm fw-bold px-3 text-primary shadow-sm" onclick="triggerInstantCategory('Regulatory, Government & Policy')">
+          <i class="fa-solid fa-bolt me-1"></i> Scan Regulators (3s)
         </button>
       </div>
     </div>
 
-    <!-- Top Stats Row -->
+    <!-- Executive Metric Cards -->
     <div class="row g-3 mb-4" id="statsRow">
-      <div class="col-md-3">
-        <div class="card card-metric p-3 border-start border-warning border-4 bg-white">
-          <div class="text-muted small fw-bold">PENDING REVIEW (&lt;48h)</div>
-          <div class="h3 fw-bold text-warning mb-0" id="statPending">0</div>
+      <div class="col-6 col-md-3">
+        <div class="metric-card border-start border-warning border-4">
+          <div class="metric-label">Pending Review (&lt;48h)</div>
+          <div class="metric-value text-warning" id="statPending">0</div>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="card card-metric p-3 border-start border-info border-4 bg-white">
-          <div class="text-muted small fw-bold">APPROVED / QUEUED</div>
-          <div class="h3 fw-bold text-info mb-0" id="statApproved">0</div>
+      <div class="col-6 col-md-3">
+        <div class="metric-card border-start border-info border-4">
+          <div class="metric-label">Market &amp; Funding News</div>
+          <div class="metric-value text-info" id="statNewsCount">0</div>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="card card-metric p-3 border-start border-success border-4 bg-white">
-          <div class="text-muted small fw-bold">POSTED TO LINKEDIN</div>
-          <div class="h3 fw-bold text-success mb-0" id="statPosted">0</div>
+      <div class="col-6 col-md-3">
+        <div class="metric-card border-start border-success border-4">
+          <div class="metric-label">Posted to LinkedIn</div>
+          <div class="metric-value text-success" id="statPosted">0</div>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="card card-metric p-3 border-start border-primary border-4 bg-white">
-          <div class="text-muted small fw-bold">MONITORED TARGETS</div>
-          <div class="h3 fw-bold text-primary mb-0" id="statSources">145</div>
+      <div class="col-6 col-md-3">
+        <div class="metric-card border-start border-primary border-4">
+          <div class="metric-label">Monitored Institutions</div>
+          <div class="metric-value text-primary" id="statSources">540</div>
         </div>
       </div>
     </div>
 
-    <!-- Scraper Control Bar -->
-    <div class="card p-3 mb-4 bg-white shadow-sm border-0 rounded-3">
+    <!-- Scraper Control & 1-Click Link Ingestion Bar -->
+    <div class="card p-3 mb-4 bg-white border-0 shadow-sm rounded-4">
       <div class="row align-items-center g-3">
-        <div class="col-md-7">
-          <label class="form-label fw-bold mb-1"><i class="fa-solid fa-satellite-dish text-primary me-1"></i> Trigger Fast Scraper (Strict &lt;48h Only)</label>
+        <div class="col-lg-6">
+          <label class="form-label fw-bold small text-muted text-uppercase mb-1"><i class="fa-solid fa-satellite-dish text-primary me-1"></i> Fast Scraper Engine (Strict &lt;48h Only)</label>
           <div class="d-flex gap-2">
-            <select class="form-select" id="scrapeCategorySelect">
-              <option value="ALL">All 145 Monitored Sources</option>
-              <option value="M2P LOS Competitors & Tech">M2P LOS Competitors & Tech (Perfios, Lentra, Nucleus, etc.)</option>
-              <option value="Regulatory, Government & Policy">Regulatory & Policy (RBI, RBIH, SIDBI, MSME Ministry)</option>
+            <select class="form-select form-select-sm" id="scrapeCategorySelect">
+              <option value="ALL">All 540 Monitored Sources &amp; Streams</option>
+              <option value="M2P LOS Competitors & Tech">M2P LOS Competitors &amp; Tech (Perfios, Lentra, Nucleus, etc.)</option>
+              <option value="Regulatory, Government & Policy">Regulatory &amp; Policy (RBI, RBIH, SIDBI, MSME Ministry)</option>
               <option value="Fintech Media & Communities">Fintech Media (ETBFSI, FinSamudra, GenCFO)</option>
-              <option value="Incumbent & SFB Banks">Incumbent Banks & SFBs (SBI, HDFC, ICICI, AU)</option>
-              <option value="NBFCs & Asset Lenders">NBFCs & Asset Lenders (UGRO, Shriram, Svatantra)</option>
+              <option value="Incumbent & SFB Banks">Incumbent Banks &amp; SFBs (SBI, HDFC, ICICI, AU)</option>
+              <option value="NBFCs & Asset Lenders">NBFCs &amp; Asset Lenders (UGRO, Shriram, Svatantra)</option>
               <option value="Digital Lending Fintechs">Digital Lending Fintechs (Lendingkart, KreditBee)</option>
-              <option value="Top Industry Influencers & CXOs">Top Industry Influencers & CXOs</option>
+              <option value="Top Industry Influencers & CXOs">Top Industry Influencers &amp; CXOs</option>
             </select>
-            <button class="btn btn-primary px-4 text-nowrap fw-semibold" id="btnScrape" onclick="triggerScrape()">
+            <button class="btn btn-primary btn-sm px-3 text-nowrap fw-bold" id="btnScrape" onclick="triggerScrape()">
               <i class="fa-solid fa-play me-1"></i> Run Scraper
             </button>
           </div>
         </div>
-        <div class="col-md-5 text-md-end">
-          <span class="badge bg-light text-dark p-2 border me-2"><i class="fa-solid fa-filter text-success me-1"></i> Strict 48h Filter</span>
-          <span class="badge bg-light text-dark p-2 border"><i class="fa-solid fa-shield text-info me-1"></i> FCNR/Noise Blocked</span>
-        </div>
-      </div>
-    </div>
 
-    <!-- ⚡ Instant Single LinkedIn URL Ingestion Bar -->
-    <div class="card p-3 mb-4 bg-white shadow-sm border-start border-4 border-info rounded-3">
-      <div class="row align-items-center g-2">
-        <div class="col-md-3">
-          <label class="form-label fw-bold mb-0 text-dark">
-            <i class="fa-solid fa-link text-info me-1"></i> ⚡ Analyze Any LinkedIn Post:
-          </label>
-          <div class="small text-muted">Paste shortlink (lnkd.in) or post URL</div>
-        </div>
-        <div class="col-md-7">
-          <input type="text" class="form-control font-monospace" id="directPostUrlInput" placeholder="https://lnkd.in/p/gHfteuRv or https://www.linkedin.com/posts/...">
-        </div>
-        <div class="col-md-2">
-          <button class="btn btn-info text-white fw-bold w-100 text-nowrap" id="btnIngestUrl" onclick="ingestDirectUrl()">
-            <i class="fa-solid fa-bolt me-1"></i> Ingest &amp; Analyze
-          </button>
+        <div class="col-lg-6">
+          <label class="form-label fw-bold small text-muted text-uppercase mb-1"><i class="fa-solid fa-bolt text-info me-1"></i> 1-Click LinkedIn URL Ingest</label>
+          <div class="input-group input-group-sm">
+            <input type="text" class="form-control font-monospace" id="directPostUrlInput" placeholder="Paste LinkedIn URL or shortlink (lnkd.in)...">
+            <button class="btn btn-info text-white fw-bold px-3" id="btnIngestUrl" onclick="ingestDirectUrl()">
+              <i class="fa-solid fa-arrow-right me-1"></i> Ingest
+            </button>
+          </div>
         </div>
       </div>
       <div id="ingestStatusMessage" class="mt-2 small" style="display:none;"></div>
     </div>
 
-    <!-- Navigation Tabs (ALL 7 TABS) -->
-    <ul class="nav nav-tabs mb-4" id="mainTab" role="tablist">
+    <!-- Streamlined 6 Executive Tabs -->
+    <ul class="nav nav-executive mb-4" id="mainTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button class="nav-link active" id="tab-review-btn" data-bs-toggle="tab" data-bs-target="#tab-review" type="button" role="tab">
-          <i class="fa-solid fa-inbox me-1"></i> Review &amp; Approve (&lt;48h)
-        </button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link text-warning fw-bold" id="tab-booster-btn" data-bs-toggle="tab" data-bs-target="#tab-booster" type="button" role="tab">
-          <i class="fa-solid fa-bolt me-1"></i> ⚡ 30-Min Post Booster
-        </button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link text-primary fw-bold" id="tab-viral-btn" data-bs-toggle="tab" data-bs-target="#tab-viral" type="button" role="tab">
-          <i class="fa-solid fa-wand-magic-sparkles me-1"></i> ✍️ Viral Post Studio
+          <i class="fa-solid fa-inbox me-1"></i> Lending Review (<span id="tabReviewCount">26</span>)
         </button>
       </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link text-info fw-bold" id="tab-news-btn" data-bs-toggle="tab" data-bs-target="#tab-news" type="button" role="tab" onclick="loadNewsPosts()">
-          <i class="fa-solid fa-newspaper me-1"></i> 📰 Lending &amp; Market News
+          <i class="fa-solid fa-newspaper me-1"></i> 📰 Market &amp; Funding News
         </button>
       </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link text-warning fw-bold" id="tab-governance-btn" data-bs-toggle="tab" data-bs-target="#tab-governance" type="button" role="tab" onclick="loadGovernancePosts()">
-          <i class="fa-solid fa-landmark me-1"></i> 🏛️ Board Leadership &amp; IICA
+          <i class="fa-solid fa-landmark me-1"></i> 🏛️ Boardroom &amp; IICA
         </button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link text-danger" id="tab-competitors-btn" data-bs-toggle="tab" data-bs-target="#tab-competitors" type="button" role="tab">
-          <i class="fa-solid fa-building me-1"></i> 🏢 Competitor Radar (Read-Only)
+        <button class="nav-link text-danger fw-bold" id="tab-competitors-btn" data-bs-toggle="tab" data-bs-target="#tab-competitors" type="button" role="tab" onclick="loadCompetitorPosts()">
+          <i class="fa-solid fa-building-shield me-1"></i> 🏢 Competitor Radar
         </button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="tab-history-btn" data-bs-toggle="tab" data-bs-target="#tab-history" type="button" role="tab">
+        <button class="nav-link text-success fw-bold" id="tab-history-btn" data-bs-toggle="tab" data-bs-target="#tab-history" type="button" role="tab" onclick="loadHistory()">
           <i class="fa-solid fa-clock-rotate-left me-1"></i> Posted History
         </button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="tab-sources-btn" data-bs-toggle="tab" data-bs-target="#tab-sources" type="button" role="tab">
-          <i class="fa-solid fa-bullseye me-1"></i> Target Sources (<span id="tabSourcesCount">540</span>)
-        </button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link text-success fw-bold" id="tab-learning-btn" data-bs-toggle="tab" data-bs-target="#tab-learning" type="button" role="tab" onclick="loadMLLearningStats()">
-          <i class="fa-solid fa-brain me-1"></i> 🧠 ML Self-Learning
-        </button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="tab-persona-btn" data-bs-toggle="tab" data-bs-target="#tab-persona" type="button" role="tab">
-          <i class="fa-solid fa-user-gear me-1"></i> Sriram Ganesan Persona
+        <button class="nav-link text-primary fw-bold" id="tab-creator-btn" data-bs-toggle="tab" data-bs-target="#tab-creator" type="button" role="tab">
+          <i class="fa-solid fa-wand-magic-sparkles me-1"></i> ✍️ Creator Studio &amp; Booster
         </button>
       </li>
     </ul>
@@ -226,7 +374,8 @@
       
       <!-- 1. Review & Approve Tab -->
       <div class="tab-pane fade show active" id="tab-review" role="tabpanel">
-        <!-- ⚡ Active Crawling & Estimated Time Remaining Banner -->
+        
+        <!-- Active Crawl Progress Banner -->
         <div id="scrapeActiveBanner" class="alert alert-info border border-info border-opacity-25 d-flex align-items-center justify-content-between p-3 mb-4 shadow-sm rounded-3 d-none">
           <div>
             <div class="fw-bold text-dark"><span class="spinner-border spinner-border-sm text-info me-2"></span> ⚡ Crawling &amp; QA Auditing 541 Indian Lending Sources...</div>
@@ -240,13 +389,13 @@
           </div>
         </div>
 
-        <!-- In-App Completion Notification Banner -->
+        <!-- Completion Notification Toast -->
         <div id="scrapeCompleteToast" class="alert alert-success alert-dismissible fade show shadow-sm border border-success border-opacity-25 d-none p-3 mb-4 rounded-3" role="alert">
           <div class="d-flex align-items-center">
             <i class="fa-solid fa-circle-check text-success fs-3 me-3"></i>
             <div>
               <div class="fw-bold text-success" id="scrapeToastTitle">🎉 Scrape &amp; QA Certification Complete!</div>
-              <div class="small text-dark" id="scrapeToastBody">Your review queue has been refreshed with qualifying &lt;48h lending posts. All non-lending noise (FCNR/deposits/hiring) was automatically blocked.</div>
+              <div class="small text-dark" id="scrapeToastBody">Your review queue has been refreshed with qualifying &lt;48h lending posts. All non-lending noise was automatically filtered.</div>
             </div>
           </div>
           <button type="button" class="btn-close" onclick="document.getElementById('scrapeCompleteToast').classList.add('d-none')"></button>
@@ -260,115 +409,7 @@
         </div>
       </div>
 
-      <!-- 2. ⚡ 30-Min Post Booster Tab -->
-      <div class="tab-pane fade" id="tab-booster" role="tabpanel">
-        <div class="card p-4 shadow-sm border-0 mb-4 bg-white rounded-3">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <div>
-              <h5 class="fw-bold mb-1 text-warning"><i class="fa-solid fa-stopwatch me-2"></i> 30-Minute Algorithmic Engagement Booster</h5>
-              <p class="text-muted small mb-0">The LinkedIn algorithm decides your reach in the <strong>first 30 minutes</strong>. Use these 3 tools to ignite maximum velocity:</p>
-            </div>
-          </div>
-
-          <div class="row g-4">
-            <!-- Tool 1: Hook Grader -->
-            <div class="col-md-6">
-              <div class="card p-3 h-100 bg-light border-0">
-                <h6 class="fw-bold text-dark"><i class="fa-solid fa-chart-line text-primary me-2"></i> 1. Pre-Post Hook &amp; Virality Grader</h6>
-                <p class="text-muted small">Paste your draft post to optimize the first 2 lines for "See More" clicks:</p>
-                <textarea class="form-control mb-2" id="draftPostInput" rows="4" placeholder="Paste your draft post here..."></textarea>
-                <button class="btn btn-sm btn-primary fw-semibold mb-2" onclick="gradeAndBoostHook()">
-                  <i class="fa-solid fa-wand-magic-sparkles me-1"></i> Optimize Hook &amp; Format
-                </button>
-                <div id="hookGradeResult" class="small p-2 bg-white rounded border d-none"></div>
-              </div>
-            </div>
-
-            <!-- Tool 2: First-Comment Booster -->
-            <div class="col-md-6">
-              <div class="card p-3 h-100 bg-light border-0">
-                <h6 class="fw-bold text-dark"><i class="fa-solid fa-comment-dots text-success me-2"></i> 2. Golden-Hour First-Comment Drop</h6>
-                <p class="text-muted small">Drop this high-value self-comment within 2 minutes of posting to double dwell time:</p>
-                <button class="btn btn-sm btn-success fw-semibold mb-2" onclick="generateFirstCommentDrop()">
-                  <i class="fa-solid fa-plus me-1"></i> Generate Pinned Authority Comment
-                </button>
-                <textarea class="form-control" id="firstCommentOutput" rows="4" readonly placeholder="Click above to generate your pinned first-comment..."></textarea>
-              </div>
-            </div>
-
-            <!-- Tool 3: Inbound Comment Reply Assistant -->
-            <div class="col-12">
-              <div class="card p-3 bg-light border-0">
-                <h6 class="fw-bold text-dark"><i class="fa-solid fa-comments text-info me-2"></i> 3. Inbound Comment Reply Assistant (Thread Multiplier)</h6>
-                <p class="text-muted small">When someone comments on your post, reply immediately with a counter-question to build a 4-level deep thread (triggers out-of-network feed push):</p>
-                <div class="row g-2">
-                  <div class="col-md-3">
-                    <input type="text" class="form-control form-control-sm" id="commenterNameInput" placeholder="Commenter Name (e.g. Ramesh)" />
-                  </div>
-                  <div class="col-md-7">
-                    <input type="text" class="form-control form-control-sm" id="userCommentInput" placeholder="Paste their comment here..." />
-                  </div>
-                  <div class="col-md-2">
-                    <button class="btn btn-sm btn-info text-white w-100 fw-bold" onclick="generateReplyAssistant()">
-                      <i class="fa-solid fa-reply me-1"></i> Smart Reply
-                    </button>
-                  </div>
-                </div>
-                <textarea class="form-control mt-2" id="replyAssistantOutput" rows="3" readonly placeholder="Generated reply will appear here..."></textarea>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3. Viral Post Studio Tab -->
-      <div class="tab-pane fade" id="tab-viral" role="tabpanel">
-        <div class="card p-4 shadow-sm border-0 mb-4 bg-white rounded-3">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <div>
-              <h5 class="fw-bold mb-1 text-primary"><i class="fa-solid fa-rocket me-2"></i> B2B Viral Post &amp; Growth Studio</h5>
-              <p class="text-muted small mb-0">Generate algorithm-optimized LinkedIn posts engineered for maximum <strong>Saves, Reposts, and Profile Views</strong>.</p>
-            </div>
-          </div>
-
-          <div class="row g-3 mb-3">
-            <div class="col-md-4">
-              <label class="form-label fw-bold small text-secondary">1. Select Growth Framework</label>
-              <select class="form-select" id="viralFormatSelect">
-                <option value="teardown">🛠️ Architectural Teardown (High Reposts &amp; Authority)</option>
-                <option value="contrarian">⚡ Contrarian Industry Opinion (High Debate &amp; Comments)</option>
-                <option value="checklist">📌 Executive Checklist (High Saves &amp; Bookmarks)</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label fw-bold small text-secondary">2. Topic / Theme (Optional Customization)</label>
-              <input type="text" class="form-control" id="viralTopicInput" placeholder="e.g. MSME Digital Lending, Account Aggregator, Visual BRE vs Hardcoding..." />
-            </div>
-            <div class="col-md-2 d-flex align-items-end">
-              <button class="btn btn-primary w-100 fw-bold" id="btnGenerateViral" onclick="generateViralPost()">
-                <i class="fa-solid fa-wand-magic-sparkles me-1"></i> Generate Post
-              </button>
-            </div>
-          </div>
-
-          <div class="p-3 bg-light rounded-3 border mb-3">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="fw-bold small text-muted text-uppercase">Generated LinkedIn Post (Formatted for Algorithm &amp; Dwell Time):</span>
-              <div>
-                <button class="btn btn-sm btn-outline-secondary me-2" onclick="copyViralPost()">
-                  <i class="fa-regular fa-copy me-1"></i> Copy to Clipboard
-                </button>
-                <a href="https://www.linkedin.com/feed/?shareActive=true" target="_blank" class="btn btn-sm btn-primary fw-bold">
-                  <i class="fa-brands fa-linkedin me-1"></i> Open LinkedIn &amp; Post
-                </a>
-              </div>
-            </div>
-            <textarea class="form-control" id="viralPostOutput" rows="12" style="font-family: inherit; font-size: 0.95rem; line-height: 1.6;"></textarea>
-          </div>
-        </div>
-      </div>
-
-      <!-- 4. Dedicated News & Market Intelligence Tab -->
+      <!-- 2. Market & Funding News Tab -->
       <div class="tab-pane fade" id="tab-news" role="tabpanel">
         <div class="card p-3 mb-3 bg-light border-0 shadow-sm rounded-3">
           <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
@@ -386,13 +427,13 @@
         </div>
       </div>
 
-      <!-- 5. Dedicated Boardroom & Governance Tab -->
+      <!-- 3. Boardroom & Governance Tab -->
       <div class="tab-pane fade" id="tab-governance" role="tabpanel">
         <div class="card p-3 mb-3 bg-light border-0 shadow-sm rounded-3">
           <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
             <div>
               <h5 class="fw-bold mb-0 text-dark"><i class="fa-solid fa-landmark me-1 text-warning"></i> 🏛️ Board Leadership, IICA &amp; Independent Directors</h5>
-              <small class="text-muted">Tracking IICA (Indian Institute of Corporate Affairs), Institute of Directors (IOD), Boardroom Appointments, Audit Committees &amp; Independent Directors</small>
+              <small class="text-muted">Tracking IICA (Indian Institute of Corporate Affairs), Institute of Directors (IOD), Boardroom Appointments &amp; Risk Committees</small>
             </div>
             <button class="btn btn-outline-warning btn-sm fw-bold text-dark px-3" id="btnRefreshGovernance" onclick="triggerGovernanceCrawl()">
               <i class="fa-solid fa-rotate me-1"></i> Refresh Governance Intel
@@ -404,15 +445,15 @@
         </div>
       </div>
 
-      <!-- 6. Competitor Radar Tab -->
+      <!-- 4. Competitor Radar Tab -->
       <div class="tab-pane fade" id="tab-competitors" role="tabpanel">
-        <div class="card p-3 mb-3 bg-light border-0">
-          <div class="d-flex justify-content-between align-items-center">
+        <div class="card p-3 mb-3 bg-light border-0 shadow-sm rounded-3">
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
             <div>
               <h5 class="fw-bold mb-0 text-danger"><i class="fa-solid fa-radar me-1"></i> Competitor Radar &amp; Market Intelligence</h5>
-              <small class="text-muted">Real-time surveillance of M2P LOS Competitors (Perfios, Lentra, Nucleus, Finflux, Pennant, etc.)</small>
+              <small class="text-muted">Real-time surveillance of M2P LOS Competitors (Perfios, Lentra, Nucleus, Credgenics, Pennant, etc.)</small>
             </div>
-            <button class="btn btn-outline-danger btn-sm fw-bold" onclick="triggerInstantCategory('M2P LOS Competitors & Tech')">
+            <button class="btn btn-outline-danger btn-sm fw-bold px-3" onclick="triggerInstantCategory('M2P LOS Competitors & Tech')">
               <i class="fa-solid fa-rotate me-1"></i> Refresh Competitors
             </button>
           </div>
@@ -422,9 +463,9 @@
         </div>
       </div>
 
-      <!-- 5. History Tab -->
+      <!-- 5. Posted History Tab -->
       <div class="tab-pane fade" id="tab-history" role="tabpanel">
-        <div class="card p-3 shadow-sm border-0">
+        <div class="card p-3 shadow-sm border-0 rounded-3">
           <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
               <thead class="table-light">
@@ -444,12 +485,104 @@
         </div>
       </div>
 
-      <!-- 6. Target Sources Tab -->
-      <div class="tab-pane fade" id="tab-sources" role="tabpanel">
-        <div class="card p-3 shadow-sm border-0">
+      <!-- 6. Creator Studio & Booster (Unified) -->
+      <div class="tab-pane fade" id="tab-creator" role="tabpanel">
+        <div class="row g-4">
+          <!-- Viral Post Generator -->
+          <div class="col-lg-7">
+            <div class="card p-4 shadow-sm border-0 bg-white rounded-3 h-100">
+              <h5 class="fw-bold text-primary mb-1"><i class="fa-solid fa-wand-magic-sparkles me-2"></i> B2B Viral Post &amp; Authority Studio</h5>
+              <p class="text-muted small mb-3">Generate algorithm-optimized posts engineered for maximum saves, comments, and profile reach:</p>
+              
+              <div class="mb-3">
+                <label class="form-label fw-bold small text-secondary">Select Growth Framework</label>
+                <select class="form-select form-select-sm" id="viralFormatSelect">
+                  <option value="teardown">🛠️ Architectural Teardown (High Reposts &amp; Authority)</option>
+                  <option value="contrarian">⚡ Contrarian Industry Opinion (High Debate &amp; Comments)</option>
+                  <option value="checklist">📌 Executive Checklist (High Saves &amp; Bookmarks)</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-bold small text-secondary">Topic / Theme</label>
+                <input type="text" class="form-control form-control-sm" id="viralTopicInput" placeholder="e.g. MSME Digital Lending, Account Aggregator, Visual BRE vs Hardcoding..." />
+              </div>
+
+              <button class="btn btn-primary btn-sm fw-bold px-3 mb-3" id="btnGenerateViral" onclick="generateViralPost()">
+                <i class="fa-solid fa-wand-magic-sparkles me-1"></i> Generate Post
+              </button>
+
+              <label class="form-label fw-bold small text-muted text-uppercase mb-1">Generated Output:</label>
+              <textarea class="form-control font-monospace small" id="viralPostOutput" rows="8" placeholder="Generated post will appear here..."></textarea>
+              <div class="mt-2 text-end">
+                <button class="btn btn-sm btn-outline-secondary" onclick="copyViralPost()">
+                  <i class="fa-regular fa-copy me-1"></i> Copy to Clipboard
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 30-Minute Booster Suite -->
+          <div class="col-lg-5">
+            <div class="card p-4 shadow-sm border-0 bg-white rounded-3 h-100">
+              <h5 class="fw-bold text-warning mb-1"><i class="fa-solid fa-stopwatch me-2"></i> Golden-Hour Engagement Booster</h5>
+              <p class="text-muted small mb-3">Multiply feed reach within the first 30 minutes of publishing:</p>
+
+              <!-- Hook Grader -->
+              <div class="p-3 bg-light rounded-3 mb-3 border">
+                <h6 class="fw-bold small text-dark mb-1"><i class="fa-solid fa-chart-line text-primary me-1"></i> 1. Hook &amp; Dwell Grader</h6>
+                <textarea class="form-control form-control-sm mb-2" id="draftPostInput" rows="2" placeholder="Paste draft hook..."></textarea>
+                <button class="btn btn-xs btn-primary fw-semibold" onclick="gradeAndBoostHook()">
+                  Optimize Hook
+                </button>
+                <div id="hookGradeResult" class="small p-2 bg-white rounded border mt-2 d-none"></div>
+              </div>
+
+              <!-- First Comment Drop -->
+              <div class="p-3 bg-light rounded-3 mb-3 border">
+                <h6 class="fw-bold small text-dark mb-1"><i class="fa-solid fa-comment-dots text-success me-1"></i> 2. Golden-Hour Pinned Comment</h6>
+                <button class="btn btn-xs btn-success fw-semibold mb-2" onclick="generateFirstCommentDrop()">
+                  Generate Pinned Comment
+                </button>
+                <textarea class="form-control form-control-sm" id="firstCommentOutput" rows="2" readonly placeholder="Pinned comment will appear here..."></textarea>
+              </div>
+
+              <!-- Reply Assistant -->
+              <div class="p-3 bg-light rounded-3 border">
+                <h6 class="fw-bold small text-dark mb-1"><i class="fa-solid fa-comments text-info me-1"></i> 3. Inbound Reply Multiplier</h6>
+                <div class="row g-1 mb-2">
+                  <div class="col-4">
+                    <input type="text" class="form-control form-control-sm" id="commenterNameInput" placeholder="Name" />
+                  </div>
+                  <div class="col-8">
+                    <input type="text" class="form-control form-control-sm" id="userCommentInput" placeholder="Paste comment..." />
+                  </div>
+                </div>
+                <button class="btn btn-xs btn-info text-white fw-bold mb-2" onclick="generateReplyAssistant()">
+                  Generate Reply
+                </button>
+                <textarea class="form-control form-control-sm" id="replyAssistantOutput" rows="2" readonly placeholder="Smart reply..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL 1: 540 Sources Directory -->
+  <div class="modal fade" id="sourcesModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title fw-bold"><i class="fa-solid fa-list-check text-primary me-2"></i> 540 Target Monitored Institutions &amp; CXOs</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
           <div class="d-flex justify-content-between align-items-center mb-3">
-            <h6 class="fw-bold mb-0"><i class="fa-solid fa-list-check me-1 text-primary"></i> 145 Target Monitoring Sources</h6>
-            <input type="text" class="form-control form-control-sm w-25" id="sourceSearch" placeholder="Search source..." onkeyup="filterSourcesTable()" />
+            <input type="text" class="form-control form-control-sm w-50" id="sourceSearch" placeholder="Search by name, category, or keyword..." onkeyup="filterSourcesTable()" />
+            <span class="badge bg-primary px-3 py-2 fs-6" id="modalSourceCount">540 Sources</span>
           </div>
           <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
@@ -460,7 +593,7 @@
                   <th>Category</th>
                   <th>Type</th>
                   <th>LinkedIn Page</th>
-                  <th>Instant Scrape</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody id="sourcesTableBody">
@@ -470,128 +603,102 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
-      <!-- 7. Persona Tab -->
-      <div class="tab-pane fade" id="tab-persona" role="tabpanel">
-        <div class="card p-4 shadow-sm border-0">
-          <h5 class="fw-bold mb-3"><i class="fa-solid fa-id-badge text-primary me-2"></i> Persona &amp; Voice Calibration</h5>
-          
-          <!-- LLM Engine Configuration Box -->
-          <div class="card p-3 mb-4 bg-light border-start border-4 border-info">
-            <h6 class="fw-bold text-dark mb-2"><i class="fa-solid fa-brain text-info me-2"></i> 🤖 AI Engine &amp; API Key Configuration</h6>
-            <p class="small text-muted mb-3">Configure your LLM provider for authentic, adaptive commenting without forced product plugs.</p>
-            
-            <div class="row g-3 mb-3">
-              <div class="col-md-6">
-                <label class="form-label fw-bold small">AI Provider</label>
-                <select class="form-select form-select-sm" id="tabLlmProvider" onchange="syncTabLlmProvider()">
-              <option value="gemini">Google Gemini (Gemini 1.5 Pro / Flash) [Recommended]</option>
-                  <option value="groq">Groq (Llama 3.3 70B - Ultra Fast) [Free]</option>
-                  <option value="openai">OpenAI (GPT-4o-mini)</option>
-                  <option value="deep_contextual">Smart Context-Adaptive Engine (Built-in / Offline)</option>
-                </select>
-              </div>
-              <div class="col-md-6" id="tabApiKeyCol">
-                <label class="form-label fw-bold small d-flex justify-content-between">
-                  <span id="tabKeyLabel">API Key</span>
-                  <small><a href="https://aistudio.google.com/app/apikey" target="_blank" id="tabKeyHelp">Get Free Key ↗</a></small>
-                </label>
-                <div class="input-group input-group-sm">
-                  <input type="password" class="form-control font-monospace" id="tabApiKeyInput" placeholder="Paste your API key here...">
-                  <button class="btn btn-outline-secondary" type="button" onclick="toggleTabKeyVisibility()">
-                    <i class="fa-solid fa-eye" id="tabEyeIcon"></i>
-                  </button>
-                  <button class="btn btn-primary fw-bold" type="button" id="btnTabTestLlm" onclick="testTabLlm()">
-                    <i class="fa-solid fa-bolt me-1"></i> Test
-                  </button>
-                </div>
-                <div id="tabLlmTestResult" class="small mt-1"></div>
-              </div>
-            </div>
+  <!-- MODAL 2: ML Self-Learning Brain & Steering -->
+  <div class="modal fade" id="mlModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title fw-bold text-success"><i class="fa-solid fa-brain me-2"></i> Adaptive Machine Learning &amp; Persona Steering</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-info border-0 small mb-3">
+            <strong>🛡️ Safety Guarantee:</strong> Skipping posts only trains the AI on irrelevant topics (e.g. FCNR, deposits, sports, hiring). Monitored company pages and individual authors are <strong>never</strong> blocked.
           </div>
+          <h6 class="fw-bold text-dark mb-2">🎯 Learned Positive Directives</h6>
+          <div id="mlPositiveDirectives" class="mb-3"></div>
 
-          <form id="personaForm" onsubmit="savePersonaSettings(event)">
-            <div class="mb-3">
-              <label class="form-label fw-bold">Full Name &amp; Title</label>
-              <input type="text" class="form-control" id="pTitle" value="Sriram Ganesan" />
-            </div>
-            <div class="mb-3">
-              <label class="form-label fw-bold">LinkedIn Headline</label>
-              <input type="text" class="form-control" id="pHeadline" value="Head - Loan Origination System (LOS) Product &amp; Product Solutions | M2P Fintech" />
-            </div>
-            <div class="mb-3">
-              <label class="form-label fw-bold">Domain Focus Areas (One per line)</label>
-              <textarea class="form-control" id="pFocus" rows="4"></textarea>
-            </div>
-            <div class="mb-3">
-              <label class="form-label fw-bold">Tone Guidelines &amp; Anti-Spam Rules</label>
-              <textarea class="form-control" id="pRules" rows="5"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary px-4 fw-bold">Save All Settings</button>
-          </form>
-      <!-- 8. 🧠 ML Self-Learning & Steering Tab -->
-      <div class="tab-pane fade" id="tab-learning" role="tabpanel">
-        <div class="card p-4 shadow-sm border-0 mb-4 bg-white rounded-3">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <div>
-              <h5 class="fw-bold mb-1 text-success"><i class="fa-solid fa-brain me-2"></i> Adaptive Machine Learning &amp; Persona Steering</h5>
-              <p class="text-muted small mb-0">The system continuously self-learns from your custom guidance inputs, comment approvals, and skipped posts:</p>
-            </div>
-            <button class="btn btn-sm btn-outline-success" onclick="loadMLLearningStats()">
-              <i class="fa-solid fa-rotate me-1"></i> Refresh Learning Memory
-            </button>
-          </div>
+          <h6 class="fw-bold text-dark mb-2">🚫 Active Non-Lending Filter Keywords</h6>
+          <div id="mlNegativeKeywords" class="mb-3"></div>
 
-          <div class="row g-4 mt-1">
-            <!-- Positive Directives -->
-            <div class="col-md-6">
-              <div class="p-3 bg-light rounded-3 border h-100">
-                <h6 class="fw-bold text-success mb-2"><i class="fa-solid fa-circle-check me-2"></i> Learned Positive Directives (From Steer/Regenerate)</h6>
-                <div class="small text-muted mb-3">These nuances are automatically injected into future Gemini AI comment generations:</div>
-                <div id="mlPositiveDirectives">
-                  <div class="spinner-border spinner-border-sm text-success" role="status"></div>
-                </div>
+          <h6 class="fw-bold text-dark mb-2">📊 Approved Style Distribution</h6>
+          <div class="row text-center" id="mlStyleStats">
+            <div class="col-4">
+              <div class="p-2 bg-light rounded border">
+                <div class="fw-bold text-primary fs-5" id="statStyleValueAdd">12</div>
+                <div class="small text-muted">💡 Practitioner LOS</div>
               </div>
             </div>
-
-            <!-- Negative Filters -->
-            <div class="col-md-6">
-              <div class="p-3 bg-light rounded-3 border h-100">
-                <h6 class="fw-bold text-danger mb-2"><i class="fa-solid fa-ban me-2"></i> Automated Noise Filters (Learned From Skip/Reject)</h6>
-                <div class="small text-muted mb-3">Posts matching these patterns are automatically filtered out before reaching your queue:</div>
-                <div id="mlNegativeKeywords">
-                  <div class="spinner-border spinner-border-sm text-danger" role="status"></div>
-                </div>
+            <div class="col-4">
+              <div class="p-2 bg-light rounded border">
+                <div class="fw-bold text-warning fs-5" id="statStyleQuestion">8</div>
+                <div class="small text-muted">❓ Governance &amp; Risk</div>
               </div>
             </div>
-          </div>
-
-          <div class="mt-4 p-3 bg-light rounded-3 border">
-            <h6 class="fw-bold text-primary mb-2"><i class="fa-solid fa-sliders me-2"></i> Persona Angle Distribution</h6>
-            <div class="row text-center mt-3" id="mlStyleStats">
-              <div class="col-4">
-                <div class="p-2 bg-white rounded border">
-                  <div class="fw-bold text-primary fs-5" id="statStyleValueAdd">12</div>
-                  <div class="small text-muted">💡 Practitioner's LOS Nuance</div>
-                </div>
-              </div>
-              <div class="col-4">
-                <div class="p-2 bg-white rounded border">
-                  <div class="fw-bold text-warning fs-5" id="statStyleQuestion">8</div>
-                  <div class="small text-muted">❓ Governance &amp; Risk Inquiry</div>
-                </div>
-              </div>
-              <div class="col-4">
-                <div class="p-2 bg-white rounded border">
-                  <div class="fw-bold text-success fs-5" id="statStyleExecutive">10</div>
-                  <div class="small text-muted">📊 Strategic Outlook</div>
-                </div>
+            <div class="col-4">
+              <div class="p-2 bg-light rounded border">
+                <div class="fw-bold text-success fs-5" id="statStyleExecutive">10</div>
+                <div class="small text-muted">📊 Strategic Outlook</div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
+  <!-- MODAL 3: Persona & LLM Settings -->
+  <div class="modal fade" id="llmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title fw-bold"><i class="fa-solid fa-id-badge text-primary me-2"></i> Sriram Ganesan Persona &amp; AI Engine Settings</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="personaFormModal" onsubmit="savePersonaSettingsModal(event)">
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label fw-bold small">AI Provider</label>
+                <select class="form-select form-select-sm" id="modalLlmProvider" onchange="toggleModalLlmFields()">
+                  <option value="gemini">Google Gemini (Gemini 2.5 Flash)</option>
+                  <option value="groq">Groq (Llama 3.3 70B - Ultra Fast)</option>
+                  <option value="openai">OpenAI (GPT-4o-mini)</option>
+                  <option value="deep_contextual">Smart Context-Adaptive Engine (Offline)</option>
+                </select>
+              </div>
+              <div class="col-md-6" id="modalApiKeyCol">
+                <label class="form-label fw-bold small">API Key</label>
+                <input type="password" class="form-control form-control-sm font-monospace" id="modalApiKeyInput" placeholder="Paste API key...">
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-bold small">Full Name &amp; Title</label>
+              <input type="text" class="form-control form-control-sm" id="modalPTitle" value="Sriram Ganesan" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold small">LinkedIn Headline</label>
+              <input type="text" class="form-control form-control-sm" id="modalPHeadline" value="Head - Loan Origination System (LOS) Product &amp; Product Solutions | M2P Fintech" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold small">Domain Focus Areas (One per line)</label>
+              <textarea class="form-control form-control-sm" id="modalPFocus" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold small">Tone Guidelines &amp; Anti-Spam Rules</label>
+              <textarea class="form-control form-control-sm" id="modalPRules" rows="3"></textarea>
+            </div>
+            <div class="text-end">
+              <button type="button" class="btn btn-secondary btn-sm me-2" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-primary btn-sm px-4 fw-bold">Save Settings</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -599,12 +706,23 @@
   <script>
     let allSources = [];
     let pollInterval = null;
+    let currentPersonaConfig = {};
+    window.__postComments = window.__postComments || {};
+
+    function escapeHtml(text) {
+      if (!text) return "";
+      return text.toString()
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
 
     function togglePostExpand(postId) {
       const preview = document.getElementById("preview-text-" + postId);
       const full = document.getElementById("full-text-" + postId);
       const btn = document.getElementById("expand-btn-" + postId);
-
       if (full.classList.contains("d-none")) {
         full.classList.remove("d-none");
         preview.classList.add("d-none");
@@ -620,149 +738,71 @@
       try {
         const res = await fetch("/api/stats");
         const data = await res.json();
-        document.getElementById("statPending").innerText = data.pending ?? data.PENDING ?? 0;
-        document.getElementById("statApproved").innerText = data.approved ?? data.APPROVED ?? 0;
-        document.getElementById("statPosted").innerText = data.posted ?? data.POSTED ?? 0;
-        document.getElementById("statSources").innerText = data.sources_count || 411;
-        if (document.getElementById("tabSourcesCount")) {
-          document.getElementById("tabSourcesCount").innerText = data.sources_count || 411;
-        }
-        if (data.last_scrape) {
-          const d = new Date(data.last_scrape);
-          const formattedIST = d.toLocaleString("en-IN", {
-            timeZone: "Asia/Kolkata",
-            day: "2-digit",
-            month: "short",
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: true
-          });
-          document.getElementById("statLastScrapeTime").innerText = formattedIST + " IST";
-        }
+        if (document.getElementById("statPending")) document.getElementById("statPending").innerText = data.pending !== undefined ? data.pending : 0;
+        if (document.getElementById("statPosted")) document.getElementById("statPosted").innerText = data.posted !== undefined ? data.posted : 0;
+        if (document.getElementById("statSources")) document.getElementById("statSources").innerText = data.sources_count || 540;
+        if (document.getElementById("tabReviewCount")) document.getElementById("tabReviewCount").innerText = data.pending !== undefined ? data.pending : 0;
       } catch (e) {
-        console.error(e);
+        console.error("Error loading stats:", e);
       }
     }
-
-    let currentPendingPage = 1;
-    let totalPendingPages = 1;
-    let totalPendingCount = 0;
-
-    async function loadPendingPosts(page = 1) {
-      currentPendingPage = page;
-      const container = document.getElementById("postsContainer");
-      try {
-        const res = await fetch(`/api/posts?status=PENDING&page=${page}&limit=50`);
-        const data = await res.json();
-
-        const posts = Array.isArray(data) ? data : (data.posts || []);
-        totalPendingCount = data.total !== undefined ? data.total : posts.length;
-        totalPendingPages = data.totalPages !== undefined ? data.totalPages : (Math.ceil(totalPendingCount / 50) || 1);
-
-        if (!posts || posts.length === 0) {
-          container.innerHTML = `
-            <div class="text-center py-5 bg-white rounded-3 p-4 border">
-              <i class="fa-solid fa-circle-check fa-3x text-success mb-3"></i>
-              <h5>Review Queue is Clear!</h5>
-              <p class="text-muted">All current posts have been reviewed. Click "Run Scraper" above to fetch fresh &lt;48h lending posts.</p>
-            </div>`;
-          return;
-        }
-
-        const cardsHtml = posts.map(p => renderPostCard(p)).join("");
-        const paginationHtml = `
-          <div class="d-flex justify-content-between align-items-center bg-white p-3 rounded-3 border mt-4 shadow-sm">
-            <div class="small fw-semibold text-muted">
-              Showing Page <strong>${currentPendingPage}</strong> of <strong>${totalPendingPages}</strong> (${totalPendingCount} total pending posts)
-            </div>
-            <div>
-              <button class="btn btn-sm btn-outline-secondary me-2 fw-semibold" ${currentPendingPage <= 1 ? "disabled" : ""} onclick="loadPendingPosts(${currentPendingPage - 1})">
-                <i class="fa-solid fa-arrow-left me-1"></i> Previous 50
-              </button>
-              <button class="btn btn-sm btn-primary fw-semibold" ${currentPendingPage >= totalPendingPages ? "disabled" : ""} onclick="loadPendingPosts(${currentPendingPage + 1})">
-                Next 50 Posts <i class="fa-solid fa-arrow-right ms-1"></i>
-              </button>
-            </div>
-          </div>
-        `;
-
-        container.innerHTML = cardsHtml + paginationHtml;
-      } catch (err) {
-        container.innerHTML = `<div class="alert alert-danger">Error loading posts: ${err.message}</div>`;
-      }
-    }
-
-    window.__postComments = window.__postComments || {};
 
     function renderPostCard(p) {
-      const comments = p.generated_comments || {};
-      const valAdd = comments.value_add || "";
-      const provQ = comments.provocative_question || "";
-      const execP = comments.executive_perspective || "";
-      const defaultComment = valAdd || provQ || execP || "";
+      const defaultComment = p.approved_comment || 
+        (p.generated_comments && (p.generated_comments.value_add || p.generated_comments.provocative_question || p.generated_comments.executive_perspective)) || 
+        "";
 
-      window.__postComments[p.id] = {
-        value_add: valAdd,
-        provocative_question: provQ,
-        executive_perspective: execP
-      };
+      window.__postComments[p.id] = p.generated_comments || {};
 
-      const tagsHtml = (p.relevance_tags || []).map(t => `<span class="tag-pill me-1 mb-1 d-inline-block">${escapeHtml(t)}</span>`).join("");
-      
-      const fullText = p.post_text || "";
-      const isLong = fullText.length > 160;
-      const previewText = isLong ? fullText.substring(0, 160) + "..." : fullText;
+      const text = p.post_text || "";
+      const isLong = text.length > 280;
+      const previewText = isLong ? text.substring(0, 280) + "..." : text;
 
       return `
         <div class="post-card" id="card-${p.id}">
           <div class="d-flex justify-content-between align-items-start mb-2">
-            <div>
-              <span class="badge bg-${p.badge_color || 'danger'} badge-priority me-2">${p.impact_badge || '🔥 Top Priority'}</span>
-              <span class="badge-posttype me-2">${p.post_type_badge || '⚡ Digital Lending &amp; LOS'}</span>
-              <span class="badge-cat me-2">${escapeHtml(p.source_category)}</span>
-              <span class="badge-time"><i class="fa-regular fa-clock me-1"></i> ${p.published_relative || '6h ago'}</span>
+            <div class="d-flex flex-wrap align-items-center gap-2">
+              <span class="chip chip-danger"><i class="fa-solid fa-fire text-danger me-1"></i> Score: ${p.priority_score || 95}/100</span>
+              <span class="chip chip-primary">${escapeHtml(p.post_type_badge || '⚡ Digital Lending')}</span>
+              <span class="chip chip-dark"><i class="fa-regular fa-clock me-1"></i> ${p.published_relative || '1d'}</span>
             </div>
-            <div class="text-muted small">Score: <strong>${p.priority_score || 90}/100</strong></div>
-          </div>
-
-          <h5 class="fw-bold mt-2 mb-1">${escapeHtml(p.author_name)} <small class="text-muted fw-normal">(${escapeHtml(p.source_name)})</small></h5>
-          <div class="mb-2">${tagsHtml}</div>
-
-          <!-- Glimpse / Expandable Post Box -->
-          <div class="post-content-box">
-            <div id="preview-text-${p.id}">${escapeHtml(previewText)}</div>
-            <div id="full-text-${p.id}" class="${isLong ? 'd-none' : ''}">${escapeHtml(fullText)}</div>
-            ${isLong ? `
-              <div class="mt-2">
-                <button type="button" class="btn btn-sm btn-link p-0 fw-bold text-primary text-decoration-none" id="expand-btn-${p.id}" onclick="togglePostExpand('${p.id}')">
-                  <i class="fa-solid fa-chevron-down me-1"></i> 📖 Read Full Post
-                </button>
-              </div>
-            ` : ""}
-          </div>
-
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <a href="${p.post_url}" target="_blank" class="small fw-bold text-primary text-decoration-none">
-              <i class="fa-brands fa-linkedin me-1"></i> Open Post on LinkedIn <i class="fa-solid fa-arrow-up-right-from-square ms-1 small"></i>
+            <a href="${p.post_url}" target="_blank" class="btn btn-sm btn-outline-primary fw-semibold">
+              <i class="fa-brands fa-linkedin me-1"></i> Open on LinkedIn <i class="fa-solid fa-arrow-up-right-from-square ms-1 small"></i>
             </a>
           </div>
 
+          <h5 class="fw-bold mt-2 mb-1 text-dark">${escapeHtml(p.author_name)}</h5>
+          <div class="small text-muted mb-2">${escapeHtml(p.author_headline || p.source_name || '')}</div>
+
+          <!-- Tags -->
+          <div class="d-flex flex-wrap gap-1 mb-2">
+            ${(p.relevance_tags || []).map(t => `<span class="badge bg-light text-secondary border font-monospace small">${escapeHtml(t)}</span>`).join("")}
+          </div>
+
+          <!-- Content Body -->
+          <div class="post-content-box">
+            <div id="preview-text-${p.id}">${escapeHtml(previewText)}</div>
+            <div id="full-text-${p.id}" class="d-none" style="white-space: pre-line;">${escapeHtml(text)}</div>
+            ${isLong ? `
+              <button class="btn btn-link p-0 mt-2 text-primary fw-bold small text-decoration-none" id="expand-btn-${p.id}" onclick="togglePostExpand('${p.id}')">
+                <i class="fa-solid fa-chevron-down me-1"></i> 📖 Read Full Post
+              </button>
+            ` : ""}
+          </div>
+
           <!-- Custom Guidance Prompt Bar -->
-          <div class="p-3 mb-3 bg-light rounded-3 border">
-            <label class="form-label fw-bold small text-secondary mb-1">
-              <i class="fa-solid fa-wand-magic-sparkles text-primary me-1"></i> Steer / Regenerate AI Comment (Custom Context)
-            </label>
-            <div class="input-group">
-              <input type="text" class="form-control form-control-sm" id="guidance-${p.id}" placeholder="Specify custom guidance (e.g. 'Focus on our visual BRE for multi-tier GST validation')..." />
-              <button class="btn btn-outline-primary btn-sm fw-semibold" id="btn-regen-${p.id}" onclick="regenerateComment('${p.id}')">
-                <i class="fa-solid fa-rotate me-1"></i> ✨ Regenerate AI Comments
+          <div class="p-2 mb-3 bg-light rounded-3 border">
+            <div class="input-group input-group-sm">
+              <input type="text" class="form-control font-monospace" id="guidance-${p.id}" placeholder="Steer AI angle (e.g. 'Focus on our visual BRE for multi-tier GST validation')..." />
+              <button class="btn btn-outline-primary fw-semibold" id="btn-regen-${p.id}" onclick="regenerateComment('${p.id}')">
+                <i class="fa-solid fa-rotate me-1"></i> ✨ Regenerate
               </button>
             </div>
           </div>
 
           <!-- Style Selection -->
           <div class="mb-2">
-            <label class="form-label fw-bold small text-muted text-uppercase mb-2">Select Comment Angle (Sriram Ganesan Persona):</label>
+            <label class="form-label fw-bold small text-muted text-uppercase mb-1">Select Persona Comment Angle:</label>
             <div class="d-flex flex-wrap">
               <button type="button" class="style-pill active" id="btn-${p.id}-value_add" onclick="selectStyle('${p.id}', 'value_add')">
                 💡 Practitioner's LOS Nuance
@@ -781,23 +821,23 @@
             <textarea class="form-control comment-editor" id="editor-${p.id}" rows="3">${escapeHtml(defaultComment)}</textarea>
           </div>
 
-          <!-- Actions -->
-          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-            <div>
-              <button class="btn btn-success fw-bold me-2 px-3" onclick="postNow('${p.id}')">
+          <!-- Actions Bar -->
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 pt-2 border-top">
+            <div class="d-flex flex-wrap gap-2">
+              <button class="btn-action-primary" onclick="postNow('${p.id}')">
                 <i class="fa-solid fa-paper-plane me-1"></i> 🚀 Approve &amp; Post Now
               </button>
-              <button class="btn btn-outline-success fw-semibold me-2" onclick="markAsManuallyPosted('${p.id}')" title="I posted this manually on LinkedIn - move to Posted History with manual tag">
+              <button class="btn btn-sm btn-outline-success fw-semibold" onclick="markAsManuallyPosted('${p.id}')" title="I posted this manually on LinkedIn - move to Posted History">
                 <i class="fa-solid fa-tag me-1"></i> 🏷️ Mark as Manually Posted
               </button>
-              <button class="btn btn-outline-warning fw-semibold me-2" onclick="moveToCompetitorRadar('${p.id}')" title="Move this post to Competitor Radar tab for intelligence tracking">
+              <button class="btn btn-sm btn-outline-warning fw-semibold text-dark" onclick="moveToCompetitorRadar('${p.id}')" title="Move this post to Competitor Radar">
                 <i class="fa-solid fa-building-shield me-1"></i> 🏢 Move to Competitor
               </button>
-              <button class="btn btn-outline-primary fw-semibold me-2" onclick="approveDraft('${p.id}')">
+              <button class="btn btn-sm btn-outline-primary fw-semibold" onclick="approveDraft('${p.id}')">
                 <i class="fa-solid fa-check me-1"></i> Approve Draft
               </button>
             </div>
-            <button class="btn btn-link text-danger text-decoration-none small" onclick="rejectPost('${p.id}')" title="Skip this specific post (does NOT block the company page or author)">
+            <button class="btn btn-link text-danger text-decoration-none small" onclick="rejectPost('${p.id}')" title="Skip this specific post (author/company is NEVER blocked)">
               <i class="fa-solid fa-trash-can me-1"></i> Skip Post
             </button>
           </div>
@@ -814,12 +854,155 @@
       if (editor) editor.value = commentText;
     }
 
+    async function loadPendingPosts() {
+      const container = document.getElementById("postsContainer");
+      if (!container) return;
+      try {
+        const res = await fetch("/api/posts?status=PENDING&limit=50");
+        const data = await res.json();
+        const posts = Array.isArray(data) ? data : (data.posts || []);
+
+        if (!posts || posts.length === 0) {
+          container.innerHTML = `
+            <div class="text-center py-5 bg-white rounded-4 p-4 border">
+              <i class="fa-solid fa-circle-check fa-3x text-success mb-3"></i>
+              <h5>Review Queue is Clear!</h5>
+              <p class="text-muted">All qualifying lending posts have been reviewed. Click "Run Scraper" above to fetch fresh updates.</p>
+            </div>`;
+          return;
+        }
+
+        container.innerHTML = posts.map(p => renderPostCard(p)).join("");
+      } catch (err) {
+        container.innerHTML = `<div class="alert alert-danger">Error loading posts: ${err.message}</div>`;
+      }
+    }
+
+    async function loadNewsPosts() {
+      const container = document.getElementById("newsContainer");
+      if (!container) return;
+      try {
+        const res = await fetch("/api/news-posts");
+        const posts = await res.json();
+        if (document.getElementById("statNewsCount")) document.getElementById("statNewsCount").innerText = posts.length || 0;
+        if (!posts || posts.length === 0) {
+          container.innerHTML = `
+            <div class="text-center py-5 bg-white rounded-4 border p-4">
+              <i class="fa-solid fa-newspaper fa-2x text-info mb-2"></i>
+              <h6>No market news in the last 48 hours</h6>
+              <p class="text-muted small">Click "Refresh Market News" above to scan ETBFSI, LiveMint, Business Standard &amp; Funding portals.</p>
+            </div>`;
+          return;
+        }
+        container.innerHTML = posts.map(p => renderPostCard(p)).join("");
+      } catch (err) {
+        container.innerHTML = `<div class="alert alert-danger">Error loading news: ${err.message}</div>`;
+      }
+    }
+
+    async function loadGovernancePosts() {
+      const container = document.getElementById("governanceContainer");
+      if (!container) return;
+      try {
+        const res = await fetch("/api/governance-posts");
+        const posts = await res.json();
+        if (!posts || posts.length === 0) {
+          container.innerHTML = `
+            <div class="text-center py-5 bg-white rounded-4 border p-4">
+              <i class="fa-solid fa-landmark fa-2x text-warning mb-2"></i>
+              <h6>No boardroom governance updates in the last 48 hours</h6>
+              <p class="text-muted small">Click "Refresh Governance Intel" above to scan IICA, IOD &amp; Boardroom Appointments.</p>
+            </div>`;
+          return;
+        }
+        container.innerHTML = posts.map(p => renderPostCard(p)).join("");
+      } catch (err) {
+        container.innerHTML = `<div class="alert alert-danger">Error loading governance intel: ${err.message}</div>`;
+      }
+    }
+
+    async function loadCompetitorPosts() {
+      const container = document.getElementById("competitorsContainer");
+      if (!container) return;
+      try {
+        const res = await fetch("/api/competitor-posts");
+        const posts = await res.json();
+        if (!posts || posts.length === 0) {
+          container.innerHTML = `
+            <div class="text-center py-5 bg-white rounded-4 border p-4">
+              <i class="fa-solid fa-building fa-2x text-muted mb-2"></i>
+              <h6>No competitor updates in the last 48 hours</h6>
+              <p class="text-muted small">Posts from competitor sources and items marked 'Move to Competitor' appear here.</p>
+            </div>`;
+          return;
+        }
+        container.innerHTML = posts.map(p => renderPostCard(p)).join("");
+      } catch (err) {
+        container.innerHTML = `<div class="alert alert-danger">Error loading competitor intel: ${err.message}</div>`;
+      }
+    }
+
+    async function loadHistory() {
+      try {
+        const res = await fetch("/api/posted-history");
+        const data = await res.json();
+        const tbody = document.getElementById("historyTableBody");
+        if (!data || data.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">No comments published yet.</td></tr>';
+          return;
+        }
+        tbody.innerHTML = data.map(p => `
+          <tr>
+            <td>
+              <strong>${escapeHtml(p.author_name)}</strong>
+              ${p.manual_post ? `<div class="mt-1"><span class="chip chip-success small"><i class="fa-solid fa-tag me-1"></i>${escapeHtml(p.manual_tag || 'Manually Posted')}</span></div>` : ''}
+            </td>
+            <td><span class="chip chip-primary">${escapeHtml(p.source_category || 'BFSI')}</span></td>
+            <td><div class="small text-muted" style="max-width: 380px;">${escapeHtml(p.approved_comment || '')}</div></td>
+            <td><small class="text-muted">${p.posted_at ? new Date(p.posted_at).toLocaleString() : 'Recent'}</small></td>
+            <td><a href="${p.post_url}" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fa-brands fa-linkedin me-1"></i> View</a></td>
+          </tr>
+        `).join("");
+      } catch (e) {
+        console.error("Error loading history:", e);
+      }
+    }
+
+    async function postNow(postId) {
+      const editor = document.getElementById(`editor-${postId}`);
+      const commentText = editor ? editor.value : "";
+      if (!commentText.trim()) return alert("Please select or write a comment first.");
+
+      const card = document.getElementById(`card-${postId}`);
+      if (card) card.style.opacity = "0.5";
+
+      try {
+        const res = await fetch("/api/post-now", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ postId, commentText, selectedStyle: "custom" })
+        });
+        const data = await res.json();
+        if (data.success) {
+          if (card) card.remove();
+          loadStats();
+          loadHistory();
+          alert("🎉 " + (data.message || "Comment successfully posted to LinkedIn in 3s!"));
+        } else {
+          alert("Posting Error: " + (data.error || data.message || "Could not publish comment."));
+          if (card) card.style.opacity = "1";
+        }
+      } catch (err) {
+        alert("Posting failed: " + err.message);
+        if (card) card.style.opacity = "1";
+      }
+    }
+
     async function markAsManuallyPosted(postId) {
       const editor = document.getElementById(`editor-${postId}`);
       const commentText = editor ? editor.value : "";
-      
       const customTag = prompt("Enter a custom note or tag for this post (optional):", "Manually Posted on LinkedIn");
-      if (customTag === null) return; // Cancelled
+      if (customTag === null) return;
 
       const card = document.getElementById(`card-${postId}`);
       if (card) card.style.opacity = "0.5";
@@ -848,7 +1031,7 @@
 
     async function moveToCompetitorRadar(postId) {
       const note = prompt("Enter an optional note for this competitor intelligence item:", "Competitor Product & Strategic Update");
-      if (note === null) return; // Cancelled
+      if (note === null) return;
 
       const card = document.getElementById(`card-${postId}`);
       if (card) card.style.opacity = "0.5";
@@ -875,143 +1058,37 @@
       }
     }
 
-    async function forceResetScraper() {
+    async function approveDraft(postId) {
+      const editor = document.getElementById(`editor-${postId}`);
+      const commentText = editor ? editor.value : "";
       try {
-        await fetch("/api/reset-scraper", { method: "POST" });
-        const banner = document.getElementById("scrapeActiveBanner");
-        if (banner) banner.classList.add("d-none");
-        const btn = document.getElementById("btnScrape");
-        if (btn) {
-          btn.disabled = false;
-          btn.innerHTML = '<i class="fa-solid fa-play me-1"></i> Run Scraper';
-        }
-        alert("✅ Crawl state has been reset successfully.");
-      } catch (e) {
-        alert("Reset error: " + e.message);
-      }
-    }
-
-    async function loadNewsPosts() {
-      const container = document.getElementById("newsContainer");
-      if (!container) return;
-      try {
-        const res = await fetch("/api/news-posts");
-        const posts = await res.json();
-        if (!posts || posts.length === 0) {
-          container.innerHTML = `
-            <div class="text-center py-5 bg-white rounded-3 border">
-              <i class="fa-solid fa-newspaper fa-2x text-info mb-2"></i>
-              <h6>No market news in the last 48 hours</h6>
-              <p class="text-muted small">Click "Refresh Market News" above to scan ETBFSI, LiveMint, Business Standard &amp; Funding portals.</p>
-            </div>`;
-          return;
-        }
-        container.innerHTML = posts.map(p => renderPostCard(p)).join("");
+        await fetch("/api/approve", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ postId, commentText, selectedStyle: "approved" })
+        });
+        const card = document.getElementById(`card-${postId}`);
+        if (card) card.remove();
+        loadStats();
+        alert("✅ Draft approved and saved!");
       } catch (err) {
-        container.innerHTML = `<div class="alert alert-danger">Error loading news intel: ${err.message}</div>`;
+        alert("Approval failed: " + err.message);
       }
     }
 
-    async function loadGovernancePosts() {
-      const container = document.getElementById("governanceContainer");
-      if (!container) return;
+    async function rejectPost(postId) {
+      if (!confirm("Skip this specific post? (Note: The author/company will continue to be monitored for future lending updates)")) return;
       try {
-        const res = await fetch("/api/governance-posts");
-        const posts = await res.json();
-        if (!posts || posts.length === 0) {
-          container.innerHTML = `
-            <div class="text-center py-5 bg-white rounded-3 border">
-              <i class="fa-solid fa-landmark fa-2x text-warning mb-2"></i>
-              <h6>No boardroom governance updates in the last 48 hours</h6>
-              <p class="text-muted small">Click "Refresh Governance Intel" above to scan IICA, IOD &amp; Board Appointments.</p>
-            </div>`;
-          return;
-        }
-        container.innerHTML = posts.map(p => renderPostCard(p)).join("");
+        await fetch("/api/skip", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ postId })
+        });
+        const card = document.getElementById(`card-${postId}`);
+        if (card) card.remove();
+        loadStats();
       } catch (err) {
-        container.innerHTML = `<div class="alert alert-danger">Error loading governance intel: ${err.message}</div>`;
-      }
-    }
-
-    async function triggerNewsCrawl() {
-      const btn = document.getElementById("btnRefreshNews");
-      if (btn) {
-        btn.disabled = true;
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Crawling News...';
-      }
-      try {
-        await fetch("/api/trigger-news-scrape", { method: "POST" });
-        alert("🚀 News & Funding crawl launched in background! Refreshing feed in 5 seconds...");
-        setTimeout(() => {
-          loadNewsPosts();
-          if (btn) {
-            btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-rotate me-1"></i> Refresh Market News';
-          }
-        }, 5000);
-      } catch (e) {
-        alert("Crawl error: " + e.message);
-        if (btn) btn.disabled = false;
-      }
-    }
-
-    async function triggerGovernanceCrawl() {
-      const btn = document.getElementById("btnRefreshGovernance");
-      if (btn) {
-        btn.disabled = true;
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Crawling Governance...';
-      }
-      try {
-        await fetch("/api/trigger-governance-scrape", { method: "POST" });
-        alert("🚀 Board Leadership & IICA crawl launched in background! Refreshing feed in 5 seconds...");
-        setTimeout(() => {
-          loadGovernancePosts();
-          if (btn) {
-            btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-rotate me-1"></i> Refresh Governance Intel';
-          }
-        }, 5000);
-      } catch (e) {
-        alert("Crawl error: " + e.message);
-        if (btn) btn.disabled = false;
-      }
-    }
-
-    async function loadCompetitorPosts() {
-      const container = document.getElementById("competitorsContainer");
-      if (!container) return;
-      try {
-        const res = await fetch("/api/competitor-posts");
-        const posts = await res.json();
-
-        if (!posts || posts.length === 0) {
-          container.innerHTML = `
-            <div class="text-center py-5 bg-white rounded-3 border">
-              <i class="fa-solid fa-building fa-2x text-muted mb-2"></i>
-              <h6>No competitor updates in the last 48 hours</h6>
-              <p class="text-muted small">Posts from competitor sources and items marked 'Move to Competitor' appear here.</p>
-            </div>`;
-          return;
-        }
-
-        container.innerHTML = posts.map(p => `
-          <div class="post-card border-danger border-opacity-25 mb-3">
-            <div class="d-flex justify-content-between align-items-start mb-2">
-              <div>
-                <span class="badge bg-danger badge-priority me-2">🏢 Competitor Intel</span>
-                ${p.competitor_note ? `<span class="badge bg-warning bg-opacity-10 text-dark border border-warning border-opacity-25 me-2"><i class="fa-solid fa-tag me-1 text-warning"></i>${escapeHtml(p.competitor_note)}</span>` : ''}
-                <span class="badge-time"><i class="fa-regular fa-clock me-1"></i> ${p.published_relative || '1d'}</span>
-              </div>
-              <a href="${p.post_url}" target="_blank" class="btn btn-sm btn-outline-danger">
-                <i class="fa-brands fa-linkedin me-1"></i> Open Post on LinkedIn
-              </a>
-            </div>
-            <h5 class="fw-bold mt-1 mb-1 text-danger">${escapeHtml(p.author_name)}</h5>
-            <div class="post-content-box">${escapeHtml(p.post_text)}</div>
-          </div>
-        `).join("");
-      } catch (err) {
-        container.innerHTML = `<div class="alert alert-danger">Error loading competitor intel: ${err.message}</div>`;
+        alert("Error skipping post: " + err.message);
       }
     }
 
@@ -1021,7 +1098,7 @@
       const customGuidance = guidanceInput ? guidanceInput.value.trim() : "";
 
       btn.disabled = true;
-      btn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span> Regenerating...`;
+      btn.innerHTML = `<span class="spinner-border spinner-border-sm"></span>`;
 
       try {
         const res = await fetch("/api/regenerate-comment", {
@@ -1032,93 +1109,291 @@
         const data = await res.json();
         if (data.success && data.comments) {
           const c = data.comments;
+          window.__postComments[postId] = c;
           const editor = document.getElementById(`editor-${postId}`);
           if (editor) editor.value = c.value_add || c.provocative_question || c.executive_perspective || "";
-          
-          document.getElementById(`btn-${postId}-value_add`).onclick = () => selectStyle(postId, 'value_add', c.value_add);
-          document.getElementById(`btn-${postId}-provocative_question`).onclick = () => selectStyle(postId, 'provocative_question', c.provocative_question);
-          document.getElementById(`btn-${postId}-executive_perspective`).onclick = () => selectStyle(postId, 'executive_perspective', c.executive_perspective);
-          
-          selectStyle(postId, 'value_add', c.value_add);
-        } else {
-          alert("Regeneration error: " + (data.error || "Unknown error"));
+          selectStyle(postId, 'value_add');
         }
       } catch (err) {
         alert("Regeneration failed: " + err.message);
       } finally {
         btn.disabled = false;
-        btn.innerHTML = `<i class="fa-solid fa-rotate me-1"></i> ✨ Regenerate AI Comments`;
+        btn.innerHTML = `<i class="fa-solid fa-rotate me-1"></i> ✨ Regenerate`;
       }
     }
 
-    async function postNow(postId) {
-      const editor = document.getElementById(`editor-${postId}`);
-      const commentText = editor ? editor.value : "";
-      if (!commentText.trim()) return alert("Please select or write a comment first.");
-
-      const card = document.getElementById(`card-${postId}`);
-      card.style.opacity = "0.5";
-
+    async function triggerNewsCrawl() {
+      const btn = document.getElementById("btnRefreshNews");
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Scanning News...';
+      }
       try {
-        const res = await fetch("/api/post-now", {
+        await fetch("/api/trigger-news-scrape", { method: "POST" });
+        setTimeout(() => {
+          loadNewsPosts();
+          if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-rotate me-1"></i> Refresh Market News';
+          }
+        }, 5000);
+      } catch (e) {
+        if (btn) btn.disabled = false;
+      }
+    }
+
+    async function triggerGovernanceCrawl() {
+      const btn = document.getElementById("btnRefreshGovernance");
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Scanning Governance...';
+      }
+      try {
+        await fetch("/api/trigger-governance-scrape", { method: "POST" });
+        setTimeout(() => {
+          loadGovernancePosts();
+          if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-rotate me-1"></i> Refresh Governance Intel';
+          }
+        }, 5000);
+      } catch (e) {
+        if (btn) btn.disabled = false;
+      }
+    }
+
+    async function triggerScrape() {
+      const cat = document.getElementById("scrapeCategorySelect").value;
+      const btn = document.getElementById("btnScrape");
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Crawling...';
+      }
+      try {
+        await fetch("/api/scrape", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ postId, commentText, selectedStyle: "custom" })
+          body: JSON.stringify({ category: cat })
+        });
+        startScrapeProgressPolling();
+      } catch (e) {
+        if (btn) btn.disabled = false;
+      }
+    }
+
+    async function triggerInstantCategory(categoryName) {
+      try {
+        await fetch("/api/scrape", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ category: categoryName })
+        });
+        startScrapeProgressPolling();
+      } catch (e) {
+        alert("Instant crawl error: " + e.message);
+      }
+    }
+
+    function startScrapeProgressPolling() {
+      if (pollInterval) clearInterval(pollInterval);
+      const btn = document.getElementById("btnScrape");
+      const banner = document.getElementById("scrapeActiveBanner");
+      const detail = document.getElementById("scrapeProgressDetail");
+      const badge = document.getElementById("scrapePercentBadge");
+
+      if (banner) banner.classList.remove("d-none");
+
+      pollInterval = setInterval(async () => {
+        try {
+          const res = await fetch("/api/scheduler-status");
+          const data = await res.json();
+          const job = data.activeScrapeJob;
+
+          if (job && job.isRunning) {
+            const prog = job.progress || 0;
+            const tot = job.total || 540;
+            const percent = Math.min(99, Math.round((prog / Math.max(1, tot)) * 100));
+            if (badge) badge.innerText = `${percent}%`;
+            if (detail) detail.innerHTML = `Source <strong>${prog}</strong> of <strong>${tot}</strong> (<em>${escapeHtml(job.currentSource || 'Scanning...')}</em>)`;
+          } else {
+            clearInterval(pollInterval);
+            pollInterval = null;
+            if (btn) {
+              btn.disabled = false;
+              btn.innerHTML = '<i class="fa-solid fa-play me-1"></i> Run Scraper';
+            }
+            if (banner) banner.classList.add("d-none");
+            loadPendingPosts();
+            loadStats();
+          }
+        } catch (e) {}
+      }, 2500);
+    }
+
+    async function forceResetScraper() {
+      try {
+        await fetch("/api/reset-scraper", { method: "POST" });
+        const banner = document.getElementById("scrapeActiveBanner");
+        if (banner) banner.classList.add("d-none");
+        const btn = document.getElementById("btnScrape");
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-play me-1"></i> Run Scraper';
+        }
+        alert("✅ Crawl state reset.");
+      } catch (e) {}
+    }
+
+    async function ingestDirectUrl() {
+      const url = document.getElementById("directPostUrlInput").value.trim();
+      const btn = document.getElementById("btnIngestUrl");
+      const msgDiv = document.getElementById("ingestStatusMessage");
+      if (!url) return alert("Please paste a LinkedIn URL first.");
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+      msgDiv.style.display = "block";
+      msgDiv.innerHTML = '<span class="text-info"><i class="fa-solid fa-spinner fa-spin"></i> Ingesting post & generating AI comments...</span>';
+
+      try {
+        const res = await fetch("/api/ingest-url", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url })
         });
         const data = await res.json();
         if (data.success) {
-          card.remove();
+          msgDiv.innerHTML = '<span class="text-success fw-bold"><i class="fa-solid fa-circle-check"></i> ' + data.message + '</span>';
+          document.getElementById("directPostUrlInput").value = "";
+          loadPendingPosts();
           loadStats();
-          loadHistory();
-          alert("🎉 " + (data.message || "Comment successfully posted to LinkedIn!"));
         } else {
-          alert("Posting Error: " + (data.error || data.message || "Could not publish comment."));
-          card.style.opacity = "1";
+          msgDiv.innerHTML = '<span class="text-danger fw-bold"><i class="fa-solid fa-triangle-exclamation"></i> ' + (data.error || "Ingestion failed") + '</span>';
         }
-      } catch (err) {
-        alert("Posting failed: " + err.message);
-        card.style.opacity = "1";
+      } catch (e) {
+        msgDiv.innerHTML = '<span class="text-danger">Error: ' + e.message + '</span>';
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-arrow-right me-1"></i> Ingest';
       }
     }
 
-    async function approveDraft(postId) {
-      const editor = document.getElementById(`editor-${postId}`);
-      const commentText = editor ? editor.value : "";
+    // Viral Studio
+    async function generateViralPost() {
+      const format = document.getElementById("viralFormatSelect").value;
+      const topic = document.getElementById("viralTopicInput").value;
+      const btn = document.getElementById("btnGenerateViral");
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Generating...';
       try {
-        await fetch("/api/approve", {
+        const res = await fetch("/api/generate-viral-post", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ postId, commentText, selectedStyle: "approved" })
+          body: JSON.stringify({ format, topic })
         });
-        document.getElementById(`card-${postId}`).remove();
-        loadStats();
-      } catch (err) {
-        alert("Approval failed: " + err.message);
+        const data = await res.json();
+        if (data.success && data.post) {
+          document.getElementById("viralPostOutput").value = data.post;
+        }
+      } catch (e) {
+        alert("Error: " + e.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles me-1"></i> Generate Post';
       }
     }
 
-    async function rejectPost(postId) {
-      if (!confirm("Are you sure you want to skip this post? It will be permanently removed from your feed.")) return;
+    function copyViralPost() {
+      const out = document.getElementById("viralPostOutput");
+      out.select();
+      document.execCommand("copy");
+      alert("📋 Post copied to clipboard!");
+    }
+
+    async function gradeAndBoostHook() {
+      const draft = document.getElementById("draftPostInput").value;
+      const resultDiv = document.getElementById("hookGradeResult");
+      if (!draft.trim()) return alert("Please paste a draft hook first.");
       try {
-        await fetch("/api/skip", {
+        const res = await fetch("/api/boost-hook", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ postId })
+          body: JSON.stringify({ draft })
         });
-        const card = document.getElementById(`card-${postId}`);
-        if (card) card.remove();
-        loadStats();
-        
-        const remaining = document.querySelectorAll("#postsContainer .post-card").length;
-        if (remaining <= 2) {
-          loadPendingPosts(currentPendingPage);
-        }
-      } catch (err) {
-        alert("Error skipping post: " + err.message);
+        const data = await res.json();
+        resultDiv.classList.remove("d-none");
+        resultDiv.innerHTML = `<strong>Virality Score: ${data.score}/100</strong><br><small>${data.suggestions.join(' ')}</small>`;
+      } catch (e) {
+        alert("Error: " + e.message);
       }
     }
 
-    async function loadMLLearningStats() {
+    async function generateFirstCommentDrop() {
+      try {
+        const res = await fetch("/api/boost-first-comment", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({})
+        });
+        const data = await res.json();
+        document.getElementById("firstCommentOutput").value = data.firstComment || "";
+      } catch (e) {}
+    }
+
+    async function generateReplyAssistant() {
+      const name = document.getElementById("commenterNameInput").value || "Colleague";
+      const comment = document.getElementById("userCommentInput").value || "";
+      try {
+        const res = await fetch("/api/boost-reply", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, comment })
+        });
+        const data = await res.json();
+        document.getElementById("replyAssistantOutput").value = data.reply || "";
+      } catch (e) {}
+    }
+
+    // Modals
+    async function openSourcesModal() {
+      try {
+        const res = await fetch("/api/sources");
+        allSources = await res.json();
+        document.getElementById("modalSourceCount").innerText = `${allSources.length} Sources`;
+        renderSourcesTable(allSources);
+        const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById("sourcesModal"));
+        modal.show();
+      } catch (e) {}
+    }
+
+    function renderSourcesTable(sources) {
+      const tbody = document.getElementById("sourcesTableBody");
+      tbody.innerHTML = sources.map((s, idx) => `
+        <tr>
+          <td>${idx + 1}</td>
+          <td><strong>${escapeHtml(s.name)}</strong></td>
+          <td><span class="chip chip-primary">${escapeHtml(s.category)}</span></td>
+          <td><code>${escapeHtml(s.role_type || s.type || 'institution')}</code></td>
+          <td><a href="${s.url}" target="_blank" class="small text-truncate d-inline-block" style="max-width: 220px;">${s.url}</a></td>
+          <td>
+            <button class="btn btn-xs btn-outline-warning fw-bold" onclick="triggerInstantCategory('${escapeHtml(s.category)}')">
+              <i class="fa-solid fa-bolt me-1"></i> Scrape
+            </button>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    function filterSourcesTable() {
+      const query = (document.getElementById("sourceSearch").value || "").toLowerCase();
+      const filtered = allSources.filter(s => 
+        (s.name && s.name.toLowerCase().includes(query)) ||
+        (s.category && s.category.toLowerCase().includes(query))
+      );
+      renderSourcesTable(filtered);
+    }
+
+    async function openMLLearningModal() {
       try {
         const res = await fetch("/api/ml-learning-stats");
         const data = await res.json();
@@ -1127,8 +1402,8 @@
         if (posEl) {
           const directives = data.learnedPositiveDirectives || [];
           posEl.innerHTML = directives.length > 0
-            ? directives.map(d => `<div class="p-2 mb-2 bg-white rounded border border-success border-opacity-25 small fw-semibold text-dark"><i class="fa-solid fa-check text-success me-2"></i>${escapeHtml(d)}</div>`).join("")
-            : '<div class="text-muted small">No custom directives learned yet. Use "Steer / Regenerate AI Comment" on any card to train the AI.</div>';
+            ? directives.map(d => `<div class="p-2 mb-2 bg-light rounded border border-success border-opacity-25 small fw-semibold text-dark"><i class="fa-solid fa-check text-success me-2"></i>${escapeHtml(d)}</div>`).join("")
+            : '<div class="text-muted small">No custom directives learned yet. Use custom prompt bar on any card to steer the AI.</div>';
         }
 
         const negEl = document.getElementById("mlNegativeKeywords");
@@ -1145,397 +1420,53 @@
           if (document.getElementById("statStyleQuestion")) document.getElementById("statStyleQuestion").innerText = s.provocative_question || 0;
           if (document.getElementById("statStyleExecutive")) document.getElementById("statStyleExecutive").innerText = s.executive_perspective || 0;
         }
-      } catch (err) {
-        console.error("Error loading ML stats:", err);
-      }
+
+        const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById("mlModal"));
+        modal.show();
+      } catch (e) {}
     }
 
-    function startScrapeProgressPolling() {
-      if (pollInterval) clearInterval(pollInterval);
-      
-      const btn = document.getElementById("btnScrape");
-      const banner = document.getElementById("scrapeActiveBanner");
-      const toast = document.getElementById("scrapeCompleteToast");
-      const detail = document.getElementById("scrapeProgressDetail");
-      const badge = document.getElementById("scrapePercentBadge");
-
-      if (btn) {
-        btn.disabled = true;
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Crawling...';
-      }
-      if (banner) banner.classList.remove("d-none");
-      if (toast) toast.classList.add("d-none");
-
-      pollInterval = setInterval(async () => {
-        try {
-          const res = await fetch("/api/scheduler-status");
-          const data = await res.json();
-          const job = data.activeScrapeJob;
-
-          if (job && job.isRunning) {
-            const prog = job.progress || 0;
-            const tot = job.total || 541;
-            const src = job.currentSource || "Scanning network...";
-            const percent = Math.min(99, Math.round((prog / Math.max(1, tot)) * 100));
-
-            const remSec = job.estimatedSecondsRemaining || Math.max(15, Math.round(((tot - prog) * 2.5)));
-            const min = Math.floor(remSec / 60);
-            const sec = remSec % 60;
-            const timeStr = min > 0 ? `~${min}m ${sec}s remaining` : `~${sec}s remaining`;
-
-            if (btn) {
-              btn.disabled = true;
-              btn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span> [${prog}/${tot}] ${timeStr}`;
-            }
-
-            if (banner) banner.classList.remove("d-none");
-            if (badge) badge.innerText = `${percent}%`;
-            if (detail) {
-              detail.innerHTML = `Source <strong>${prog}</strong> of <strong>${tot}</strong> (<em>${escapeHtml(src)}</em>) • <span class="badge bg-light text-dark border ms-1"><i class="fa-solid fa-stopwatch text-warning me-1"></i>${timeStr}</span>`;
-            }
-          } else {
-            clearInterval(pollInterval);
-            pollInterval = null;
-            if (btn) {
-              btn.disabled = false;
-              btn.innerHTML = '<i class="fa-solid fa-play me-1"></i> Run Scraper';
-            }
-            if (banner) banner.classList.add("d-none");
-
-            // Show in-app Completion Notification Banner
-            if (toast) {
-              const count = (job && typeof job.newPosts === "number") ? job.newPosts : 0;
-              const titleEl = document.getElementById("scrapeToastTitle");
-              const bodyEl = document.getElementById("scrapeToastBody");
-              if (titleEl) titleEl.innerHTML = `🎉 Scrape &amp; QA Certification Complete!`;
-              if (bodyEl) {
-                bodyEl.innerHTML = count > 0 
-                  ? `Ingested <strong>${count} fresh &lt;48h lending posts</strong> across 541 sources. Non-lending noise (FCNR/deposits/hiring) was automatically blocked.`
-                  : `All recent lending posts from 541 sources are up to date in your review queue. Non-lending noise was filtered out.`;
-              }
-              toast.classList.remove("d-none");
-            }
-
-            loadPendingPosts();
-            loadCompetitorPosts();
-            loadStats();
-          }
-        } catch (e) {
-          console.error(e);
-        }
-      }, 1500);
-    }
-
-    async function triggerScrape() {
-      const cat = document.getElementById("scrapeCategorySelect").value;
-      try {
-        await fetch("/api/scrape", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ category: cat, maxPosts: 2 })
-        });
-        startScrapeProgressPolling();
-      } catch (e) {
-        alert("Scraping request failed: " + e.message);
-      }
-    }
-
-    async function triggerInstantCategory(category) {
-      try {
-        await fetch("/api/instant-scrape", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ category })
-        });
-        startScrapeProgressPolling();
-      } catch (e) {
-        alert("Instant scrape error: " + e.message);
-      }
-    }
-
-    async function triggerInstantSource(sourceId) {
-      try {
-        await fetch("/api/instant-scrape", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ sourceId })
-        });
-        startScrapeProgressPolling();
-      } catch (e) {
-        alert("Source scrape error: " + e.message);
-      }
-    }
-
-    // ⚡ 30-Min Booster Functions
-    async function gradeAndBoostHook() {
-      const text = document.getElementById("draftPostInput").value;
-      if (!text.trim()) return alert("Please paste a draft post.");
-      const resultDiv = document.getElementById("hookGradeResult");
-      resultDiv.classList.remove("d-none");
-      resultDiv.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Analyzing hook...';
-
-      try {
-        const res = await fetch("/api/boost-hook", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text })
-        });
-        const data = await res.json();
-        resultDiv.innerHTML = `
-          <div class="fw-bold text-${data.score >= 80 ? 'success' : 'warning'} mb-1">
-            <i class="fa-solid fa-gauge-high me-1"></i> Virality Score: ${data.score}/100
-          </div>
-          <div class="text-muted mb-2">${data.suggestions.join(' ')}</div>
-          <div class="fw-semibold small text-primary mb-1">Optimized High-Dwell Post:</div>
-          <pre class="bg-light p-2 rounded mb-0" style="white-space: pre-wrap; font-size: 0.85rem;">${escapeHtml(data.optimizedPost)}</pre>
-        `;
-      } catch (e) {
-        resultDiv.innerHTML = "Error: " + e.message;
-      }
-    }
-
-    async function generateFirstCommentDrop() {
-      try {
-        const res = await fetch("/api/boost-first-comment", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({})
-        });
-        const data = await res.json();
-        document.getElementById("firstCommentOutput").value = data.firstComment;
-      } catch (e) {
-        alert("Error: " + e.message);
-      }
-    }
-
-    async function generateReplyAssistant() {
-      const name = document.getElementById("commenterNameInput").value || "Colleague";
-      const comment = document.getElementById("userCommentInput").value || "";
-      try {
-        const res = await fetch("/api/boost-reply", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, comment })
-        });
-        const data = await res.json();
-        document.getElementById("replyAssistantOutput").value = data.reply;
-      } catch (e) {
-        alert("Error: " + e.message);
-      }
-    }
-
-    // ✍️ Viral Post Studio Functions
-    async function generateViralPost() {
-      const format = document.getElementById("viralFormatSelect").value;
-      const topic = document.getElementById("viralTopicInput").value;
-      const btn = document.getElementById("btnGenerateViral");
-      
-      btn.disabled = true;
-      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Generating...';
-
-      try {
-        const res = await fetch("/api/generate-viral-post", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ format, topic })
-        });
-        const data = await res.json();
-        if (data.success && data.post) {
-          document.getElementById("viralPostOutput").value = data.post;
-        }
-      } catch (e) {
-        alert("Error generating viral post: " + e.message);
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles me-1"></i> Generate Post';
-      }
-    }
-
-    function copyViralPost() {
-      const text = document.getElementById("viralPostOutput").value;
-      if (!text) return alert("Please generate a post first.");
-      navigator.clipboard.writeText(text);
-      alert("📋 Post copied to clipboard! Paste directly into LinkedIn.");
-    }
-
-    async function loadHistory() {
-      try {
-        const res = await fetch("/api/posts?status=POSTED");
-        const posts = await res.json();
-        const tbody = document.getElementById("historyTableBody");
-        if (!posts || posts.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-muted">No published comments yet.</td></tr>`;
-          return;
-        }
-
-        tbody.innerHTML = posts.map(p => `
-          <tr>
-            <td><strong>${p.author_name}</strong><br><small class="text-muted">${p.source_name}</small></td>
-            <td><span class="badge-cat">${p.source_category}</span></td>
-            <td style="max-width: 400px;"><small>${escapeHtml(p.approved_comment || "")}</small></td>
-            <td><small class="text-muted">${p.posted_at ? new Date(p.posted_at).toLocaleString() : "-"}</small></td>
-            <td><a href="${p.post_url}" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td>
-          </tr>
-        `).join("");
-      } catch (e) {
-        console.error(e);
-      }
-    }
-
-    async function loadSources() {
-      try {
-        const res = await fetch("/api/sources");
-        allSources = await res.json();
-        document.getElementById("statSources").innerText = allSources.length || 145;
-        renderSourcesTable(allSources);
-      } catch (e) {
-        console.error(e);
-      }
-    }
-
-    function renderSourcesTable(sources) {
-      const tbody = document.getElementById("sourcesTableBody");
-      tbody.innerHTML = sources.map((s, idx) => `
-        <tr>
-          <td>${idx + 1}</td>
-          <td><strong>${s.name}</strong></td>
-          <td><span class="badge-cat">${s.category}</span></td>
-          <td><code>${s.role_type || s.type}</code></td>
-          <td><a href="${s.url}" target="_blank" class="small text-truncate d-inline-block" style="max-width: 250px;">${s.url}</a></td>
-          <td>
-            <button class="btn btn-sm btn-outline-warning fw-bold" onclick="triggerInstantSource('${s.id}')">
-              <i class="fa-solid fa-bolt me-1"></i> Scrape Now
-            </button>
-          </td>
-        </tr>
-      `).join("");
-    }
-
-    function filterSourcesTable() {
-      const query = (document.getElementById("sourceSearch").value || "").toLowerCase();
-      const filtered = allSources.filter(s => 
-        (s.name && s.name.toLowerCase().includes(query)) ||
-        (s.category && s.category.toLowerCase().includes(query)) ||
-        (s.role_type && s.role_type.toLowerCase().includes(query))
-      );
-      renderSourcesTable(filtered);
-    }
-
-    async function loadPersona() {
+    async function openLlmModal() {
       try {
         const res = await fetch("/api/persona");
         currentPersonaConfig = await res.json();
-        document.getElementById("pTitle").value = currentPersonaConfig.user_name || "";
-        document.getElementById("pHeadline").value = currentPersonaConfig.linkedin_headline || "";
-        document.getElementById("pFocus").value = (currentPersonaConfig.focus_areas || []).join("\n");
-        document.getElementById("pRules").value = (currentPersonaConfig.tone_guidelines?.rules || []).join("\n");
+        document.getElementById("modalPTitle").value = currentPersonaConfig.user_name || "Sriram Ganesan";
+        document.getElementById("modalPHeadline").value = currentPersonaConfig.linkedin_headline || "";
+        document.getElementById("modalPFocus").value = (currentPersonaConfig.focus_areas || []).join("\n");
+        document.getElementById("modalPRules").value = (currentPersonaConfig.tone_guidelines?.rules || []).join("\n");
 
-        const provider = currentPersonaConfig.llm_provider || "gemini";
-        const tabProvEl = document.getElementById("tabLlmProvider");
-        if (tabProvEl) tabProvEl.value = provider;
-        syncTabLlmProvider();
-      } catch (e) {
-        console.error(e);
-      }
+        const prov = currentPersonaConfig.llm_provider || "gemini";
+        document.getElementById("modalLlmProvider").value = prov;
+        document.getElementById("modalApiKeyInput").value = currentPersonaConfig[`${prov}_api_key`] || "";
+
+        const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById("llmModal"));
+        modal.show();
+      } catch (e) {}
     }
 
-    function syncTabLlmProvider() {
-      const provider = document.getElementById("tabLlmProvider")?.value || "gemini";
-      const keyCol = document.getElementById("tabApiKeyCol");
-      const keyLabel = document.getElementById("tabKeyLabel");
-      const keyHelp = document.getElementById("tabKeyHelp");
-      const input = document.getElementById("tabApiKeyInput");
-
-      if (!keyCol) return;
-
-      if (provider === "deep_contextual") {
-        keyCol.style.display = "none";
-      } else {
-        keyCol.style.display = "block";
-        if (provider === "gemini") {
-          keyLabel.innerText = "Gemini API Key";
-          keyHelp.href = "https://aistudio.google.com/app/apikey";
-          keyHelp.innerText = "Get Free Gemini Key ↗";
-          input.value = currentPersonaConfig.gemini_api_key || "";
-        } else if (provider === "groq") {
-          keyLabel.innerText = "Groq API Key";
-          keyHelp.href = "https://console.groq.com/keys";
-          keyHelp.innerText = "Get Free Groq Key ↗";
-          input.value = currentPersonaConfig.groq_api_key || "";
-        } else if (provider === "openai") {
-          keyLabel.innerText = "OpenAI API Key";
-          keyHelp.href = "https://platform.openai.com/api-keys";
-          keyHelp.innerText = "Get OpenAI Key ↗";
-          input.value = currentPersonaConfig.openai_api_key || "";
-        }
-      }
+    function toggleModalLlmFields() {
+      const prov = document.getElementById("modalLlmProvider").value;
+      document.getElementById("modalApiKeyInput").value = currentPersonaConfig[`${prov}_api_key`] || "";
     }
 
-    function toggleTabKeyVisibility() {
-      const input = document.getElementById("tabApiKeyInput");
-      const icon = document.getElementById("tabEyeIcon");
-      if (input.type === "password") {
-        input.type = "text";
-        icon.className = "fa-solid fa-eye-slash";
-      } else {
-        input.type = "password";
-        icon.className = "fa-solid fa-eye";
-      }
-    }
-
-    async function testTabLlm() {
-      const provider = document.getElementById("tabLlmProvider").value;
-      const apiKey = document.getElementById("tabApiKeyInput").value;
-      const resultDiv = document.getElementById("tabLlmTestResult");
-      const btn = document.getElementById("btnTabTestLlm");
-
-      if (!apiKey || apiKey.trim().length < 5) {
-        resultDiv.innerHTML = '<span class="text-danger"><i class="fa-solid fa-triangle-exclamation"></i> Please paste an API key first.</span>';
-        return;
-      }
-
-      btn.disabled = true;
-      btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
-      resultDiv.innerHTML = '<span class="text-muted"><i class="fa-solid fa-spinner fa-spin"></i> Contacting ' + provider.toUpperCase() + '...</span>';
-
-      try {
-        const res = await fetch("/api/test-llm", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ provider, apiKey })
-        });
-        const data = await res.json();
-        if (data.success) {
-          resultDiv.innerHTML = '<span class="text-success fw-bold"><i class="fa-solid fa-circle-check"></i> ' + data.message + '</span>';
-        } else {
-          resultDiv.innerHTML = '<span class="text-danger"><i class="fa-solid fa-circle-xmark"></i> ' + (data.error || "Connection failed") + '</span>';
-        }
-      } catch (err) {
-        resultDiv.innerHTML = '<span class="text-danger"><i class="fa-solid fa-circle-xmark"></i> Network Error: ' + err.message + '</span>';
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-bolt me-1"></i> Test';
-      }
-    }
-
-    async function savePersonaSettings(e) {
+    async function savePersonaSettingsModal(e) {
       e.preventDefault();
-      const provider = document.getElementById("tabLlmProvider")?.value || "gemini";
-      const keyVal = document.getElementById("tabApiKeyInput")?.value?.trim() || "";
+      const prov = document.getElementById("modalLlmProvider").value;
+      const keyVal = document.getElementById("modalApiKeyInput").value.trim();
 
       const updated = {
-        user_name: document.getElementById("pTitle").value,
-        linkedin_headline: document.getElementById("pHeadline").value,
-        focus_areas: document.getElementById("pFocus").value.split("\n").map(s => s.trim()).filter(Boolean),
+        user_name: document.getElementById("modalPTitle").value,
+        linkedin_headline: document.getElementById("modalPHeadline").value,
+        focus_areas: document.getElementById("modalPFocus").value.split("\n").map(s => s.trim()).filter(Boolean),
         tone_guidelines: {
-          rules: document.getElementById("pRules").value.split("\n").map(s => s.trim()).filter(Boolean)
+          rules: document.getElementById("modalPRules").value.split("\n").map(s => s.trim()).filter(Boolean)
         },
-        llm_provider: provider
+        llm_provider: prov
       };
 
-      if (provider === "gemini") updated.gemini_api_key = keyVal;
-      if (provider === "groq") updated.groq_api_key = keyVal;
-      if (provider === "openai") updated.openai_api_key = keyVal;
+      if (prov === "gemini") updated.gemini_api_key = keyVal;
+      if (prov === "groq") updated.groq_api_key = keyVal;
+      if (prov === "openai") updated.openai_api_key = keyVal;
 
       try {
         await fetch("/api/persona", {
@@ -1543,322 +1474,20 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updated)
         });
-        await fetch("/api/save-llm-settings", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            llm_provider: provider,
-            gemini_api_key: updated.gemini_api_key,
-            groq_api_key: updated.groq_api_key,
-            openai_api_key: updated.openai_api_key
-          })
-        });
-        alert("✅ Persona & AI settings saved successfully!");
+        alert("✅ Persona and AI settings saved!");
+        bootstrap.Modal.getInstance(document.getElementById("llmModal")).hide();
       } catch (err) {
         alert("Failed to save: " + err.message);
       }
     }
 
-    async function ingestDirectUrl() {
-      const url = document.getElementById("directPostUrlInput").value.trim();
-      const btn = document.getElementById("btnIngestUrl");
-      const msgDiv = document.getElementById("ingestStatusMessage");
-
-      if (!url) {
-        alert("Please paste a LinkedIn post URL or shortlink first.");
-        return;
-      }
-
-      btn.disabled = true;
-      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Ingesting...';
-      msgDiv.style.display = "block";
-      msgDiv.innerHTML = '<span class="text-info"><i class="fa-solid fa-spinner fa-spin"></i> Resolving URL, extracting LinkedIn post content & generating AI comments...</span>';
-
-      try {
-        const res = await fetch("/api/ingest-url", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ url })
-        });
-        const data = await res.json();
-        if (data.success) {
-          msgDiv.innerHTML = '<span class="text-success fw-bold"><i class="fa-solid fa-circle-check"></i> ' + data.message + '</span>';
-          document.getElementById("directPostUrlInput").value = "";
-          loadStats();
-          loadPendingPosts();
-          setTimeout(() => { msgDiv.style.display = "none"; }, 5000);
-        } else {
-          msgDiv.innerHTML = '<span class="text-danger fw-bold"><i class="fa-solid fa-circle-xmark"></i> ' + (data.error || "Ingestion failed") + '</span>';
-        }
-      } catch (err) {
-        msgDiv.innerHTML = '<span class="text-danger fw-bold"><i class="fa-solid fa-circle-xmark"></i> Network Error: ' + err.message + '</span>';
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-bolt me-1"></i> Ingest &amp; Analyze';
-      }
-    }
-
-    function escapeHtml(str) {
-      if (!str) return "";
-      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-    }
-
-    function escapeAttr(str) {
-      if (!str) return "";
-      return str.replace(/"/g, "&quot;").replace(/'/g, "\\'");
-    }
-
-    // Init
-    loadStats();
-    loadPendingPosts();
-    loadCompetitorPosts();
-    loadHistory();
-    loadSources();
-    loadPersona();
-
-    // AI Persona & LLM Settings Modal Handlers
-    let currentPersonaConfig = {};
-
-    async function openLlmModal() {
-      try {
-        const res = await fetch("/api/persona");
-        currentPersonaConfig = await res.json();
-        const provider = currentPersonaConfig.llm_provider || "gemini";
-        document.getElementById("llmProviderSelect").value = provider;
-        
-        if (provider === "gemini") {
-          document.getElementById("llmApiKeyInput").value = currentPersonaConfig.gemini_api_key || "";
-        } else if (provider === "groq") {
-          document.getElementById("llmApiKeyInput").value = currentPersonaConfig.groq_api_key || "";
-        } else if (provider === "openai") {
-          document.getElementById("llmApiKeyInput").value = currentPersonaConfig.openai_api_key || "";
-        }
-
-        if (currentPersonaConfig.core_philosophy) {
-          document.getElementById("modalPhilosophy").value = currentPersonaConfig.core_philosophy;
-        }
-        if (currentPersonaConfig.tone_guidelines?.rules) {
-          document.getElementById("modalToneRules").value = currentPersonaConfig.tone_guidelines.rules.join("\n");
-        }
-
-        toggleLlmFields();
-        document.getElementById("llmTestResult").innerHTML = "";
-
-        const modalEl = document.getElementById("llmModal");
-        const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
-        modal.show();
-      } catch (e) {
-        alert("Failed to load settings: " + e.message);
-      }
-    }
-
-    function toggleLlmFields() {
-      const provider = document.getElementById("llmProviderSelect").value;
-      const keyGroup = document.getElementById("apiKeyFieldGroup");
-      const keyLabel = document.getElementById("activeKeyLabel");
-      const helpLink = document.getElementById("getKeyHelpLink");
-
-      if (provider === "deep_contextual") {
-        keyGroup.style.display = "none";
-      } else {
-        keyGroup.style.display = "block";
-        if (provider === "gemini") {
-          keyLabel.innerText = "Gemini API Key";
-          helpLink.href = "https://aistudio.google.com/app/apikey";
-          helpLink.innerText = "Get free Gemini API Key ↗";
-          document.getElementById("llmApiKeyInput").value = currentPersonaConfig.gemini_api_key || "";
-        } else if (provider === "groq") {
-          keyLabel.innerText = "Groq API Key";
-          helpLink.href = "https://console.groq.com/keys";
-          helpLink.innerText = "Get free Groq Key (Llama 3.3) ↗";
-          document.getElementById("llmApiKeyInput").value = currentPersonaConfig.groq_api_key || "";
-        } else if (provider === "openai") {
-          keyLabel.innerText = "OpenAI API Key";
-          helpLink.href = "https://platform.openai.com/api-keys";
-          helpLink.innerText = "Get OpenAI API Key ↗";
-          document.getElementById("llmApiKeyInput").value = currentPersonaConfig.openai_api_key || "";
-        }
-      }
-    }
-
-    function toggleKeyVisibility() {
-      const input = document.getElementById("llmApiKeyInput");
-      const icon = document.getElementById("eyeIcon");
-      if (input.type === "password") {
-        input.type = "text";
-        icon.className = "fa-solid fa-eye-slash";
-      } else {
-        input.type = "password";
-        icon.className = "fa-solid fa-eye";
-      }
-    }
-
-    async function testLlmConnection() {
-      const provider = document.getElementById("llmProviderSelect").value;
-      const apiKey = document.getElementById("llmApiKeyInput").value;
-      const resultDiv = document.getElementById("llmTestResult");
-      const btn = document.getElementById("btnTestLlm");
-
-      if (!apiKey || apiKey.trim().length < 5) {
-        resultDiv.innerHTML = '<span class="text-danger"><i class="fa-solid fa-triangle-exclamation"></i> Please paste an API key first.</span>';
-        return;
-      }
-
-      btn.disabled = true;
-      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Testing...';
-      resultDiv.innerHTML = '<span class="text-muted"><i class="fa-solid fa-spinner fa-spin"></i> Contacting ' + provider.toUpperCase() + ' API...</span>';
-
-      try {
-        const res = await fetch("/api/test-llm", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ provider, apiKey })
-        });
-        const data = await res.json();
-        if (data.success) {
-          resultDiv.innerHTML = '<span class="text-success fw-bold"><i class="fa-solid fa-circle-check"></i> ' + data.message + '</span>';
-        } else {
-          resultDiv.innerHTML = '<span class="text-danger"><i class="fa-solid fa-circle-xmark"></i> Connection Error: ' + (data.error || "Invalid response") + '</span>';
-        }
-      } catch (err) {
-        resultDiv.innerHTML = '<span class="text-danger"><i class="fa-solid fa-circle-xmark"></i> Network Error: ' + err.message + '</span>';
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-bolt me-1"></i> Test Connection';
-      }
-    }
-
-    async function saveLlmSettingsFromModal() {
-      const provider = document.getElementById("llmProviderSelect").value;
-      const keyVal = document.getElementById("llmApiKeyInput").value.trim();
-      const philosophy = document.getElementById("modalPhilosophy").value.trim();
-      const rules = document.getElementById("modalToneRules").value.split("\n").map(s => s.trim()).filter(Boolean);
-
-      const payload = {
-        llm_provider: provider,
-        core_philosophy: philosophy,
-        tone_guidelines: { rules }
-      };
-
-      if (provider === "gemini") payload.gemini_api_key = keyVal;
-      if (provider === "groq") payload.groq_api_key = keyVal;
-      if (provider === "openai") payload.openai_api_key = keyVal;
-
-      try {
-        const res = await fetch("/api/save-llm-settings", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-        const data = await res.json();
-        if (data.success) {
-          alert("✅ AI Persona & LLM Settings successfully saved and applied!");
-          const modalEl = document.getElementById("llmModal");
-          bootstrap.Modal.getInstance(modalEl).hide();
-          loadPersona();
-        } else {
-          alert("Error: " + (data.error || "Failed to save"));
-        }
-      } catch (e) {
-        alert("Error saving settings: " + e.message);
-      }
-    }
-
-    // Initial load & Active Scrape Check on startup
+    // Initialization
     document.addEventListener("DOMContentLoaded", () => {
-      loadPendingPosts();
-      loadCompetitorPosts();
       loadStats();
-      loadSources();
-      loadPersona();
-      loadMLLearningStats();
-      fetch("/api/scheduler-status")
-        .then(r => r.json())
-        .then(data => {
-          if (data.activeScrapeJob && data.activeScrapeJob.isRunning) {
-            startScrapeProgressPolling();
-          }
-        })
-        .catch(() => {});
+      loadPendingPosts();
+      loadHistory();
+      loadNewsPosts();
     });
-
-    // Force unregister any legacy PWA ServiceWorker
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.getRegistrations().then(regs => {
-        for (let reg of regs) {
-          reg.unregister().then(() => console.log("🗑️ Unregistered old ServiceWorker:", reg.scope));
-        }
-      });
-    }
   </script>
-
-  <!-- Modal: AI Persona & LLM Settings -->
-  <div class="modal fade" id="llmModal" tabindex="-1" aria-labelledby="llmModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content border-0 shadow">
-        <div class="modal-header bg-dark text-white">
-          <h5 class="modal-title d-flex align-items-center gap-2" id="llmModalLabel">
-            <i class="fa-solid fa-brain text-info"></i> 🤖 AI Engine &amp; Sriram Persona Calibration
-          </h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body p-4">
-          <div class="alert alert-info py-2 small mb-3">
-            <i class="fa-solid fa-info-circle me-1"></i>
-            <strong>Context-Adaptive Persona:</strong> The AI adapts naturally to the post type (Macro, NPA, Regulatory, MFI, Co-Lending, or LOS Tech) without forcing product plugs where they don't belong.
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label fw-bold">Select AI Provider</label>
-            <select class="form-select" id="llmProviderSelect" onchange="toggleLlmFields()">
-              <option value="gemini">Google Gemini (Gemini 1.5 Pro / Flash) [Recommended]</option>
-              <option value="groq">Groq (Llama 3.3 70B - Ultra Fast) [Free]</option>
-              <option value="openai">OpenAI (GPT-4o-mini)</option>
-              <option value="deep_contextual">Smart Context-Adaptive Engine (Built-in / Offline)</option>
-            </select>
-          </div>
-
-          <div class="mb-3" id="apiKeyFieldGroup">
-            <label class="form-label fw-bold d-flex justify-content-between">
-              <span>API Key (<span id="activeKeyLabel">Gemini API Key</span>)</span>
-              <small class="text-muted"><a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-decoration-none" id="getKeyHelpLink">Get free Gemini API Key ↗</a></small>
-            </label>
-            <div class="input-group">
-              <input type="password" class="form-control font-monospace" id="llmApiKeyInput" placeholder="Paste your API key here...">
-              <button class="btn btn-outline-secondary" type="button" onclick="toggleKeyVisibility()">
-                <i class="fa-solid fa-eye" id="eyeIcon"></i>
-              </button>
-              <button class="btn btn-primary px-3 fw-bold" type="button" id="btnTestLlm" onclick="testLlmConnection()">
-                <i class="fa-solid fa-bolt me-1"></i> Test Connection
-              </button>
-            </div>
-            <div id="llmTestResult" class="mt-2 small"></div>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label fw-bold">Persona Speaking Philosophy</label>
-            <textarea class="form-control small font-monospace" id="modalPhilosophy" rows="2">Technology should empower lenders—not replace their judgment. Modern lending platforms must provide configurable workflows, intelligent automation, and decision support while ensuring lending decisions remain governed by each institution's own credit policies, risk appetite, and compliance obligations.</textarea>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label fw-bold">Contextual Tone Guidelines &amp; Anti-Spam Rules</label>
-            <textarea class="form-control small font-monospace" id="modalToneRules" rows="6">CRITICAL: Do NOT force product plugs or mention 'LOS' / 'Loan Origination System' on every post! Tailor your comment strictly to the post's nature:
-- If Macro / Rates / Liquidity: Speak on NIM, Cost of Funds, CD Ratio, and ALM.
-- If NPA / Asset Quality: Speak on provisioning, early delinquency (SMA-0/1/2), and debt recovery (SARFAESI/IBC).
-- If Regulatory / RBI: Speak on compliance agility, transparency (KFS), and risk governance.
-- If Co-Lending: Speak on FLDG caps, risk-sharing economics, and underwriting alignment.
-- If Leadership / Appointments: Offer executive congratulations and strategic transformation insights.
-- If Lending Tech (when explicitly relevant): Speak on workflow orchestration, rule engines (BRE), and STP.</textarea>
-          </div>
-        </div>
-        <div class="modal-footer bg-light">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-success fw-bold px-4" onclick="saveLlmSettingsFromModal()">
-            <i class="fa-solid fa-check me-1"></i> Save &amp; Apply
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
 </body>
 </html>
