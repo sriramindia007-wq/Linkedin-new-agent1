@@ -414,8 +414,14 @@ async function fetchAllExternalNews() {
       for (const item of items) {
         if (currentNews.some(n => n.article_url === item.link || n.headline === item.title)) continue;
 
-        // Generate Sriram Ganesan Bespoke Authority Repost Takes
-        const takes = await generateMarketNewsTakes(item.title, item.topic, item.publisher);
+        // Deep Content Synthesis: Reads full article content before synthesizing takes
+        let takes;
+        try {
+          const { synthesizeNewsArticleTakes } = require("./deepContentSynthesisAgent");
+          takes = await synthesizeNewsArticleTakes(item.link, item.title, item.topic, item.publisher);
+        } catch (synthErr) {
+          takes = await generateMarketNewsTakes(item.title, item.topic, item.publisher);
+        }
 
         const articleId = 'news_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6);
         const articleObj = {

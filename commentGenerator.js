@@ -400,13 +400,18 @@ async function generateCommentsForPost(postText, authorName, sourceCategory, cus
     }
   }
 
-  // Instant seamless fallback to Context-Adaptive Persona Engine
-  const rawFallback = generateDeepSemanticComments(postText, authorName, sourceCategory, customGuidance);
-  return {
-    value_add: sanitizeAiSlop(rawFallback.value_add),
-    provocative_question: sanitizeAiSlop(rawFallback.provocative_question),
-    executive_perspective: sanitizeAiSlop(rawFallback.executive_perspective)
-  };
+  // Instant seamless synthesis via Deep Content Synthesis Agent
+  try {
+    const { synthesizePostCommentary } = require("./deepContentSynthesisAgent");
+    return await synthesizePostCommentary(postText, authorName, sourceCategory, customGuidance);
+  } catch (agentErr) {
+    const rawFallback = generateDeepSemanticComments(postText, authorName, sourceCategory, customGuidance);
+    return {
+      value_add: sanitizeAiSlop(rawFallback.value_add),
+      provocative_question: sanitizeAiSlop(rawFallback.provocative_question),
+      executive_perspective: sanitizeAiSlop(rawFallback.executive_perspective)
+    };
+  }
 }
 
 module.exports = {
