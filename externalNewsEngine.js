@@ -105,26 +105,56 @@ function parseGoogleRss(xml, streamTopic) {
 function loadMarketNews() {
   try {
     const file = getNewsFilePath();
+    let list = [];
     if (fs.existsSync(file)) {
-      return JSON.parse(fs.readFileSync(file, 'utf-8'));
+      list = JSON.parse(fs.readFileSync(file, 'utf-8'));
     }
-  } catch (e) {}
-  return [];
+    if (!Array.isArray(list)) list = [];
+
+    // Apply immutable persisted actions
+    try {
+      const { loadPersistedActions, normalizeKey, cleanUrl } = require("./db");
+      const actions = loadPersistedActions ? loadPersistedActions() : null;
+      if (actions) {
+        list.forEach(n => {
+          const rawUrl = n.article_url || n.link || "";
+          const cleanedUrl = cleanUrl ? cleanUrl(rawUrl) : "";
+          const textKey = normalizeKey ? normalizeKey(n.headline || n.title || "") : "";
+
+          const act = actions.by_id[n.id] || 
+                      (rawUrl ? actions.by_url[rawUrl] : null) || 
+                      (cleanedUrl ? actions.by_url[cleanedUrl] : null) || 
+                      (textKey ? actions.by_text_key[textKey] : null);
+
+          if (act) {
+            Object.assign(n, act);
+          }
+        });
+      }
+    } catch (e) {}
+
+    return list;
+  } catch (e) {
+    return [];
+  }
 }
 
 function saveMarketNews(newsList) {
   try {
-    const file = getNewsFilePath();
-    const dir = path.dirname(file);
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(file, JSON.stringify(newsList, null, 2), 'utf-8');
-    
-    const mirror = path.join(__dirname, 'data', 'market_news.json');
-    if (file !== mirror) {
-      const mDir = path.dirname(mirror);
-      if (!fs.existsSync(mDir)) fs.mkdirSync(mDir, { recursive: true });
-      fs.writeFileSync(mirror, JSON.stringify(newsList, null, 2), 'utf-8');
-    }
+    const locations = [
+      getNewsFilePath(),
+      path.join(__dirname, 'data', 'market_news.json'),
+      path.join(__dirname, 'market_news.json'),
+      path.join(__dirname, 'src_node', 'data', 'market_news.json'),
+      path.join(__dirname, 'src_node', 'market_news.json')
+    ];
+    locations.forEach(loc => {
+      try {
+        const dir = path.dirname(loc);
+        if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+        fs.writeFileSync(loc, JSON.stringify(newsList, null, 2), 'utf-8');
+      } catch (e) {}
+    });
   } catch (e) {
     console.error('Error saving market news:', e.message);
   }

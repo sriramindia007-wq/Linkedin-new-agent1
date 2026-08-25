@@ -528,6 +528,11 @@ How is your team currently handling data reconciliation when telemetry streams s
           item.reposted_at = new Date().toISOString();
           item.repost_text = repostText;
           saveMarketNews(news);
+
+          const { recordPersistedAction } = safeRequire("db") || {};
+          if (recordPersistedAction) {
+            recordPersistedAction(item, { status: "POSTED", reposted_at: item.reposted_at, repost_text: repostText });
+          }
         }
         const { markPostAsManuallyPosted } = safeRequire("db");
         if (markPostAsManuallyPosted) {
@@ -554,7 +559,10 @@ How is your team currently handling data reconciliation when telemetry streams s
       item.repost_text = repostText;
       saveMarketNews(news);
 
-      const { markPostAsManuallyPosted } = safeRequire("db");
+      const { markPostAsManuallyPosted, recordPersistedAction } = safeRequire("db") || {};
+      if (recordPersistedAction) {
+        recordPersistedAction(item, { status: "POSTED", reposted_at: item.reposted_at, repost_text: repostText });
+      }
       if (markPostAsManuallyPosted) {
         markPostAsManuallyPosted(articleId, repostText, `Authority Repost (${item.publisher || 'Media'})`);
       }

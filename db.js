@@ -60,24 +60,38 @@ function savePersistedActions(actions) {
   }
 }
 
+function cleanUrl(rawUrl) {
+  if (!rawUrl) return "";
+  try {
+    const u = new URL(rawUrl);
+    return `${u.origin}${u.pathname}`.toLowerCase();
+  } catch (e) {
+    return rawUrl.split("?")[0].toLowerCase();
+  }
+}
+
 function recordPersistedAction(post, updates = {}) {
   if (!post) return;
   const actions = loadPersistedActions();
   const id = post.id;
-  const url = post.post_url;
-  const textKey = normalizeKey(post.post_text);
+  const rawUrl = post.post_url || post.article_url || post.link || "";
+  const cleanedUrl = cleanUrl(rawUrl);
+  const textKey = normalizeKey(post.post_text || post.headline || post.title || "");
 
   const payload = {
     ...updates,
+    headline: post.headline || post.title || undefined,
+    author: post.author_name || post.publisher || undefined,
     updated_at: new Date().toISOString()
   };
 
   if (id) actions.by_id[id] = { ...(actions.by_id[id] || {}), ...payload };
-  if (url) actions.by_url[url] = { ...(actions.by_url[url] || {}), ...payload };
+  if (rawUrl) actions.by_url[rawUrl] = { ...(actions.by_url[rawUrl] || {}), ...payload };
+  if (cleanedUrl && cleanedUrl !== rawUrl) actions.by_url[cleanedUrl] = { ...(actions.by_url[cleanedUrl] || {}), ...payload };
   if (textKey) actions.by_text_key[textKey] = { ...(actions.by_text_key[textKey] || {}), ...payload };
 
   savePersistedActions(actions);
-  console.log(`🛡️ [State Guardian] Permanently locked action for "${post.author_name || id}": ${JSON.stringify(updates)}`);
+  console.log(`🛡️ [State Guardian] Permanently locked action for "${post.author_name || post.headline || post.title || id}": ${JSON.stringify(updates)}`);
 }
 
 function loadRejectedSet() {
@@ -90,21 +104,34 @@ function saveRejectedItem(urlOrKey) {
   if (!urlOrKey) return;
   const set = loadRejectedSet();
   set.add(urlOrKey);
+  const cleaned = cleanUrl(urlOrKey);
+  if (cleaned && cleaned !== urlOrKey) set.add(cleaned);
+
+  const arr = Array.from(set);
   try {
-    fs.writeFileSync(REJECTED_FILE, JSON.stringify(Array.from(set), null, 2), "utf-8");
+    fs.writeFileSync(REJECTED_FILE, JSON.stringify(arr, null, 2), "utf-8");
+    const alt = path.join(__dirname, "data", "rejected_posts.json");
+    if (fs.existsSync(path.dirname(alt))) {
+      try { fs.writeFileSync(alt, JSON.stringify(arr, null, 2), "utf-8"); } catch (e) {}
+    }
   } catch (e) {}
 }
 
 function isPostBlacklisted(postUrl = "", postText = "") {
   const set = loadRejectedSet();
-  if (postUrl && set.has(postUrl)) return true;
+  const rawUrl = postUrl || "";
+  const cleaned = cleanUrl(rawUrl);
   const textKey = normalizeKey(postText);
+
+  if (rawUrl && set.has(rawUrl)) return true;
+  if (cleaned && set.has(cleaned)) return true;
   if (textKey && set.has(textKey)) return true;
 
-  // Check persisted actions for REJECTED
+  // Check persisted actions for REJECTED or POSTED
   const actions = loadPersistedActions();
-  if (postUrl && actions.by_url[postUrl]?.status === "REJECTED") return true;
-  if (textKey && actions.by_text_key[textKey]?.status === "REJECTED") return true;
+  if (rawUrl && (actions.by_url[rawUrl]?.status === "REJECTED" || actions.by_url[rawUrl]?.status === "POSTED")) return true;
+  if (cleaned && (actions.by_url[cleaned]?.status === "REJECTED" || actions.by_url[cleaned]?.status === "POSTED")) return true;
+  if (textKey && (actions.by_text_key[textKey]?.status === "REJECTED" || actions.by_text_key[textKey]?.status === "POSTED")) return true;
 
   return false;
 }
@@ -526,6 +553,11 @@ module.exports = {
   loadPersona,
   savePersona,
   isPostBlacklisted,
+  saveRejectedItem,
+  loadRejectedSet,
+  normalizeKey,
+  cleanUrl,
+  loadPersistedActions,
   isOlderThan3Days,
   isGovernancePost,
   isCompetitorPost,
