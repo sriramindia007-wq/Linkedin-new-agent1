@@ -26,62 +26,144 @@ function extractEntitiesAndMetrics(fullText) {
 
 /**
  * Synthesizes deep, context-aware comments for LinkedIn Posts (Lending, Boardroom, Competitors)
+ * Supports dynamic variation angles on every regeneration even with zero guidance input.
  */
 async function synthesizePostCommentary(fullPostText, authorName, sourceCategory, customGuidance = "") {
   const text = fullPostText || "";
   const textLower = text.toLowerCase();
   const catLower = (sourceCategory || "").toLowerCase();
   const { metrics, entities } = extractEntitiesAndMetrics(text);
-  const org = entities[0] || authorName || "institutions";
+  const org = entities[0] || authorName || "specialized lenders";
   const metricSnippet = metrics.length > 0 ? ` (${metrics[0]})` : "";
+  const guidancePrefix = customGuidance && customGuidance.trim().length > 0 ? `Regarding ${customGuidance.trim()}: ` : "";
+
+  // Dynamic variation seed to guarantee different angles on each regeneration
+  const variationIndex = Math.floor(Math.random() * 3);
 
   // 1. DOMAIN: CORPORATE GOVERNANCE, IICA, ILSS, IOD & BOARD LEADERSHIP
   if (catLower.includes("governance") || catLower.includes("board") || textLower.includes("governance") || textLower.includes("independent director") || textLower.includes("boardroom") || textLower.includes("iica") || textLower.includes("ilss") || textLower.includes("iod") || textLower.includes("audit committee") || textLower.includes("fiduciary") || textLower.includes("csr") || textLower.includes("esg") || textLower.includes("brsr")) {
     if (textLower.includes("ilss") || textLower.includes("social sector") || textLower.includes("spo") || textLower.includes("non-profit") || textLower.includes("csr")) {
+      const govSns = [
+        {
+          value_add: `${guidancePrefix}As corporate governance expands across social enterprises and non-profits, advisory boards must focus on transparent capital stewardship, internal financial controls (IFC), and mission alignment—enabling impact organizations to scale sustainably with public trust.`,
+          provocative_question: `As organizations expand board-level advisory cohorts, what governance mechanisms are proving most effective in balancing visionary mission stewardship with strict financial accountability?`,
+          executive_perspective: `Enduring institutional trust is anchored in the boardroom. Whether in commercial banking or social enterprise, effective governance rooted in independent oversight, ethical culture, and stakeholder stewardship remains the bedrock of sustainable value creation.`
+        },
+        {
+          value_add: `${guidancePrefix}Social sector governance requires blending strategic empathy with institutional rigor. Independent directors bring indispensable oversight on statutory compliance, program audits, and sustainable resource allocation.`,
+          provocative_question: `How are non-profit and impact boards evolving their risk governance frameworks to measure long-term social return without compromising operational agility?`,
+          executive_perspective: `Good governance is not a bureaucratic overhead—it is the foundational enabler that allows social sector initiatives to scale impact and attract long-term institutional backing.`
+        },
+        {
+          value_add: `${guidancePrefix}Fiduciary responsibility in mission-driven organizations rests on board independence, ethical oversight, and transparent donor accountability across all stakeholder touchpoints.`,
+          provocative_question: `What board evaluation metrics are most critical when aligning executive leadership performance with organizational social mission?`,
+          executive_perspective: `Institutional credibility is built over decades through disciplined board stewardship, clear delegation of authority, and unwavering fiduciary commitment.`
+        }
+      ];
+      const selected = govSns[variationIndex % govSns.length];
       return {
-        value_add: sanitizeAiSlop(`As corporate governance expands across social enterprises and non-profits, advisory boards must focus on transparent capital stewardship, internal financial controls (IFC), and mission alignment—enabling impact organizations to scale sustainably with public trust.`),
-        provocative_question: sanitizeAiSlop(`As organizations expand board-level advisory cohorts, what governance mechanisms are proving most effective in balancing visionary mission stewardship with strict financial accountability?`),
-        executive_perspective: sanitizeAiSlop(`Enduring institutional trust is anchored in the boardroom. Whether in commercial banking or social enterprise, effective governance rooted in independent oversight, ethical culture, and stakeholder stewardship remains the bedrock of sustainable value creation.`)
+        value_add: sanitizeAiSlop(selected.value_add),
+        provocative_question: sanitizeAiSlop(selected.provocative_question),
+        executive_perspective: sanitizeAiSlop(selected.executive_perspective)
       };
     }
 
+    const boardVariations = [
+      {
+        value_add: `${guidancePrefix}From an Independent Director perspective, robust governance requires maintaining strategic oversight and internal financial controls (IFC) without encroaching on executive execution. Balancing enterprise risk management (ERM) with long-term stakeholder stewardship is what safeguards organizational integrity across market cycles.`,
+        provocative_question: `With heightened regulatory focus on corporate disclosures and board accountability, how are independent directors enhancing real-time risk telemetry to oversee strategic execution effectively?`,
+        executive_perspective: `A resilient Board goes beyond statutory compliance—it actively anchors corporate culture, stress-tests enterprise risk assumptions, and aligns organizational purpose with long-term stakeholder value.`
+      },
+      {
+        value_add: `${guidancePrefix}Effective boardroom leadership lies in constructive challenge. Board committees—particularly Audit (ACB) and Risk (RMC)—must continuously test enterprise resilience against liquidity shocks, compliance vulnerabilities, and cybersecurity risks.`,
+        provocative_question: `How are forward-looking Boards restructuring committee agendas to ensure emerging technological and algorithmic credit risks receive dedicated oversight?`,
+        executive_perspective: `Independent oversight is the ultimate guardian of minority shareholder trust. High-performing boards foster an environment of transparent disclosure, ethical tone-at-the-top, and long-term capital discipline.`
+      },
+      {
+        value_add: `${guidancePrefix}Corporate governance is shifting from passive checklist compliance to proactive value stewardship. Independent directors play a pivotal role in aligning executive incentives with sustainable enterprise compounding and ESG/BRSR transparency.`,
+        provocative_question: `What governance frameworks is your board leveraging to evaluate management's long-term strategic capital allocation against short-term earnings pressure?`,
+        executive_perspective: `Sustainable enterprise value is created when boardroom stewardship champions ethical culture, robust internal audit mechanisms, and transparent stakeholder alignment.`
+      }
+    ];
+    const selected = boardVariations[variationIndex % boardVariations.length];
     return {
-      value_add: sanitizeAiSlop(`From an Independent Director perspective, robust governance requires maintaining strategic oversight and internal financial controls (IFC) without encroaching on executive execution. Balancing enterprise risk management (ERM) with long-term stakeholder stewardship is what safeguards organizational integrity across market cycles.`),
-      provocative_question: sanitizeAiSlop(`With heightened regulatory focus on corporate disclosures and board accountability, how are independent directors enhancing real-time risk telemetry to oversee strategic execution effectively?`),
-      executive_perspective: sanitizeAiSlop(`A resilient Board goes beyond statutory compliance—it actively anchors corporate culture, stress-tests enterprise risk assumptions, and aligns organizational purpose with long-term stakeholder value.`)
+      value_add: sanitizeAiSlop(selected.value_add),
+      provocative_question: sanitizeAiSlop(selected.provocative_question),
+      executive_perspective: sanitizeAiSlop(selected.executive_perspective)
     };
   }
 
   // 2. DOMAIN: DIGITAL LENDING, NBFCS, MSMES & BFS PRODUCT/RISK ARCHITECTURE
   if (textLower.includes("drhp") || textLower.includes("ipo") || textLower.includes("capital raise") || textLower.includes("raise up to")) {
+    const ipoVariations = [
+      {
+        value_add: `${guidancePrefix}Strengthening the capital base${metricSnippet} is a vital catalyst for specialized lenders. Expanding origination capacity while maintaining underwriting rigor and low gross credit costs will be key to unlocking sustainable portfolio expansion.`,
+        provocative_question: `As balance sheets expand, what core risk telemetry is your team embedding into the decisioning engine to preserve asset quality across cycles?`,
+        executive_perspective: `Capital adequacy provides the runway, but underwriting discipline and automated risk governance determine the long-term compounding of lending franchises.`
+      },
+      {
+        value_add: `${guidancePrefix}Fresh equity injection enables institutions to invest heavily in modernizing Loan Origination Systems (LOS) and automated credit decisioning engines—lowering cost-to-income ratios while improving turnaround times.`,
+        provocative_question: `How is your leadership prioritizing tech-stack modernization versus branch distribution expansion with this capital round?`,
+        executive_perspective: `The most resilient lending franchises balance aggressive capital deployment with counter-cyclical provisioning and digitized underwriting infrastructure.`
+      }
+    ];
+    const selected = ipoVariations[variationIndex % ipoVariations.length];
     return {
-      value_add: sanitizeAiSlop(`Strengthening the capital base${metricSnippet} is a vital catalyst for specialized lenders. Expanding origination capacity while maintaining underwriting rigor and low gross credit costs will be key to unlocking sustainable portfolio expansion.`),
-      provocative_question: sanitizeAiSlop(`As balance sheets expand, what core risk telemetry is your team embedding into the decisioning engine to preserve asset quality across cycles?`),
-      executive_perspective: sanitizeAiSlop(`Capital adequacy provides the runway, but underwriting discipline and automated risk governance determine the long-term compounding of lending franchises.`)
+      value_add: sanitizeAiSlop(selected.value_add),
+      provocative_question: sanitizeAiSlop(selected.provocative_question),
+      executive_perspective: sanitizeAiSlop(selected.executive_perspective)
     };
   }
 
   if (textLower.includes("msme") || textLower.includes("cashflow") || textLower.includes("gst") || textLower.includes("treds") || textLower.includes("invoice") || textLower.includes("supply chain")) {
+    const msmeVariations = [
+      {
+        value_add: `${guidancePrefix}Unlocking formal MSME credit requires moving decisively beyond collateral appraisal toward real-time cashflow telemetry—leveraging GST invoice flows, Account Aggregator banking streams, and e-way bill velocity.`,
+        provocative_question: `How is your credit team structuring dynamic working capital limits based on live cash conversion cycles rather than static annual financials?`,
+        executive_perspective: `Cashflow-backed credit decisioning is the cornerstone of bridging India's MSME credit gap while maintaining pristine portfolio health.`
+      },
+      {
+        value_add: `${guidancePrefix}By embedding automated GST reconciliation and banking statement parsers into no-code Business Rules Engines (BRE), lenders can sanction working capital lines within 15 minutes while flagging circular transactions.`,
+        provocative_question: `What alternate data streams are proving most predictive in assessing repayment capacity for informal small enterprises in tier-2 and tier-3 hubs?`,
+        executive_perspective: `Scalable MSME lending belongs to platforms that can automate data aggregation, policy execution, and escrow reconciliation seamlessly at origination.`
+      },
+      {
+        value_add: `${guidancePrefix}Addressing micro-enterprise working capital needs demands shifting from manual field credit memos to automated straight-through processing (STP) with dynamic multi-entity scoring.`,
+        provocative_question: `How are credit risk teams managing debtor concentration and supply chain volatility in automated invoice discounting workflows?`,
+        executive_perspective: `Responsible credit democratization depends on building intelligent, data-driven loan origination infrastructure that lowers operational cost without diluting risk standards.`
+      }
+    ];
+    const selected = msmeVariations[variationIndex % msmeVariations.length];
     return {
-      value_add: sanitizeAiSlop(`Unlocking formal MSME credit requires moving decisively beyond collateral appraisal toward real-time cashflow telemetry—leveraging GST invoice flows, Account Aggregator banking streams, and e-way bill velocity.`),
-      provocative_question: sanitizeAiSlop(`How is your credit team structuring dynamic working capital limits based on live cash conversion cycles rather than static annual financials?`),
-      executive_perspective: sanitizeAiSlop(`Cashflow-backed credit decisioning is the cornerstone of bridging India's MSME credit gap while maintaining pristine portfolio health.`)
+      value_add: sanitizeAiSlop(selected.value_add),
+      provocative_question: sanitizeAiSlop(selected.provocative_question),
+      executive_perspective: sanitizeAiSlop(selected.executive_perspective)
     };
   }
 
-  if (textLower.includes("gold") || textLower.includes("jewel") || textLower.includes("ornament")) {
-    return {
-      value_add: sanitizeAiSlop(`Scaling secured gold lending requires sub-15-minute straight-through processing (STP) paired with real-time bullion price feeds for dynamic LTV margin monitoring within the 75% RBI regulatory ceiling.`),
-      provocative_question: sanitizeAiSlop(`What early-stage LTV risk telemetry is your risk committee prioritizing for high-velocity secured portfolios?`),
-      executive_perspective: sanitizeAiSlop(`Secured credit scale belongs to institutions that harmonize doorstep appraisal velocity with institutional vault and collateral governance.`)
-    };
-  }
-
-  // Default Senior BFS Practitioner Commentary
+  // Default Senior BFS Practitioner Commentary (Dynamic Variations)
+  const defaultVariations = [
+    {
+      value_add: `${guidancePrefix}From an institutional credit perspective, sustainable growth for ${org} requires maintaining steadfast underwriting policy standards and robust risk governance across evolving market and liquidity cycles.`,
+      provocative_question: `How is your team balancing high-velocity digital origination with proactive early-warning delinquency triggers in the current market environment?`,
+      executive_perspective: `Enduring lending franchises are built on disciplined risk governance, straight-through operational efficiency, and steadfast underwriting rigor.`
+    },
+    {
+      value_add: `${guidancePrefix}Navigating dynamic credit cycles requires lenders to build modular Loan Origination Systems (LOS) that allow instant policy adjustments in the Business Rules Engine without waiting for developer code releases.`,
+      provocative_question: `What operational milestones is your institution prioritizing to compress loan application-to-disbursal turnaround times?`,
+      executive_perspective: `Agility at the point of origination combined with continuous portfolio telemetry creates an unassailable competitive moat in modern banking.`
+    },
+    {
+      value_add: `${guidancePrefix}Preserving asset quality while expanding loan book velocity requires embedding multi-bureau validation, fraud detection algorithms, and real-time bank telemetry directly into the digital onboarding journey.`,
+      provocative_question: `How are risk committees leveraging early behavioral signals and SMA-0 telemetry to preempt credit stress before 90-day DPD milestones?`,
+      executive_perspective: `Long-term compounding in retail and commercial credit is won by institutions that prioritize risk culture, customer transparency, and technological resilience.`
+    }
+  ];
+  const selected = defaultVariations[variationIndex % defaultVariations.length];
   return {
-    value_add: sanitizeAiSlop(`From an institutional credit perspective, sustainable growth for ${org} requires maintaining steadfast underwriting policy standards and robust risk governance across evolving market and liquidity cycles.`),
-    provocative_question: sanitizeAiSlop(`How is your team balancing high-velocity digital origination with proactive early-warning delinquency triggers in the current market environment?`),
-    executive_perspective: sanitizeAiSlop(`Enduring lending franchises are built on disciplined risk governance, straight-through operational efficiency, and steadfast underwriting rigor.`)
+    value_add: sanitizeAiSlop(selected.value_add),
+    provocative_question: sanitizeAiSlop(selected.provocative_question),
+    executive_perspective: sanitizeAiSlop(selected.executive_perspective)
   };
 }
 

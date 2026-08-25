@@ -428,6 +428,15 @@ function getStats() {
     }
   }
 
+  let newsCount = 0;
+  try {
+    const marketNewsFile = path.join(__dirname, "data", "market_news.json");
+    if (fs.existsSync(marketNewsFile)) {
+      const rawNews = JSON.parse(fs.readFileSync(marketNewsFile, "utf-8"));
+      newsCount = Array.isArray(rawNews) ? rawNews.filter(n => n.status !== "POSTED" && n.status !== "REJECTED").length : 0;
+    }
+  } catch (e) {}
+
   return {
     pending: pendingLending,
     governance_count: pendingGov,
@@ -436,6 +445,7 @@ function getStats() {
     posted: postedCount,
     rejected: rejectedCount,
     sources_count: sources.length,
+    news_count: newsCount,
     total: posts.length,
     last_scrape: posts.length > 0 ? posts[0].scraped_at : new Date().toISOString()
   };

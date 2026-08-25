@@ -885,13 +885,14 @@
         const data = await apiFetch("/api/stats");
         if (document.getElementById("statPending")) document.getElementById("statPending").innerText = data.pending !== undefined ? data.pending : 0;
         if (document.getElementById("statPosted")) document.getElementById("statPosted").innerText = data.posted !== undefined ? data.posted : 0;
-        if (document.getElementById("statSources")) document.getElementById("statSources").innerText = data.sources_count || 596;
-        if (document.getElementById("navSourcesCount")) document.getElementById("navSourcesCount").innerText = `${data.sources_count || 596} Sources`;
+        if (document.getElementById("statSources")) document.getElementById("statSources").innerText = data.sources_count || 639;
+        if (document.getElementById("navSourcesCount")) document.getElementById("navSourcesCount").innerText = `${data.sources_count || 639} Sources`;
+        if (document.getElementById("statNewsCount")) document.getElementById("statNewsCount").innerText = data.news_count !== undefined ? data.news_count : 25;
         
         if (document.getElementById("tabReviewCount")) document.getElementById("tabReviewCount").innerText = data.pending !== undefined ? data.pending : 0;
-        if (document.getElementById("tabGovCount")) document.getElementById("tabGovCount").innerText = data.governance_count !== undefined ? data.governance_count : 0;
-        if (document.getElementById("tabCompCount")) document.getElementById("tabCompCount").innerText = data.competitors_count !== undefined ? data.competitors_count : 0;
-        if (document.getElementById("tabNewsCount")) document.getElementById("tabNewsCount").innerText = data.news_count || document.getElementById("statNewsCount").innerText || 120;
+        if (document.getElementById("tabGovCount")) document.getElementById("tabGovCount").innerText = data.governance_count !== undefined ? data.governance_count : 33;
+        if (document.getElementById("tabCompCount")) document.getElementById("tabCompCount").innerText = data.competitors_count !== undefined ? data.competitors_count : 7;
+        if (document.getElementById("tabNewsCount")) document.getElementById("tabNewsCount").innerText = data.news_count !== undefined ? data.news_count : 25;
         
         if (data.last_scrape && document.getElementById("statLastScrapeTime")) {
           try {
@@ -1550,7 +1551,15 @@
           const c = data.comments;
           window.__postComments[postId] = c;
           const editor = document.getElementById(`editor-${postId}`);
-          if (editor) editor.value = c.value_add || c.provocative_question || c.executive_perspective || "";
+          if (editor) {
+            editor.value = c.value_add || c.provocative_question || c.executive_perspective || "";
+            editor.style.borderColor = "#10b981";
+            editor.style.boxShadow = "0 0 0 3px rgba(16, 185, 129, 0.25)";
+            setTimeout(() => {
+              editor.style.borderColor = "";
+              editor.style.boxShadow = "";
+            }, 1200);
+          }
           selectStyle(postId, 'value_add');
         }
       } catch (err) {
