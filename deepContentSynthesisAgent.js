@@ -24,11 +24,14 @@ function extractEntitiesAndMetrics(fullText) {
   };
 }
 
+// In-memory cycle registry to strictly guarantee alternating distinct variations on every regeneration click
+const postCycleRegistry = {};
+
 /**
  * Synthesizes deep, context-aware comments for LinkedIn Posts (Lending, Boardroom, Competitors)
  * Supports dynamic variation angles on every regeneration even with zero guidance input.
  */
-async function synthesizePostCommentary(fullPostText, authorName, sourceCategory, customGuidance = "") {
+async function synthesizePostCommentary(fullPostText, authorName, sourceCategory, customGuidance = "", postId = "") {
   const text = fullPostText || "";
   const textLower = text.toLowerCase();
   const catLower = (sourceCategory || "").toLowerCase();
@@ -37,8 +40,10 @@ async function synthesizePostCommentary(fullPostText, authorName, sourceCategory
   const metricSnippet = metrics.length > 0 ? ` (${metrics[0]})` : "";
   const guidancePrefix = customGuidance && customGuidance.trim().length > 0 ? `Regarding ${customGuidance.trim()}: ` : "";
 
-  // Dynamic variation seed to guarantee different angles on each regeneration
-  const variationIndex = Math.floor(Math.random() * 3);
+  // Guaranteed strictly alternating variation index on every click
+  const cycleKey = postId || `${authorName}_${sourceCategory}`;
+  postCycleRegistry[cycleKey] = (postCycleRegistry[cycleKey] || 0) + 1;
+  const variationIndex = postCycleRegistry[cycleKey];
 
   // 1. DOMAIN: CORPORATE GOVERNANCE, IICA, ILSS, IOD & BOARD LEADERSHIP
   if (catLower.includes("governance") || catLower.includes("board") || textLower.includes("governance") || textLower.includes("independent director") || textLower.includes("boardroom") || textLower.includes("iica") || textLower.includes("ilss") || textLower.includes("iod") || textLower.includes("audit committee") || textLower.includes("fiduciary") || textLower.includes("csr") || textLower.includes("esg") || textLower.includes("brsr")) {

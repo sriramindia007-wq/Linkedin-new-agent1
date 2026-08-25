@@ -357,7 +357,7 @@ function generateDeepSemanticComments(postText, authorName, sourceCategory, cust
 /**
  * Main Exported Comment Generator Function (Multi-Provider LLM Agent)
  */
-async function generateCommentsForPost(postText, authorName, sourceCategory, customGuidance = "") {
+async function generateCommentsForPost(postText, authorName, sourceCategory, customGuidance = "", postId = "") {
   const persona = loadPersona();
   const provider = persona.llm_provider || "gemini";
   const geminiKey = persona.gemini_api_key || process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
@@ -400,10 +400,10 @@ async function generateCommentsForPost(postText, authorName, sourceCategory, cus
     }
   }
 
-  // Instant seamless synthesis via Deep Content Synthesis Agent
+  // Instant seamless synthesis via Deep Content Synthesis Agent with strictly cycling variations
   try {
     const { synthesizePostCommentary } = require("./deepContentSynthesisAgent");
-    return await synthesizePostCommentary(postText, authorName, sourceCategory, customGuidance);
+    return await synthesizePostCommentary(postText, authorName, sourceCategory, customGuidance, postId);
   } catch (agentErr) {
     const rawFallback = generateDeepSemanticComments(postText, authorName, sourceCategory, customGuidance);
     return {

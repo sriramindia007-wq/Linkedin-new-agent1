@@ -622,7 +622,7 @@ How is your team currently handling data reconciliation when telemetry streams s
       }
 
       const { generateCommentsForPost } = safeRequire("commentGenerator");
-      const newComments = await generateCommentsForPost(post.post_text, post.author_name, post.source_category, customGuidance || "");
+      const newComments = await generateCommentsForPost(post.post_text, post.author_name, post.source_category, customGuidance || "", postId);
       const updatedPost = updatePostComments(postId, newComments);
       return sendJSON(res, { success: true, post: updatedPost, comments: newComments });
     } catch (err) {
