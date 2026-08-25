@@ -437,6 +437,15 @@ function getStats() {
     }
   } catch (e) {}
 
+  let scheduledCount = 0;
+  try {
+    const schedFile = path.join(__dirname, "data", "scheduled_posts.json");
+    if (fs.existsSync(schedFile)) {
+      const rawSched = JSON.parse(fs.readFileSync(schedFile, "utf-8"));
+      scheduledCount = Array.isArray(rawSched) ? rawSched.filter(s => s.status === "SCHEDULED").length : 0;
+    }
+  } catch (e) {}
+
   return {
     pending: pendingLending,
     governance_count: pendingGov,
@@ -446,6 +455,7 @@ function getStats() {
     rejected: rejectedCount,
     sources_count: sources.length,
     news_count: newsCount,
+    scheduled_count: scheduledCount,
     total: posts.length,
     last_scrape: posts.length > 0 ? posts[0].scraped_at : new Date().toISOString()
   };

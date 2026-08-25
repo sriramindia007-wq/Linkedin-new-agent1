@@ -611,6 +611,37 @@ How is your team currently handling data reconciliation when telemetry streams s
     return sendJSON(res, { success: true, message: "Moved to Competitor Radar!", post });
   }
 
+  // --- POST SCHEDULER ENDPOINTS ---
+  if (pathname === "/api/scheduled-posts" && method === "GET") {
+    const { loadScheduledPosts } = safeRequire("schedulerEngine") || {};
+    const list = loadScheduledPosts ? loadScheduledPosts() : [];
+    return sendJSON(res, list);
+  }
+
+  if (pathname === "/api/schedule-post" && method === "POST") {
+    try {
+      const body = await parseBody(req);
+      const { schedulePost } = safeRequire("schedulerEngine");
+      if (!schedulePost) return sendJSON(res, { success: false, error: "Scheduler engine not loaded" }, 500);
+      const item = schedulePost(body);
+      return sendJSON(res, { success: true, message: "Post scheduled successfully!", item });
+    } catch (e) {
+      return sendJSON(res, { success: false, error: e.message }, 400);
+    }
+  }
+
+  if (pathname === "/api/cancel-scheduled-post" && method === "POST") {
+    try {
+      const body = await parseBody(req);
+      const { cancelScheduledPost } = safeRequire("schedulerEngine");
+      if (!cancelScheduledPost) return sendJSON(res, { success: false, error: "Scheduler engine not loaded" }, 500);
+      const success = cancelScheduledPost(body.scheduleId);
+      return sendJSON(res, { success, message: success ? "Scheduled post cancelled" : "Item not found" });
+    } catch (e) {
+      return sendJSON(res, { success: false, error: e.message }, 500);
+    }
+  }
+
   if (pathname === "/api/ml-learning-stats" && method === "GET") {
     const { loadMemory } = safeRequire("mlPreferenceEngine");
     const memory = loadMemory ? loadMemory() : {};
@@ -945,5 +976,13 @@ server.listen(PORT, "0.0.0.0", () => {
   console.log("💼 LinkedIn Lending Intelligence Agent (Async Scraper Active)");
   console.log(`🌐 Dashboard running at: http://0.0.0.0:${PORT}`);
   console.log("⏰ Daily Automated Scrapes Scheduled at 07:00 AM & 06:00 PM");
+  
+  // Start 30s background post scheduler daemon
+  try {
+    const { startSchedulerDaemon } = safeRequire("schedulerEngine") || {};
+    if (startSchedulerDaemon) startSchedulerDaemon();
+  } catch (e) {
+    console.warn("Could not start scheduler daemon:", e.message);
+  }
   console.log("========================================================");
 });

@@ -425,6 +425,11 @@
           </button>
         </li>
         <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tab-scheduled-btn" data-bs-toggle="tab" data-bs-target="#tab-scheduled" type="button" role="tab" onclick="loadScheduledPostsUI()">
+            <i class="fa-solid fa-clock text-warning"></i> ⏰ Scheduled (<span id="tabScheduledCount">0</span>)
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
           <button class="nav-link" id="tab-history-btn" data-bs-toggle="tab" data-bs-target="#tab-history" type="button" role="tab" onclick="loadHistory()">
             <i class="fa-solid fa-clock-rotate-left text-success"></i> Posted History
           </button>
@@ -659,6 +664,24 @@
         </div>
       </div>
 
+      <!-- 5. Scheduled Queue Tab -->
+      <div class="tab-pane fade" id="tab-scheduled" role="tabpanel">
+        <div class="card p-3 mb-4 border-0 shadow-sm rounded-4 bg-white">
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div>
+              <h5 class="fw-bold mb-1 text-dark"><i class="fa-solid fa-clock text-warning me-2"></i> Scheduled Posts Queue</h5>
+              <p class="text-muted small mb-0">Posts scheduled for automated publication or golden-hour execution:</p>
+            </div>
+            <button class="btn btn-sm btn-outline-primary fw-bold" onclick="loadScheduledPostsUI()">
+              <i class="fa-solid fa-rotate me-1"></i> Refresh Queue
+            </button>
+          </div>
+        </div>
+        <div id="scheduledPostsContainer">
+          <div class="text-center py-5 text-muted">Loading scheduled posts...</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -803,6 +826,57 @@
     </div>
   </div>
 
+  <!-- MODAL 4: Schedule Post Modal -->
+  <div class="modal fade" id="scheduleModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title fw-bold text-dark"><i class="fa-solid fa-clock text-warning me-2"></i> Schedule LinkedIn Post</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="schedulePostId" />
+          <input type="hidden" id="scheduleItemType" />
+          <input type="hidden" id="scheduleSourceLink" />
+          <input type="hidden" id="schedulePublisher" />
+          <input type="hidden" id="scheduleAuthorName" />
+          <input type="hidden" id="scheduleSourceCategory" />
+          
+          <div class="mb-3">
+            <label class="form-label fw-bold small text-muted text-uppercase">Post Draft Preview</label>
+            <textarea class="form-control form-control-sm font-monospace" id="schedulePostTextPreview" rows="4" style="font-size: 0.85rem;"></textarea>
+          </div>
+          
+          <label class="form-label fw-bold small text-muted text-uppercase mb-2">⚡ Quick Peak Engagement Slots (IST)</label>
+          <div class="d-flex flex-wrap gap-2 mb-3">
+            <button type="button" class="btn btn-sm btn-outline-primary fw-semibold" onclick="setScheduleQuickSlot('tomorrow_morning')">
+              🌅 Tomorrow 08:30 AM
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-info fw-semibold" onclick="setScheduleQuickSlot('tomorrow_midday')">
+              💼 Tomorrow 01:30 PM
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-warning fw-semibold" onclick="setScheduleQuickSlot('tomorrow_evening')">
+              🌆 Tomorrow 06:30 PM
+            </button>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label fw-bold small text-muted text-uppercase">Custom Date &amp; Time (IST)</label>
+            <input type="datetime-local" class="form-control" id="scheduleCustomDateTime" />
+          </div>
+          
+          <div id="scheduleStatusAlert" class="alert alert-info small d-none"></div>
+        </div>
+        <div class="modal-footer bg-light">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-warning btn-sm fw-bold px-3 text-dark" id="btnConfirmSchedule" onclick="submitSchedulePost()">
+            <i class="fa-solid fa-clock me-1"></i> Confirm Schedule
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     let allSources = [];
@@ -893,6 +967,7 @@
         if (document.getElementById("tabGovCount")) document.getElementById("tabGovCount").innerText = data.governance_count !== undefined ? data.governance_count : 33;
         if (document.getElementById("tabCompCount")) document.getElementById("tabCompCount").innerText = data.competitors_count !== undefined ? data.competitors_count : 7;
         if (document.getElementById("tabNewsCount")) document.getElementById("tabNewsCount").innerText = data.news_count !== undefined ? data.news_count : 25;
+        if (document.getElementById("tabScheduledCount")) document.getElementById("tabScheduledCount").innerText = data.scheduled_count !== undefined ? data.scheduled_count : 0;
         
         if (data.last_scrape && document.getElementById("statLastScrapeTime")) {
           try {
@@ -1010,6 +1085,9 @@
               <button class="btn-action-primary" onclick="postNow('${p.id}')">
                 <i class="fa-solid fa-paper-plane me-1"></i> 🚀 Approve &amp; Post Now
               </button>
+              <button class="btn btn-sm btn-outline-warning fw-bold text-dark" onclick="openScheduleModal('${p.id}', 'POST')">
+                <i class="fa-solid fa-clock me-1"></i> ⏰ Schedule Post
+              </button>
               <a href="${escapeHtml(targetUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-secondary fw-semibold">
                 <i class="fa-brands fa-linkedin me-1"></i> View Post
               </a>
@@ -1120,6 +1198,9 @@
             <div class="d-flex flex-wrap gap-2">
               <button class="btn-action-primary" onclick="publishNewsDirectly('${n.id}')">
                 <i class="fa-solid fa-paper-plane me-1"></i> 🚀 Publish Directly (Post + Link in 1st Comment)
+              </button>
+              <button class="btn btn-sm btn-outline-warning fw-bold text-dark" onclick="openScheduleModal('${n.id}', 'NEWS')">
+                <i class="fa-solid fa-clock me-1"></i> ⏰ Schedule Post
               </button>
               <button class="btn btn-sm btn-outline-primary fw-semibold" onclick="copyAndOpenLinkedIn('${n.id}')">
                 <i class="fa-brands fa-linkedin me-1"></i> 📋 Copy &amp; Open Composer
@@ -1966,6 +2047,198 @@
         bootstrap.Modal.getInstance(document.getElementById("llmModal")).hide();
       } catch (err) {
         alert("Failed to save: " + err.message);
+      }
+    }
+
+    // --- SCHEDULE POST CONTROLLER ---
+    function openScheduleModal(id, type) {
+      const editor = document.getElementById(`editor-${id}`);
+      const text = editor ? editor.value : "";
+      if (!text.trim()) return alert("Please select or write a draft first.");
+
+      document.getElementById("schedulePostId").value = id;
+      document.getElementById("scheduleItemType").value = type;
+      document.getElementById("schedulePostTextPreview").value = text;
+      
+      if (type === "NEWS") {
+        const url = document.querySelector(`#card-${id} h5 a`)?.getAttribute("href") || "";
+        const pub = document.querySelector(`#card-${id} .small.text-muted`)?.innerText.replace("Reported by ", "").trim() || "Financial Media";
+        document.getElementById("scheduleSourceLink").value = url;
+        document.getElementById("schedulePublisher").value = pub;
+        document.getElementById("scheduleAuthorName").value = "Sriram Ganesan";
+        document.getElementById("scheduleSourceCategory").value = "Market News & Intelligence";
+      } else {
+        const author = document.querySelector(`#card-${id} strong`)?.innerText || "Sriram Ganesan";
+        const cat = document.querySelector(`#card-${id} .chip-primary`)?.innerText || "Digital Lending";
+        const url = document.querySelector(`#card-${id} a.btn-outline-secondary`)?.getAttribute("href") || "";
+        document.getElementById("scheduleSourceLink").value = url;
+        document.getElementById("schedulePublisher").value = "";
+        document.getElementById("scheduleAuthorName").value = author;
+        document.getElementById("scheduleSourceCategory").value = cat;
+      }
+
+      setScheduleQuickSlot('tomorrow_morning');
+      document.getElementById("scheduleStatusAlert").classList.add("d-none");
+      
+      const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById("scheduleModal"));
+      modal.show();
+    }
+
+    function setScheduleQuickSlot(slot) {
+      const now = new Date();
+      const target = new Date();
+      target.setDate(now.getDate() + 1); // Tomorrow
+
+      if (slot === 'tomorrow_morning') {
+        target.setHours(8, 30, 0, 0);
+      } else if (slot === 'tomorrow_midday') {
+        target.setHours(13, 30, 0, 0);
+      } else if (slot === 'tomorrow_evening') {
+        target.setHours(18, 30, 0, 0);
+      }
+
+      const year = target.getFullYear();
+      const month = String(target.getMonth() + 1).padStart(2, '0');
+      const day = String(target.getDate()).padStart(2, '0');
+      const hours = String(target.getHours()).padStart(2, '0');
+      const mins = String(target.getMinutes()).padStart(2, '0');
+
+      document.getElementById("scheduleCustomDateTime").value = `${year}-${month}-${day}T${hours}:${mins}`;
+    }
+
+    async function submitSchedulePost() {
+      const btn = document.getElementById("btnConfirmSchedule");
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Scheduling...';
+
+      const postId = document.getElementById("schedulePostId").value;
+      const itemType = document.getElementById("scheduleItemType").value;
+      const postText = document.getElementById("schedulePostTextPreview").value;
+      const sourceLink = document.getElementById("scheduleSourceLink").value;
+      const publisher = document.getElementById("schedulePublisher").value;
+      const authorName = document.getElementById("scheduleAuthorName").value;
+      const sourceCategory = document.getElementById("scheduleSourceCategory").value;
+      const scheduledTime = document.getElementById("scheduleCustomDateTime").value;
+
+      if (!scheduledTime) {
+        alert("Please select a valid scheduled date & time.");
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-clock me-1"></i> Confirm Schedule';
+        return;
+      }
+
+      try {
+        const res = await apiFetch("/api/schedule-post", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            postId,
+            postType: itemType,
+            postText,
+            sourceLink,
+            publisher,
+            authorName,
+            sourceCategory,
+            scheduledTime
+          })
+        });
+
+        if (res.success) {
+          const card = document.getElementById(`card-${postId}`);
+          if (card) card.remove();
+
+          bootstrap.Modal.getInstance(document.getElementById("scheduleModal")).hide();
+          loadStats();
+          alert(`⏰ Post successfully scheduled for ${new Date(scheduledTime).toLocaleString('en-IN')}!`);
+        } else {
+          alert("Scheduling failed: " + (res.error || "Unknown error"));
+        }
+      } catch (err) {
+        alert("Error: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-clock me-1"></i> Confirm Schedule';
+      }
+    }
+
+    async function loadScheduledPostsUI() {
+      const container = document.getElementById("scheduledPostsContainer");
+      if (!container) return;
+      container.innerHTML = '<div class="text-center py-4"><span class="spinner-border text-primary"></span><p class="small text-muted mt-2">Loading scheduled queue...</p></div>';
+
+      try {
+        const data = await apiFetch("/api/scheduled-posts");
+        const scheduled = (data || []).filter(s => s.status === 'SCHEDULED' || s.status === 'READY_TO_POST');
+        if (scheduled.length === 0) {
+          container.innerHTML = `
+            <div class="card p-5 text-center bg-white border-0 shadow-sm rounded-4">
+              <i class="fa-solid fa-calendar-check fs-1 text-warning mb-3"></i>
+              <h5 class="fw-bold text-dark">No Posts Scheduled Yet</h5>
+              <p class="text-muted small mb-0">Use the <strong>[⏰ Schedule Post]</strong> button on any Lending, Boardroom, or Market News card to queue posts for peak engagement windows.</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = scheduled.map(s => {
+          const dt = new Date(s.scheduled_time);
+          const formatted = dt.toLocaleDateString("en-IN", { weekday: 'short', day: 'numeric', month: 'short' }) + ' at ' + dt.toLocaleTimeString("en-IN", { hour: '2-digit', minute: '2-digit', hour12: true });
+          const isReady = s.status === 'READY_TO_POST';
+
+          return `
+            <div class="post-card border-start border-4 ${isReady ? 'border-info' : 'border-warning'} mb-3" id="sched-card-${s.id}">
+              <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+                <div>
+                  <span class="badge ${isReady ? 'bg-info text-dark' : 'bg-warning text-dark'} fw-bold px-2 py-1 me-2">
+                    <i class="fa-solid fa-clock me-1"></i> ${isReady ? 'Ready to Publish' : 'Scheduled: ' + formatted}
+                  </span>
+                  <span class="chip chip-primary">${escapeHtml(s.source_category || 'BFSI')}</span>
+                </div>
+                <button class="btn btn-sm btn-outline-danger" onclick="cancelScheduledItem('${s.id}')">
+                  <i class="fa-solid fa-ban me-1"></i> Cancel Schedule
+                </button>
+              </div>
+
+              <div class="p-3 bg-light rounded-3 font-monospace small mb-3 text-dark border">
+                ${escapeHtml(s.post_text)}
+              </div>
+
+              ${s.source_link ? `
+                <div class="small text-muted mb-2">
+                  <i class="fa-solid fa-link text-primary me-1"></i> 1st Comment Source Link: 
+                  <a href="${s.source_link}" target="_blank" rel="noopener noreferrer" class="text-primary text-break">${escapeHtml(s.source_link)}</a>
+                </div>
+              ` : ''}
+
+              <div class="d-flex justify-content-end gap-2 pt-2 border-top">
+                <button class="btn btn-sm btn-outline-primary" onclick="navigator.clipboard.writeText(\`${s.post_text.replace(/`/g, '\\`')}\`); alert('Copied draft!');">
+                  <i class="fa-regular fa-copy me-1"></i> Copy Draft
+                </button>
+              </div>
+            </div>
+          `;
+        }).join("");
+      } catch (e) {
+        container.innerHTML = `<div class="alert alert-danger">Error loading scheduled posts: ${e.message}</div>`;
+      }
+    }
+
+    async function cancelScheduledItem(scheduleId) {
+      if (!confirm("Are you sure you want to cancel this scheduled post? It will be moved back to the review queue.")) return;
+      try {
+        const res = await apiFetch("/api/cancel-scheduled-post", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ scheduleId })
+        });
+        if (res.success) {
+          loadScheduledPostsUI();
+          loadStats();
+        } else {
+          alert("Cancellation failed: " + (res.error || "Unknown error"));
+        }
+      } catch (err) {
+        alert("Error: " + err.message);
       }
     }
 
