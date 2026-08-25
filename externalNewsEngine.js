@@ -80,9 +80,14 @@ function parseGoogleRss(xml, streamTopic) {
     if (!publisher) publisher = "Financial Media";
 
     const lower = `${rawTitle} ${publisher}`.toLowerCase();
-    if (/mlb\.com|baseball|rbi single|rbi double|homerun|cricket|marathon|fcnr|fixed deposit|nri deposit|celebration|bollywood|horoscope/i.test(lower)) {
-      continue;
-    }
+    
+    // Strict Negative Noise Filters
+    const noiseRegex = /sensex|nifty|equity market|stock rally|equities open|mutual fund|space economy|border talks|oil price|rupee falls|rupee rises|dollar deposit|fcnr|fixed deposit|nri deposit|crypto|bitcoin|tcs buys|porsche|bollywood|cricket|baseball|padres|somerset|marathon|horoscope|gstat|appeal filing|celebration|sebi chief flags|mlb\.com|homerun/i;
+    if (noiseRegex.test(lower)) continue;
+
+    // Strict Positive Lending & Credit Keywords Required
+    const lendingRegex = /loan|lending|credit|nbfc|borrow|debt|underwrit|cibil|equifax|crif|experian|co-lending|colending|mortgage|lap|housing finance|gold loan|microfinance|mfi|working capital|invoice discount|treds|supply chain finance|npa|gross stage|delinquen|fldg|fincorp|finserv|disburs|collection|priority sector lending|psl|sarfaesi|credit risk|banking credit|credit growth/i;
+    if (!lendingRegex.test(lower)) continue;
 
     if (rawTitle && link) {
       items.push({

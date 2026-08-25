@@ -1,27 +1,5 @@
 [
   {
-    "id": "news_1787632043727_89nr",
-    "headline": "RBI monetary policy trapped in ‘chalk and cheese’ problem: SBI report",
-    "article_url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPRGh4RlAyRXNoN0QxRjFwYUdJX2k5WkZyeDJQNFZzMXJTdl9VRFBmRDB5Nllmbm5jM1dlNWVkazJidENyTHRHRTh6cGRjYU1rRHVDSkhFMHdrZy0yelJOY0dNcWFKRTJxdl9GX1o1Z2VUZEFNRXVMQ3ozbHlsdWlOZzBLcm5YdF9KUEFwSW5fX0dESko5LTgtU2ZSbnkzdHEzektEbThHSk9LLUR1WVRROVJXdTdvV1dHWGxSYXZHakdMazhrUHlmRVZtb9IBywFBVV95cUxPRGh4RlAyRXNoN0QxRjFwYUdJX2k5WkZyeDJQNFZzMXJTdl9VRFBmRDB5Nllmbm5jM1dlNWVkazJidENyTHRHRTh6cGRjYU1rRHVDSkhFMHdrZy0yelJOY0dNcWFKRTJxdl9GX1o1Z2VUZEFNRXVMQ3ozbHlsdWlOZzBLcm5YdF9KUEFwSW5fX0dESko5LTgtU2ZSbnkzdHEzektEbThHSk9LLUR1WVRROVJXdTdvV1dHWGxSYXZHakdMazhrUHlmRVZtbw?oc=5",
-    "publisher": "The Hans India",
-    "source_name": "The Hans India",
-    "source_category": "RBI & Regulatory Policy",
-    "summary": "RBI monetary policy trapped in ‘chalk and cheese’ problem: SBI report (Reported by The Hans India)",
-    "published_at": "Mon, 24 Aug 2026 05:04:49 GMT",
-    "scraped_at": "2026-08-25T04:27:23.727Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "The Hans India",
-      "Lending News",
-      "RBI & Regulatory Policy"
-    ],
-    "generated_takes": {
-      "architectural_take": "Regulatory clarity from the RBI is a structural tailwind for responsible lending innovation. From a product perspective, regulatory rules (such as RWA weightings, key fact statements, loan recovery guidelines, and FLDG caps) must be embedded natively into the LOS business rules engine (BRE) so policy updates deploy in real-time without code rebuilds.",
-      "risk_lens": "How are compliance and risk teams auditing automated lending workflows to ensure algorithmic underwriting and third-party recovery channels remain 100% compliant with RBI directives?",
-      "strategic_outlook": "The RBI's proactive oversight reinforces trust in India's digital financial architecture. Long-term institutional value is created by lenders who treat regulatory governance and borrower protection as core competitive moats."
-    }
-  },
-  {
     "id": "news_1787632043727_eef0",
     "headline": "HDFC Bank Customer Fixes CIBIL Score After RBI Ombudsman Complaint Over Unwanted Credit Card",
     "article_url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxQYXR2azc2UkFNc2p4OUtsSlhqYlZVeG9vbEtEMWJ1cThwTUp3TFY5bG8yamY5SDZ4c0NjN1ZEeTZKQW5BYWNtOC01QU5Cbk1aLXJCTWJJS0I1eThhMFB0cWZ0QXM2X2E3QnF6MVFJVTFIZFhzTWo0R25LaGxOVTF1S3hibXBWSXpLU0o2cTBPTnZneV92Z2w4RU90c1NjaG1NWHc1bTA2dm9GZmQxYU9rcXlucTFlTUNIcTRGQUs0dzhHNkktYUZqUDBLRzUtcFdVa2p1ZTRlZzRpY2lvMzlpdGhERdIB4wFBVV95cUxQYXR2azc2UkFNc2p4OUtsSlhqYlZVeG9vbEtEMWJ1cThwTUp3TFY5bG8yamY5SDZ4c0NjN1ZEeTZKQW5BYWNtOC01QU5Cbk1aLXJCTWJJS0I1eThhMFB0cWZ0QXM2X2E3QnF6MVFJVTFIZFhzTWo0R25LaGxOVTF1S3hibXBWSXpLU0o2cTBPTnZneV92Z2w4RU90c1NjaG1NWHc1bTA2dm9GZmQxYU9rcXlucTFlTUNIcTRGQUs0dzhHNkktYUZqUDBLRzUtcFdVa2p1ZTRlZzRpY2lvMzlpdGhERQ?oc=5",
@@ -63,50 +41,6 @@
       "architectural_take": "The influx of institutional capital into gold loans reflects a massive shift from unorganized pawn channels to formal lending. From an LOS architecture standpoint, the winning differentiator is no longer just branch appraisal, but doorstep digitization, live LTV tracking against daily gold-price feeds, and automated instant disbursal in under 15 minutes.",
       "risk_lens": "With rapid expansion in gold-backed credit, how are risk committees strengthening automated margin-call triggers and collateral re-valuation workflows to safeguard against sudden commodity price corrections while maintaining the 75% RBI LTV ceiling?",
       "strategic_outlook": "Gold loans remain one of India's most resilient secured retail credit categories. As large corporations and NBFCs enter this segment, scalable digital origination combined with robust vault custodian governance will decide market leadership."
-    }
-  },
-  {
-    "id": "news_1787632043726_mp9u",
-    "headline": "RBI VRRR Auction Explained: How The Central Bank Manages Excess Money and Liquidity in Banks",
-    "article_url": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxOc2NYb3RvRGN1eEFCM3VuM3hOWHZFaHRLV09sYjN3Vkc1aFVOZk5IRHp4ZUVhbkwwLVk0SV9aM29rOTQtRUR1ZE9qeFJ3SWsyN1I3VG5SX19nTVRXTUVyTV9vOVNORWNkcVF2MFFXc0JDYkVuVTZGQkRzUUtDdlk1c3NqcnRCa2VvcHJ6QzJ3NXVKSXc1LTZNd1pWRXhqd09JeU85OUhjdU0wcWx6R0JBQzNlMXpydDA4cXNOdWl0V0dCVk0tTHFhd09sQTZhMFhSTi1OQ2pvZWRqdW5YWXRiU2Y2eU5VcUc1S0HSAeoBQVVfeXFMTnNjWG90b0RjdXhBQjN1bjN4Tlh2RWh0S1dPbGIzd1ZHNWhVTmZOSER6eGVFYW5MMC1ZNElfWjNvazk0LUVEdWRPanhSd0lrMjdSN1RuUl9fZ01UV01Fck1fbzlTTkVjZHFRdjBRV3NCQ2JFblU2RkJEc1FLQ3ZZNXNzanJ0Qmtlb3ByekMydzV1Skl3NS02TXdaVkV4andPSXlPOTlIY3VNMHFsekdCQUMzZTF6cnQwOHFzTnVpdFdHQlZNLUxxYXdPbEE2YTBYUk4tTkNqb2VkanVuWFl0YlNmNnlOVXFHNUtB?oc=5",
-    "publisher": "Jagran Josh",
-    "source_name": "Jagran Josh",
-    "source_category": "RBI & Regulatory Policy",
-    "summary": "RBI VRRR Auction Explained: How The Central Bank Manages Excess Money and Liquidity in Banks (Reported by Jagran Josh)",
-    "published_at": "Mon, 24 Aug 2026 14:09:50 GMT",
-    "scraped_at": "2026-08-25T04:27:23.726Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "Jagran Josh",
-      "Lending News",
-      "RBI & Regulatory Policy"
-    ],
-    "generated_takes": {
-      "architectural_take": "Regulatory clarity from the RBI is a structural tailwind for responsible lending innovation. From a product perspective, regulatory rules (such as RWA weightings, key fact statements, loan recovery guidelines, and FLDG caps) must be embedded natively into the LOS business rules engine (BRE) so policy updates deploy in real-time without code rebuilds.",
-      "risk_lens": "How are compliance and risk teams auditing automated lending workflows to ensure algorithmic underwriting and third-party recovery channels remain 100% compliant with RBI directives?",
-      "strategic_outlook": "The RBI's proactive oversight reinforces trust in India's digital financial architecture. Long-term institutional value is created by lenders who treat regulatory governance and borrower protection as core competitive moats."
-    }
-  },
-  {
-    "id": "news_1787632043724_2m05",
-    "headline": "Five-Star Business Finance extends Vijayaraghavan's CCO tenure for three years",
-    "article_url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQX0ZCU09XVzZOUkRRcThyUWZ6bFJMNWJDN0s2VTV2VGtiSmUxZ1RnZDdZRmQ4U0ZsZVlQYjRCT2pFV05MYXYtd2NtckljNkdaQ3BsY00xd0stVEhPSDNQZC1sa1ZRMmptMjlkX3VNWUdacUEzejQxLUxTdEc5STNhYmlQWlB2UGZBc2lJcVlFdVAtUmpWaG9HUm9RTU5kOTBQbGpXWjNJQlY0ekhpMURoalZCSGJDNGNUU0Nv?oc=5",
-    "publisher": "scanx.trade",
-    "source_name": "scanx.trade",
-    "source_category": "RBI & Regulatory Policy",
-    "summary": "Five-Star Business Finance extends Vijayaraghavan's CCO tenure for three years (Reported by scanx.trade)",
-    "published_at": "Sun, 23 Aug 2026 09:00:57 GMT",
-    "scraped_at": "2026-08-25T04:27:23.724Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "scanx.trade",
-      "Lending News",
-      "RBI & Regulatory Policy"
-    ],
-    "generated_takes": {
-      "architectural_take": "A significant development for the Indian credit landscape. Navigating this evolving market environment requires financial institutions to modernize their loan origination and risk decisioning pipelines—enabling agile policy adjustments while maintaining straight-through operational efficiency.",
-      "risk_lens": "As credit demand scales across retail and commercial segments, what underwriting controls and portfolio monitoring mechanisms are risk committees prioritizing to preserve pristine asset quality across credit cycles?",
-      "strategic_outlook": "Sustainable financial leadership in India is built on the pillars of disciplined underwriting, robust regulatory governance, and customer-centric digital technology."
     }
   },
   {
@@ -176,94 +110,6 @@
     }
   },
   {
-    "id": "news_1787632043718_lpsb",
-    "headline": "Citigroup, Axis Team Up On Leveraged India Dollar Deposit Boom",
-    "article_url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPbVh2WXYxclJOVjFQTFN0aHZudmRCcGJuYnBseXhEMGs1T20yT0tDWEM2OThGd0dHMDZGMmpDaC0yOWhvZ1V1ZG9iM3M5cFQzY0s1UEpQY0M1N3FHY1Rpd3JKWHpnZGVMb05JZmRRalRTcXRjaWVRU2JfR09heTgxd05HUmg2ZWd6NkU0ZnltOXRfYXItYjhUci1aUzR6NTYyQi1tTTl6V3R4dk02cnhfbVNR0gGyAUFVX3lxTE9tWHZZdjFyUk5WMVBMU3Rodm52ZEJwYm5icGx5eEQwazVPbTJPS0NYQzY5OEZ3R0cwNkYyakNoLTI5aG9nVXVkb2IzczlwVDNjSzVQSlBjQzU3cUdjVGl3ckpYemdkZUxvTklmZFFqVFNxdGNpZVFTYl9HT2F5ODF3TkdSaDZlZ3o2RTRmeW05dF9hci1iOFRyLVpTNHo1NjJCLW1NOXpXdHh2TTZyeF9tU1E?oc=5",
-    "publisher": "NDTV Profit",
-    "source_name": "NDTV Profit",
-    "source_category": "RBI & Regulatory Policy",
-    "summary": "Citigroup, Axis Team Up On Leveraged India Dollar Deposit Boom (Reported by NDTV Profit)",
-    "published_at": "Mon, 24 Aug 2026 05:00:54 GMT",
-    "scraped_at": "2026-08-25T04:27:23.718Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "NDTV Profit",
-      "Lending News",
-      "RBI & Regulatory Policy"
-    ],
-    "generated_takes": {
-      "architectural_take": "Bank-NBFC co-lending is the single most potent bridge between low-cost bank deposits and grassroots NBFC distribution. The critical tech bottleneck has always been dual-LOS underwriting latency and real-time tripartite escrow settlements. Modernizing this pipeline enables true straight-through processing across CLM-1 and CLM-2 models.",
-      "risk_lens": "Under the RBI's Default Loss Guarantee (FLDG) guidelines, how are partner institutions aligning their risk appetite matrices to prevent underwriting friction while ensuring complete portfolio transparency on the bank's books?",
-      "strategic_outlook": "Co-lending is evolving from opportunistic tie-ups into core distribution architecture for Indian banking. Sustainable scale requires standardized risk-sharing protocols and automated compliance auditing."
-    }
-  },
-  {
-    "id": "news_1787632043718_gtq6",
-    "headline": "Citigroup and Axis Bank team up on leveraged India dollar deposit boom",
-    "article_url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNZlhPd3I3UnZVY2pMOWZuR0J0clgwODNRTVhmUjlYYVpodGFrR0VncDFMU05JbHlDNzRlZEM4SDNnQWJnMVFDWGhrcWtlNUxSVEwtX2Vfdl8tTEc4a2NTcnpCNU4xRXFuSHBZTHVyRk9uODVEeFFkRTM1VWRKdXlqbDlkejdMT3l2NXFqNlNvMDdLRkxwM2E4cnd3V1QxWHhtUlJFN1FmaW9Vd0dQQXFGUjhOSDBfNGl4eWtiWW1aWWhNTlphd0HSAcsBQVVfeXFMUEN5RDMyUEQ5amluLXZNMlpYYzFRaEFZdmtMNlZEX2U3YzZzLUZabkpQMVVVS1NxMU8yZl9hcEswbU1WbG9jZHZHaUtlUHlORlhFZDRWT3J5aWg2dXNIanYxd0dsNS1USE50akxsQWdLY0JiWm9Ic3BkclM1b2p5SE5Rb2N3ckY3S25XLXQ3cTZpX1AtNWJGSzhMZ0J4S05IQXhySTl4R29sVkpPN2NkcTM3ejZUaGRiYURFbUVUQ3BxS0FiUGV3UjAtX2M?oc=5",
-    "publisher": "Moneycontrol.com",
-    "source_name": "Moneycontrol.com",
-    "source_category": "RBI & Regulatory Policy",
-    "summary": "Citigroup and Axis Bank team up on leveraged India dollar deposit boom (Reported by Moneycontrol.com)",
-    "published_at": "Mon, 24 Aug 2026 04:09:35 GMT",
-    "scraped_at": "2026-08-25T04:27:23.718Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "Moneycontrol.com",
-      "Lending News",
-      "RBI & Regulatory Policy"
-    ],
-    "generated_takes": {
-      "architectural_take": "Bank-NBFC co-lending is the single most potent bridge between low-cost bank deposits and grassroots NBFC distribution. The critical tech bottleneck has always been dual-LOS underwriting latency and real-time tripartite escrow settlements. Modernizing this pipeline enables true straight-through processing across CLM-1 and CLM-2 models.",
-      "risk_lens": "Under the RBI's Default Loss Guarantee (FLDG) guidelines, how are partner institutions aligning their risk appetite matrices to prevent underwriting friction while ensuring complete portfolio transparency on the bank's books?",
-      "strategic_outlook": "Co-lending is evolving from opportunistic tie-ups into core distribution architecture for Indian banking. Sustainable scale requires standardized risk-sharing protocols and automated compliance auditing."
-    }
-  },
-  {
-    "id": "news_1787632043717_49g3",
-    "headline": "RBI monetary policy trapped in 'chalk and cheese' problem: SBI report",
-    "article_url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQREw5QzFYMXJ1a0hpTThNREdHbVBaSHlOeXRvdnE1T3RoaHRQSlB2UVNpaVlOMHdjSDhvSEVJcVRFd3p2SGhvMFJvQzdRTkgwZlZMYlFBRC1jc0JjOEN5LWVnYlY4QXFsYUNVMGpCOHNkdi1nQ0E1aDFROWowUVdvdmd0Rkd3THJ1R0xibEVmZzExYWdUZk02MWlwRXdHS2lQQ0lOYUZmVUFZZWhLS2NqNHVkNVRTN0NEcEJXeWJOdWp3bEpCTXd2dnVKQdIBywFBVV95cUxQREw5QzFYMXJ1a0hpTThNREdHbVBaSHlOeXRvdnE1T3RoaHRQSlB2UVNpaVlOMHdjSDhvSEVJcVRFd3p2SGhvMFJvQzdRTkgwZlZMYlFBRC1jc0JjOEN5LWVnYlY4QXFsYUNVMGpCOHNkdi1nQ0E1aDFROWowUVdvdmd0Rkd3THJ1R0xibEVmZzExYWdUZk02MWlwRXdHS2lQQ0lOYUZmVUFZZWhLS2NqNHVkNVRTN0NEcEJXeWJOdWp3bEpCTXd2dnVKQQ?oc=5",
-    "publisher": "Economic Times BFSI",
-    "source_name": "Economic Times BFSI",
-    "source_category": "RBI & Regulatory Policy",
-    "summary": "RBI monetary policy trapped in 'chalk and cheese' problem: SBI report (Reported by Economic Times BFSI)",
-    "published_at": "Mon, 24 Aug 2026 04:31:29 GMT",
-    "scraped_at": "2026-08-25T04:27:23.717Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "Economic Times BFSI",
-      "Lending News",
-      "RBI & Regulatory Policy"
-    ],
-    "generated_takes": {
-      "architectural_take": "Regulatory clarity from the RBI is a structural tailwind for responsible lending innovation. From a product perspective, regulatory rules (such as RWA weightings, key fact statements, loan recovery guidelines, and FLDG caps) must be embedded natively into the LOS business rules engine (BRE) so policy updates deploy in real-time without code rebuilds.",
-      "risk_lens": "How are compliance and risk teams auditing automated lending workflows to ensure algorithmic underwriting and third-party recovery channels remain 100% compliant with RBI directives?",
-      "strategic_outlook": "The RBI's proactive oversight reinforces trust in India's digital financial architecture. Long-term institutional value is created by lenders who treat regulatory governance and borrower protection as core competitive moats."
-    }
-  },
-  {
-    "id": "news_1787632043717_7vl1",
-    "headline": "RBI likely intervenes, anchoring rupee in face of global ructions, traders say",
-    "article_url": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxNMnBMUkVyeksxMkpXNDFzOTdEU3lCQm9oMkRkcTJlN19xLVhzR0JnRmV1eHNBSzRjNUN2c3hib0FFMmxQcF82RWhpMm5JcXZuSUEzeXZsR1JKY2pZSG05ckJWRlVPVmtiQmx2Z1BaSWx6cExNeFQzOFE3aFN1MGlQUHVEdUxFSTNEcjN4RDdJMTNxa0tJWEQya3NscXoycUQtZ2pVUVVvSXA3OG56bURyNldNcU5fMDI2QjQwb1lNNFNqd2wtZlpDTEFyV2pkSDdhdmwtbjQ0ZjdCM3Q1OEg5NjhaZ3JJb2PSAecBQVVfeXFMTTJwTFJFcnpLMTJKVzQxczk3RFN5QkJvaDJEZHEyZTdfcS1Yc0dCZ0ZldXhzQUs0YzVDdnN4Ym9BRTJsUHBfNkVoaTJuSXF2bklBM3l2bEdSSmNqWUhtOXJCVkZVT1ZrYkJsdmdQWklsenBMTXhUMzhRN2hTdTBpUFB1RHVMRUkzRHIzeEQ3STEzcWtLSVhEMmtzbHF6MnFELWdqVVFVb0lwNzhuem1EcjZXTXFOXzAyNkI0MG9ZTTRTandsLWZaQ0xBcldqZEg3YXZsLW40NGY3QjN0NThIOTY4WmdySW9j?oc=5",
-    "publisher": "BusinessLine",
-    "source_name": "BusinessLine",
-    "source_category": "RBI & Regulatory Policy",
-    "summary": "RBI likely intervenes, anchoring rupee in face of global ructions, traders say (Reported by BusinessLine)",
-    "published_at": "Mon, 24 Aug 2026 04:07:16 GMT",
-    "scraped_at": "2026-08-25T04:27:23.717Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "BusinessLine",
-      "Lending News",
-      "RBI & Regulatory Policy"
-    ],
-    "generated_takes": {
-      "architectural_take": "Regulatory clarity from the RBI is a structural tailwind for responsible lending innovation. From a product perspective, regulatory rules (such as RWA weightings, key fact statements, loan recovery guidelines, and FLDG caps) must be embedded natively into the LOS business rules engine (BRE) so policy updates deploy in real-time without code rebuilds.",
-      "risk_lens": "How are compliance and risk teams auditing automated lending workflows to ensure algorithmic underwriting and third-party recovery channels remain 100% compliant with RBI directives?",
-      "strategic_outlook": "The RBI's proactive oversight reinforces trust in India's digital financial architecture. Long-term institutional value is created by lenders who treat regulatory governance and borrower protection as core competitive moats."
-    }
-  },
-  {
     "id": "news_1787632043716_cdlt",
     "headline": "Shri Ram Finance Corporation, Progfin Fined ₹10.80 Lakh by RBI for KYC, Governance Lapses",
     "article_url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPWVpvTlVWcVNPMlJtS25UTUNWWU5kUTFuZHEtQkd6NzBoY2I5U0dRZTlMRE9ZbE0wT2Z6Um1waVVZN3Nxb1paRGxwWkI1ZmdJUVlSaWY0VVR3RTlqU0ZMU3hNUEllSkxQMjYzWWJfekxVZWo0aEo2bmVZQzBfQ1E3NnlEbm05a1RmbkxlRF9SeklXNWJlMlJaSXZJS2lSQ0FVZTJDYi1zV29LdW56RmswM1BBTDlGM2JJUF9Jcm9qNFVOZGxKN3FiWA?oc=5",
@@ -286,28 +132,6 @@
     }
   },
   {
-    "id": "news_1787632043716_0t1e",
-    "headline": "India's house price growth slows to 3.6% in Q1 FY27: RBI",
-    "article_url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQZ081NkxpXzlLbV9jVUUtNjVtc2N4RGt4S1U5aFN5MzNtOWM1aE81Y0lSbG44V28tRVNpZUE3czIwNUJxSVdwS0VsWlFERzE0U3plbmdVel9BSUpKWlIydk56c0hSNklIVkk2cmU5bUxmRlNTM182ek5MN0pfb3ZUWnFOMEFqTXpLVl9TMkUwd0Y4aC1Ia1lZa1BjYkJlaU81ZjA4U1lrdlpZNk9lOHpJ0gGvAUFVX3lxTFBnTzU2TGlfOUttX2NVRS02NW1zY3hEa3hLVTloU3kzM205YzVoTzVjSVJsbjhXby1FU2llQTdzMjA1QnFJV3BLRWxaUURHMTRTemVuZ1V6X0FJSkpaUjJ2TnpzSFI2SUhWSTZyZTltTGZGU1MzXzZ6Tkw3Sl9vdlRacU4wQWpNektWX1MyRTB3RjhoLUhrWVlrUGNiQmVpTzVmMDhTWWt2Wlk2T2U4ekk?oc=5",
-    "publisher": "Devdiscourse",
-    "source_name": "Devdiscourse",
-    "source_category": "RBI & Regulatory Policy",
-    "summary": "India's house price growth slows to 3.6% in Q1 FY27: RBI (Reported by Devdiscourse)",
-    "published_at": "Mon, 24 Aug 2026 14:47:37 GMT",
-    "scraped_at": "2026-08-25T04:27:23.716Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "Devdiscourse",
-      "Lending News",
-      "RBI & Regulatory Policy"
-    ],
-    "generated_takes": {
-      "architectural_take": "Regulatory clarity from the RBI is a structural tailwind for responsible lending innovation. From a product perspective, regulatory rules (such as RWA weightings, key fact statements, loan recovery guidelines, and FLDG caps) must be embedded natively into the LOS business rules engine (BRE) so policy updates deploy in real-time without code rebuilds.",
-      "risk_lens": "How are compliance and risk teams auditing automated lending workflows to ensure algorithmic underwriting and third-party recovery channels remain 100% compliant with RBI directives?",
-      "strategic_outlook": "The RBI's proactive oversight reinforces trust in India's digital financial architecture. Long-term institutional value is created by lenders who treat regulatory governance and borrower protection as core competitive moats."
-    }
-  },
-  {
     "id": "news_1787632043715_3yj8",
     "headline": "Resolved RBI embargo within 45 days in 2024: Navi Finserv MD &amp; CEO",
     "article_url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPdzc4WnJvU0VxdWNZS0lScXRjenA2Ylo3V0JOZ3p3NHpaQ0RIUjZIVVBHV2JRLWFxUHF1YXFSTmM5a0dZSndldGk5VmtPNzBIMS1iUjlwX1BvOXQ3ZFRNTU9qOU1KTUJEZi1DMzZ2THozc1FWVEVqVHlJOS1YOEczaXc4ZzBxSlVYVTJkdk1SSDBaa0lkUUlRNTZLTmoyMldwX3dFcFRsX3pzVXVPWW12X1MteUJVRmNhYjZZdm5oVm1tNVVOMndMMUFXdEdPQmNaMGfSAdcBQVVfeXFMTzFXY2NUX2w3UmZESko3dlpEOVVzaTZCVE9la3N4Q1cybkk3ZjlyLWhlRnFDR2FJUlNsblpNa3dSX1RuRnRyQ2VTcWQ0TVdaSFY3NE13eWxOWFF0cVdkcXNIdU4wSmxUcVBFalhtMXN2V2ktbmNFc2RhRnJMcWRrWm0wbXlocmN0Nm9qMFp4Ym9tQVphWkJVV2VtQXNnOHhtYjVmb3VzYlBDZ0lzaElyZkJvOERtY3hzU1Fqd2R5Y2dyTzUtcy1GQ2g2U3hGWU5pWjdvMjBtYVk?oc=5",
@@ -320,50 +144,6 @@
     "status": "PENDING",
     "relevance_tags": [
       "Business Standard",
-      "Lending News",
-      "RBI & Regulatory Policy"
-    ],
-    "generated_takes": {
-      "architectural_take": "Regulatory clarity from the RBI is a structural tailwind for responsible lending innovation. From a product perspective, regulatory rules (such as RWA weightings, key fact statements, loan recovery guidelines, and FLDG caps) must be embedded natively into the LOS business rules engine (BRE) so policy updates deploy in real-time without code rebuilds.",
-      "risk_lens": "How are compliance and risk teams auditing automated lending workflows to ensure algorithmic underwriting and third-party recovery channels remain 100% compliant with RBI directives?",
-      "strategic_outlook": "The RBI's proactive oversight reinforces trust in India's digital financial architecture. Long-term institutional value is created by lenders who treat regulatory governance and borrower protection as core competitive moats."
-    }
-  },
-  {
-    "id": "news_1787632043715_ofq4",
-    "headline": "Rupee little changed, caught between elevated oil and RBI support",
-    "article_url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPR0QwT2JZNzBaS3pydi00S0U0UnI4RmZ4Tm9GTDlFZzF3R2ZkXzJ2Ukl3djJFSno2MjhPTlF2ZkwzVFZoMUpIdUJZeEtzeHBORmpxT1JoT2tTODAxXzRXcVFEZEVTWGozbVN5M0dpVnJSNkhrdFBmZWtUR2hoNDZVMDRHVWFiYl9aQjVEdDdqMlpNMm1uRFo4YmtwVFA1ejVZaWkyeklJRXBGTW55OG9FSHp5b2daWWwwRTFuQXJhenZsaDJzVEJWVWFGTlg0TXY2ZTdJSGtsTlVOd1dH0gHcAUFVX3lxTE9HRDBPYlk3MFpLenJ2LTRLRTRScjhGZnhOb0ZMOUVnMXdHZmRfMnZSSXd2MkVKejYyOE9OUXZmTDNUVmgxSkh1Qll4S3N4cE5GanFPUmhPa1M4MDFfNFdxUURkRVNYajNtU3kzR2lWclI2SGt0UGZla1RHaGg0NlUwNEdVYWJiX1pCNUR0N2oyWk0ybW5EWjhia3BUUDV6NVlpaTJ6SUlFcEZNbnk4b0VIenlvZ1pZbDBFMW5BcmF6dmxoMnNUQlZVYUZOWDRNdjZlN0lIa2xOVU53V0c?oc=5",
-    "publisher": "Economic Times BFSI",
-    "source_name": "Economic Times BFSI",
-    "source_category": "RBI & Regulatory Policy",
-    "summary": "Rupee little changed, caught between elevated oil and RBI support (Reported by Economic Times BFSI)",
-    "published_at": "Mon, 24 Aug 2026 09:56:54 GMT",
-    "scraped_at": "2026-08-25T04:27:23.715Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "Economic Times BFSI",
-      "Lending News",
-      "RBI & Regulatory Policy"
-    ],
-    "generated_takes": {
-      "architectural_take": "Regulatory clarity from the RBI is a structural tailwind for responsible lending innovation. From a product perspective, regulatory rules (such as RWA weightings, key fact statements, loan recovery guidelines, and FLDG caps) must be embedded natively into the LOS business rules engine (BRE) so policy updates deploy in real-time without code rebuilds.",
-      "risk_lens": "How are compliance and risk teams auditing automated lending workflows to ensure algorithmic underwriting and third-party recovery channels remain 100% compliant with RBI directives?",
-      "strategic_outlook": "The RBI's proactive oversight reinforces trust in India's digital financial architecture. Long-term institutional value is created by lenders who treat regulatory governance and borrower protection as core competitive moats."
-    }
-  },
-  {
-    "id": "news_1787632043714_v04t",
-    "headline": "RBI’s Draft Guidance on Regulatory Principles for Model Risk Management",
-    "article_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOOUV6N2pBWkpFbFNDT2dBRDFyN3hPVTJIVjAwQy1DSERFdzhWeVhZRnRHX2QwOXpFR21tTXNGcnpXUmdZc3BJUWxGQUctXzdHMTlxbjN6clZTV1BuQ0hIR2sxQnlKUC1IZzcwek5PRlRYdTJMa3IzTDdjTzVUdWVhbWVXU2FLUVRhZEV3?oc=5",
-    "publisher": "Lexology",
-    "source_name": "Lexology",
-    "source_category": "RBI & Regulatory Policy",
-    "summary": "RBI’s Draft Guidance on Regulatory Principles for Model Risk Management (Reported by Lexology)",
-    "published_at": "Mon, 24 Aug 2026 19:19:06 GMT",
-    "scraped_at": "2026-08-25T04:27:23.714Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "Lexology",
       "Lending News",
       "RBI & Regulatory Policy"
     ],
@@ -418,50 +198,6 @@
     }
   },
   {
-    "id": "news_1787632041316_yi7v",
-    "headline": "#MCTech3 | TCS buys Porsche’s IT unit for $373 million; A91’s Atomberg and Sedemac bets pay off; and more",
-    "article_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNbi1JZGhHMk8tYzJHM1kzUFNuSC1jejBRT2JtQVg1NU92Ym9oN3Q5bXhmZVhubVFWNWEwVTgtQTY0WkpJSHJrN1FFRlJYOWZzdjlRNWxxMDU1bGxqdE1kNTYzbVQ3RjVMbXIxQWNHdXctd25jeGFOcVlsLXRYWmtlVWxKQk1OakNtbHBQb3VmdjBFZHdveVJHbA?oc=5",
-    "publisher": "LinkedIn",
-    "source_name": "LinkedIn",
-    "source_category": "Fintech Funding & IPOs",
-    "summary": "#MCTech3 | TCS buys Porsche’s IT unit for $373 million; A91’s Atomberg and Sedemac bets pay off; and more (Reported by LinkedIn)",
-    "published_at": "Mon, 24 Aug 2026 14:33:26 GMT",
-    "scraped_at": "2026-08-25T04:27:21.316Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "LinkedIn",
-      "Lending News",
-      "Fintech Funding & IPOs"
-    ],
-    "generated_takes": {
-      "architectural_take": "A significant development for the Indian credit landscape. Navigating this evolving market environment requires financial institutions to modernize their loan origination and risk decisioning pipelines—enabling agile policy adjustments while maintaining straight-through operational efficiency.",
-      "risk_lens": "As credit demand scales across retail and commercial segments, what underwriting controls and portfolio monitoring mechanisms are risk committees prioritizing to preserve pristine asset quality across credit cycles?",
-      "strategic_outlook": "Sustainable financial leadership in India is built on the pillars of disciplined underwriting, robust regulatory governance, and customer-centric digital technology."
-    }
-  },
-  {
-    "id": "news_1787632041064_xqw5",
-    "headline": "Goldman Sachs Sees Stable Asset Quality for Indian Banks",
-    "article_url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOb0RLN0tSeDBjd044S004RzhucHVQWGF2UVQzY082SE9LVHkyOEV4ZFljUmh6WHZydFp0b3FTQlBxUkRfa0lubGt0bENRd0JCZmttTVktX1pZc1JySzlrTy1aZ2stLW1qRWdULWhFN0c0S0hSek5hbzhpdXJtQ1N3SlJndTRDRldocGFxTmEwQUVnaTJybkwwOUJPOUtLTl91cG9jV1VhMlI4eVFmSzJrZlZMTzcxZ1E?oc=5",
-    "publisher": "Dainik Jagran MP CG",
-    "source_name": "Dainik Jagran MP CG",
-    "source_category": "NBFCs, Retail Credit & Asset Quality",
-    "summary": "Goldman Sachs Sees Stable Asset Quality for Indian Banks (Reported by Dainik Jagran MP CG)",
-    "published_at": "Mon, 24 Aug 2026 06:01:57 GMT",
-    "scraped_at": "2026-08-25T04:27:21.064Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "Dainik Jagran MP CG",
-      "Lending News",
-      "NBFCs, Retail Credit & Asset Quality"
-    ],
-    "generated_takes": {
-      "architectural_take": "The influx of institutional capital into gold loans reflects a massive shift from unorganized pawn channels to formal lending. From an LOS architecture standpoint, the winning differentiator is no longer just branch appraisal, but doorstep digitization, live LTV tracking against daily gold-price feeds, and automated instant disbursal in under 15 minutes.",
-      "risk_lens": "With rapid expansion in gold-backed credit, how are risk committees strengthening automated margin-call triggers and collateral re-valuation workflows to safeguard against sudden commodity price corrections while maintaining the 75% RBI LTV ceiling?",
-      "strategic_outlook": "Gold loans remain one of India's most resilient secured retail credit categories. As large corporations and NBFCs enter this segment, scalable digital origination combined with robust vault custodian governance will decide market leadership."
-    }
-  },
-  {
     "id": "news_1787632041063_ynsf",
     "headline": "RBI Draft Rules May Restrict NBFC Flexi-Loans",
     "article_url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxQOFlIcHVidG1ERldfQTZKQ3o0SGhEbTlMb3UzMUt3aVdEaW84YjdydFZDalhvSHFDNWR2cVJGTkpVVmZPazhwbEVteHFTSmNETk1NeGdzSndjbnVib3JkR3BRVmhKaXktZzItbHIwbGtHNzNraGd0SkRCcHFzQVhpRHRsYXZaNjJxbV9ENzd3LVVWdUNSczVzT3FhUFh5T2F2Z1J4V0hNN1p3SUlMZGJndmZ3d1ZlSmYtS0h1Nl9ROHA3NkE?oc=5",
@@ -503,28 +239,6 @@
       "architectural_take": "A significant development for the Indian credit landscape. Navigating this evolving market environment requires financial institutions to modernize their loan origination and risk decisioning pipelines—enabling agile policy adjustments while maintaining straight-through operational efficiency.",
       "risk_lens": "As credit demand scales across retail and commercial segments, what underwriting controls and portfolio monitoring mechanisms are risk committees prioritizing to preserve pristine asset quality across credit cycles?",
       "strategic_outlook": "Sustainable financial leadership in India is built on the pillars of disciplined underwriting, robust regulatory governance, and customer-centric digital technology."
-    }
-  },
-  {
-    "id": "news_1787632041061_57d5",
-    "headline": "Goldman Sachs sees stable asset quality for Indian banks despite West Asia risks",
-    "article_url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNT21pNm1UbTNkS0tXY281eER5OTB2WDZzeDZ6ZXFKbnNSdHZnZHg2MG1sMGJZOGJVQ1RCS1ppZGUxeFNreDl0a2VLMjhnUlB0cERDQTZxeDk0VDM3TTZzVU1xdjlkaFJkX2V3Y1R5NGdsaW95LThkNkNlM1VVMy04bHBOb1g0eG05YnpGNk9XWW4xa3d1TlJLYm81U1k2eC1fNE5pMkZ5X1hzNkhTVDZkeWlvMmxTZlp1WXFPYmtCdWdpMkhYOTN0Q2NzemRyQdIBzgFBVV95cUxNT21pNm1UbTNkS0tXY281eER5OTB2WDZzeDZ6ZXFKbnNSdHZnZHg2MG1sMGJZOGJVQ1RCS1ppZGUxeFNreDl0a2VLMjhnUlB0cERDQTZxeDk0VDM3TTZzVU1xdjlkaFJkX2V3Y1R5NGdsaW95LThkNkNlM1VVMy04bHBOb1g0eG05YnpGNk9XWW4xa3d1TlJLYm81U1k2eC1fNE5pMkZ5X1hzNkhTVDZkeWlvMmxTZlp1WXFPYmtCdWdpMkhYOTN0Q2NzemRyQQ?oc=5",
-    "publisher": "Firstpost",
-    "source_name": "Firstpost",
-    "source_category": "NBFCs, Retail Credit & Asset Quality",
-    "summary": "Goldman Sachs sees stable asset quality for Indian banks despite West Asia risks (Reported by Firstpost)",
-    "published_at": "Mon, 24 Aug 2026 05:03:22 GMT",
-    "scraped_at": "2026-08-25T04:27:21.061Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "Firstpost",
-      "Lending News",
-      "NBFCs, Retail Credit & Asset Quality"
-    ],
-    "generated_takes": {
-      "architectural_take": "The influx of institutional capital into gold loans reflects a massive shift from unorganized pawn channels to formal lending. From an LOS architecture standpoint, the winning differentiator is no longer just branch appraisal, but doorstep digitization, live LTV tracking against daily gold-price feeds, and automated instant disbursal in under 15 minutes.",
-      "risk_lens": "With rapid expansion in gold-backed credit, how are risk committees strengthening automated margin-call triggers and collateral re-valuation workflows to safeguard against sudden commodity price corrections while maintaining the 75% RBI LTV ceiling?",
-      "strategic_outlook": "Gold loans remain one of India's most resilient secured retail credit categories. As large corporations and NBFCs enter this segment, scalable digital origination combined with robust vault custodian governance will decide market leadership."
     }
   },
   {
@@ -594,182 +308,6 @@
     }
   },
   {
-    "id": "news_1787632040695_wk57",
-    "headline": "Bangladesh Closes 20,000 Mobile Accounts in Digital Lending and Crypto Crackdown",
-    "article_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPSmxHUXhtakVYaGJDdmN5NWJMUnN5eHhJdnIzNEtpZ09TY240LVJnZVhrT09vd1habV9oT1VnX1NOMElLaTk0Mjk5bFR2LVg0ZEZTektra01laUZSaXNZbGFVNXF5OVpRcjdibHB4LXZodXIxclNDeWw4RXY2TGNxRUNsWlVyaWhyNzNGUHRBeVY3dzZYalJlWURVTEtMa3I4T09LWUNn?oc=5",
-    "publisher": "RetailNews Asia",
-    "source_name": "RetailNews Asia",
-    "source_category": "Digital Lending & MSME Credit",
-    "summary": "Bangladesh Closes 20,000 Mobile Accounts in Digital Lending and Crypto Crackdown (Reported by RetailNews Asia)",
-    "published_at": "Mon, 24 Aug 2026 09:22:23 GMT",
-    "scraped_at": "2026-08-25T04:27:20.695Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "RetailNews Asia",
-      "Lending News",
-      "Digital Lending & MSME Credit"
-    ],
-    "generated_takes": {
-      "architectural_take": "A significant development for the Indian credit landscape. Navigating this evolving market environment requires financial institutions to modernize their loan origination and risk decisioning pipelines—enabling agile policy adjustments while maintaining straight-through operational efficiency.",
-      "risk_lens": "As credit demand scales across retail and commercial segments, what underwriting controls and portfolio monitoring mechanisms are risk committees prioritizing to preserve pristine asset quality across credit cycles?",
-      "strategic_outlook": "Sustainable financial leadership in India is built on the pillars of disciplined underwriting, robust regulatory governance, and customer-centric digital technology."
-    }
-  },
-  {
-    "id": "news_1787632040693_kt37",
-    "headline": "GSTAT president expresses concern over dismal appeal filings, sees scope for 2-2.5 lakh cases",
-    "article_url": "https://news.google.com/rss/articles/CBMiggJBVV95cUxQODd3U3hCR2tJZC05SUJZR242dGdjZlVuUzFtOWVubUJ5QWtmZ0NQdGcwckxQSTNmcFgwV2x1RlFET2NHbC1NaGFxM0FIMTUycmxIdG5fbXRfLWthcEloX2ZvYjBPUEVfQk1wZTd6ejlKZlVPbi1lM2FzRm9tc3VYNWY2WmV2NldFM195Vk1ZNDRVZzl2dXJ2eU1ZODJLZG40WTdSTTVOdzBPZjZrLXFCdHB2ZHFxZ2Z4d3JwMXpfN3A5V04tRG1sckhkZVIzUXM1T3NidDRSZGNYODIzaEFxLTlINGwwa1RHNXZQcFV6cUtpUzMyYUlrbnFyakNqRFp4cGfSAYICQVVfeXFMUDg3d1N4QkdrSWQtOUlCWUduNnRnY2ZVblMxbTllbm1CeUFrZmdDUHRnMHJMUEkzZnBYMFdsdUZRRE9jR2wtTWhhcTNBSDE1MnJsSHRuX210Xy1rYXBJaF9mb2IwT1BFX0JNcGU3eno5SmZVT24tZTNhc0ZvbXN1WDVmNlpldjZXRTNfeVZNWTQ0VWc5dnVydnlNWTgyS2RuNFk3Uk01TncwT2Y2ay1xQnRwdmRxcWdmeHdycDF6XzdwOVdOLURtbHJIZGVSM1FzNU9zYnQ0UmRjWDgyM2hBcS05SDRsMGtURzV2UHBVenFLaVMzMmFJa25xcmpDakRaeHBn?oc=5",
-    "publisher": "cfo.economictimes.indiatimes.com",
-    "source_name": "cfo.economictimes.indiatimes.com",
-    "source_category": "Digital Lending & MSME Credit",
-    "summary": "GSTAT president expresses concern over dismal appeal filings, sees scope for 2-2.5 lakh cases (Reported by cfo.economictimes.indiatimes.com)",
-    "published_at": "Mon, 24 Aug 2026 03:03:16 GMT",
-    "scraped_at": "2026-08-25T04:27:20.693Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "cfo.economictimes.indiatimes.com",
-      "Lending News",
-      "Digital Lending & MSME Credit"
-    ],
-    "generated_takes": {
-      "architectural_take": "A significant development for the Indian credit landscape. Navigating this evolving market environment requires financial institutions to modernize their loan origination and risk decisioning pipelines—enabling agile policy adjustments while maintaining straight-through operational efficiency.",
-      "risk_lens": "As credit demand scales across retail and commercial segments, what underwriting controls and portfolio monitoring mechanisms are risk committees prioritizing to preserve pristine asset quality across credit cycles?",
-      "strategic_outlook": "Sustainable financial leadership in India is built on the pillars of disciplined underwriting, robust regulatory governance, and customer-centric digital technology."
-    }
-  },
-  {
-    "id": "news_1787632040693_yz5x",
-    "headline": "SEBI proposes MF distributor-like framework to boost retail access to corporate bonds",
-    "article_url": "https://news.google.com/rss/articles/CBMiggJBVV95cUxNcy16TGVDc2lyXzJMd1ZKeWJhb1FCR2FYS1VqMWxpMFdhQTVZWGhQX2gxczVyTEhKNlowM1BITEdDMHI5bW5mRnRKWVhiTEVTUWNSQTA3YVNKbnNSMGtSWndkTGR6WVJZejUzc0J3VFktSzlPZlNzQ1FuYW1QVndMdVlZclUtZkRfeU45ZnV6cHptdlZCQUdINlgtbzdnb1U3dUUxeWo4U1BOaDM4a2R5VFZxSHB3enRxbnJkeUg0QkxuZXE5UVp5bnRQU2JoRWFSa2hUZ0lkdW5ZcDUyaWN3ODhiTHdSbVdnVjJtM1lCOTVoY0lLM0MxdUpRMmhWR0hHdFHSAYICQVVfeXFMTXMtekxlQ3Npcl8yTHdWSnliYW9RQkdhWEtVajFsaTBXYUE1WVhoUF9oMXM1ckxISjZaMDNQSExHQzByOW1uZkZ0SllYYkxFU1FjUkEwN2FTSm5zUjBrUlp3ZExkellSWXo1M3NCd1RZLUs5T2ZTc0NRbmFtUFZ3THVZWXJVLWZEX3lOOWZ1enB6bXZWQkFHSDZYLW83Z29VN3VFMXlqOFNQTmgzOGtkeVRWcUhwd3p0cW5yZHlINEJMbmVxOVFaeW50UFNiaEVhUmtoVGdJZHVuWXA1Mmljdzg4Ykx3Um1XZ1YybTNZQjk1aGNJSzNDMXVKUTJoVkdIR3RR?oc=5",
-    "publisher": "cfo.economictimes.indiatimes.com",
-    "source_name": "cfo.economictimes.indiatimes.com",
-    "source_category": "Digital Lending & MSME Credit",
-    "summary": "SEBI proposes MF distributor-like framework to boost retail access to corporate bonds (Reported by cfo.economictimes.indiatimes.com)",
-    "published_at": "Mon, 24 Aug 2026 03:08:31 GMT",
-    "scraped_at": "2026-08-25T04:27:20.693Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "cfo.economictimes.indiatimes.com",
-      "Lending News",
-      "Digital Lending & MSME Credit"
-    ],
-    "generated_takes": {
-      "architectural_take": "A significant development for the Indian credit landscape. Navigating this evolving market environment requires financial institutions to modernize their loan origination and risk decisioning pipelines—enabling agile policy adjustments while maintaining straight-through operational efficiency.",
-      "risk_lens": "As credit demand scales across retail and commercial segments, what underwriting controls and portfolio monitoring mechanisms are risk committees prioritizing to preserve pristine asset quality across credit cycles?",
-      "strategic_outlook": "Sustainable financial leadership in India is built on the pillars of disciplined underwriting, robust regulatory governance, and customer-centric digital technology."
-    }
-  },
-  {
-    "id": "news_1787632040692_1z7n",
-    "headline": "Indian equities open higher tracking global cues; Sensex gains over 200 points, Nifty hovers around 24,300",
-    "article_url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxPMG5DV1dTcXN2R0Z0cjJzbV96RkE3UThxUmtMUHRfRTNQMVZ6V3ZWMEFFNFo0MWh5eXc1M0l5dmg0MGpiVDhjd2VGSE9MZzRlaUx2NWx3cUtqLU1yeHQ3OVZjQ0gtQmo1MTBsdWN5YlNPNVJQNndYcFRlU0VNX1pDQjRRaldGci1kMmhfUnBCWnlMbnFVNjFPNWxISmd6aHc1dFZZVXhJUXhWYmhoOFRJSHlNRnlLUEFuZTdHbERuT1RmZnRaaW56YjNZbWpSMUozU1Bma2J3cTJsZmRoU1dpVkhTXzJwdUlSMjFaN0FMaXMzS2RqNFHSAfYBQVVfeXFMTzBuQ1dXU3FzdkdGdHIyc21fekZBN1E4cVJrTFB0X0UzUDFWeld2VjBBRTRaNDFoeXl3NTNJeXZoNDBqYlQ4Y3dlRkhPTGc0ZWlMdjVsd3FLai1Ncnh0NzlWY0NILUJqNTEwbHVjeWJTTzVSUDZ3WHBUZVNFTV9aQ0I0UWpXRnItZDJoX1JwQlp5TG5xVTYxTzVsSEpnemh3NXRWWVV4SVF4VmJoaDhUSUh5TUZ5S1BBbmU3R2xEbk9UZmZ0WmluemIzWW1qUjFKM1NQZmtid3EybGZkaFNXaVZIU18ycHVJUjIxWjdBTGlzM0tkajRR?oc=5",
-    "publisher": "cfo.economictimes.indiatimes.com",
-    "source_name": "cfo.economictimes.indiatimes.com",
-    "source_category": "Digital Lending & MSME Credit",
-    "summary": "Indian equities open higher tracking global cues; Sensex gains over 200 points, Nifty hovers around 24,300 (Reported by cfo.economictimes.indiatimes.com)",
-    "published_at": "Mon, 24 Aug 2026 05:20:17 GMT",
-    "scraped_at": "2026-08-25T04:27:20.692Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "cfo.economictimes.indiatimes.com",
-      "Lending News",
-      "Digital Lending & MSME Credit"
-    ],
-    "generated_takes": {
-      "architectural_take": "A significant development for the Indian credit landscape. Navigating this evolving market environment requires financial institutions to modernize their loan origination and risk decisioning pipelines—enabling agile policy adjustments while maintaining straight-through operational efficiency.",
-      "risk_lens": "As credit demand scales across retail and commercial segments, what underwriting controls and portfolio monitoring mechanisms are risk committees prioritizing to preserve pristine asset quality across credit cycles?",
-      "strategic_outlook": "Sustainable financial leadership in India is built on the pillars of disciplined underwriting, robust regulatory governance, and customer-centric digital technology."
-    }
-  },
-  {
-    "id": "news_1787632040690_fqbj",
-    "headline": "IDFC FIRST Bank, IIM Calcutta Innovation Park launch Rs 2-cr startup incubation initiative",
-    "article_url": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxOV2RmVlVQTDgwY1QwNk1kTUQ1Mko0cWNmemw2aHd4dkg4VkVNdDM5SV9xdXpUMkp4UHZhOHAtZTZhQ2hnZUNINW5PWF8xRWdlZEpVYW1kUUhvUTVGLXRmS1l0NmpJVnk4bnhpR1RyMUVheFJ3M1puelBnZ2psSFkwTmVUN2R6Wmszd1dYMlpiSldUUEtCX1dBcHZQX0x1WElDb2JCdGJFVlNoTFFpU29zQlFDSktfV2xobXc1UmJidjZsWTZKdXNsY1FlYk5VYkhDYzBwZmtGZFlSNXdLa0xUM00zd3pBSkowY3fSAeoBQVVfeXFMTldkZlZVUEw4MGNUMDZNZE1ENTJKNHFjZnpsNmh3eHZIOFZFTXQzOUlfcXV6VDJKeFB2YThwLWU2YUNoZ2VDSDVuT1hfMUVnZWRKVWFtZFFIb1E1Ri10ZktZdDZqSVZ5OG54aUdUcjFFYXhSdzNabnpQZ2dqbEhZME5lVDdkelprM3dXWDJaYkpXVFBLQl9XQXB2UF9MdVhJQ29iQnRiRVZTaExRaVNvc0JRQ0pLX1dsaG13NVJiYnY2bFk2SnVzbGNRZWJOVWJIQ2MwcGZrRmRZUjV3S2tMVDNNM3d6QUpKMGN3?oc=5",
-    "publisher": "Economic Times BFSI",
-    "source_name": "Economic Times BFSI",
-    "source_category": "Digital Lending & MSME Credit",
-    "summary": "IDFC FIRST Bank, IIM Calcutta Innovation Park launch Rs 2-cr startup incubation initiative (Reported by Economic Times BFSI)",
-    "published_at": "Mon, 24 Aug 2026 08:00:58 GMT",
-    "scraped_at": "2026-08-25T04:27:20.690Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "Economic Times BFSI",
-      "Lending News",
-      "Digital Lending & MSME Credit"
-    ],
-    "generated_takes": {
-      "architectural_take": "A significant development for the Indian credit landscape. Navigating this evolving market environment requires financial institutions to modernize their loan origination and risk decisioning pipelines—enabling agile policy adjustments while maintaining straight-through operational efficiency.",
-      "risk_lens": "As credit demand scales across retail and commercial segments, what underwriting controls and portfolio monitoring mechanisms are risk committees prioritizing to preserve pristine asset quality across credit cycles?",
-      "strategic_outlook": "Sustainable financial leadership in India is built on the pillars of disciplined underwriting, robust regulatory governance, and customer-centric digital technology."
-    }
-  },
-  {
-    "id": "news_1787632040686_sta0",
-    "headline": "Shriram Research names Apoorva Javadekar as Chief Economist &amp; CEO",
-    "article_url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNTkVPRERuQWtJLWdHQ3R1WDEtSnAyZncyQkFHejZpMmFCaHRVQ0x3b2lnMHpkeEVHVFlRalZxWENjc1oyaGVROFU2MmVUS3FZVEtLUm5UbjRwUlZnMkQ4MXRyTkF0MC1ka1djSlUxc1ZNNU1LMmJhNDFaQnpjRk9zTXphUnFlVFM5THIwSW9JWFYxOVdsMHJqdnRXTmNya0pySnF6QWhTMWxaSHpXZllva05rRURPR1BJZV9JYi0xNFBROTlHNGRR0gHHAUFVX3lxTE1ORU9ERG5Ba0ktZ0dDdHVYMS1KcDJmdzJCQUd6NmkyYUJodFVDTHdvaWcwemR4RUdUWVFqVnFYQ2NzWjJoZVE4VTYyZVRLcVlUS0tSblRuNHBSVmcyRDgxdHJOQXQwLWRrV2NKVTFzVk01TUsyYmE0MVpCemNGT3NNemFScWVUUzlMcjBJb0lYVjE5V2wwcmp2dFdOY3JrSnJKcXpBaFMxbFpIeldmWW9rTmtFRE9HUEllX0liLTE0UFE5OUc0ZFE?oc=5",
-    "publisher": "Economic Times BFSI",
-    "source_name": "Economic Times BFSI",
-    "source_category": "Digital Lending & MSME Credit",
-    "summary": "Shriram Research names Apoorva Javadekar as Chief Economist &amp; CEO (Reported by Economic Times BFSI)",
-    "published_at": "Mon, 24 Aug 2026 08:48:05 GMT",
-    "scraped_at": "2026-08-25T04:27:20.686Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "Economic Times BFSI",
-      "Lending News",
-      "Digital Lending & MSME Credit"
-    ],
-    "generated_takes": {
-      "architectural_take": "A significant development for the Indian credit landscape. Navigating this evolving market environment requires financial institutions to modernize their loan origination and risk decisioning pipelines—enabling agile policy adjustments while maintaining straight-through operational efficiency.",
-      "risk_lens": "As credit demand scales across retail and commercial segments, what underwriting controls and portfolio monitoring mechanisms are risk committees prioritizing to preserve pristine asset quality across credit cycles?",
-      "strategic_outlook": "Sustainable financial leadership in India is built on the pillars of disciplined underwriting, robust regulatory governance, and customer-centric digital technology."
-    }
-  },
-  {
-    "id": "news_1787632040684_dce5",
-    "headline": "SEBI chief flags need for stronger governance as mutual fund investor base widens",
-    "article_url": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxOVndBS3k3VFoxSVgwT1I4MU5TQWVERVJaTzhKeUNnUTZOekROc3dsT1JHMW54MTFjOHgzb0NJWl91Z2s3Ni1laG1SclZFZG1HN1hFekJIZWZMemdnNGp4MW1qUEJ2U2ZrcHI3SnA2X3hLZ0hkUlY2NTRydDNhS1BiMHduUnVTZERzVHcxN2ViR3o2T0cxVEYzOVBGV2RPWG56VUFUUExVaERBNHpjYmthWm5CV3ZjbXBXY2xlX2NrWFlpdV9aWC02MVVRRDRjU1k5dk05LUNvTWVZNkRzeVdhTC1IMVliQThnbGxwRXRsc3FMQWFweWo3SWNGVDfSAfwBQVVfeXFMTlZ3QUt5N1RaMUlYME9SODFOU0FlREVSWk84SnlDZ1E2TnpETnN3bE9SRzFueDExYzh4M29DSVpfdWdrNzYtZWhtUnJWRWRtRzdYRXpCSGVmTHpnZzRqeDFtalBCdlNma3ByN0pwNl94S2dIZFJWNjU0cnQzYUtQYjB3blJ1U2REc1R3MTdlYkd6Nk9HMVRGMzlQRldkT1huelVBVFBMVWhEQTR6Y2JrYVpuQld2Y21wV2NsZV9ja1hZaXVfWlgtNjFVUUQ0Y1NZOXZNOS1Db01lWTZEc3lXYUwtSDFZYkE4Z2xscEV0bHNxTEFhcHlqN0ljRlQ3?oc=5",
-    "publisher": "cfo.economictimes.indiatimes.com",
-    "source_name": "cfo.economictimes.indiatimes.com",
-    "source_category": "Digital Lending & MSME Credit",
-    "summary": "SEBI chief flags need for stronger governance as mutual fund investor base widens (Reported by cfo.economictimes.indiatimes.com)",
-    "published_at": "Mon, 24 Aug 2026 03:08:02 GMT",
-    "scraped_at": "2026-08-25T04:27:20.684Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "cfo.economictimes.indiatimes.com",
-      "Lending News",
-      "Digital Lending & MSME Credit"
-    ],
-    "generated_takes": {
-      "architectural_take": "A significant development for the Indian credit landscape. Navigating this evolving market environment requires financial institutions to modernize their loan origination and risk decisioning pipelines—enabling agile policy adjustments while maintaining straight-through operational efficiency.",
-      "risk_lens": "As credit demand scales across retail and commercial segments, what underwriting controls and portfolio monitoring mechanisms are risk committees prioritizing to preserve pristine asset quality across credit cycles?",
-      "strategic_outlook": "Sustainable financial leadership in India is built on the pillars of disciplined underwriting, robust regulatory governance, and customer-centric digital technology."
-    }
-  },
-  {
-    "id": "news_1787632040684_v07d",
-    "headline": "MSM Unify appoints Rishi Kapoor as CFO, plans for IPO across India and global markets",
-    "article_url": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxQU283UzBwV1Z2bEhDZDRwT3pxTG1DamtZYWFvQXJGUy1SYmdabVdlaUVyeEc0NE5jWmpYZW5jcmQta2FUNlJqWkE2SXNsWFpFRXJRSFlIWDc1Zzd3cWpMVGs2YWpJX1RwczRPY0J6SEduOEJfRTF4S1RZLXR5eEU4NFVnRnBfSy0yWTlZRjgyaHZvWDlfMFRKV0RNRXMybGtCLXM4ODY1Z19FWUYyQ1VRUkxqcnQ0UnpIb3dxeC1MVXdjZG1wekFQSndlYnlEQjlfRDNRSHlPM2syQTB4SWlPWVdPcUZfbzBkQ2pZeEZxWUlKbzdW0gH0AUFVX3lxTFBTbzdTMHBXVnZsSENkNHBPenFMbUNqa1lhYW9BckZTLVJiZ1ptV2VpRXJ4RzQ0TmNaalhlbmNyZC1rYVQ2UmpaQTZJc2xYWkVFclFIWUhYNzVnN3dxakxUazZhaklfVHBzNE9jQnpIR244Ql9FMXhLVFktdHl4RTg0VWdGcF9LLTJZOVlGODJodm9YOV8wVEpXRE1FczJsa0Itczg4NjVnX0VZRjJDVVFSTGpydDRSekhvd3F4LUxVd2NkbXB6QVBKd2VieURCOV9EM1FIeU8zazJBMHhJaU9ZV09xRl9vMGRDall4RnFZSUpvN1Y?oc=5",
-    "publisher": "cfo.economictimes.indiatimes.com",
-    "source_name": "cfo.economictimes.indiatimes.com",
-    "source_category": "Digital Lending & MSME Credit",
-    "summary": "MSM Unify appoints Rishi Kapoor as CFO, plans for IPO across India and global markets (Reported by cfo.economictimes.indiatimes.com)",
-    "published_at": "Mon, 24 Aug 2026 08:00:00 GMT",
-    "scraped_at": "2026-08-25T04:27:20.684Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "cfo.economictimes.indiatimes.com",
-      "Lending News",
-      "Digital Lending & MSME Credit"
-    ],
-    "generated_takes": {
-      "architectural_take": "Capital allocation in Indian fintech has clearly shifted from growth-at-all-costs to unit economics, sustainable net interest margins (NIMs), and disciplined collection efficiency. Investing in core lending infrastructure and automated decisioning provides the operational leverage needed for long-term profitability.",
-      "risk_lens": "As fintechs scale their asset books post-funding, how are leadership teams balancing rapid disbursement growth with counter-cyclical provisioning and Gross Stage-3 containment?",
-      "strategic_outlook": "The Indian fintech ecosystem is maturing into sustainable institution-building. Capital backing institutions with strong governance, deep domain expertise, and sound risk underwriting will define the decade."
-    }
-  },
-  {
     "id": "news_1787632040683_xhl7",
     "headline": "Bajaj Finance’s personal-loan growth slows below 20% as competition intensifies",
     "article_url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxOOVdicVpVcl93SklZZV9Sd1BLbTJUV2k5enFmTHlLSWlGako4czMtT3A3WGR4NEhQNTVpb0tEOEF6WGU1VUNKVW9Xa0IxQldqcGE2OVdWMWdESTVzTGRvbWhOYWlhZEprNEJwUlM0QzZqNkotcUJqSEhlRF9ybjI2NndvaFZ4Tk56RUtPT2d3aWdJQk1xNFRSZ3h2OVN4SjRyN3g3ck8wbTJtMkpSdW41WUJNOS1wLUptaHpKUjEzeEZHa1EyQ0JFT085V1c2SnQ1VkJJNllMbHp5QdIB2gFBVV95cUxOOVdicVpVcl93SklZZV9Sd1BLbTJUV2k5enFmTHlLSWlGako4czMtT3A3WGR4NEhQNTVpb0tEOEF6WGU1VUNKVW9Xa0IxQldqcGE2OVdWMWdESTVzTGRvbWhOYWlhZEprNEJwUlM0QzZqNkotcUJqSEhlRF9ybjI2NndvaFZ4Tk56RUtPT2d3aWdJQk1xNFRSZ3h2OVN4SjRyN3g3ck8wbTJtMkpSdW41WUJNOS1wLUptaHpKUjEzeEZHa1EyQ0JFT085V1c2SnQ1VkJJNllMbHp5QQ?oc=5",
@@ -836,28 +374,6 @@
     }
   },
   {
-    "id": "news_1787632040681_05y5",
-    "headline": "Indian banks are in their best shape in a decade: MoSL",
-    "article_url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPQWpLTU9DbmQ3aUozVzFaY0NNQTNMZ2NkTkgwMVVScTVZTnk2WDdiMWo5Y2VEQUV5Wi1rbDdnTWIzOGpveFVLeEJGY3Z2RE1sWXhtUklVNnEzV00temlFZk53YWZjV0puLWNIMXNIdWVZc3REYS1VbVQ4S0g2ZnJ1TjNBaTVSb0JrOHl6ZUFYYV9nanI1Qk5qb2FlU1ZlaTYwV2RsOVozMlFob29XVFNZX0hkMjMtbjBXNFHSAboBQVVfeXFMT0FqS01PQ25kN2lKM1cxWmNDTUEzTGdjZE5IMDFVUnE1WU55Nlg3YjFqOWNlREFFeVota2w3Z01iMzhqb3hVS3hCRmN2dkRNbFl4bVJJVTZxM1dNLXppRWZOd2FmY1dKbi1jSDFzSHVlWXN0RGEtVW1UOEtINmZydU4zQWk1Um9Cazh5emVBWGFfZ2pyNUJOam9hZVNWZWk2MFdkbDlaMzJRaG9vV1RTWV9IZDIzLW4wVzRR?oc=5",
-    "publisher": "Economic Times BFSI",
-    "source_name": "Economic Times BFSI",
-    "source_category": "Digital Lending & MSME Credit",
-    "summary": "Indian banks are in their best shape in a decade: MoSL (Reported by Economic Times BFSI)",
-    "published_at": "Mon, 24 Aug 2026 05:56:18 GMT",
-    "scraped_at": "2026-08-25T04:27:20.681Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "Economic Times BFSI",
-      "Lending News",
-      "Digital Lending & MSME Credit"
-    ],
-    "generated_takes": {
-      "architectural_take": "A significant development for the Indian credit landscape. Navigating this evolving market environment requires financial institutions to modernize their loan origination and risk decisioning pipelines—enabling agile policy adjustments while maintaining straight-through operational efficiency.",
-      "risk_lens": "As credit demand scales across retail and commercial segments, what underwriting controls and portfolio monitoring mechanisms are risk committees prioritizing to preserve pristine asset quality across credit cycles?",
-      "strategic_outlook": "Sustainable financial leadership in India is built on the pillars of disciplined underwriting, robust regulatory governance, and customer-centric digital technology."
-    }
-  },
-  {
     "id": "news_1787632040680_e28s",
     "headline": "CV loans grow at 20% CAGR; used-car finance emerges fastest-growing segment: Report",
     "article_url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxPTGlnZnhsREZkdHlOeWlHLV9PMVgzSkdScktyWFduVFJ2cjc2SUV1bTRMaVBJNmJqall3QzliYk05UEMyOUNpc0l2VUR5LXVhVmZNbWppeEsyT1RDenhrUy1MdWFBV1B1M1ZVbWZaN2xrcEFnVUxmQVNSQWRpc09SUHphREdPNzkzaW04b2IzNWstV2pWVFBhQUNja3kzMWhjZ3ItcUkwV3RLQVVqSmhVVXpieWw1cDRwWG1iY3pTN3ZJSWhJc2hrNjdMdm9VN0Y5dnZQd1BoVlNyNVFuMUHSAd4BQVVfeXFMT0xpZ2Z4bERGZHR5TnlpRy1fTzFYM0pHUnJLclhXblRSdnI3NklFdW00TGlQSTZiampZd0M5YmJNOVBDMjlDaXNJdlVEeS11YVZmTW1qaXhLMk9UQ3p4a1MtTHVhQVdQdTNWVW1mWjdsa3BBZ1VMZkFTUkFkaXNPUlB6YURHTzc5M2ltOG9iMzVrLVdqVlRQYUFDY2t5MzFoY2dyLXFJMFd0S0FVakpoVVV6YnlsNXA0cFhtYmN6Uzd2SUloSXNoazY3THZvVTdGOXZ2UHdQaFZTcjVRbjFB?oc=5",
@@ -880,28 +396,6 @@
     }
   },
   {
-    "id": "news_1787632040680_5xhs",
-    "headline": "Airtel Payments Bank annualised revenue crosses Rs 3,300 crore in Q1 FY27",
-    "article_url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNdzJzd2k4YS1hOTlydHpUaS1RcEY1SEZjVU1Yc3llbGwxNTYxelNRbkEyYzVtb212ZXBmX1E4OXlqclBSOGhoWll3SFMtbld2OGZKanhDemtHTnkwN2stbzVMRWFWMVg3X0RCYjdVUi15eTZqSGJFbTQ1R2xCRW1zNXlpUnFiY19NZTBKM013Z2R5UUJjYVRkRnYxWGNpQUNJV1JVS3A1ZTh4NDN5T2doRWMzUUllV3Ficzh3NnRnVEVLYUVxeUp5RFhZSkcwRnFIaWhqX0pfRzbSAdgBQVVfeXFMTXcyc3dpOGEtYTk5cnR6VGktUXBGNUhGY1VNWHN5ZWxsMTU2MXpTUW5BMmM1bW9tdmVwZl9RODl5anJQUjhoaFpZd0hTLW5XdjhmSmp4Q3prR055MDdrLW81TEVhVjFYN19EQmI3VVIteXk2akhiRW00NUdsQkVtczV5aVJxYmNfTWUwSjNNd2dkeVFCY2FUZEZ2MVhjaUFDSVdSVUtwNWU4eDQzeU9naEVjM1FJZVdxYnM4dzZ0Z1RFS2FFcXlKeURYWUpHMEZxSGloal9KX0c2?oc=5",
-    "publisher": "Economic Times BFSI",
-    "source_name": "Economic Times BFSI",
-    "source_category": "Digital Lending & MSME Credit",
-    "summary": "Airtel Payments Bank annualised revenue crosses Rs 3,300 crore in Q1 FY27 (Reported by Economic Times BFSI)",
-    "published_at": "Mon, 24 Aug 2026 10:02:47 GMT",
-    "scraped_at": "2026-08-25T04:27:20.680Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "Economic Times BFSI",
-      "Lending News",
-      "Digital Lending & MSME Credit"
-    ],
-    "generated_takes": {
-      "architectural_take": "A significant development for the Indian credit landscape. Navigating this evolving market environment requires financial institutions to modernize their loan origination and risk decisioning pipelines—enabling agile policy adjustments while maintaining straight-through operational efficiency.",
-      "risk_lens": "As credit demand scales across retail and commercial segments, what underwriting controls and portfolio monitoring mechanisms are risk committees prioritizing to preserve pristine asset quality across credit cycles?",
-      "strategic_outlook": "Sustainable financial leadership in India is built on the pillars of disciplined underwriting, robust regulatory governance, and customer-centric digital technology."
-    }
-  },
-  {
     "id": "news_1787632040679_gipt",
     "headline": "SG Finserve targets FY27 PBT of ₹300 crore",
     "article_url": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxNTU1hZzlnUS1XQ1JaWm83d2tjeUpfcGxlOFdkdThKTmFKLVZBVGs4ZkJlMl80ajN0dHdpdXc0NGhzRkJ6Z3h5ZG85d2FkUTlYOF9lRVNfeVEzc2NCWjBmaW5jOHlpOVFZS2FzeGtTcWF1cl9QOUNBNW01VmJSMDkwelU5eE9HTEl2QjJLOF9GMWhTRHk1MGhuNnNtUGluTXpUM1dlNmktZi1FaTlhU2xOTC1uQ2JlcWI3LVdGbU5KeHBUdmdWRm9BdTdQNGc1Sk1XWEJYdTlSUFd1QTBfbG1TMmx2QUJvc2JUZmZiZjJ1dko3RVRNRkgwY1NB?oc=5",
@@ -914,50 +408,6 @@
     "status": "PENDING",
     "relevance_tags": [
       "scanx.trade",
-      "Lending News",
-      "Digital Lending & MSME Credit"
-    ],
-    "generated_takes": {
-      "architectural_take": "A significant development for the Indian credit landscape. Navigating this evolving market environment requires financial institutions to modernize their loan origination and risk decisioning pipelines—enabling agile policy adjustments while maintaining straight-through operational efficiency.",
-      "risk_lens": "As credit demand scales across retail and commercial segments, what underwriting controls and portfolio monitoring mechanisms are risk committees prioritizing to preserve pristine asset quality across credit cycles?",
-      "strategic_outlook": "Sustainable financial leadership in India is built on the pillars of disciplined underwriting, robust regulatory governance, and customer-centric digital technology."
-    }
-  },
-  {
-    "id": "news_1787632040679_ly4t",
-    "headline": "Indian banks' asset quality outlook remains stable, West Asia impact limited: Report",
-    "article_url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxOR0JrR0lWckprUFVVLWg5VExYZnBoOGFzUHMwWVNYUTFUSzh6RHpSaFdFY0lEZlo3TkNvZ0JDVk5wTW43MFh6a1haRXNYS0ozWlJzeUFoeDBZT3pXTHVvdzliTWJ1OG5YZmF2RU80cVZxazVIOUVxeG51b0dMRVQtVWNBTmpfbEdsWkU5X0c1YXQ4SHdDS2dDYVFYTkxmcFhNOHpyaWJqYlMwdmdBXzB0Um1VMGtVYi1LUlU4RGFVa3l6VThsSVJrQlFnOGhZZWxNdEZadXF0QWR6X2JGQUdF0gHfAUFVX3lxTE5HQmtHSVZySmtQVVUtaDlUTFhmcGg4YXNQczBZU1hRMVRLOHpEelJoV0VjSURmWjdOQ29nQkNWTnBNbjcwWHprWFpFc1hLSjNaUnN5QWh4MFlPeldMdW93OWJNYnU4blhmYXZFTzRxVnFrNUg5RXF4bnVvR0xFVC1VY0FOal9sR2xaRTlfRzVhdDhId0NLZ0NhUVhOTGZwWE04enJpYmpiUzB2Z0FfMHRSbVUwa1ViLUtSVThEYVVreXpVOGxJUmtCUWc4aFllbE10Rlp1cXRBZHpfYkZBR0U?oc=5",
-    "publisher": "Economic Times BFSI",
-    "source_name": "Economic Times BFSI",
-    "source_category": "Digital Lending & MSME Credit",
-    "summary": "Indian banks' asset quality outlook remains stable, West Asia impact limited: Report (Reported by Economic Times BFSI)",
-    "published_at": "Mon, 24 Aug 2026 04:27:41 GMT",
-    "scraped_at": "2026-08-25T04:27:20.679Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "Economic Times BFSI",
-      "Lending News",
-      "Digital Lending & MSME Credit"
-    ],
-    "generated_takes": {
-      "architectural_take": "A significant development for the Indian credit landscape. Navigating this evolving market environment requires financial institutions to modernize their loan origination and risk decisioning pipelines—enabling agile policy adjustments while maintaining straight-through operational efficiency.",
-      "risk_lens": "As credit demand scales across retail and commercial segments, what underwriting controls and portfolio monitoring mechanisms are risk committees prioritizing to preserve pristine asset quality across credit cycles?",
-      "strategic_outlook": "Sustainable financial leadership in India is built on the pillars of disciplined underwriting, robust regulatory governance, and customer-centric digital technology."
-    }
-  },
-  {
-    "id": "news_1787632040678_2exp",
-    "headline": "Shashank Shekhar Elevated to Vice President at Northern Arc Capital",
-    "article_url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPNDNwSDZ3alJqUzk3SFdxbWtZRXE2cHQ0bmdFY3pmc0ZDTThEWTRpb1VQNDRJNHh5dkplTkplMEJjWHJockJMcEdyZWsxczNUVURpUTFvYTdSNm82R2ZWbFYxSF9RUG1UblZsQmwxUHFvT0NBZ1JFOTk5MXdRbUsyd1RKeGlZTXJZQ1lMaWxDdTI?oc=5",
-    "publisher": "hrtoday.in",
-    "source_name": "hrtoday.in",
-    "source_category": "Digital Lending & MSME Credit",
-    "summary": "Shashank Shekhar Elevated to Vice President at Northern Arc Capital (Reported by hrtoday.in)",
-    "published_at": "Mon, 24 Aug 2026 13:16:52 GMT",
-    "scraped_at": "2026-08-25T04:27:20.678Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "hrtoday.in",
       "Lending News",
       "Digital Lending & MSME Credit"
     ],
@@ -987,72 +437,6 @@
       "architectural_take": "A significant development for the Indian credit landscape. Navigating this evolving market environment requires financial institutions to modernize their loan origination and risk decisioning pipelines—enabling agile policy adjustments while maintaining straight-through operational efficiency.",
       "risk_lens": "As credit demand scales across retail and commercial segments, what underwriting controls and portfolio monitoring mechanisms are risk committees prioritizing to preserve pristine asset quality across credit cycles?",
       "strategic_outlook": "Sustainable financial leadership in India is built on the pillars of disciplined underwriting, robust regulatory governance, and customer-centric digital technology."
-    }
-  },
-  {
-    "id": "news_1787543766897_5lgq",
-    "headline": "Citigroup, Axis Bank Tie Up For NRI Financing As RBI Swap Ends",
-    "article_url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxQdzFpY0U1bWhkZ2c5dnp3QWNPU19vejc4XzhaM1BvdVREQjF4LXBWMkdLMUxfSWp6bEpJdzRraVlLTklVS1c0ekE3aHU2Sl9jRXpNbUJoeGpPejh4eEFxSnZhQTFTR0k3ZnZsd29MNnMxRlJheDNxVHBuU2lROFd1Q2dfd0Z3TEh3SU9NNFVhZDM0bGMzU0hIY1BfU0lRLVBwWlYwTlU4VEtxRTVUS2JJWEo3SWFpRWR5dWtFdk12cmhzdVhDQlpibHZOZUkzOGdlTkltdThORnc?oc=5",
-    "publisher": "Whalesbook",
-    "source_name": "Whalesbook",
-    "source_category": "RBI & Regulatory Policy",
-    "summary": "Citigroup, Axis Bank Tie Up For NRI Financing As RBI Swap Ends (Reported by Whalesbook)",
-    "published_at": "Mon, 24 Aug 2026 03:02:47 GMT",
-    "scraped_at": "2026-08-24T03:56:06.897Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "Whalesbook",
-      "Lending News",
-      "RBI & Regulatory Policy"
-    ],
-    "generated_takes": {
-      "architectural_take": "Bank-NBFC co-lending is the single most potent bridge between low-cost bank deposits and grassroots NBFC distribution. The critical tech bottleneck has always been dual-LOS underwriting latency and real-time tripartite escrow settlements. Modernizing this pipeline enables true straight-through processing across CLM-1 and CLM-2 models.",
-      "risk_lens": "Under the RBI's Default Loss Guarantee (FLDG) guidelines, how are partner institutions aligning their risk appetite matrices to prevent underwriting friction while ensuring complete portfolio transparency on the bank's books?",
-      "strategic_outlook": "Co-lending is evolving from opportunistic tie-ups into core distribution architecture for Indian banking. Sustainable scale requires standardized risk-sharing protocols and automated compliance auditing."
-    }
-  },
-  {
-    "id": "news_1787543766896_hphl",
-    "headline": "Cooperative banks seek autonomy, oppose RBI curbs",
-    "article_url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOR0FrY1NCMjMxRHhxVmtsVWYyZUwwd0Q0N1VSNjg2QUxYMzBSM0lIZWtHSldWaS11Y09wNWR5ajhNY2hWd2REOVluSVRtS1lOTV9hWWFDbjhUeU1GUWhyalVBSDRBUUpIZUQ4WUdFcFVoWUh0OGRUeXNPdzRrZk9aRndmQmFVS21LWktudXBVdEpoaklsNlRpcElPS3JyTHYyM210MjE0cF84LTRyVXVjcDB30gGyAUFVX3lxTE5HQWtjU0IyMzFEeHFWa2xVZjJlTDB3RDQ3VVI2ODZBTFgzMFIzSUhla0dKV1ZpLXVjT3A1ZHlqOE1jaFZ3ZEQ5WW5JVG1LWU5NX2FZYUNuOFR5TUZRaHJqVUFINEFRSkhlRDhZR0VwVWhZSHQ4ZFR5c093NGtmT1pGd2ZCYVVLbUtaS251cFV0SmhqSWw2VGlwSU9LcnJMdjIzbXQyMTRwXzgtNHJVdWNwMHc?oc=5",
-    "publisher": "The Hans India",
-    "source_name": "The Hans India",
-    "source_category": "RBI & Regulatory Policy",
-    "summary": "Cooperative banks seek autonomy, oppose RBI curbs (Reported by The Hans India)",
-    "published_at": "Mon, 24 Aug 2026 01:10:25 GMT",
-    "scraped_at": "2026-08-24T03:56:06.896Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "The Hans India",
-      "Lending News",
-      "RBI & Regulatory Policy"
-    ],
-    "generated_takes": {
-      "architectural_take": "Regulatory clarity from the RBI is a structural tailwind for responsible lending innovation. From a product perspective, regulatory rules (such as RWA weightings, key fact statements, loan recovery guidelines, and FLDG caps) must be embedded natively into the LOS business rules engine (BRE) so policy updates deploy in real-time without code rebuilds.",
-      "risk_lens": "How are compliance and risk teams auditing automated lending workflows to ensure algorithmic underwriting and third-party recovery channels remain 100% compliant with RBI directives?",
-      "strategic_outlook": "The RBI's proactive oversight reinforces trust in India's digital financial architecture. Long-term institutional value is created by lenders who treat regulatory governance and borrower protection as core competitive moats."
-    }
-  },
-  {
-    "id": "news_1787543766882_j82e",
-    "headline": "RBI postpones implementation of new rules on capital market exposure by 3 months | Akashvani News",
-    "article_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOZDdpZW5ESjlDSllRenlRaVdPRVpQTXdwOWxwZXN5YXR0T0ZMUUVtT1JRR0hxWTRtdlJNbUpJTXNtRnVIcnRIaW1TYWdmYWliUXFKUUNoTEZYeE1mRjNlZjJOMmFmM3pBRlp1LWNlTG5EVjVNVUtmRThkWGZxOHV2YXYxZU9uWVdGdDZ3NEQzM0NCbzBLY2xFWk40ZzQxTUk2YllTQ0p5TUlGQQ?oc=5",
-    "publisher": "News On AIR",
-    "source_name": "News On AIR",
-    "source_category": "RBI & Regulatory Policy",
-    "summary": "RBI postpones implementation of new rules on capital market exposure by 3 months | Akashvani News (Reported by News On AIR)",
-    "published_at": "Sun, 23 Aug 2026 19:55:32 GMT",
-    "scraped_at": "2026-08-24T03:56:06.882Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "News On AIR",
-      "Lending News",
-      "RBI & Regulatory Policy"
-    ],
-    "generated_takes": {
-      "architectural_take": "Regulatory clarity from the RBI is a structural tailwind for responsible lending innovation. From a product perspective, regulatory rules (such as RWA weightings, key fact statements, loan recovery guidelines, and FLDG caps) must be embedded natively into the LOS business rules engine (BRE) so policy updates deploy in real-time without code rebuilds.",
-      "risk_lens": "How are compliance and risk teams auditing automated lending workflows to ensure algorithmic underwriting and third-party recovery channels remain 100% compliant with RBI directives?",
-      "strategic_outlook": "The RBI's proactive oversight reinforces trust in India's digital financial architecture. Long-term institutional value is created by lenders who treat regulatory governance and borrower protection as core competitive moats."
     }
   },
   {
@@ -1122,50 +506,6 @@
     }
   },
   {
-    "id": "news_1787543766070_dnkt",
-    "headline": "Indian banks asset quality outlook remains stable, West Asia impact limited: Report",
-    "article_url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNWmRZcjJNdm5mTkRzYVVHcjJPbGJVeGw3V2pXNnItb3I2ckNScHlNeFBzQXJiT1hscnhrZEhveGNPTUc0a3E5dHk3VFQxYjdlU24yeGE2amczZk9mdTZPcmdpT1NzTmI0Y21hX1ZDel9BbEg5QXhQTUVqU0dPdlZ0VXVYbDh3QkpxM25IRnhwNUtOemo2Wm1oelBJWHpob1NHT0JWazdmUUt1a2E2T2Q3VUZCVUUzX2l6ZW84LUlVdC1ReXfSAccBQVVfeXFMTkF0UHdQSXFXUXBNUFEzNG9LaGZ3dTFWWXk1c1hTcUNCQUZDVHQ1SnBBZDhZWm9uN3J0MXBwX1d6TXhUeE1BbG9nM2x4N3hRaU9Ia3p6RFhBUVlJNFU2RGU1Yy10bHVKbnIxT3F2aXdjTlR5MmhZSmg5ZEx0MWJkTXk2Nnd5SGRIZzRHRHpqWVpTWVNsWmJEZHViNFJDeHg1d3RENU44TnZPNkk1MGZLc0VsWDZxR0RUdTZydGRYUVhWQm5LOFVCZw?oc=5",
-    "publisher": "The Tribune",
-    "source_name": "The Tribune",
-    "source_category": "NBFCs, Retail Credit & Asset Quality",
-    "summary": "Indian banks asset quality outlook remains stable, West Asia impact limited: Report (Reported by The Tribune)",
-    "published_at": "Mon, 24 Aug 2026 03:38:21 GMT",
-    "scraped_at": "2026-08-24T03:56:06.070Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "The Tribune",
-      "Lending News",
-      "NBFCs, Retail Credit & Asset Quality"
-    ],
-    "generated_takes": {
-      "architectural_take": "A significant development for the Indian credit landscape. Navigating this evolving market environment requires financial institutions to modernize their loan origination and risk decisioning pipelines—enabling agile policy adjustments while maintaining straight-through operational efficiency.",
-      "risk_lens": "As credit demand scales across retail and commercial segments, what underwriting controls and portfolio monitoring mechanisms are risk committees prioritizing to preserve pristine asset quality across credit cycles?",
-      "strategic_outlook": "Sustainable financial leadership in India is built on the pillars of disciplined underwriting, robust regulatory governance, and customer-centric digital technology."
-    }
-  },
-  {
-    "id": "news_1787543766068_pq5k",
-    "headline": "Laxmi India Finance Spends Rs 66.57 Lakh on CSR in FY26",
-    "article_url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQQUFRQTg4QnB2a244dWd1N0pMemJOcGVBcWJqYTUwUnhRVWlEWC1URF9LY1VOS09qNWd1cDR4ZjFRemo3TlpENXdERzRYNElkNHVmUkRKazBHamlfN0ZlRS1tdWxRZXpjYTc3ajdmV051aUVwV2p2b2xnMHNFNVJVMjdB?oc=5",
-    "publisher": "India CSR",
-    "source_name": "India CSR",
-    "source_category": "NBFCs, Retail Credit & Asset Quality",
-    "summary": "Laxmi India Finance Spends Rs 66.57 Lakh on CSR in FY26 (Reported by India CSR)",
-    "published_at": "Sun, 23 Aug 2026 11:43:21 GMT",
-    "scraped_at": "2026-08-24T03:56:06.068Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "India CSR",
-      "Lending News",
-      "NBFCs, Retail Credit & Asset Quality"
-    ],
-    "generated_takes": {
-      "architectural_take": "A significant development for the Indian credit landscape. Navigating this evolving market environment requires financial institutions to modernize their loan origination and risk decisioning pipelines—enabling agile policy adjustments while maintaining straight-through operational efficiency.",
-      "risk_lens": "As credit demand scales across retail and commercial segments, what underwriting controls and portfolio monitoring mechanisms are risk committees prioritizing to preserve pristine asset quality across credit cycles?",
-      "strategic_outlook": "Sustainable financial leadership in India is built on the pillars of disciplined underwriting, robust regulatory governance, and customer-centric digital technology."
-    }
-  },
-  {
     "id": "news_1787543766062_wxur",
     "headline": "No listed bank has even 1% net NPA: A milestone for asset quality",
     "article_url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQUl85X2hMVlJGWlY4VEVFMVBZc0RNMEFwaTZMZkRqZ3V1LXZYdnVNX0tZZ19zclFkd1ZhYjRrWHNyejZ4LWFwQ014ZzZjNFdBUnJIOVl6M3lPM3c0QnNSa193RmRCcklsa3l0cElNSl9nSTh4WGhmMll2RmVuQUtsUnpLNWZrMVdBNkM0QnZwX1d2UlRIR0U1Y29HNVltN25hSXpqM25sNnJESlV5ZGVvNGV5blctcDV2ZGRzdm5pVV9CZUIzZHAxWm5sbEZMYjY2QWNr0gHTAUFVX3lxTFBSXzlfaExWUkZaVjhURUUxUFlzRE0wQXBpNkxmRGpndXUtdlh2dU1fS1lnX3NyUWR3VmFiNGtYc3J6NngtYXBDTXhnNmM0V0FSckg5WXozeU8zdzRCc1JrX3dGZEJySWxreXRwSU1KX2dJOHhYaGYyWXZGZW5BS2xSeks1ZmsxV0E2QzRCdnBfV3ZSVEhHRTVjb0c1WW03bmFJemozbmw2ckRKVXlkZW80ZXluVy1wNXZkZHN2bmlVX0JlQjNkcDFabmxsRkxiNjZBY2s?oc=5",
@@ -1202,28 +542,6 @@
       "bfsi.economictimes.indiatimes.com",
       "Lending News",
       "NBFCs, Retail Credit & Asset Quality"
-    ],
-    "generated_takes": {
-      "architectural_take": "A significant development for the Indian credit landscape. Navigating this evolving market environment requires financial institutions to modernize their loan origination and risk decisioning pipelines—enabling agile policy adjustments while maintaining straight-through operational efficiency.",
-      "risk_lens": "As credit demand scales across retail and commercial segments, what underwriting controls and portfolio monitoring mechanisms are risk committees prioritizing to preserve pristine asset quality across credit cycles?",
-      "strategic_outlook": "Sustainable financial leadership in India is built on the pillars of disciplined underwriting, robust regulatory governance, and customer-centric digital technology."
-    }
-  },
-  {
-    "id": "news_1787543765455_ts1e",
-    "headline": "Sebi proposes stricter ad norms for online bond platforms, curbs ‘fixed return’ claims",
-    "article_url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxOdzN4b0hfbklUZ3MtNS1nY3FFeHJyeFdsZzNxSTRVZHVPLUd0QTVUQ2RscVVXU2cyNXktNEFabGxqTGNjdDZhRGtad0F0Y2R3MGhjSW5qaE9sWDVLT0tKRVBTMUEtVjNYZTV5Ynp3bTFPcTBISWtocVBPQzhjZjFFb0htX1A2a0tHdjRRdHpKNlFlVUFBR2pNeHl1T0UzaW1TamhoZkFqSGwtYVZLb2JtdkJ2N0N3MmM2VTNlR05zUHhOeU1xZW42OG5McjNLRjV2YXRWZEQzYjI3cWlVc1VRUlNYYUc4QdIB5gFBVV95cUxOdzN4b0hfbklUZ3MtNS1nY3FFeHJyeFdsZzNxSTRVZHVPLUd0QTVUQ2RscVVXU2cyNXktNEFabGxqTGNjdDZhRGtad0F0Y2R3MGhjSW5qaE9sWDVLT0tKRVBTMUEtVjNYZTV5Ynp3bTFPcTBISWtocVBPQzhjZjFFb0htX1A2a0tHdjRRdHpKNlFlVUFBR2pNeHl1T0UzaW1TamhoZkFqSGwtYVZLb2JtdkJ2N0N3MmM2VTNlR05zUHhOeU1xZW42OG5McjNLRjV2YXRWZEQzYjI3cWlVc1VRUlNYYUc4QQ?oc=5",
-    "publisher": "bfsi.economictimes.indiatimes.com",
-    "source_name": "bfsi.economictimes.indiatimes.com",
-    "source_category": "Digital Lending & MSME Credit",
-    "summary": "Sebi proposes stricter ad norms for online bond platforms, curbs ‘fixed return’ claims (Reported by bfsi.economictimes.indiatimes.com)",
-    "published_at": "Sun, 23 Aug 2026 07:59:20 GMT",
-    "scraped_at": "2026-08-24T03:56:05.455Z",
-    "status": "PENDING",
-    "relevance_tags": [
-      "bfsi.economictimes.indiatimes.com",
-      "Lending News",
-      "Digital Lending & MSME Credit"
     ],
     "generated_takes": {
       "architectural_take": "A significant development for the Indian credit landscape. Navigating this evolving market environment requires financial institutions to modernize their loan origination and risk decisioning pipelines—enabling agile policy adjustments while maintaining straight-through operational efficiency.",
