@@ -1,16 +1,35 @@
 const { readFullArticleContent } = require('./fullArticleReaderAgent');
-const { sanitizeAiSlop, getLearnedPromptContext } = require('./mlPreferenceEngine');
 
-/**
- * DEEP CONTENT SYNTHESIS AGENT
- * 
- * Non-Negotiable Guarantee:
- * Strictly reads the COMPLETE post or news article text before generating any comment/take.
- * Synthesizes razor-sharp, context-aware commentary strictly in Sriram Ganesan's authentic voice:
- * - Head of LOS Product & Solutions | M2P Fintech (20+ years BFSI / Lending)
- * - Independent Director & Corporate Governance Leader (IICA / IoD / ILSS)
- * - Zero AI Slop (No robotic clichés, sycophancy, or generic filler)
- */
+function sanitizeAiSlop(text) {
+  if (!text || typeof text !== "string") return text;
+  let cleaned = text;
+
+  const slopReplacements = [
+    { pattern: /^it is indeed gratifying to see\s+/i, replace: "Seeing " },
+    { pattern: /^it is gratifying to see\s+/i, replace: "Seeing " },
+    { pattern: /^kudos to the team for\s+/i, replace: "Great execution on " },
+    { pattern: /^in today's fast-paced digital world,?\s*/i, replace: "" },
+    { pattern: /^in an ever-evolving financial landscape,?\s*/i, replace: "" },
+    { pattern: /\s*is a testament to\s*/gi, replace: " directly demonstrates " },
+    { pattern: /\s*acts as a beacon of\s*/gi, replace: " provides a clear benchmark for " },
+    { pattern: /\s*a pivotal moment in\s*/gi, replace: " a major milestone in " },
+    { pattern: /\s*a game-changer for\s*/gi, replace: " a structural shift for " },
+    { pattern: /\s*a paradigm shift in\s*/gi, replace: " a fundamental change in " },
+    { pattern: /\s*seamlessly integrated?\s*/gi, replace: " automated " },
+    { pattern: /\s*holistic ecosystem\s*/gi, replace: " operating framework " },
+    { pattern: /\s*delving into\s*/gi, replace: " examining " }
+  ];
+
+  slopReplacements.forEach(({ pattern, replace }) => {
+    cleaned = cleaned.replace(pattern, replace);
+  });
+
+  if (cleaned.length > 0) {
+    cleaned = cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+  }
+
+  return cleaned.trim();
+}
 
 function extractEntitiesAndMetrics(fullText) {
   if (!fullText) return { metrics: [], entities: [], keyThemes: [] };
