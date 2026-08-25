@@ -443,17 +443,52 @@
       <!-- 1. Review & Approve Tab -->
       <div class="tab-pane fade show active" id="tab-review" role="tabpanel">
         
-        <!-- Active Crawl Progress Banner -->
-        <div id="scrapeActiveBanner" class="alert alert-info border border-info border-opacity-25 d-flex align-items-center justify-content-between p-3 mb-4 shadow-sm rounded-3 d-none">
-          <div>
-            <div class="fw-bold text-dark"><span class="spinner-border spinner-border-sm text-info me-2"></span> ⚡ Crawling &amp; QA Auditing 596 Indian Lending Sources...</div>
-            <div class="small text-muted mt-1" id="scrapeProgressDetail">Initializing...</div>
+        <!-- Executive Live Scraper Telemetry & Progress Card -->
+        <div id="scrapeTelemetryCard" class="card p-3 mb-4 border-0 shadow-sm rounded-4 bg-white d-none">
+          <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+            <div class="d-flex align-items-center gap-2">
+              <span class="spinner-grow spinner-grow-sm text-primary" role="status"></span>
+              <strong class="text-dark fs-6" id="telemetryStatusTitle">⚡ Live Scraper Active: Scanning 596 Targets</strong>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <span class="badge bg-primary fs-6 px-3 py-1" id="telemetryPercentBadge">0%</span>
+              <button class="btn btn-xs btn-outline-danger fw-bold" onclick="forceResetScraper()" title="Stop Crawl">
+                <i class="fa-solid fa-stop me-1"></i> Stop Crawl
+              </button>
+            </div>
           </div>
-          <div class="text-end d-flex align-items-center gap-2">
-            <span class="badge bg-info text-white fs-6 px-3 py-2" id="scrapePercentBadge">0%</span>
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="forceResetScraper()" title="Cancel / Reset Crawl State">
-              <i class="fa-solid fa-stop me-1"></i> Reset
-            </button>
+
+          <!-- Animated Progress Bar -->
+          <div class="progress mb-3" style="height: 10px; border-radius: 10px; background-color: #f1f5f9;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" id="telemetryProgressBar" role="progressbar" style="width: 0%;"></div>
+          </div>
+
+          <!-- 4 Live Telemetry Chips -->
+          <div class="row g-2 text-center small">
+            <div class="col-6 col-md-3">
+              <div class="p-2 bg-light rounded-3 border">
+                <div class="text-muted small fw-bold text-uppercase">Sources Scanned</div>
+                <div class="fw-bold text-dark fs-6" id="telemetrySourcesCount">0 / 596</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="p-2 bg-light rounded-3 border">
+                <div class="text-muted small fw-bold text-uppercase">Sources Pending</div>
+                <div class="fw-bold text-warning fs-6" id="telemetrySourcesPending">596 left</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="p-2 bg-light rounded-3 border">
+                <div class="text-muted small fw-bold text-uppercase">Time Remaining</div>
+                <div class="fw-bold text-info fs-6" id="telemetryEstTime">Estimating...</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="p-2 bg-light rounded-3 border">
+                <div class="text-muted small fw-bold text-uppercase">Active Target</div>
+                <div class="fw-bold text-primary text-truncate small" id="telemetryCurrentTarget">Initializing...</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -882,8 +917,9 @@
       const previewText = isLong ? text.substring(0, 280) + "..." : text;
 
       let targetUrl = p.post_url;
-      if (!targetUrl || targetUrl.trim() === "" || targetUrl === "#") {
-        targetUrl = p.source_url || `https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent(p.author_name || 'Fintech Lending')}`;
+      if (!targetUrl || targetUrl.trim() === "" || targetUrl === "#" || targetUrl === "null" || targetUrl === "undefined") {
+        const queryName = p.author_name || p.source_name || "Fintech Lending";
+        targetUrl = `https://www.linkedin.com/search/results/content/?keywords=${encodeURIComponent(queryName)}&sortBy=%22date_posted%22`;
       } else if (!targetUrl.startsWith("http")) {
         targetUrl = "https://www.linkedin.com" + (targetUrl.startsWith("/") ? "" : "/") + targetUrl;
       }
@@ -896,12 +932,16 @@
               <span class="chip chip-primary">${escapeHtml(p.post_type_badge || '⚡ Digital Lending')}</span>
               <span class="chip chip-dark"><i class="fa-regular fa-clock me-1"></i> ${p.published_relative || '1d'}</span>
             </div>
-            <a href="${escapeHtml(targetUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary fw-semibold">
-              <i class="fa-brands fa-linkedin me-1"></i> Open Post <i class="fa-solid fa-arrow-up-right-from-square ms-1 small"></i>
+            <a href="${escapeHtml(targetUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary fw-semibold shadow-sm">
+              <i class="fa-brands fa-linkedin me-1 text-primary"></i> Open Post <i class="fa-solid fa-arrow-up-right-from-square ms-1 small"></i>
             </a>
           </div>
 
-          <h5 class="fw-bold mt-2 mb-1 text-dark">${escapeHtml(p.author_name)}</h5>
+          <h5 class="fw-bold mt-2 mb-1">
+            <a href="${escapeHtml(targetUrl)}" target="_blank" rel="noopener noreferrer" class="text-dark text-decoration-none hover-primary">
+              ${escapeHtml(p.author_name)} <i class="fa-solid fa-arrow-up-right-from-square text-muted fs-6 ms-1"></i>
+            </a>
+          </h5>
           <div class="small text-muted mb-2">${escapeHtml(p.author_headline || p.source_name || '')}</div>
 
           <!-- Tags -->
@@ -957,11 +997,14 @@
               <button class="btn-action-primary" onclick="postNow('${p.id}')">
                 <i class="fa-solid fa-paper-plane me-1"></i> 🚀 Approve &amp; Post Now
               </button>
+              <a href="${escapeHtml(targetUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-secondary fw-semibold">
+                <i class="fa-brands fa-linkedin me-1"></i> View Post
+              </a>
               <button class="btn btn-sm btn-outline-success fw-semibold" onclick="markAsManuallyPosted('${p.id}')" title="I posted this manually on LinkedIn - move to Posted History">
-                <i class="fa-solid fa-tag me-1"></i> 🏷️ Mark as Manually Posted
+                <i class="fa-solid fa-tag me-1"></i> 🏷️ Mark Posted
               </button>
               <button class="btn btn-sm btn-outline-warning fw-semibold text-dark" onclick="moveToCompetitorRadar('${p.id}')" title="Move this post to Competitor Radar">
-                <i class="fa-solid fa-building-shield me-1"></i> 🏢 Move to Competitor
+                <i class="fa-solid fa-building-shield me-1"></i> 🏢 Competitor
               </button>
               <button class="btn btn-sm btn-outline-primary fw-semibold" onclick="approveDraft('${p.id}')">
                 <i class="fa-solid fa-check me-1"></i> Approve Draft
@@ -1494,39 +1537,83 @@
       }
     }
 
+    function updateTelemetryUI(job) {
+      const card = document.getElementById("scrapeTelemetryCard");
+      const btn = document.getElementById("btnScrape");
+      if (!card) return;
+
+      if (job && job.isRunning) {
+        card.classList.remove("d-none");
+        if (btn) {
+          btn.disabled = true;
+          btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Crawling...';
+        }
+
+        const prog = job.progress || 0;
+        const tot = job.total || 596;
+        const pending = Math.max(0, tot - prog);
+        const percent = Math.min(99, Math.round((prog / Math.max(1, tot)) * 100));
+
+        let elapsedSec = 0;
+        if (job.startTime) {
+          elapsedSec = Math.max(1, Math.round((Date.now() - new Date(job.startTime).getTime()) / 1000));
+        }
+        const rate = prog / Math.max(1, elapsedSec);
+        const estRemainingSec = rate > 0 ? Math.round(pending / rate) : Math.round(pending * 0.4);
+
+        if (document.getElementById("telemetryProgressBar")) {
+          document.getElementById("telemetryProgressBar").style.width = `${percent}%`;
+        }
+        if (document.getElementById("telemetryPercentBadge")) {
+          document.getElementById("telemetryPercentBadge").innerText = `${percent}%`;
+        }
+        if (document.getElementById("telemetrySourcesCount")) {
+          document.getElementById("telemetrySourcesCount").innerText = `${prog} / ${tot}`;
+        }
+        if (document.getElementById("telemetrySourcesPending")) {
+          document.getElementById("telemetrySourcesPending").innerText = `${pending} sources left`;
+        }
+        if (document.getElementById("telemetryEstTime")) {
+          document.getElementById("telemetryEstTime").innerText = `~${estRemainingSec}s left (${elapsedSec}s elapsed)`;
+        }
+        if (document.getElementById("telemetryCurrentTarget")) {
+          document.getElementById("telemetryCurrentTarget").innerText = job.currentSource || "Scanning network...";
+        }
+      } else {
+        card.classList.add("d-none");
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-play me-1"></i> Run';
+        }
+      }
+    }
+
     function startScrapeProgressPolling() {
       if (pollInterval) clearInterval(pollInterval);
-      const btn = document.getElementById("btnScrape");
-      const banner = document.getElementById("scrapeActiveBanner");
-      const detail = document.getElementById("scrapeProgressDetail");
-      const badge = document.getElementById("scrapePercentBadge");
-
-      if (banner) banner.classList.remove("d-none");
+      const card = document.getElementById("scrapeTelemetryCard");
+      if (card) card.classList.remove("d-none");
 
       pollInterval = setInterval(async () => {
         try {
           const data = await apiFetch("/api/scheduler-status");
           const job = data.activeScrapeJob;
+          updateTelemetryUI(job);
 
           if (job && job.isRunning) {
-            const prog = job.progress || 0;
-            const tot = job.total || 596;
-            const percent = Math.min(99, Math.round((prog / Math.max(1, tot)) * 100));
-            if (badge) badge.innerText = `${percent}%`;
-            if (detail) detail.innerHTML = `Source <strong>${prog}</strong> of <strong>${tot}</strong> (<em>${escapeHtml(job.currentSource || 'Scanning...')}</em>)`;
+            // Live Dynamic Stream Ingestion: Stream newly discovered posts immediately into the active view!
+            const activeTab = document.querySelector("#mainTab .nav-link.active")?.getAttribute("id");
+            if (activeTab === "tab-review-btn") loadPendingPosts();
+            else if (activeTab === "tab-governance-btn") loadGovernancePosts();
+            else if (activeTab === "tab-competitors-btn") loadCompetitorPosts();
+            loadStats();
           } else {
             clearInterval(pollInterval);
             pollInterval = null;
-            if (btn) {
-              btn.disabled = false;
-              btn.innerHTML = '<i class="fa-solid fa-play me-1"></i> Run';
-            }
-            if (banner) banner.classList.add("d-none");
             loadPendingPosts();
             loadStats();
           }
         } catch (e) {}
-      }, 2500);
+      }, 2000);
     }
 
     async function forceResetScraper() {
@@ -1791,6 +1878,16 @@
       loadPendingPosts();
       loadHistory();
       loadNewsPosts();
+      
+      // Auto-check live scraper telemetry
+      apiFetch("/api/scheduler-status").then(data => {
+        if (data && data.activeScrapeJob) {
+          updateTelemetryUI(data.activeScrapeJob);
+          if (data.activeScrapeJob.isRunning) {
+            startScrapeProgressPolling();
+          }
+        }
+      }).catch(() => {});
     });
   </script>
 </body>

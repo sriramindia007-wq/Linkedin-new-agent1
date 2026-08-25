@@ -3,6 +3,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const { generateCommentsForPost } = require('./commentGenerator');
+const { loadPersona } = require('./db');
 
 const possiblePaths = [
   path.join(__dirname, 'data', 'market_news.json'),
@@ -70,7 +71,6 @@ function parseGoogleRss(xml, streamTopic) {
     const link = linkMatch ? linkMatch[1].trim() : '';
     let publisher = sourceMatch ? sourceMatch[1].replace(/<[^>]+>/g, '').trim() : '';
 
-    // Split publisher from title if format is "Headline - Publisher"
     if (rawTitle.includes(' - ')) {
       const parts = rawTitle.split(' - ');
       if (!publisher) publisher = parts[parts.length - 1].trim();
@@ -79,7 +79,6 @@ function parseGoogleRss(xml, streamTopic) {
 
     if (!publisher) publisher = "Financial Media";
 
-    // Strict Noise Filter
     const lower = `${rawTitle} ${publisher}`.toLowerCase();
     if (/mlb\.com|baseball|rbi single|rbi double|homerun|cricket|marathon|fcnr|fixed deposit|nri deposit|celebration|bollywood|horoscope/i.test(lower)) {
       continue;
@@ -115,7 +114,6 @@ function saveMarketNews(newsList) {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(file, JSON.stringify(newsList, null, 2), 'utf-8');
     
-    // Also mirror to root data
     const mirror = path.join(__dirname, 'data', 'market_news.json');
     if (file !== mirror) {
       const mDir = path.dirname(mirror);
@@ -125,6 +123,84 @@ function saveMarketNews(newsList) {
   } catch (e) {
     console.error('Error saving market news:', e.message);
   }
+}
+
+/**
+ * Generates bespoke, high-substance practitioner commentary for Indian financial news
+ * Tailored to Sriram Ganesan's domain voice (Head of LOS Product & Solutions | M2P Fintech)
+ */
+async function generateMarketNewsTakes(headline, topic, publisher) {
+  const hLower = (headline || "").toLowerCase();
+
+  // 1. GOLD LOANS & SECURED RETAIL ASSET CREDIT
+  if (hLower.includes("gold") || hLower.includes("jewel") || hLower.includes("ornament")) {
+    return {
+      architectural_take: `The influx of institutional capital into gold loans reflects a massive shift from unorganized pawn channels to formal lending. From an LOS architecture standpoint, the winning differentiator is no longer just branch appraisal, but doorstep digitization, live LTV tracking against daily gold-price feeds, and automated instant disbursal in under 15 minutes.`,
+      risk_lens: `With rapid expansion in gold-backed credit, how are risk committees strengthening automated margin-call triggers and collateral re-valuation workflows to safeguard against sudden commodity price corrections while maintaining the 75% RBI LTV ceiling?`,
+      strategic_outlook: `Gold loans remain one of India's most resilient secured retail credit categories. As large corporations and NBFCs enter this segment, scalable digital origination combined with robust vault custodian governance will decide market leadership.`
+    };
+  }
+
+  // 2. MSME, CASHFLOW & SUPPLY CHAIN LENDING (TREDS, GST, INVOICE DISCOUNTING)
+  if (hLower.includes("msme") || hLower.includes("sme") || hLower.includes("supply chain") || hLower.includes("treds") || hLower.includes("invoice") || hLower.includes("working capital") || hLower.includes("cashflow")) {
+    return {
+      architectural_take: `Unlocking formal credit for informal MSMEs requires moving beyond static audited balance sheets. Modern LOS platforms must ingest real-time cashflow telemetry—leveraging GST invoice reconciliation, Account Aggregator banking streams, and e-way bill velocity to make automated credit decisions within minutes.`,
+      risk_lens: `As lenders accelerate cashflow-based lending to Tier-2/3 enterprises, what early-warning indicators (SMA-0 behavior, buyer concentration, tax filing gaps) are proving most effective in mitigating cashflow compression before repayment stress occurs?`,
+      strategic_outlook: `The next wave of MSME credit growth in India will be driven by transaction-level financing rather than pure collateral. Bridging the credit gap requires seamless integration between fintech originators, digital public infrastructure, and balance-sheet lenders.`
+    };
+  }
+
+  // 3. CO-LENDING & BANK-NBFC PARTNERSHIPS
+  if (hLower.includes("co-lending") || hLower.includes("colending") || hLower.includes("partnership") || hLower.includes("fldg") || hLower.includes("syndicate") || hLower.includes("tie up") || hLower.includes("team up")) {
+    return {
+      architectural_take: `Bank-NBFC co-lending is the single most potent bridge between low-cost bank deposits and grassroots NBFC distribution. The critical tech bottleneck has always been dual-LOS underwriting latency and real-time tripartite escrow settlements. Modernizing this pipeline enables true straight-through processing across CLM-1 and CLM-2 models.`,
+      risk_lens: `Under the RBI's Default Loss Guarantee (FLDG) guidelines, how are partner institutions aligning their risk appetite matrices to prevent underwriting friction while ensuring complete portfolio transparency on the bank's books?`,
+      strategic_outlook: `Co-lending is evolving from opportunistic tie-ups into core distribution architecture for Indian banking. Sustainable scale requires standardized risk-sharing protocols and automated compliance auditing.`
+    };
+  }
+
+  // 4. RBI, REGULATORY POLICY & COMPLIANCE
+  if (hLower.includes("rbi") || hLower.includes("reserve bank") || hLower.includes("circular") || hLower.includes("guidelines") || hLower.includes("regulation") || hLower.includes("compliance") || hLower.includes("p2p") || hLower.includes("penalty") || hLower.includes("fined") || hLower.includes("ombudsman") || hLower.includes("cibil") || hLower.includes("recovery")) {
+    return {
+      architectural_take: `Regulatory clarity from the RBI is a structural tailwind for responsible lending innovation. From a product perspective, regulatory rules (such as RWA weightings, key fact statements, loan recovery guidelines, and FLDG caps) must be embedded natively into the LOS business rules engine (BRE) so policy updates deploy in real-time without code rebuilds.`,
+      risk_lens: `How are compliance and risk teams auditing automated lending workflows to ensure algorithmic underwriting and third-party recovery channels remain 100% compliant with RBI directives?`,
+      strategic_outlook: `The RBI's proactive oversight reinforces trust in India's digital financial architecture. Long-term institutional value is created by lenders who treat regulatory governance and borrower protection as core competitive moats.`
+    };
+  }
+
+  // 5. HOUSING FINANCE & LAP (MORTGAGES)
+  if (hLower.includes("housing") || hLower.includes("home loan") || hLower.includes("mortgage") || hLower.includes("lap") || hLower.includes("affordable housing") || hLower.includes("property")) {
+    return {
+      architectural_take: `Affordable housing finance requires balancing informal income assessment with digital legal/technical property validation. Digitizing title search workflows and municipal registry integrations reduces TAT from 14 days down to 48 hours without compromising credit diligence.`,
+      risk_lens: `In long-tenor mortgage portfolios, what asset-liability management (ALM) safeguards and interest-rate transmission mechanisms are risk teams prioritizing during shifting monetary policy cycles?`,
+      strategic_outlook: `Housing credit remains the bedrock of Indian retail asset expansion. Digital enablement in Tier-3/4 markets is unlocking homeownership for millions of previously unserved families.`
+    };
+  }
+
+  // 6. FINTECH FUNDING, IPOS & CAPITAL RAISES
+  if (hLower.includes("funding") || hLower.includes("raises") || hLower.includes("ipo") || hLower.includes("valuation") || hLower.includes("series") || hLower.includes("seed") || hLower.includes("acquires") || hLower.includes("acquisition")) {
+    return {
+      architectural_take: `Capital allocation in Indian fintech has clearly shifted from growth-at-all-costs to unit economics, sustainable net interest margins (NIMs), and disciplined collection efficiency. Investing in core lending infrastructure and automated decisioning provides the operational leverage needed for long-term profitability.`,
+      risk_lens: `As fintechs scale their asset books post-funding, how are leadership teams balancing rapid disbursement growth with counter-cyclical provisioning and Gross Stage-3 containment?`,
+      strategic_outlook: `The Indian fintech ecosystem is maturing into sustainable institution-building. Capital backing institutions with strong governance, deep domain expertise, and sound risk underwriting will define the decade.`
+    };
+  }
+
+  // 7. AUTO, VEHICLE & MOBILITY FINANCE
+  if (hLower.includes("vehicle") || hLower.includes("auto") || hLower.includes("car") || hLower.includes("cv ") || hLower.includes("commercial vehicle") || hLower.includes("tractor") || hLower.includes("ev ")) {
+    return {
+      architectural_take: `Originating commercial and retail vehicle finance requires seamless coordination at the point of sale combined with dynamic residual asset valuation. Modernizing dealer origination portals and automated RC verification enables instant in-showroom credit sanctioning.`,
+      risk_lens: `In commercial vehicle and fleet financing, how are risk teams structuring underwriting to accommodate fuel/operational cost volatility while maintaining timely collection cycles?`,
+      strategic_outlook: `Mobility and asset financing thrive when sound collateral governance and fast dealer-channel origination work in tandem to support productive enterprise transport.`
+    };
+  }
+
+  // 8. DEFAULT SENIOR BFSI PRACTITIONER COMMENTARY
+  return {
+    architectural_take: `A significant development for the Indian credit landscape. Navigating this evolving market environment requires financial institutions to modernize their loan origination and risk decisioning pipelines—enabling agile policy adjustments while maintaining straight-through operational efficiency.`,
+    risk_lens: `As credit demand scales across retail and commercial segments, what underwriting controls and portfolio monitoring mechanisms are risk committees prioritizing to preserve pristine asset quality across credit cycles?`,
+    strategic_outlook: `Sustainable financial leadership in India is built on the pillars of disciplined underwriting, robust regulatory governance, and customer-centric digital technology.`
+  };
 }
 
 async function fetchAllExternalNews() {
@@ -141,9 +217,8 @@ async function fetchAllExternalNews() {
       for (const item of items) {
         if (currentNews.some(n => n.article_url === item.link || n.headline === item.title)) continue;
 
-        // Generate Sriram Ganesan Authority Repost Draft
-        const promptContext = `NEWS HEADLINE: ${item.title}\nPUBLISHER: ${item.publisher}\nTOPIC: ${item.topic}`;
-        const generatedTake = await generateCommentsForPost(promptContext, item.publisher, "Fintech & Lending News");
+        // Generate Sriram Ganesan Bespoke Authority Repost Takes
+        const takes = await generateMarketNewsTakes(item.title, item.topic, item.publisher);
 
         const articleId = 'news_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6);
         const articleObj = {
@@ -158,11 +233,7 @@ async function fetchAllExternalNews() {
           scraped_at: new Date().toISOString(),
           status: "PENDING",
           relevance_tags: [item.publisher, "Lending News", item.topic],
-          generated_takes: {
-            architectural_take: generatedTake.value_add || `Critical update reported by ${item.publisher}: "${item.title}". For lending tech architects and risk leaders, modernizing LOS decisioning and automated verification pipelines is essential to capitalize on this development.`,
-            risk_lens: generatedTake.provocative_question || `As highlighted by ${item.publisher}, how should credit risk and underwriting committees calibrate policy parameters to navigate this shift without spiking Gross Stage-3?`,
-            strategic_outlook: generatedTake.executive_perspective || `Strategic moves in Indian lending require balancing aggressive disbursement velocity with robust credit risk governance and resilient technology infrastructure.`
-          }
+          generated_takes: takes
         };
 
         currentNews.unshift(articleObj);
@@ -181,8 +252,23 @@ async function fetchAllExternalNews() {
   return { success: true, count: newArticlesAdded, total: currentNews.length };
 }
 
+/**
+ * Regenerates high-substance takes for all existing market news items
+ */
+async function upgradeAllExistingNewsTakes() {
+  let news = loadMarketNews();
+  console.log(`🔄 Upgrading commentary for ${news.length} market news articles...`);
+  for (const n of news) {
+    n.generated_takes = await generateMarketNewsTakes(n.headline, n.source_category || "Digital Lending", n.publisher || "Financial Media");
+  }
+  saveMarketNews(news);
+  console.log(`✅ Successfully upgraded all ${news.length} news items with Sriram Ganesan's authentic practitioner voice!`);
+}
+
 module.exports = {
   fetchAllExternalNews,
+  generateMarketNewsTakes,
+  upgradeAllExistingNewsTakes,
   loadMarketNews,
   saveMarketNews,
   SEARCH_STREAMS
