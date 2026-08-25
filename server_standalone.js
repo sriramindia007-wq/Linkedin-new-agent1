@@ -60,7 +60,8 @@ function sendJSON(res, data, statusCode = 200) {
   res.writeHead(statusCode, { 
     "Content-Type": "application/json", 
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type"
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Cache-Control, Pragma, Authorization, X-Requested-With, X-Auth-Token"
   });
   res.end(JSON.stringify(data));
 }
@@ -206,8 +207,8 @@ const server = http.createServer(async (req, res) => {
   if (method === "OPTIONS") {
     res.writeHead(204, {
       "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type"
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Cache-Control, Pragma, Authorization, X-Requested-With, X-Auth-Token"
     });
     res.end();
     return;

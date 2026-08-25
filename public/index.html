@@ -731,20 +731,21 @@
 
     // Mobile-First Resilient API Fetch with Cache-Buster
     async function apiFetch(url, options = {}) {
-      const cacheBuster = (url.includes('?') ? '&' : '?') + '_ts=' + Date.now();
-      const res = await fetch(url + cacheBuster, {
-        ...options,
-        headers: {
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'Pragma': 'no-cache',
-          ...(options.headers || {})
+      try {
+        const cacheBuster = (url.includes('?') ? '&' : '?') + '_ts=' + Date.now();
+        const res = await fetch(url + cacheBuster, {
+          ...options,
+          cache: 'no-store'
+        });
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(`HTTP ${res.status}: ${text.substring(0, 100)}`);
         }
-      });
-      if (!res.ok) {
-        const text = await res.text();
-        throw new Error(`HTTP ${res.status}: ${text.substring(0, 100)}`);
+        return await res.json();
+      } catch (err) {
+        console.error(`API Fetch error for ${url}:`, err);
+        throw err;
       }
-      return await res.json();
     }
 
     function escapeHtml(text) {
