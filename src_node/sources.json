@@ -5860,5 +5860,263 @@
     "role_type": "1st-Degree Connection / Followed",
     "segment": "Network Sync",
     "active": true
+  },
+  {
+    "id": "cxo_ashish_parthasarthy",
+    "name": "Ashish Parthasarthy (Treasurer & Head of Treasury, HDFC Bank)",
+    "url": "https://www.linkedin.com/search/results/all/?keywords=Ashish%20Parthasarthy%20HDFC%20Bank",
+    "category": "Fintech Influencers & Lending CXOs"
+  },
+  {
+    "id": "cxo_anup_bagchi",
+    "name": "Anup Bagchi (MD & CEO, ICICI Prudential & ex-Retail Head ICICI Bank)",
+    "url": "https://www.linkedin.com/search/results/all/?keywords=Anup%20Bagchi",
+    "category": "Fintech Influencers & Lending CXOs"
+  },
+  {
+    "id": "cxo_sumit_bali",
+    "name": "Sumit Bali (Group Executive - Head of Retail Lending, Axis Bank)",
+    "url": "https://www.linkedin.com/search/results/all/?keywords=Sumit%20Bali%20Axis%20Bank",
+    "category": "Fintech Influencers & Lending CXOs"
+  },
+  {
+    "id": "cxo_viraj_tyagi",
+    "name": "Viraj Tyagi (CEO, eGov Foundation / OCEN Architect)",
+    "url": "https://www.linkedin.com/search/results/all/?keywords=Viraj%20Tyagi%20OCEN",
+    "category": "Fintech Influencers & Lending CXOs"
+  },
+  {
+    "id": "cxo_siddharth_shekhar_singh",
+    "name": "Siddharth Shekhar Singh (Chief Risk Officer, Tata Capital)",
+    "url": "https://www.linkedin.com/search/results/all/?keywords=Chief%20Risk%20Officer%20Tata%20Capital",
+    "category": "Fintech Influencers & Lending CXOs"
+  },
+  {
+    "id": "cxo_anil_singh",
+    "name": "Anil Singh (Chief Risk Officer, Piramal Finance)",
+    "url": "https://www.linkedin.com/search/results/all/?keywords=Chief%20Risk%20Officer%20Piramal%20Finance",
+    "category": "Fintech Influencers & Lending CXOs"
+  },
+  {
+    "id": "cxo_manish_shah",
+    "name": "Manish Shah (MD & CEO, Godrej Capital)",
+    "url": "https://www.linkedin.com/search/results/all/?keywords=Manish%20Shah%20Godrej%20Capital",
+    "category": "Fintech Influencers & Lending CXOs"
+  },
+  {
+    "id": "cxo_ashwini_kumar_hooda",
+    "name": "Ashwini Kumar Hooda (MD, Edelweiss Housing Finance)",
+    "url": "https://www.linkedin.com/search/results/all/?keywords=Ashwini%20Kumar%20Hooda",
+    "category": "Fintech Influencers & Lending CXOs"
+  },
+  {
+    "id": "cxo_prashant_joshi",
+    "name": "Prashant Joshi (Managing Director & Head of Consumer Banking, DBS India)",
+    "url": "https://www.linkedin.com/search/results/all/?keywords=Prashant%20Joshi%20DBS",
+    "category": "Fintech Influencers & Lending CXOs"
+  },
+  {
+    "id": "cxo_shalini_warrier",
+    "name": "Shalini Warrier (Executive Director, Federal Bank)",
+    "url": "https://www.linkedin.com/search/results/all/?keywords=Shalini%20Warrier%20Federal%20Bank",
+    "category": "Fintech Influencers & Lending CXOs"
+  },
+  {
+    "id": "cxo_alok_bansal",
+    "name": "Alok Bansal (Co-Founder & Vice Chairman, PB Fintech / Paisabazaar)",
+    "url": "https://www.linkedin.com/search/results/all/?keywords=Alok%20Bansal%20Paisabazaar",
+    "category": "Fintech Influencers & Lending CXOs"
+  },
+  {
+    "id": "cxo_sucharita_mukherjee",
+    "name": "Sucharita Mukherjee (Co-Founder & CEO, Kaleidofin)",
+    "url": "https://www.linkedin.com/search/results/all/?keywords=Sucharita%20Mukherjee%20Kaleidofin",
+    "category": "Fintech Influencers & Lending CXOs"
+  },
+  {
+    "id": "cxo_praveen_krishna",
+    "name": "Praveen Krishna (Chief Technology Officer, Northern Arc Capital)",
+    "url": "https://www.linkedin.com/search/results/all/?keywords=Praveen%20Krishna%20Northern%20Arc",
+    "category": "Fintech Influencers & Lending CXOs"
+  },
+  {
+    "id": "cxo_vijay_chandok",
+    "name": "Vijay Chandok (MD & CEO, ICICI Securities / ex-SME Head ICICI Bank)",
+    "url": "https://www.linkedin.com/search/results/all/?keywords=Vijay%20Chandok%20ICICI",
+    "category": "Fintech Influencers & Lending CXOs"
+  },
+  {
+    "id": "cxo_suresh_ganapathy",
+    "name": "Suresh Ganapathy (Head of Financial Services Research, Macquarie Capital)",
+    "url": "https://www.linkedin.com/search/results/all/?keywords=Suresh%20Ganapathy%20Macquarie",
+    "category": "Fintech Influencers & Lending CXOs"
+  },
+  {
+    "id": "co_fibe_india",
+    "name": "Fibe.India (EarlySalary)",
+    "url": "https://www.linkedin.com/company/fibe-india/",
+    "category": "Digital Lending Fintechs"
+  },
+  {
+    "id": "co_smartcoin_india",
+    "name": "SmartCoin Financials (Olyv)",
+    "url": "https://www.linkedin.com/company/smartcoin-app/",
+    "category": "Digital Lending Fintechs"
+  },
+  {
+    "id": "co_indifi_tech",
+    "name": "Indifi Technologies",
+    "url": "https://www.linkedin.com/company/indifi/",
+    "category": "Digital Lending Fintechs"
+  },
+  {
+    "id": "co_rupeek_fintech",
+    "name": "Rupeek Fintech (Doorstep Gold Loans)",
+    "url": "https://www.linkedin.com/company/rupeek/",
+    "category": "Digital Lending Fintechs"
+  },
+  {
+    "id": "co_credable_india",
+    "name": "CredAble (Working Capital Infrastructure)",
+    "url": "https://www.linkedin.com/company/credable-in/",
+    "category": "Supply Chain Finance (SCF) & TReDS"
+  },
+  {
+    "id": "co_vayana_network",
+    "name": "Vayana Network (Supply Chain Finance & GST Invoicing)",
+    "url": "https://www.linkedin.com/company/vayana-network/",
+    "category": "Supply Chain Finance (SCF) & TReDS"
+  },
+  {
+    "id": "co_m1xchange",
+    "name": "M1xchange (TReDS Platform)",
+    "url": "https://www.linkedin.com/company/m1xchange-mynd-solutions-pvt--ltd-/",
+    "category": "Supply Chain Finance (SCF) & TReDS"
+  },
+  {
+    "id": "co_rxil_treds",
+    "name": "Receivables Exchange of India (RXIL - TReDS)",
+    "url": "https://www.linkedin.com/company/rxil/",
+    "category": "Supply Chain Finance (SCF) & TReDS"
+  },
+  {
+    "id": "co_invoicemart_treds",
+    "name": "Invoicemart (A.TREDS Ltd)",
+    "url": "https://www.linkedin.com/company/invoicemart/",
+    "category": "Supply Chain Finance (SCF) & TReDS"
+  },
+  {
+    "id": "co_godrej_capital",
+    "name": "Godrej Capital",
+    "url": "https://www.linkedin.com/company/godrej-capital/",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders"
+  },
+  {
+    "id": "co_lt_finance",
+    "name": "L&T Finance Holdings",
+    "url": "https://www.linkedin.com/company/ltfinance/",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders"
+  },
+  {
+    "id": "co_shriram_finance",
+    "name": "Shriram Finance Limited",
+    "url": "https://www.linkedin.com/company/shriramfinance/",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders"
+  },
+  {
+    "id": "co_chola_investment",
+    "name": "Cholamandalam Investment and Finance (Chola)",
+    "url": "https://www.linkedin.com/company/cholamandalam-investment-and-finance-company-limited/",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders"
+  },
+  {
+    "id": "co_mahindra_finance",
+    "name": "Mahindra & Mahindra Financial Services (Mahindra Finance)",
+    "url": "https://www.linkedin.com/company/mahindra-finance/",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders"
+  },
+  {
+    "id": "co_manappuram_finance",
+    "name": "Manappuram Finance Limited",
+    "url": "https://www.linkedin.com/company/manappuram-finance-limited/",
+    "category": "NBFCs & Retail/Gold/Vehicle Lenders"
+  },
+  {
+    "id": "co_ugro_capital",
+    "name": "UGRO Capital (DataTech MSME Lending)",
+    "url": "https://www.linkedin.com/company/ugro-capital/",
+    "category": "MSME & Digital Lending NBFCs"
+  },
+  {
+    "id": "co_progfin",
+    "name": "Progfin (MSME Working Capital)",
+    "url": "https://www.linkedin.com/company/progfin/",
+    "category": "MSME & Digital Lending NBFCs"
+  },
+  {
+    "id": "co_freo_moneytap",
+    "name": "Freo (MoneyTap)",
+    "url": "https://www.linkedin.com/company/freo-money/",
+    "category": "Digital Lending Fintechs"
+  },
+  {
+    "id": "co_kissht_ring",
+    "name": "Kissht / Ring App (OnEMI)",
+    "url": "https://www.linkedin.com/company/kissht/",
+    "category": "Digital Lending Fintechs"
+  },
+  {
+    "id": "co_flexiloans",
+    "name": "FlexiLoans.com",
+    "url": "https://www.linkedin.com/company/flexiloans/",
+    "category": "Digital Lending Fintechs"
+  },
+  {
+    "id": "co_kreditbee",
+    "name": "KreditBee (Finnov)",
+    "url": "https://www.linkedin.com/company/kreditbee/",
+    "category": "Digital Lending Fintechs"
+  },
+  {
+    "id": "co_moneyview",
+    "name": "Moneyview (Whizdm Innovations)",
+    "url": "https://www.linkedin.com/company/money-view/",
+    "category": "Digital Lending Fintechs"
+  },
+  {
+    "id": "co_cashe_india",
+    "name": "CASHe (TSLC)",
+    "url": "https://www.linkedin.com/company/cashe-india/",
+    "category": "Digital Lending Fintechs"
+  },
+  {
+    "id": "co_navi_finserv",
+    "name": "Navi Technologies / Navi Finserv",
+    "url": "https://www.linkedin.com/company/navi-technologies/",
+    "category": "Digital Lending Fintechs"
+  },
+  {
+    "id": "co_crif_highmark",
+    "name": "CRIF High Mark India",
+    "url": "https://www.linkedin.com/company/crif-high-mark/",
+    "category": "Credit Bureaus & Market Infrastructure"
+  },
+  {
+    "id": "co_crisil_limited",
+    "name": "CRISIL Limited (An S&P Global Company)",
+    "url": "https://www.linkedin.com/company/crisil-limited/",
+    "category": "Credit Bureaus & Market Infrastructure"
+  },
+  {
+    "id": "co_icra_limited",
+    "name": "ICRA Limited (A Moody's Investors Service Company)",
+    "url": "https://www.linkedin.com/company/icra-limited/",
+    "category": "Credit Bureaus & Market Infrastructure"
+  },
+  {
+    "id": "co_india_ratings",
+    "name": "India Ratings and Research (A Fitch Group Company)",
+    "url": "https://www.linkedin.com/company/india-ratings-and-research/",
+    "category": "Credit Bureaus & Market Infrastructure"
   }
 ]

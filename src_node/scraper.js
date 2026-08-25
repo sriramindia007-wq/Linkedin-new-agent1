@@ -47,7 +47,7 @@ function withTimeout(promise, ms, timeoutMsg = "Operation timed out") {
 /**
  * Timestamp Verification (<48 Hours)
  */
-function isWithinTimeframe(timeStr, maxHours = 48) {
+function isWithinTimeframe(timeStr, maxHours = 72) {
   if (!timeStr) return false;
   const s = timeStr.toLowerCase().trim();
 
@@ -74,7 +74,7 @@ function isWithinTimeframe(timeStr, maxHours = 48) {
     return days * 24 <= maxHours;
   }
 
-  if (s.includes("yesterday") || s.includes("1d") || s.includes("2d")) return true;
+  if (s.includes("yesterday") || s.includes("1d") || s.includes("2d") || s.includes("3d")) return true;
 
   return false;
 }
