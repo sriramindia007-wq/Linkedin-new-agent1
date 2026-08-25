@@ -500,6 +500,44 @@ How is your team currently handling data reconciliation when telemetry streams s
     }
   }
 
+  if (pathname === "/api/publish-news-to-linkedin" && method === "POST") {
+    const body = await parseBody(req);
+    const { articleId, repostText } = body;
+    if (!repostText || !repostText.trim()) {
+      return sendJSON(res, { success: false, error: "Missing repost text content" }, 400);
+    }
+
+    const { loadMarketNews, saveMarketNews } = safeRequire("externalNewsEngine") || {};
+    let news = loadMarketNews ? loadMarketNews() : [];
+    const item = news.find(n => n.id === articleId);
+
+    try {
+      const { publishStandalonePostToLinkedIn } = safeRequire("poster");
+      if (!publishStandalonePostToLinkedIn) {
+        return sendJSON(res, { success: false, error: "Post publisher module not found" }, 500);
+      }
+
+      const result = await publishStandalonePostToLinkedIn(repostText);
+      if (result.success) {
+        if (item) {
+          item.status = "POSTED";
+          item.reposted_at = new Date().toISOString();
+          item.repost_text = repostText;
+          saveMarketNews(news);
+        }
+        const { markPostAsManuallyPosted } = safeRequire("db");
+        if (markPostAsManuallyPosted) {
+          markPostAsManuallyPosted(articleId, repostText, `Published Post (${item?.publisher || 'Lending News'})`);
+        }
+        return sendJSON(res, { success: true, message: result.message || "Post successfully published to LinkedIn!" });
+      } else {
+        return sendJSON(res, { success: false, error: result.message || "Failed to publish post to LinkedIn" });
+      }
+    } catch (e) {
+      return sendJSON(res, { success: false, error: e.message }, 500);
+    }
+  }
+
   if (pathname === "/api/mark-news-reposted" && method === "POST") {
     const body = await parseBody(req);
     const { articleId, repostText } = body;

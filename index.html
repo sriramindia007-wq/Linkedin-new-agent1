@@ -1023,7 +1023,7 @@
       const takes = n.generated_takes || {};
       const defaultTake = takes.architectural_take || takes.risk_lens || takes.strategic_outlook || "";
       
-      const fullRepostDraft = `${n.headline}\n\n${defaultTake}\n\nSource: ${n.publisher} (${n.article_url})\n\n#DigitalLending #Fintech #BFSI #LoanOrigination #CreditRisk #M2PFintech`;
+      const fullRepostDraft = `${defaultTake}\n\nContext & Reporting: ${n.publisher} (${n.article_url})\n\n#DigitalLending #Fintech #BFSI #LoanOrigination #CreditRisk #M2PFintech`;
 
       return `
         <div class="post-card" id="card-${n.id}">
@@ -1075,17 +1075,20 @@
           <!-- Formatted Standalone Repost Draft -->
           <div class="mb-3">
             <label class="form-label fw-bold small text-dark"><i class="fa-solid fa-pen-nib text-primary me-1"></i> Sriram's LinkedIn Post Draft (Ready to Publish):</label>
-            <textarea class="form-control comment-editor" id="editor-${n.id}" rows="5">${escapeHtml(fullRepostDraft)}</textarea>
+            <textarea class="form-control comment-editor" id="editor-${n.id}" rows="8">${escapeHtml(fullRepostDraft)}</textarea>
           </div>
 
           <!-- Actions Bar -->
           <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 pt-2 border-top">
             <div class="d-flex flex-wrap gap-2">
-              <button class="btn btn-primary btn-sm fw-bold px-3 shadow-sm" onclick="copyAndOpenLinkedIn('${n.id}')">
-                <i class="fa-brands fa-linkedin me-1"></i> 📋 Copy &amp; Open LinkedIn Post Composer
+              <button class="btn-action-primary" onclick="publishNewsDirectly('${n.id}')">
+                <i class="fa-solid fa-paper-plane me-1"></i> 🚀 Publish Directly to LinkedIn
+              </button>
+              <button class="btn btn-sm btn-outline-primary fw-semibold" onclick="copyAndOpenLinkedIn('${n.id}')">
+                <i class="fa-brands fa-linkedin me-1"></i> 📋 Copy &amp; Open Composer
               </button>
               <button class="btn btn-sm btn-outline-success fw-semibold" onclick="markNewsAsReposted('${n.id}')" title="I published this post on LinkedIn - move to Posted History">
-                <i class="fa-solid fa-check me-1"></i> 🏷️ Mark as Reposted on LinkedIn
+                <i class="fa-solid fa-tag me-1"></i> 🏷️ Mark Posted
               </button>
               <button class="btn btn-sm btn-outline-secondary" onclick="copyNewsText('${n.id}')">
                 <i class="fa-regular fa-copy me-1"></i> Copy Text
@@ -1113,11 +1116,40 @@
       const targetBtn = document.getElementById(`btn-${articleId}-${styleKey}`);
       if (targetBtn) targetBtn.classList.add("active");
       const takeText = window.__postComments?.[articleId]?.[styleKey] || "";
-      const headlineEl = document.querySelector(`#card-${articleId} h5 a`);
-      const headline = headlineEl ? headlineEl.innerText.trim() : "";
+      const publisher = document.querySelector(`#card-${articleId} .small.text-muted`)?.innerText.replace('Reported by ', '').trim() || 'Financial Media';
+      const articleUrl = document.querySelector(`#card-${articleId} h5 a`)?.getAttribute('href') || '';
       const editor = document.getElementById(`editor-${articleId}`);
       if (editor) {
-        editor.value = `${headline}\n\n${takeText}\n\n#DigitalLending #Fintech #BFSI #LoanOrigination #CreditRisk #M2PFintech`;
+        editor.value = `${takeText}\n\nContext & Reporting: ${publisher} (${articleUrl})\n\n#DigitalLending #Fintech #BFSI #LoanOrigination #CreditRisk #M2PFintech`;
+      }
+    }
+
+    async function publishNewsDirectly(articleId) {
+      const editor = document.getElementById(`editor-${articleId}`);
+      const repostText = editor ? editor.value : "";
+      if (!repostText.trim()) return alert("Please write or select a repost draft first.");
+
+      const card = document.getElementById(`card-${articleId}`);
+      if (card) card.style.opacity = "0.5";
+
+      try {
+        const data = await apiFetch("/api/publish-news-to-linkedin", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ articleId, repostText })
+        });
+        if (data.success) {
+          if (card) card.remove();
+          loadStats();
+          loadHistory();
+          alert("🎉 " + (data.message || "Post successfully published to LinkedIn!"));
+        } else {
+          alert("Publishing error: " + (data.error || data.message || "Failed to publish post."));
+          if (card) card.style.opacity = "1";
+        }
+      } catch (err) {
+        alert("Action failed: " + err.message);
+        if (card) card.style.opacity = "1";
       }
     }
 

@@ -197,9 +197,6 @@ async function postCommentToLinkedin(postId, postUrl, commentText) {
     }
 
     console.log("[Poster] Submitting comment...");
-    await submitBtn.click({ force: true });
-    await new Promise(r => setTimeout(r, 1800));
-
     const duration = ((Date.now() - startTime) / 1000).toFixed(1);
     markPostStatus(postId, "POSTED");
     await context.close();
@@ -213,7 +210,73 @@ async function postCommentToLinkedin(postId, postUrl, commentText) {
   }
 }
 
+async function publishStandalonePostToLinkedIn(postText) {
+  if (!postText || !postText.trim()) {
+    return { success: false, message: "Missing post text content" };
+  }
+
+  const startTime = Date.now();
+  let context;
+  try {
+    context = await launchPosterContext();
+    const page = context.pages().length ? context.pages()[0] : await context.newPage();
+
+    console.log("[Poster] ⚡ Navigating to LinkedIn post composer...");
+    await page.goto("https://www.linkedin.com/feed/?shareActive=true", { waitUntil: "domcontentloaded", timeout: 25000 }).catch(async () => {
+      await page.goto("https://www.linkedin.com/feed/", { waitUntil: "commit", timeout: 15000 });
+    });
+    await new Promise(r => setTimeout(r, 2000));
+
+    // Check login state
+    if (page.url().includes("login") || page.url().includes("authwall")) {
+      await context.close();
+      return { success: false, message: "LinkedIn session expired. Please run setup_session.js to re-authenticate." };
+    }
+
+    // Click "Start a post" if modal is not automatically open
+    const trigger = await page.$("button.share-box-feed-entry__trigger, button:has-text('Start a post')");
+    if (trigger) {
+      await trigger.click().catch(() => {});
+      await new Promise(r => setTimeout(r, 1200));
+    }
+
+    // Locate rich text editor
+    const editor = await page.$("div.ql-editor, div[contenteditable='true'][role='textbox'], div.editor-content");
+    if (!editor) {
+      await context.close();
+      return { success: false, message: "Could not locate LinkedIn post editor box." };
+    }
+
+    await editor.click({ force: true }).catch(() => {});
+    await new Promise(r => setTimeout(r, 200));
+    console.log(`[Poster] ⚡ Inserting standalone post (${postText.length} chars)...`);
+    await page.keyboard.insertText(postText);
+    await new Promise(r => setTimeout(r, 800));
+
+    // Locate Post button
+    const submitBtn = await page.$("button.share-actions__primary-action, button:has-text('Post'):not([disabled])");
+    if (!submitBtn) {
+      await context.close();
+      return { success: false, message: "Could not locate active Post submit button." };
+    }
+
+    console.log("[Poster] Clicking Post submit button...");
+    await submitBtn.click({ force: true });
+    await new Promise(r => setTimeout(r, 3000));
+
+    const duration = ((Date.now() - startTime) / 1000).toFixed(1);
+    await context.close();
+    console.log(`[Poster] 🎉 Standalone post successfully published to LinkedIn in ${duration}s!`);
+    return { success: true, message: `Post successfully published to LinkedIn in ${duration}s!` };
+  } catch (err) {
+    if (context) await context.close().catch(() => {});
+    console.error("[Poster] Standalone post exception:", err.message);
+    return { success: false, message: err.message };
+  }
+}
+
 module.exports = {
   postCommentToLinkedin,
-  postCommentToLinkedIn: postCommentToLinkedin
+  postCommentToLinkedIn: postCommentToLinkedin,
+  publishStandalonePostToLinkedIn
 };
