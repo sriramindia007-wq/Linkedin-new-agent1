@@ -161,32 +161,46 @@ try {
   console.log("Using built-in IST heartbeat ticker for scheduling");
 }
 
+// Deterministic UTC+5.5 IST Time Extractor (100% Locale & ICU Independent)
+function getDeterministicIST() {
+  const now = new Date();
+  const istDate = new Date(now.getTime() + (5.5 * 3600 * 1000) + (now.getTimezoneOffset() * 60000));
+  const year = istDate.getFullYear();
+  const month = String(istDate.getMonth() + 1).padStart(2, "0");
+  const day = String(istDate.getDate()).padStart(2, "0");
+  const hour = istDate.getHours();
+  const minute = String(istDate.getMinutes()).padStart(2, "0");
+  return {
+    year, month, day, hour, minute,
+    dateKey: `${year}-${month}-${day}`,
+    formatted: `${day}/${month}/${year} ${String(hour).padStart(2, "0")}:${minute} IST`
+  };
+}
+
 // Fail-Safe IST Heartbeat Ticker with Automatic Sleep/Wake Catch-Up
 let completedRuns = new Set();
 
 function checkAndRunScheduledSlots() {
   try {
-    const istTimeStr = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata", hour12: false });
-    const timePart = istTimeStr.split(", ")[1] || "";
-    const [hh, mm] = timePart.split(":");
-    const hour = parseInt(hh, 10);
-    const todayDate = istTimeStr.split(", ")[0];
+    const { pruneExpiredPendingPosts } = safeRequire("db");
+    if (pruneExpiredPendingPosts) pruneExpiredPendingPosts();
 
-    const morningKey = `${todayDate}_morning_0700`;
-    const eveningKey = `${todayDate}_evening_1800`;
+    const ist = getDeterministicIST();
+    const morningKey = `${ist.dateKey}_morning_0700`;
+    const eveningKey = `${ist.dateKey}_evening_1800`;
 
     // 1. Morning Slot (Any time from 07:00 AM until 17:59 PM if not yet executed today)
-    if (hour >= 7 && hour < 18 && !completedRuns.has(morningKey)) {
+    if (ist.hour >= 7 && ist.hour < 18 && !completedRuns.has(morningKey)) {
       completedRuns.add(morningKey);
-      console.log(`⏰ [IST CATCH-UP] Triggering Morning Scrape for ${todayDate} (Current IST: ${hour}:${mm})`);
-      triggerBackgroundScrape(null, 2, `Morning 07:00 AM IST (Run at ${hour}:${mm})`);
+      console.log(`⏰ [IST CATCH-UP] Triggering Morning Scrape for ${ist.dateKey} (Current IST: ${ist.hour}:${ist.minute})`);
+      triggerBackgroundScrape(null, 2, `Morning 07:00 AM IST (Run at ${ist.hour}:${ist.minute})`);
     }
 
     // 2. Evening Slot (Any time from 18:00 PM onwards if not yet executed today)
-    if (hour >= 18 && !completedRuns.has(eveningKey)) {
+    if (ist.hour >= 18 && !completedRuns.has(eveningKey)) {
       completedRuns.add(eveningKey);
-      console.log(`⏰ [IST CATCH-UP] Triggering Evening Scrape for ${todayDate} (Current IST: ${hour}:${mm})`);
-      triggerBackgroundScrape(null, 2, `Evening 06:00 PM IST (Run at ${hour}:${mm})`);
+      console.log(`⏰ [IST CATCH-UP] Triggering Evening Scrape for ${ist.dateKey} (Current IST: ${ist.hour}:${ist.minute})`);
+      triggerBackgroundScrape(null, 2, `Evening 06:00 PM IST (Run at ${ist.hour}:${ist.minute})`);
     }
   } catch (err) {
     console.error("Scheduler ticker error:", err.message);

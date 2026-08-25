@@ -24,20 +24,6 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  <script>
-    // Hard purge stale service workers and caches on mobile/desktop PWA
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(registrations => {
-        for (let reg of registrations) reg.unregister();
-      });
-    }
-    if ('caches' in window) {
-      caches.keys().then(names => {
-        for (let name of names) caches.delete(name);
-      });
-    }
-  </script>
-
   <style>
     :root {
       --primary-navy: #0b192c;
@@ -57,6 +43,7 @@
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       color: var(--text-main);
       -webkit-font-smoothing: antialiased;
+      padding-bottom: 70px;
     }
 
     /* Modern Navbar */
@@ -136,8 +123,8 @@
       background: #ffffff;
       border: 1px solid var(--card-border);
       border-radius: 16px;
-      padding: 22px;
-      margin-bottom: 22px;
+      padding: 20px;
+      margin-bottom: 20px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.03), 0 8px 24px -4px rgba(0,0,0,0.04);
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
@@ -238,9 +225,39 @@
       padding: 18px 22px;
       box-shadow: 0 4px 16px rgba(11, 25, 44, 0.15);
     }
+
+    /* Floating Action Refresh Button for Mobile */
+    .mobile-refresh-fab {
+      position: fixed;
+      bottom: 22px;
+      right: 20px;
+      z-index: 1050;
+      background: linear-gradient(135deg, #0284c7 0%, #1e3a8a 100%);
+      color: #ffffff;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-radius: 50px;
+      padding: 12px 20px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      box-shadow: 0 8px 24px rgba(2, 132, 199, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      cursor: pointer;
+    }
+    .mobile-refresh-fab:active {
+      transform: scale(0.95);
+    }
   </style>
 </head>
 <body>
+
+  <!-- Floating Mobile Quick Refresh Button -->
+  <button id="mobileRefreshFab" onclick="refreshActiveTab(true)" class="mobile-refresh-fab" title="Force Refresh Feed">
+    <i class="fa-solid fa-rotate" id="fabRefreshIcon"></i>
+    <span>Refresh Feed</span>
+  </button>
 
   <!-- Top Executive Navbar -->
   <nav class="navbar navbar-expand-lg app-navbar px-3 px-md-4 py-2 text-white sticky-top shadow-sm">
@@ -257,7 +274,7 @@
 
       <div class="d-flex align-items-center gap-2">
         <button class="btn btn-sm btn-outline-light fw-semibold px-2 px-md-3 d-flex align-items-center gap-2" onclick="openSourcesModal()">
-          <i class="fa-solid fa-list-check text-info"></i> <span class="d-none d-md-inline">563 Sources</span>
+          <i class="fa-solid fa-list-check text-info"></i> <span class="d-none d-md-inline" id="navSourcesCount">596 Sources</span>
         </button>
         <button class="btn btn-sm btn-outline-light fw-semibold px-2 px-md-3 d-flex align-items-center gap-2" onclick="openMLLearningModal()">
           <i class="fa-solid fa-brain text-success"></i> <span class="d-none d-md-inline">ML Brain</span>
@@ -279,7 +296,7 @@
         </div>
         <div>
           <div class="fw-bold fs-6">⏰ 24/7 Automated Daily Cloud Engine</div>
-          <div class="small text-white-50">Runs at <strong>07:00 AM &amp; 06:00 PM IST</strong> &bull; Last Sync: <strong id="statLastScrapeTime" class="text-warning">24 Aug, 10:00 AM IST</strong></div>
+          <div class="small text-white-50">Runs at <strong>07:00 AM &amp; 06:00 PM IST</strong> &bull; Last Sync: <strong id="statLastScrapeTime" class="text-warning">25 Aug, 10:18 PM IST</strong></div>
         </div>
       </div>
       <div class="d-flex gap-2">
@@ -296,14 +313,14 @@
     <div class="row g-2 g-md-3 mb-4" id="statsRow">
       <div class="col-6 col-md-3">
         <div class="metric-card border-start border-warning border-4">
-          <div class="metric-label">Lending Review</div>
+          <div class="metric-label">Lending Review (&le;3d)</div>
           <div class="metric-value text-warning" id="statPending">0</div>
         </div>
       </div>
       <div class="col-6 col-md-3">
         <div class="metric-card border-start border-info border-4">
           <div class="metric-label">Market News</div>
-          <div class="metric-value text-info" id="statNewsCount">80</div>
+          <div class="metric-value text-info" id="statNewsCount">120</div>
         </div>
       </div>
       <div class="col-6 col-md-3">
@@ -314,8 +331,8 @@
       </div>
       <div class="col-6 col-md-3">
         <div class="metric-card border-start border-primary border-4">
-          <div class="metric-label">Institutions</div>
-          <div class="metric-value text-primary" id="statSources">563</div>
+          <div class="metric-label">Institutions &amp; Targets</div>
+          <div class="metric-value text-primary" id="statSources">596</div>
         </div>
       </div>
     </div>
@@ -324,10 +341,10 @@
     <div class="card p-3 mb-4 bg-white border-0 shadow-sm rounded-4">
       <div class="row align-items-center g-3">
         <div class="col-lg-6">
-          <label class="form-label fw-bold small text-muted text-uppercase mb-1"><i class="fa-solid fa-satellite-dish text-primary me-1"></i> Fast Scraper Engine (&lt;48h Strict)</label>
+          <label class="form-label fw-bold small text-muted text-uppercase mb-1"><i class="fa-solid fa-satellite-dish text-primary me-1"></i> Fast Scraper Engine (&le;72h Strict)</label>
           <div class="d-flex gap-2">
             <select class="form-select form-select-sm" id="scrapeCategorySelect">
-              <option value="ALL">All 563 Monitored Sources &amp; Streams</option>
+              <option value="ALL">All 596 Monitored Sources &amp; Streams</option>
               <option value="M2P LOS Competitors & Tech">M2P LOS Competitors (Perfios, Lentra, Nucleus, etc.)</option>
               <option value="Board Leadership & Governance">Board Leadership &amp; Governance (IICA, Directors)</option>
               <option value="Regulatory, Government & Policy">Regulatory &amp; Policy (RBI, SIDBI, MSME)</option>
@@ -398,7 +415,7 @@
         <!-- Active Crawl Progress Banner -->
         <div id="scrapeActiveBanner" class="alert alert-info border border-info border-opacity-25 d-flex align-items-center justify-content-between p-3 mb-4 shadow-sm rounded-3 d-none">
           <div>
-            <div class="fw-bold text-dark"><span class="spinner-border spinner-border-sm text-info me-2"></span> ⚡ Crawling &amp; QA Auditing 563 Indian Lending Sources...</div>
+            <div class="fw-bold text-dark"><span class="spinner-border spinner-border-sm text-info me-2"></span> ⚡ Crawling &amp; QA Auditing 596 Indian Lending Sources...</div>
             <div class="small text-muted mt-1" id="scrapeProgressDetail">Initializing...</div>
           </div>
           <div class="text-end d-flex align-items-center gap-2">
@@ -409,22 +426,10 @@
           </div>
         </div>
 
-        <!-- Completion Notification Toast -->
-        <div id="scrapeCompleteToast" class="alert alert-success alert-dismissible fade show shadow-sm border border-success border-opacity-25 d-none p-3 mb-4 rounded-3" role="alert">
-          <div class="d-flex align-items-center">
-            <i class="fa-solid fa-circle-check text-success fs-3 me-3"></i>
-            <div>
-              <div class="fw-bold text-success" id="scrapeToastTitle">🎉 Scrape &amp; QA Certification Complete!</div>
-              <div class="small text-dark" id="scrapeToastBody">Your review queue has been refreshed with qualifying lending posts. All non-lending noise was automatically filtered.</div>
-            </div>
-          </div>
-          <button type="button" class="btn-close" onclick="document.getElementById('scrapeCompleteToast').classList.add('d-none')"></button>
-        </div>
-
         <div id="postsContainer">
           <div class="text-center py-5 text-muted">
             <div class="spinner-border text-primary mb-2" role="status"></div>
-            <div>Loading active review queue...</div>
+            <div>Loading active review queue (&le;72h)...</div>
           </div>
         </div>
       </div>
@@ -453,7 +458,7 @@
           <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
             <div>
               <h5 class="fw-bold mb-0 text-dark"><i class="fa-solid fa-landmark me-1 text-warning"></i> 🏛️ Board Leadership, IICA &amp; Independent Directors</h5>
-              <small class="text-muted">Tracking IICA, Institute of Directors (IOD), Boardroom Appointments &amp; 22+ Curated Independent Directors</small>
+              <small class="text-muted">Tracking IICA, Institute of Directors (IOD), Boardroom Appointments &amp; 24+ Curated Independent Directors</small>
             </div>
             <button class="btn btn-outline-warning btn-sm fw-bold text-dark px-3" id="btnRefreshGovernance" onclick="triggerGovernanceCrawl()">
               <i class="fa-solid fa-rotate me-1"></i> Refresh Governance Intel
@@ -505,7 +510,7 @@
         </div>
       </div>
 
-      <!-- 6. Creator Studio & Booster (Unified) -->
+      <!-- 6. Creator Studio & Booster -->
       <div class="tab-pane fade" id="tab-creator" role="tabpanel">
         <div class="row g-4">
           <!-- Viral Post Generator -->
@@ -591,18 +596,18 @@
     </div>
   </div>
 
-  <!-- MODAL 1: 563 Sources Directory -->
+  <!-- MODAL 1: 596 Sources Directory -->
   <div class="modal fade" id="sourcesModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
       <div class="modal-content border-0 shadow">
         <div class="modal-header bg-light">
-          <h5 class="modal-title fw-bold"><i class="fa-solid fa-list-check text-primary me-2"></i> 563 Target Monitored Institutions &amp; CXOs</h5>
+          <h5 class="modal-title fw-bold"><i class="fa-solid fa-list-check text-primary me-2"></i> 596 Target Monitored Institutions &amp; CXOs</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <div class="d-flex justify-content-between align-items-center mb-3">
             <input type="text" class="form-control form-control-sm w-50" id="sourceSearch" placeholder="Search by name, category, or keyword..." onkeyup="filterSourcesTable()" />
-            <span class="badge bg-primary px-3 py-2 fs-6" id="modalSourceCount">563 Sources</span>
+            <span class="badge bg-primary px-3 py-2 fs-6" id="modalSourceCount">596 Sources</span>
           </div>
           <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
@@ -729,22 +734,32 @@
     let currentPersonaConfig = {};
     window.__postComments = window.__postComments || {};
 
-    // Mobile-First Resilient API Fetch with Cache-Buster
-    async function apiFetch(url, options = {}) {
-      try {
-        const cacheBuster = (url.includes('?') ? '&' : '?') + '_ts=' + Date.now();
-        const res = await fetch(url + cacheBuster, {
-          ...options,
-          cache: 'no-store'
-        });
-        if (!res.ok) {
-          const text = await res.text();
-          throw new Error(`HTTP ${res.status}: ${text.substring(0, 100)}`);
+    // Register Network-Only Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
+
+    // Resilient Mobile-First API Fetch with 3x Retry & Cache-Buster
+    async function apiFetch(url, options = {}, retries = 3) {
+      for (let attempt = 1; attempt <= retries; attempt++) {
+        try {
+          const cacheBuster = (url.includes('?') ? '&' : '?') + '_ts=' + Date.now() + '&_r=' + Math.random().toString(36).substring(2, 6);
+          const res = await fetch(url + cacheBuster, {
+            ...options,
+            cache: 'no-store'
+          });
+          if (!res.ok) {
+            const text = await res.text();
+            throw new Error(`HTTP ${res.status}: ${text.substring(0, 100)}`);
+          }
+          return await res.json();
+        } catch (err) {
+          if (attempt === retries) {
+            console.error(`API Fetch failed permanently for ${url}:`, err);
+            throw err;
+          }
+          await new Promise(r => setTimeout(r, 600 * attempt));
         }
-        return await res.json();
-      } catch (err) {
-        console.error(`API Fetch error for ${url}:`, err);
-        throw err;
       }
     }
 
@@ -779,7 +794,9 @@
         if (document.getElementById("statPending")) document.getElementById("statPending").innerText = data.pending !== undefined ? data.pending : 0;
         if (document.getElementById("statPosted")) document.getElementById("statPosted").innerText = data.posted !== undefined ? data.posted : 0;
         if (document.getElementById("statSources")) document.getElementById("statSources").innerText = data.sources_count || 596;
+        if (document.getElementById("navSourcesCount")) document.getElementById("navSourcesCount").innerText = `${data.sources_count || 596} Sources`;
         if (document.getElementById("tabReviewCount")) document.getElementById("tabReviewCount").innerText = data.pending !== undefined ? data.pending : 0;
+        
         if (data.last_scrape && document.getElementById("statLastScrapeTime")) {
           try {
             const d = new Date(data.last_scrape);
@@ -912,13 +929,13 @@
               <span class="chip chip-primary">${escapeHtml(n.source_category || 'Lending & Markets')}</span>
               <span class="chip chip-dark"><i class="fa-regular fa-clock me-1"></i> ${n.published_at ? new Date(n.published_at).toLocaleDateString() : 'Recent'}</span>
             </div>
-            <a href="${n.article_url}" target="_blank" class="btn btn-sm btn-outline-info fw-semibold">
+            <a href="${n.article_url}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-info fw-semibold">
               <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Read Original News Article
             </a>
           </div>
 
           <h5 class="fw-bold mt-2 mb-1 text-dark">
-            <a href="${n.article_url}" target="_blank" class="text-dark text-decoration-none hover-primary">
+            <a href="${n.article_url}" target="_blank" rel="noopener noreferrer" class="text-dark text-decoration-none hover-primary">
               ${escapeHtml(n.headline)}
             </a>
           </h5>
@@ -1062,14 +1079,26 @@
             <div class="text-center py-5 bg-white rounded-4 p-4 border">
               <i class="fa-solid fa-circle-check fa-3x text-success mb-3"></i>
               <h5>Review Queue is Clear!</h5>
-              <p class="text-muted">All qualifying lending posts have been reviewed. Click "Run Scraper" above to fetch fresh updates.</p>
+              <p class="text-muted">All qualifying lending posts (&le;72h) have been reviewed. Click "Run" above to trigger a fresh scan.</p>
+              <button class="btn btn-sm btn-outline-primary fw-bold px-3" onclick="triggerScrape()">
+                <i class="fa-solid fa-rotate me-1"></i> Scan 596 Sources Now
+              </button>
             </div>`;
           return;
         }
 
         container.innerHTML = posts.map(p => renderPostCard(p)).join("");
       } catch (err) {
-        container.innerHTML = `<div class="alert alert-danger">Error loading posts: ${err.message}</div>`;
+        container.innerHTML = `
+          <div class="card p-4 text-center my-4 border-0 shadow-sm rounded-4 bg-white">
+            <i class="fa-solid fa-triangle-exclamation text-warning fs-1 mb-2"></i>
+            <h6 class="fw-bold">Unable to load feed</h6>
+            <p class="text-muted small">${escapeHtml(err.message)}</p>
+            <button class="btn btn-primary btn-sm mx-auto px-4 fw-bold rounded-pill" onclick="loadPendingPosts()">
+              <i class="fa-solid fa-rotate me-1"></i> Tap to Retry
+            </button>
+          </div>
+        `;
       }
     }
 
@@ -1090,7 +1119,7 @@
         }
         container.innerHTML = posts.map(p => renderNewsCard(p)).join("");
       } catch (err) {
-        container.innerHTML = `<div class="alert alert-danger">Error loading news: ${err.message}</div>`;
+        container.innerHTML = `<div class="alert alert-danger">Error loading news: ${escapeHtml(err.message)}</div>`;
       }
     }
 
@@ -1110,7 +1139,7 @@
         }
         container.innerHTML = posts.map(p => renderPostCard(p)).join("");
       } catch (err) {
-        container.innerHTML = `<div class="alert alert-danger">Error loading governance intel: ${err.message}</div>`;
+        container.innerHTML = `<div class="alert alert-danger">Error loading governance intel: ${escapeHtml(err.message)}</div>`;
       }
     }
 
@@ -1130,7 +1159,7 @@
         }
         container.innerHTML = posts.map(p => renderPostCard(p)).join("");
       } catch (err) {
-        container.innerHTML = `<div class="alert alert-danger">Error loading competitor intel: ${err.message}</div>`;
+        container.innerHTML = `<div class="alert alert-danger">Error loading competitor intel: ${escapeHtml(err.message)}</div>`;
       }
     }
 
@@ -1151,7 +1180,7 @@
             <td><span class="chip chip-primary">${escapeHtml(p.source_category || 'BFSI')}</span></td>
             <td><div class="small text-muted" style="max-width: 380px;">${escapeHtml(p.approved_comment || p.repost_text || '')}</div></td>
             <td><small class="text-muted">${p.posted_at ? new Date(p.posted_at).toLocaleString() : 'Recent'}</small></td>
-            <td><a href="${p.post_url || p.article_url}" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fa-brands fa-linkedin me-1"></i> View</a></td>
+            <td><a href="${p.post_url || p.article_url}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary"><i class="fa-brands fa-linkedin me-1"></i> View</a></td>
           </tr>
         `).join("");
       } catch (e) {
@@ -1161,8 +1190,11 @@
 
     async function refreshActiveTab(showToast = false) {
       const icon = document.getElementById("quickRefreshIcon");
+      const fabIcon = document.getElementById("fabRefreshIcon");
       if (icon) icon.classList.add("fa-spin");
-      loadStats();
+      if (fabIcon) fabIcon.classList.add("fa-spin");
+
+      await loadStats();
       
       const activeTabEl = document.querySelector("#mainTab .nav-link.active");
       const tabId = activeTabEl ? activeTabEl.getAttribute("id") : "tab-review-btn";
@@ -1175,6 +1207,7 @@
 
       setTimeout(() => {
         if (icon) icon.classList.remove("fa-spin");
+        if (fabIcon) fabIcon.classList.remove("fa-spin");
       }, 600);
     }
 
@@ -1416,7 +1449,7 @@
 
           if (job && job.isRunning) {
             const prog = job.progress || 0;
-            const tot = job.total || 563;
+            const tot = job.total || 596;
             const percent = Math.min(99, Math.round((prog / Math.max(1, tot)) * 100));
             if (badge) badge.innerText = `${percent}%`;
             if (detail) detail.innerHTML = `Source <strong>${prog}</strong> of <strong>${tot}</strong> (<em>${escapeHtml(job.currentSource || 'Scanning...')}</em>)`;
@@ -1573,7 +1606,7 @@
           <td><strong>${escapeHtml(s.name)}</strong></td>
           <td><span class="chip chip-primary">${escapeHtml(s.category)}</span></td>
           <td><code>${escapeHtml(s.role_type || s.type || 'institution')}</code></td>
-          <td><a href="${s.url}" target="_blank" class="small text-truncate d-inline-block" style="max-width: 220px;">${s.url}</a></td>
+          <td><a href="${s.url}" target="_blank" rel="noopener noreferrer" class="small text-truncate d-inline-block" style="max-width: 220px;">${s.url}</a></td>
           <td>
             <button class="btn btn-xs btn-outline-warning fw-bold" onclick="triggerInstantCategory('${escapeHtml(s.category)}')">
               <i class="fa-solid fa-bolt me-1"></i> Scrape
@@ -1677,6 +1710,19 @@
         alert("Failed to save: " + err.message);
       }
     }
+
+    // Touch Pull-to-Refresh Gesture for Mobile
+    let touchStartY = 0;
+    document.addEventListener('touchstart', e => {
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', e => {
+      const touchEndY = e.changedTouches[0].clientY;
+      if (window.scrollY === 0 && (touchEndY - touchStartY) > 90) {
+        refreshActiveTab(true);
+      }
+    }, { passive: true });
 
     // Initialization
     document.addEventListener("DOMContentLoaded", () => {

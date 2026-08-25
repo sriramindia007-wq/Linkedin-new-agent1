@@ -162,13 +162,49 @@ function postExists(postUrl, authorName = "", postText = "") {
   });
 }
 
+function isOlderThan3Days(p) {
+  if (!p) return true;
+  // 1. Check relative published string (e.g., 4d, 5d, 1w, 2w, 1mo, 2mo)
+  const rel = (p.published_relative || "").toLowerCase().trim();
+  if (/\b([4-9]|[1-9][0-9])d\b/.test(rel)) return true; // 4d and above
+  if (/\b\d+\s*(w|mo|yr|y|month|year|week)s?\b/.test(rel)) return true; // weeks, months, years
+
+  // 2. Check scraped_at timestamp (strictly <= 72 hours)
+  if (p.scraped_at) {
+    const ageMs = Date.now() - new Date(p.scraped_at).getTime();
+    if (ageMs > (3 * 24 * 60 * 60 * 1000)) return true; // older than 72 hours
+  }
+  return false;
+}
+
+function pruneExpiredPendingPosts() {
+  let posts = loadPosts();
+  let changed = false;
+  let prunedCount = 0;
+
+  for (const p of posts) {
+    if (p.status === "PENDING" && isOlderThan3Days(p)) {
+      p.status = "EXPIRED";
+      changed = true;
+      prunedCount++;
+    }
+  }
+
+  if (changed) {
+    savePosts(posts);
+    console.log(`🧹 [Freshness Guardian] Auto-pruned ${prunedCount} stale pending posts (>3 days old).`);
+  }
+  return prunedCount;
+}
+
 function getPostsPaged({ status = "PENDING", category = "ALL", page = 1, limit = 50 }) {
   let all = loadPosts();
 
-  // Strict filtering for PENDING review: exclude POSTED, REJECTED, COMPETITOR_RADAR, BOARD GOVERNANCE, and Blacklisted items
+  // Strict filtering for PENDING review: exclude POSTED, REJECTED, EXPIRED, COMPETITOR_RADAR, BOARD GOVERNANCE, and items > 3 days old
   if (status === "PENDING") {
     all = all.filter(p => 
       p.status === "PENDING" && 
+      !isOlderThan3Days(p) &&
       !p.manual_post && 
       !p.competitor_intel && 
       p.source_category !== "M2P LOS Competitors & Tech" && 
@@ -364,6 +400,7 @@ function getStats() {
   for (const p of posts) {
     if (
       p.status === "PENDING" && 
+      !isOlderThan3Days(p) &&
       !p.manual_post && 
       !p.competitor_intel && 
       p.source_category !== "M2P LOS Competitors & Tech" &&
@@ -414,5 +451,7 @@ module.exports = {
   saveSources,
   loadPersona,
   savePersona,
-  isPostBlacklisted
+  isPostBlacklisted,
+  isOlderThan3Days,
+  pruneExpiredPendingPosts
 };
