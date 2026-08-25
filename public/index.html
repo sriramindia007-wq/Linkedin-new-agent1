@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>M2P Lending Intelligence & Comment Agent</title>
   
   <!-- PWA & Mobile Standalone Tags -->
-  <link rel="manifest" href="/manifest.json" />
+  <link rel="manifest" href="/manifest.json?v=2.6.0" />
   <meta name="theme-color" content="#0b192c" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -23,6 +23,20 @@
   <!-- Bootstrap 5.3 & FontAwesome 6.5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    // PWA Auto-Sync & Cache Purge for Installed Mobile PWAs
+    const APP_VERSION = "2.6.0";
+    if (localStorage.getItem("m2p_pwa_version") !== APP_VERSION) {
+      localStorage.setItem("m2p_pwa_version", APP_VERSION);
+      if ('caches' in window) {
+        caches.keys().then(names => Promise.all(names.map(n => caches.delete(n))));
+      }
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(regs => Promise.all(regs.map(r => r.unregister())));
+      }
+    }
+  </script>
 
   <style>
     :root {
@@ -43,7 +57,7 @@
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       color: var(--text-main);
       -webkit-font-smoothing: antialiased;
-      padding-bottom: 70px;
+      padding-bottom: 80px;
     }
 
     /* Modern Navbar */
@@ -52,7 +66,7 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     .brand-title {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 800;
       letter-spacing: -0.02em;
     }
@@ -62,7 +76,7 @@
       background: #ffffff;
       border: 1px solid var(--card-border);
       border-radius: 14px;
-      padding: 16px 18px;
+      padding: 14px 16px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.02), 0 4px 12px rgba(0,0,0,0.03);
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -71,51 +85,66 @@
       box-shadow: 0 8px 20px -4px rgba(0,0,0,0.08);
     }
     .metric-label {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--text-muted);
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
     .metric-value {
-      font-size: 1.75rem;
+      font-size: 1.65rem;
       font-weight: 800;
       line-height: 1.1;
     }
 
-    /* Streamlined Mobile Scrollable Navigation Tabs */
-    .nav-executive {
-      border-bottom: 2px solid var(--card-border);
-      gap: 4px;
-      display: flex;
-      flex-wrap: nowrap;
+    /* Mobile-Optimized Segmented Executive Tabs */
+    .nav-executive-container {
+      background: #ffffff;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      margin-bottom: 20px;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
     }
-    .nav-executive::-webkit-scrollbar { display: none; }
-    .nav-executive .nav-link {
-      color: var(--text-muted);
-      font-weight: 600;
-      font-size: 0.88rem;
+    .nav-executive-container::-webkit-scrollbar { display: none; }
+    
+    .nav-executive {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 6px;
       border: none;
-      border-bottom: 3px solid transparent;
-      padding: 12px 16px;
-      border-radius: 8px 8px 0 0;
+      margin: 0;
+      padding: 0;
+      min-width: max-content;
+    }
+    .nav-executive .nav-link {
+      color: #475569;
+      font-weight: 600;
+      font-size: 0.86rem;
+      border: none;
+      padding: 9px 15px;
+      border-radius: 10px;
       white-space: nowrap;
       flex-shrink: 0;
       transition: all 0.15s ease-in-out;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     .nav-executive .nav-link:hover {
       color: var(--primary-blue);
-      background: rgba(30, 58, 138, 0.04);
+      background: rgba(30, 58, 138, 0.06);
     }
     .nav-executive .nav-link.active {
-      color: var(--primary-blue);
+      color: #ffffff !important;
+      background: linear-gradient(135deg, #0b192c 0%, #1e3a8a 100%);
       font-weight: 700;
-      border-bottom: 3px solid var(--primary-blue);
-      background: transparent;
+      box-shadow: 0 3px 10px rgba(11, 25, 44, 0.25);
     }
 
     /* Elevated Post Cards */
@@ -123,7 +152,7 @@
       background: #ffffff;
       border: 1px solid var(--card-border);
       border-radius: 16px;
-      padding: 20px;
+      padding: 18px 20px;
       margin-bottom: 20px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.03), 0 8px 24px -4px rgba(0,0,0,0.04);
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -137,10 +166,10 @@
     .chip {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      padding: 4px 10px;
+      gap: 4px;
+      padding: 4px 9px;
       border-radius: 6px;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 600;
     }
     .chip-primary { background: #eff6ff; color: #1e40af; border: 1px solid #dbeafe; }
@@ -155,10 +184,10 @@
       background: #f8fafc;
       border-left: 4px solid var(--primary-blue);
       border-radius: 0 8px 8px 0;
-      padding: 14px;
+      padding: 12px 14px;
       margin: 12px 0;
-      font-size: 0.95rem;
-      line-height: 1.65;
+      font-size: 0.92rem;
+      line-height: 1.6;
       color: #1e293b;
     }
 
@@ -166,8 +195,8 @@
     .style-pill {
       cursor: pointer;
       border-radius: 30px;
-      font-size: 0.82rem;
-      padding: 6px 14px;
+      font-size: 0.8rem;
+      padding: 5px 12px;
       margin-right: 6px;
       margin-bottom: 6px;
       border: 1px solid var(--card-border);
@@ -194,7 +223,7 @@
       border: none;
       color: #ffffff;
       font-weight: 700;
-      padding: 8px 18px;
+      padding: 7px 16px;
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
       transition: all 0.15s;
@@ -207,10 +236,10 @@
 
     .comment-editor {
       border-radius: 10px;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       line-height: 1.6;
       border: 1px solid #cbd5e1;
-      padding: 12px;
+      padding: 10px 12px;
     }
     .comment-editor:focus {
       border-color: var(--primary-blue);
@@ -222,7 +251,7 @@
       background: linear-gradient(135deg, #0b192c 0%, #1e3a8a 100%);
       color: #ffffff;
       border-radius: 14px;
-      padding: 18px 22px;
+      padding: 16px 20px;
       box-shadow: 0 4px 16px rgba(11, 25, 44, 0.15);
     }
 
@@ -236,9 +265,9 @@
       color: #ffffff;
       border: 2px solid rgba(255,255,255,0.4);
       border-radius: 50px;
-      padding: 12px 20px;
+      padding: 12px 18px;
       font-weight: 700;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       box-shadow: 0 8px 24px rgba(2, 132, 199, 0.4);
       display: flex;
       align-items: center;
@@ -289,9 +318,9 @@
   <div class="container py-3 py-md-4">
 
     <!-- Top Automated Schedule Banner -->
-    <div class="schedule-header-card mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
+    <div class="schedule-header-card mb-3 mb-md-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
       <div class="d-flex align-items-center gap-3">
-        <div class="bg-white text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
+        <div class="bg-white text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; flex-shrink: 0;">
           <i class="fa-solid fa-clock-rotate-left fs-5 text-primary"></i>
         </div>
         <div>
@@ -310,7 +339,7 @@
     </div>
 
     <!-- Executive Metric Cards -->
-    <div class="row g-2 g-md-3 mb-4" id="statsRow">
+    <div class="row g-2 g-md-3 mb-3 mb-md-4" id="statsRow">
       <div class="col-6 col-md-3">
         <div class="metric-card border-start border-warning border-4">
           <div class="metric-label">Lending Review (&le;3d)</div>
@@ -331,14 +360,14 @@
       </div>
       <div class="col-6 col-md-3">
         <div class="metric-card border-start border-primary border-4">
-          <div class="metric-label">Institutions &amp; Targets</div>
+          <div class="metric-label">Monitored Targets</div>
           <div class="metric-value text-primary" id="statSources">596</div>
         </div>
       </div>
     </div>
 
     <!-- Scraper Control & 1-Click Link Ingestion Bar -->
-    <div class="card p-3 mb-4 bg-white border-0 shadow-sm rounded-4">
+    <div class="card p-3 mb-3 mb-md-4 bg-white border-0 shadow-sm rounded-4">
       <div class="row align-items-center g-3">
         <div class="col-lg-6">
           <label class="form-label fw-bold small text-muted text-uppercase mb-1"><i class="fa-solid fa-satellite-dish text-primary me-1"></i> Fast Scraper Engine (&le;72h Strict)</label>
@@ -372,41 +401,43 @@
       <div id="ingestStatusMessage" class="mt-2 small" style="display:none;"></div>
     </div>
 
-    <!-- Streamlined 6 Executive Tabs -->
-    <ul class="nav nav-executive mb-4" id="mainTab" role="tablist">
-      <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="tab-review-btn" data-bs-toggle="tab" data-bs-target="#tab-review" type="button" role="tab" onclick="loadPendingPosts()">
-          <i class="fa-solid fa-inbox me-1"></i> Lending Review (<span id="tabReviewCount">0</span>)
-        </button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link text-info fw-bold" id="tab-news-btn" data-bs-toggle="tab" data-bs-target="#tab-news" type="button" role="tab" onclick="loadNewsPosts()">
-          <i class="fa-solid fa-newspaper me-1"></i> 📰 Market &amp; Funding News
-        </button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link text-warning fw-bold" id="tab-governance-btn" data-bs-toggle="tab" data-bs-target="#tab-governance" type="button" role="tab" onclick="loadGovernancePosts()">
-          <i class="fa-solid fa-landmark me-1"></i> 🏛️ Boardroom &amp; IICA
-        </button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link text-danger fw-bold" id="tab-competitors-btn" data-bs-toggle="tab" data-bs-target="#tab-competitors" type="button" role="tab" onclick="loadCompetitorPosts()">
-          <i class="fa-solid fa-building-shield me-1"></i> 🏢 Competitor Radar
-        </button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link text-success fw-bold" id="tab-history-btn" data-bs-toggle="tab" data-bs-target="#tab-history" type="button" role="tab" onclick="loadHistory()">
-          <i class="fa-solid fa-clock-rotate-left me-1"></i> Posted History
-        </button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link text-primary fw-bold" id="tab-creator-btn" data-bs-toggle="tab" data-bs-target="#tab-creator" type="button" role="tab">
-          <i class="fa-solid fa-wand-magic-sparkles me-1"></i> ✍️ Creator Studio &amp; Booster
-        </button>
-      </li>
-    </ul>
+    <!-- Segmented 6 Executive Tabs (Full Mobile Parity) -->
+    <div class="nav-executive-container">
+      <ul class="nav nav-executive" id="mainTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="tab-review-btn" data-bs-toggle="tab" data-bs-target="#tab-review" type="button" role="tab" onclick="loadPendingPosts()">
+            <i class="fa-solid fa-inbox"></i> Lending Review (<span id="tabReviewCount">0</span>)
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tab-news-btn" data-bs-toggle="tab" data-bs-target="#tab-news" type="button" role="tab" onclick="loadNewsPosts()">
+            <i class="fa-solid fa-newspaper text-info"></i> 📰 Market News
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tab-governance-btn" data-bs-toggle="tab" data-bs-target="#tab-governance" type="button" role="tab" onclick="loadGovernancePosts()">
+            <i class="fa-solid fa-landmark text-warning"></i> 🏛️ Boardroom &amp; IICA
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tab-competitors-btn" data-bs-toggle="tab" data-bs-target="#tab-competitors" type="button" role="tab" onclick="loadCompetitorPosts()">
+            <i class="fa-solid fa-building-shield text-danger"></i> 🏢 Competitor Radar
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tab-history-btn" data-bs-toggle="tab" data-bs-target="#tab-history" type="button" role="tab" onclick="loadHistory()">
+            <i class="fa-solid fa-clock-rotate-left text-success"></i> Posted History
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tab-creator-btn" data-bs-toggle="tab" data-bs-target="#tab-creator" type="button" role="tab">
+            <i class="fa-solid fa-wand-magic-sparkles text-primary"></i> ✍️ Creator Studio
+          </button>
+        </li>
+      </ul>
+    </div>
 
-    <!-- Tab Content -->
+    <!-- Tab Content (100% Identical to Web) -->
     <div class="tab-content" id="mainTabContent">
       
       <!-- 1. Review & Approve Tab -->
@@ -717,6 +748,16 @@
               <label class="form-label fw-bold small">Tone Guidelines &amp; Anti-Spam Rules</label>
               <textarea class="form-control form-control-sm" id="modalPRules" rows="3"></textarea>
             </div>
+
+            <!-- PWA Hard Reset Button -->
+            <div class="p-3 bg-light rounded-3 border mb-3">
+              <div class="fw-bold small text-dark mb-1"><i class="fa-solid fa-mobile-screen-button text-primary me-1"></i> Mobile PWA Hard Reset &amp; Cache Purge</div>
+              <p class="text-muted small mb-2">If your mobile PWA ever gets out of sync with the cloud version, click below to force-clean local storage and cache.</p>
+              <button type="button" class="btn btn-sm btn-outline-danger fw-bold" onclick="forcePwaHardReset()">
+                <i class="fa-solid fa-trash-can me-1"></i> Force Reset Mobile PWA Cache
+              </button>
+            </div>
+
             <div class="text-end">
               <button type="button" class="btn btn-secondary btn-sm me-2" data-bs-dismiss="modal">Cancel</button>
               <button type="submit" class="btn btn-primary btn-sm px-4 fw-bold">Save Settings</button>
@@ -737,6 +778,22 @@
     // Register Network-Only Service Worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
+
+    // Force PWA Hard Reset
+    async function forcePwaHardReset() {
+      if ('caches' in window) {
+        const names = await caches.keys();
+        await Promise.all(names.map(n => caches.delete(n)));
+      }
+      if ('serviceWorker' in navigator) {
+        const regs = await navigator.serviceWorker.getRegistrations();
+        await Promise.all(regs.map(r => r.unregister()));
+      }
+      localStorage.clear();
+      sessionStorage.clear();
+      alert("✅ PWA cache purged! Reloading latest version...");
+      window.location.reload(true);
     }
 
     // Resilient Mobile-First API Fetch with 3x Retry & Cache-Buster
