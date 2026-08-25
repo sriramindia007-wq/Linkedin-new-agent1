@@ -39,6 +39,14 @@ Carefully read the full content of the post and dynamically detect its primary d
      "Congratulations to the [Entity] team on this milestone! Strengthening the capital base is a crucial step for NBFCs serving [Segment], where access to formal credit remains limited. Expanding lending capacity while maintaining governance and asset quality will be key to unlocking growth for entrepreneurs and small businesses across India."
    - DO NOT force "LOS" or software plugs unless the post is explicitly about lending technology or digital onboarding architecture.
 
+3. DOMAIN C: CORPORATE GOVERNANCE, BOARD LEADERSHIP, IICA, ILSS, IOD, CSR & INDEPENDENT DIRECTORS:
+   - Voice & Persona: Sriram Ganesan as an Independent Director & Corporate Governance Leader.
+   - Key Principles:
+     a) Fiduciary duty, board strategic oversight vs executive management execution.
+     b) Audit Committee (ACB) & Risk Management Committee (RMC): Internal financial controls (IFC), statutory disclosures, compliance culture, and cyber resilience.
+     c) ESG, CSR stewardship, social enterprise governance, and stakeholder value.
+   - Tone: Authoritative, reflective, peer-to-peer with fellow Directors and Board Chairs. Avoid student or cheerleading tone.
+
 2. DOMAIN B: OUTSIDE LENDING (General Technology, AI, Leadership, Sustainability/ESG, Macroeconomics, Digital Transformation, or Adjacent Industries):
    - Generate comments in your authentic voice: senior, professional, concise, and approachable.
    - Start with warm acknowledgment or congratulations if appropriate to the context.
@@ -263,7 +271,23 @@ function generateDeepSemanticComments(postText, authorName, sourceCategory, cust
   const textLower = text.toLowerCase();
   const prefix = customGuidance && customGuidance.trim().length > 0 ? `Regarding ${customGuidance.trim()}: ` : "";
   const { keyMetric, detectedOrg } = extractKeyEntities(text);
-  const org = detectedOrg || authorName || "specialized lenders";
+  // 0. CORPORATE GOVERNANCE, IICA, ILSS, IOD, CSR & BOARD LEADERSHIP
+  const catLower = (sourceCategory || "").toLowerCase();
+  if (catLower.includes("governance") || catLower.includes("board") || textLower.includes("governance") || textLower.includes("independent director") || textLower.includes("board leadership") || textLower.includes("iica") || textLower.includes("ilss") || textLower.includes("iod") || textLower.includes("audit committee") || textLower.includes("boardroom") || textLower.includes("fiduciary") || textLower.includes("stakeholder") || textLower.includes("esg") || textLower.includes("csr") || textLower.includes("brsr")) {
+    if (textLower.includes("ilss") || textLower.includes("social sector") || textLower.includes("spo") || textLower.includes("non-profit") || textLower.includes("csr")) {
+      return {
+        value_add: `${prefix}As corporate governance expands across social enterprises and non-profits, the fiduciary responsibility of advisory boards becomes even more vital. Independent directors and mentors bring essential oversight on capital stewardship, internal financial controls (IFC), and mission alignment—enabling impact organizations to scale sustainably with public trust.`,
+        provocative_question: `As organizations expand board-level advisory and mentorship cohorts, what governance mechanisms are proving most effective in balancing visionary mission stewardship with strict financial accountability?`,
+        executive_perspective: `Enduring institutional trust is anchored in the boardroom. Whether in commercial banking or social enterprise, effective governance rooted in independent oversight, ethical culture, and stakeholder stewardship remains the bedrock of sustainable value creation.`
+      };
+    }
+
+    return {
+      value_add: `${prefix}From an Independent Director and Board Committee perspective, robust governance requires maintaining strategic oversight and internal financial controls (IFC) without encroaching on executive execution. Balancing enterprise risk management (ERM) with long-term stakeholder stewardship is what safeguards organizational integrity across market cycles.`,
+      provocative_question: `With heightened regulatory focus on corporate disclosures and board accountability, how are independent directors enhancing real-time risk telemetry to oversee strategic execution effectively?`,
+      executive_perspective: `A resilient Board goes beyond statutory compliance—it actively anchors corporate culture, stress-tests enterprise risk assumptions, and aligns organizational purpose with long-term stakeholder value.`
+    };
+  }
 
   // 1. IPO / DRHP / CAPITAL RAISING & PUBLIC LISTING (e.g. Veritas Finance, Svatantra)
   if (textLower.includes("drhp") || textLower.includes("ipo") || textLower.includes("sebi") || textLower.includes("raise up to") || textLower.includes("capital base") || textLower.includes("fresh issue")) {

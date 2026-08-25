@@ -404,9 +404,19 @@ async function scrapeFeedAndDiscovery(context) {
  */
 async function runScraper(selectedSourceIds = null, maxPostsPerSource = 2, onProgress = null) {
   const sources = loadSources();
-  const activeSources = selectedSourceIds
-    ? sources.filter(s => selectedSourceIds.includes(s.id))
-    : sources.filter(s => s.active !== false);
+  let activeSources = [];
+  if (Array.isArray(selectedSourceIds)) {
+    activeSources = sources.filter(s => selectedSourceIds.includes(s.id));
+  } else if (typeof selectedSourceIds === "string" && selectedSourceIds.trim() && selectedSourceIds !== "ALL") {
+    const term = selectedSourceIds.toLowerCase().trim();
+    activeSources = sources.filter(s => 
+      (s.category && s.category.toLowerCase().includes(term)) ||
+      (s.name && s.name.toLowerCase().includes(term)) ||
+      (s.id && s.id.toLowerCase().includes(term))
+    );
+  } else {
+    activeSources = sources.filter(s => s.active !== false);
+  }
 
   const totalSources = activeSources.length;
   let newPostsCount = 0;

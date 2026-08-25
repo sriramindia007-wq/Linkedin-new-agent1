@@ -15,6 +15,8 @@ function loadMemory() {
     lastUpdated: new Date().toISOString(),
     userGuidanceHistory: [],
     learnedPositiveDirectives: [
+      "In Corporate Governance & Board Leadership posts, frame comments directly from the perspective of an Independent Director and Board Committee member (Audit Committee / Risk Management Committee / NRC / CSR).",
+      "Emphasize Board fiduciary oversight vs executive management execution, internal financial controls (IFC), enterprise risk management (ERM), and long-term stakeholder stewardship.",
       "Emphasize MSME cashflow-based underwriting over traditional collateral",
       "Highlight multi-entity risk governance and no-code BRE policy orchestration",
       "Maintain Gross Stage-3 and asset quality balance during rapid portfolio expansion"

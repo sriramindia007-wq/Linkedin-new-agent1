@@ -210,7 +210,7 @@ async function postCommentToLinkedin(postId, postUrl, commentText) {
   }
 }
 
-async function publishStandalonePostToLinkedIn(postText) {
+async function publishStandalonePostToLinkedIn(postText, sourceLink = "", publisher = "") {
   if (!postText || !postText.trim()) {
     return { success: false, message: "Missing post text content" };
   }
@@ -260,14 +260,37 @@ async function publishStandalonePostToLinkedIn(postText) {
       return { success: false, message: "Could not locate active Post submit button." };
     }
 
-    console.log("[Poster] Clicking Post submit button...");
+    console.log("[Poster] Submitting main post to LinkedIn...");
     await submitBtn.click({ force: true });
-    await new Promise(r => setTimeout(r, 3000));
+    await new Promise(r => setTimeout(r, 4000));
+
+    // Automated First Self-Comment for Link (LinkedIn Algorithmic Reach Optimization)
+    if (sourceLink && sourceLink.trim()) {
+      try {
+        console.log("[Poster] 🚀 Adding 1st self-comment with original source link for algorithmic reach...");
+        const commentBox = await page.$("div.comments-comment-box__editor, div.ql-editor, div[contenteditable='true'][role='textbox']");
+        if (commentBox) {
+          await commentBox.click({ force: true }).catch(() => {});
+          await new Promise(r => setTimeout(r, 300));
+          const selfCommentText = `🔗 Full reporting & original article: ${sourceLink}\n\nVia ${publisher || 'Financial Media'}`;
+          await page.keyboard.insertText(selfCommentText);
+          await new Promise(r => setTimeout(r, 500));
+          const commentSubmitBtn = await page.$("button:has-text('Comment'):not([disabled]), button.comments-comment-box__submit-button:not([disabled])");
+          if (commentSubmitBtn) {
+            await commentSubmitBtn.click({ force: true });
+            console.log("[Poster] ✅ Successfully published 1st self-comment with source link!");
+            await new Promise(r => setTimeout(r, 1500));
+          }
+        }
+      } catch (commentErr) {
+        console.warn("[Poster] Note: Main post succeeded, self-comment link skipped:", commentErr.message);
+      }
+    }
 
     const duration = ((Date.now() - startTime) / 1000).toFixed(1);
     await context.close();
-    console.log(`[Poster] 🎉 Standalone post successfully published to LinkedIn in ${duration}s!`);
-    return { success: true, message: `Post successfully published to LinkedIn in ${duration}s!` };
+    console.log(`[Poster] 🎉 Post + 1st self-comment published to LinkedIn in ${duration}s!`);
+    return { success: true, message: `Post + 1st Comment published to LinkedIn in ${duration}s!` };
   } catch (err) {
     if (context) await context.close().catch(() => {});
     console.error("[Poster] Standalone post exception:", err.message);

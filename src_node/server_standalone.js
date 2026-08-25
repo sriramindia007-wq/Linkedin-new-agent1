@@ -517,7 +517,7 @@ How is your team currently handling data reconciliation when telemetry streams s
         return sendJSON(res, { success: false, error: "Post publisher module not found" }, 500);
       }
 
-      const result = await publishStandalonePostToLinkedIn(repostText);
+      const result = await publishStandalonePostToLinkedIn(repostText, item?.article_url || "", item?.publisher || "");
       if (result.success) {
         if (item) {
           item.status = "POSTED";
