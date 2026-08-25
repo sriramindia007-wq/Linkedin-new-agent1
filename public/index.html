@@ -1209,11 +1209,16 @@
           loadHistory();
           alert("🎉 " + (data.message || "Post successfully published to LinkedIn!"));
         } else {
-          alert("Publishing error: " + (data.error || data.message || "Failed to publish post."));
+          // Cloud session fallback: Automatically copy clean text and open composer
+          navigator.clipboard.writeText(repostText);
+          const articleUrl = document.querySelector(`#card-${articleId} h5 a`)?.getAttribute('href') || '';
+          alert("📋 Clean post copied to clipboard!\n\n💡 Opening LinkedIn composer in a new tab. Paste (Ctrl+V) and publish, then drop the article link as the 1st comment:\n" + articleUrl);
+          window.open("https://www.linkedin.com/feed/?shareActive=true", "_blank");
           if (card) card.style.opacity = "1";
         }
       } catch (err) {
-        alert("Action failed: " + err.message);
+        navigator.clipboard.writeText(repostText);
+        window.open("https://www.linkedin.com/feed/?shareActive=true", "_blank");
         if (card) card.style.opacity = "1";
       }
     }

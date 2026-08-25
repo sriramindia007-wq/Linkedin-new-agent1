@@ -230,31 +230,62 @@ async function publishStandalonePostToLinkedIn(postText, sourceLink = "", publis
     // Check login state
     if (page.url().includes("login") || page.url().includes("authwall")) {
       await context.close();
-      return { success: false, message: "LinkedIn session expired. Please run setup_session.js to re-authenticate." };
+      return { success: false, message: "LinkedIn session expired or not logged in. Please log in to LinkedIn." };
     }
 
-    // Click "Start a post" if modal is not automatically open
-    const trigger = await page.$("button.share-box-feed-entry__trigger, button:has-text('Start a post')");
-    if (trigger) {
-      await trigger.click().catch(() => {});
-      await new Promise(r => setTimeout(r, 1200));
+    // Try locating editor directly first
+    let editor = await page.$("div.ql-editor, div[contenteditable='true'][role='textbox'], div.editor-content, div.share-creation-state__text-editor div[contenteditable='true']");
+
+    if (!editor) {
+      // Click "Start a post" if modal is not open
+      const triggerSelectors = [
+        "button.share-box-feed-entry__trigger",
+        "button:has-text('Start a post')",
+        "div.share-box-feed-entry__wrapper button",
+        "button[aria-label*='Start a post']",
+        "button.artdeco-button--muted.artdeco-button--2"
+      ];
+      for (const sel of triggerSelectors) {
+        try {
+          const trigger = await page.$(sel);
+          if (trigger) {
+            console.log(`[Poster] Clicking trigger: ${sel}`);
+            await trigger.click({ force: true });
+            await new Promise(r => setTimeout(r, 1500));
+            break;
+          }
+        } catch (e) {}
+      }
+
+      // Wait up to 6s for the rich text editor to render
+      try {
+        await page.waitForSelector("div.ql-editor, div[contenteditable='true'][role='textbox'], div.editor-content", { timeout: 6000 });
+        editor = await page.$("div.ql-editor, div[contenteditable='true'][role='textbox'], div.editor-content");
+      } catch (e) {
+        console.warn("[Poster] Timeout waiting for editor selector:", e.message);
+      }
     }
 
-    // Locate rich text editor
-    const editor = await page.$("div.ql-editor, div[contenteditable='true'][role='textbox'], div.editor-content");
     if (!editor) {
       await context.close();
-      return { success: false, message: "Could not locate LinkedIn post editor box." };
+      return { success: false, message: "Could not locate LinkedIn post editor box. Ensure you are logged into LinkedIn." };
     }
 
     await editor.click({ force: true }).catch(() => {});
-    await new Promise(r => setTimeout(r, 200));
+    await new Promise(r => setTimeout(r, 300));
     console.log(`[Poster] ⚡ Inserting standalone post (${postText.length} chars)...`);
     await page.keyboard.insertText(postText);
-    await new Promise(r => setTimeout(r, 800));
+    await new Promise(r => setTimeout(r, 1000));
 
     // Locate Post button
-    const submitBtn = await page.$("button.share-actions__primary-action, button:has-text('Post'):not([disabled])");
+    let submitBtn = await page.$("button.share-actions__primary-action, button:has-text('Post'):not([disabled]), button.artdeco-button--primary:has-text('Post')");
+    if (!submitBtn) {
+      try {
+        await page.waitForSelector("button.share-actions__primary-action, button:has-text('Post'):not([disabled])", { timeout: 4000 });
+        submitBtn = await page.$("button.share-actions__primary-action, button:has-text('Post'):not([disabled])");
+      } catch (e) {}
+    }
+
     if (!submitBtn) {
       await context.close();
       return { success: false, message: "Could not locate active Post submit button." };
@@ -262,7 +293,7 @@ async function publishStandalonePostToLinkedIn(postText, sourceLink = "", publis
 
     console.log("[Poster] Submitting main post to LinkedIn...");
     await submitBtn.click({ force: true });
-    await new Promise(r => setTimeout(r, 4000));
+    await new Promise(r => setTimeout(r, 4500));
 
     // Automated First Self-Comment for Link (LinkedIn Algorithmic Reach Optimization)
     if (sourceLink && sourceLink.trim()) {
