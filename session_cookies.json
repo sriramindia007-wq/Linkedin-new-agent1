@@ -4,7 +4,7 @@
     "value": "Asia/Calcutta",
     "domain": ".www.linkedin.com",
     "path": "/",
-    "expires": 1788896011,
+    "expires": 1788896232,
     "httpOnly": false,
     "secure": false,
     "sameSite": "Lax"
@@ -66,7 +66,7 @@
     "value": "light",
     "domain": ".www.linkedin.com",
     "path": "/",
-    "expires": 1803236488,
+    "expires": 1803238540,
     "httpOnly": false,
     "secure": true,
     "sameSite": "Lax"
@@ -76,7 +76,7 @@
     "value": "app",
     "domain": ".www.linkedin.com",
     "path": "/",
-    "expires": 1803236488,
+    "expires": 1803238540,
     "httpOnly": false,
     "secure": true,
     "sameSite": "Lax"
@@ -106,7 +106,7 @@
     "value": "\"v=2&27a22219-5d70-4942-810a-82130fad0883\"",
     "domain": ".linkedin.com",
     "path": "/",
-    "expires": 1819222412.488842,
+    "expires": 1819222627.431001,
     "httpOnly": false,
     "secure": true,
     "sameSite": "None"
@@ -116,7 +116,7 @@
     "value": "\"v=1&20260823122223d9f3d224-0a37-45d8-805f-a6e0bca4a6ddAQH86t9BuHZu7hpc_74lO52K8TjGTgL5\"",
     "domain": ".www.linkedin.com",
     "path": "/",
-    "expires": 1819222412.488996,
+    "expires": 1819222627.43118,
     "httpOnly": true,
     "secure": true,
     "sameSite": "None"
@@ -176,19 +176,9 @@
     "value": "sdui-flagship:0.1.50614+SduiFlagship0",
     "domain": ".linkedin.com",
     "path": "/",
-    "expires": 1819222412.488611,
+    "expires": 1819222627.430627,
     "httpOnly": false,
     "secure": false,
-    "sameSite": "Lax"
-  },
-  {
-    "name": "li_apfcdc",
-    "value": "ZjNlMTgzMjMtOGRjMi00MTU0LTk0NmUtYzBmNWQ3YTFiMDVhOjo6ZTY4NjhlMGQ2ZmQ2ZjMyNDgxODhjNzM4NDgyMDQ3MGE6OjozODBlZWZhYTEzYWUwODBkMDhjODRjODA0NmMwNjJiMTo6Ok9OX0RFTUFORDo6OkROQSxERlBfV0VCLEhVTUFO",
-    "domain": "www.linkedin.com",
-    "path": "/",
-    "expires": 1787686437.720806,
-    "httpOnly": false,
-    "secure": true,
     "sameSite": "Lax"
   },
   {

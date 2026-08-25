@@ -762,7 +762,7 @@
     "summary": "Shri Ram Finance Corporation, Progfin Fined ₹10.80 Lakh by RBI for KYC, Governance Lapses (Reported by Moneylife)",
     "published_at": "Mon, 24 Aug 2026 07:11:13 GMT",
     "scraped_at": "2026-08-25T04:27:23.716Z",
-    "status": "PENDING",
+    "status": "POSTED",
     "relevance_tags": [
       "Moneylife",
       "Lending News",
@@ -772,7 +772,9 @@
       "architectural_take": "The Reserve Bank of India has imposed a monetary penalty of ₹10.80 Lakh on Shri Ram Finance Corporation and Progfin for deficiencies in KYC compliance and governance standards, reported by Moneylife.\n\nThis regulatory enforcement underscores that KYC verification, Customer Due Diligence (CDD), and AML monitoring cannot be treated as manual back-office tasks. They must be hardcoded as immutable validation gates directly inside the digital Loan Origination System (LOS).\n\nAutomating digital KYC and C-KYC integrations within the onboarding workflow ensures 100% compliance without slowing down loan disbursement velocity.\n\nWhat automated real-time compliance safeguards has your risk team embedded into your digital onboarding journey?",
       "risk_lens": "RBI regulatory penalties highlight the non-negotiable imperative of automated compliance governance across all lending operations, as reported by Moneylife.\n\nRisk and compliance leadership must enforce continuous internal audits and automated rule evaluation in the Business Rules Engine (BRE) to preempt KYC discrepancies and reporting lapses.\n\nStrengthening governance at the point of origination protects institutional reputation and prevents regulatory friction.\n\nHow is your compliance committee auditing digital onboarding pipelines to guarantee zero KYC regulatory divergence?",
       "strategic_outlook": "Regulatory adherence and robust corporate governance are the fundamental prerequisites for institutional longevity in Indian financial services.\n\nLenders that prioritize ethical governance, automated compliance checks, and transparent disclosure build enduring trust with regulators and investors alike.\n\nTrust and governance remain the foundational assets of enduring financial franchises.\n\nHow is your board strengthening supervisory controls over digital customer due diligence and compliance reporting?"
-    }
+    },
+    "reposted_at": "2026-08-25T19:38:29.956Z",
+    "repost_text": "The Reserve Bank of India has imposed a monetary penalty of ₹10.80 Lakh on Shri Ram Finance Corporation and Progfin for deficiencies in KYC compliance and governance standards, reported by Moneylife.\n\nThis regulatory enforcement underscores that KYC verification, Customer Due Diligence (CDD), and AML monitoring cannot be treated as manual back-office tasks. They must be hardcoded as immutable validation gates directly inside the digital Loan Origination System (LOS).\n\nAutomating digital KYC and C-KYC integrations within the onboarding workflow ensures 100% compliance without slowing down loan disbursement velocity.\n\nWhat automated real-time compliance safeguards has your risk team embedded into your digital onboarding journey?\n\n📌 Detailed article link and source reporting shared in the first comment below 👇\n\n#DigitalLending #Fintech #BFSI #LoanOrigination #CreditRisk #M2PFintech"
   },
   {
     "id": "news_1787632043715_3yj8",
