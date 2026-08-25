@@ -984,5 +984,13 @@ server.listen(PORT, "0.0.0.0", () => {
   } catch (e) {
     console.warn("Could not start scheduler daemon:", e.message);
   }
+
+  // Start 3-hour automated LinkedIn session keep-alive daemon
+  try {
+    const { startSessionKeepAliveDaemon } = safeRequire("sessionKeepAliveAgent") || {};
+    if (startSessionKeepAliveDaemon) startSessionKeepAliveDaemon();
+  } catch (e) {
+    console.warn("Could not start session keep alive daemon:", e.message);
+  }
   console.log("========================================================");
 });
