@@ -165,9 +165,19 @@ function postExists(postUrl, authorName = "", postText = "") {
 function getPostsPaged({ status = "PENDING", category = "ALL", page = 1, limit = 50 }) {
   let all = loadPosts();
 
-  // Strict filtering for PENDING review: exclude POSTED, REJECTED, COMPETITOR_RADAR, and Blacklisted items
+  // Strict filtering for PENDING review: exclude POSTED, REJECTED, COMPETITOR_RADAR, BOARD GOVERNANCE, and Blacklisted items
   if (status === "PENDING") {
-    all = all.filter(p => p.status === "PENDING" && !p.manual_post && !p.competitor_intel && p.source_category !== "M2P LOS Competitors & Tech" && !isPostBlacklisted(p.post_url, p.post_text));
+    all = all.filter(p => 
+      p.status === "PENDING" && 
+      !p.manual_post && 
+      !p.competitor_intel && 
+      p.source_category !== "M2P LOS Competitors & Tech" && 
+      p.source_category !== "Board Leadership & Governance" && 
+      p.source_category !== "Corporate Governance & Board Oversight" &&
+      !p.id.startsWith("gov_") &&
+      !p.id.startsWith("news_") &&
+      !isPostBlacklisted(p.post_url, p.post_text)
+    );
   } else if (status && status !== "ALL") {
     all = all.filter(p => p.status === status);
   }
@@ -352,9 +362,18 @@ function getStats() {
     last_scrape: posts.length > 0 ? posts[0].scraped_at : new Date().toISOString()
   };
   for (const p of posts) {
-    if (p.status === "PENDING" && !p.manual_post && !p.competitor_intel && p.source_category !== "M2P LOS Competitors & Tech") stats.pending++;
+    if (
+      p.status === "PENDING" && 
+      !p.manual_post && 
+      !p.competitor_intel && 
+      p.source_category !== "M2P LOS Competitors & Tech" &&
+      p.source_category !== "Board Leadership & Governance" &&
+      p.source_category !== "Corporate Governance & Board Oversight" &&
+      !p.id.startsWith("gov_") &&
+      !p.id.startsWith("news_")
+    ) stats.pending++;
     else if (p.status === "APPROVED") stats.approved++;
-    else if (p.status === "POSTED") stats.posted++;
+    else if (p.status === "POSTED" || p.manual_post) stats.posted++;
     else if (p.status === "REJECTED") stats.rejected++;
   }
   return stats;
