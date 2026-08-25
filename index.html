@@ -1075,8 +1075,31 @@
 
           <!-- Formatted Standalone Repost Draft -->
           <div class="mb-3">
-            <label class="form-label fw-bold small text-dark"><i class="fa-solid fa-pen-nib text-primary me-1"></i> Sriram's LinkedIn Post Draft (Algorithm Optimized):</label>
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <label class="form-label fw-bold small text-dark mb-0">
+                <i class="fa-solid fa-pen-nib text-primary me-1"></i> Main Post Text (Algorithm Clean — Zero In-Body Links):
+              </label>
+              <span class="badge bg-success bg-opacity-10 text-success border border-success small">
+                <i class="fa-solid fa-chart-line me-1"></i> 100% Algorithmic Reach
+              </span>
+            </div>
             <textarea class="form-control comment-editor" id="editor-${n.id}" rows="8">${escapeHtml(fullRepostDraft)}</textarea>
+          </div>
+
+          <!-- Automated 1st Self-Comment Box -->
+          <div class="mb-3 p-3 bg-light rounded-3 border border-secondary border-opacity-25">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <label class="form-label fw-bold small text-secondary mb-0">
+                <i class="fa-regular fa-comment-dots text-primary me-1"></i> 1st Self-Comment (Published Automatically With Post):
+              </label>
+              <button class="btn btn-link btn-sm p-0 text-decoration-none small text-primary fw-semibold" onclick="copySelfCommentLink('${n.id}', '${escapeHtml(n.article_url)}')">
+                <i class="fa-regular fa-copy me-1"></i> Copy 1st Comment Link
+              </button>
+            </div>
+            <div class="small font-monospace text-dark bg-white p-2 rounded border" id="comment-preview-${n.id}">
+              🔗 Full reporting &amp; original article: <a href="${n.article_url}" target="_blank" rel="noopener noreferrer" class="text-primary text-break">${escapeHtml(n.article_url)}</a><br>
+              <span class="text-muted">Via ${escapeHtml(n.publisher || 'Financial Media')}</span>
+            </div>
           </div>
 
           <!-- Actions Bar -->
@@ -1101,6 +1124,14 @@
           </div>
         </div>
       `;
+    }
+
+    function copySelfCommentLink(articleId, url) {
+      const publisher = document.querySelector(`#card-${articleId} .small.text-muted`)?.innerText.replace('Reported by ', '').trim() || 'Financial Media';
+      const text = `🔗 Full reporting & original article: ${url}\n\nVia ${publisher}`;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("✅ 1st Self-Comment text copied to clipboard!\n\n" + text);
+      });
     }
 
     function selectStyle(postId, styleKey) {
