@@ -572,7 +572,19 @@ How is your team currently handling data reconciliation when telemetry streams s
     if (item) {
       item.status = "REJECTED";
       saveMarketNews(news);
-      return sendJSON(res, { success: true, message: "Article skipped" });
+
+      // Lock skipped news article permanently into State Guardian Memory
+      const { saveRejectedItem, recordPersistedAction, normalizeKey } = safeRequire("db") || {};
+      if (saveRejectedItem) {
+        if (item.article_url) saveRejectedItem(item.article_url);
+        if (item.headline) saveRejectedItem(normalizeKey(item.headline));
+      }
+      if (recordPersistedAction) {
+        recordPersistedAction(item, { status: "REJECTED" });
+      }
+
+      console.log(`🛡️ [State Guardian] Permanently memorized skipped news article: "${item.headline}"`);
+      return sendJSON(res, { success: true, message: "Article permanently skipped and memorized" });
     }
     return sendJSON(res, { success: false, error: "Article not found" }, 404);
   }

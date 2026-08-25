@@ -412,6 +412,11 @@ async function fetchAllExternalNews() {
       const items = parseGoogleRss(xml, stream.topic);
 
       for (const item of items) {
+        const { isPostBlacklisted } = require("./db");
+        if (isPostBlacklisted && isPostBlacklisted(item.link, item.title)) {
+          continue; // Permanently excluded via State Guardian rejection memory
+        }
+
         if (currentNews.some(n => n.article_url === item.link || n.headline === item.title)) continue;
 
         // Deep Content Synthesis: Reads full article content before synthesizing takes
