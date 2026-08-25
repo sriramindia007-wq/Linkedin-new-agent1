@@ -15,11 +15,19 @@ function loadMemory() {
     lastUpdated: new Date().toISOString(),
     userGuidanceHistory: [],
     learnedPositiveDirectives: [
-      "In Corporate Governance & Board Leadership posts, frame comments directly from the perspective of an Independent Director and Board Committee member (Audit Committee / Risk Management Committee / NRC / CSR).",
-      "Emphasize Board fiduciary oversight vs executive management execution, internal financial controls (IFC), enterprise risk management (ERM), and long-term stakeholder stewardship.",
-      "Emphasize MSME cashflow-based underwriting over traditional collateral",
-      "Highlight multi-entity risk governance and no-code BRE policy orchestration",
-      "Maintain Gross Stage-3 and asset quality balance during rapid portfolio expansion"
+      "ZERO AI SLOP: Ban robotic filler phrases ('delve into', 'testament to', 'gratifying to see', 'kudos to', 'beacon of', 'pivotal moment', 'fast-paced world', 'game-changer', 'paradigm shift').",
+      "Direct Practitioner Opening: Start immediately with the core operational point or authentic boardroom perspective without opening sycophancy or filler.",
+      "Grounded Banking & Risk Substance: Anchor commentary in concrete mechanics (LTV buffers, sub-15m STP, SMA-0 delinquency triggers, Account Aggregator telemetry, IFC, Audit Committee oversight).",
+      "In Corporate Governance & Board Leadership posts, speak with the authority of an Independent Director & Board Committee member (Audit Committee / RMC / NRC / CSR).",
+      "Human Sentence Flow: Keep sentences concise, punchy, and conversational (2-3 sentences max). Write like a seasoned peer CXO/Director talking directly to fellow industry leaders."
+    ],
+    bannedAiSlopPhrases: [
+      "delve into", "delving into", "testament to", "it is indeed gratifying", "gratifying to see",
+      "kudos to", "fascinating insights", "in today's fast-paced", "beacon of", "pivotal moment",
+      "game-changer", "paradigm shift", "synergistic", "seamlessly integrate", "holistic ecosystem",
+      "unveiling", "delighted to see", "great share", "thought-provoking post", "vital cog",
+      "embark on this journey", "demystify", "double-edged sword", "navigate the complexities",
+      "ever-evolving landscape", "at the forefront of", "a testament of", "truly inspiring"
     ],
     learnedNegativeKeywords: [
       "hiring", "job vacancy", "apply today", "archery", "sports", "marathon", "csr initiative non-financial"
@@ -59,7 +67,6 @@ function recordRegenerationGuidance(customGuidance, postText) {
     contextSnippet: (postText || '').substring(0, 100)
   });
 
-  // Extract key directive phrases
   if (!mem.learnedPositiveDirectives.includes(clean)) {
     mem.learnedPositiveDirectives.unshift(clean);
     if (mem.learnedPositiveDirectives.length > 15) mem.learnedPositiveDirectives.pop();
@@ -71,15 +78,47 @@ function recordRegenerationGuidance(customGuidance, postText) {
 }
 
 /**
- * Record when user skips or rejects a post to learn negative topic patterns
- * CRITICAL SAFETY GUARANTEE: Only non-lending topics/keywords are learned.
- * The monitored company page or individual author is NEVER blacklisted or penalized.
+ * Clean and sanitize any AI slop clichés from generated comments
+ */
+function sanitizeAiSlop(text) {
+  if (!text || typeof text !== "string") return text;
+  let cleaned = text;
+
+  const slopReplacements = [
+    { pattern: /^it is indeed gratifying to see\s+/i, replace: "Seeing " },
+    { pattern: /^it is gratifying to see\s+/i, replace: "Seeing " },
+    { pattern: /^kudos to the team for\s+/i, replace: "Great execution on " },
+    { pattern: /^in today's fast-paced digital world,?\s*/i, replace: "" },
+    { pattern: /^in an ever-evolving financial landscape,?\s*/i, replace: "" },
+    { pattern: /\s*is a testament to\s*/gi, replace: " directly demonstrates " },
+    { pattern: /\s*acts as a beacon of\s*/gi, replace: " provides a clear benchmark for " },
+    { pattern: /\s*a pivotal moment in\s*/gi, replace: " a major milestone in " },
+    { pattern: /\s*a game-changer for\s*/gi, replace: " a structural shift for " },
+    { pattern: /\s*a paradigm shift in\s*/gi, replace: " a fundamental change in " },
+    { pattern: /\s*seamlessly integrated?\s*/gi, replace: " automated " },
+    { pattern: /\s*holistic ecosystem\s*/gi, replace: " operating framework " },
+    { pattern: /\s*delving into\s*/gi, replace: " examining " }
+  ];
+
+  slopReplacements.forEach(({ pattern, replace }) => {
+    cleaned = cleaned.replace(pattern, replace);
+  });
+
+  // Capitalize first character if needed
+  if (cleaned.length > 0) {
+    cleaned = cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+  }
+
+  return cleaned.trim();
+}
+
+/**
+ * Record when user skips or rejects a post
  */
 function recordSkippedPost(post) {
   if (!post || !post.post_text) return;
   const mem = loadMemory();
   
-  // Extract purely non-lending topic keywords (FCNR, deposits, cards, hiring, sports)
   const text = post.post_text.toLowerCase();
   const nonLendingCandidates = [
     "fcnr", "nri deposit", "fixed deposit", "recurring deposit", "savings account",
@@ -117,10 +156,12 @@ function recordApprovedComment(post, selectedStyle, commentText) {
  */
 function getLearnedPromptContext() {
   const mem = loadMemory();
-  if (!mem.learnedPositiveDirectives || mem.learnedPositiveDirectives.length === 0) return "";
-
-  const directives = mem.learnedPositiveDirectives.slice(0, 5).map(d => `- ${d}`).join('\n');
-  return `\n[LEARNED USER PREFERENCES & HISTORICAL STEERING DIRECTIVES]:\n${directives}\nPrioritize these nuances naturally in generated comments.`;
+  const directives = (mem.learnedPositiveDirectives || []).slice(0, 6).map(d => `- ${d}`).join('\n');
+  return `
+[STRICT ANTI-AI-SLOP DIRECTIVES & AUTHENTIC HUMAN VOICE MEMORY]:
+${directives}
+BANNED CLICHÉS: Never use "testament to", "it is indeed gratifying", "delving into", "fast-paced world", "beacon", "game-changer", "paradigm shift", or "kudos".
+Start immediately with sharp domain substance.`;
 }
 
 module.exports = {
@@ -128,5 +169,6 @@ module.exports = {
   recordRegenerationGuidance,
   recordSkippedPost,
   recordApprovedComment,
-  getLearnedPromptContext
+  getLearnedPromptContext,
+  sanitizeAiSlop
 };

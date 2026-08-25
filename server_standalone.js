@@ -448,19 +448,23 @@ How is your team currently handling data reconciliation when telemetry streams s
 
   if (pathname === "/api/competitor-posts" && method === "GET") {
     let posts = loadPosts();
-    const competitorCategory = "M2P LOS Competitors & Tech";
-    let competitorPosts = posts.filter(p => p.source_category === competitorCategory || p.competitor_intel || p.status === "COMPETITOR_RADAR");
+    const { isOlderThan3Days, isCompetitorPost } = safeRequire("db") || {};
+    let competitorPosts = posts.filter(p => {
+      if (p.status === "POSTED" || p.status === "REJECTED" || p.status === "EXPIRED") return false;
+      if (isOlderThan3Days && isOlderThan3Days(p)) return false;
+      return isCompetitorPost ? isCompetitorPost(p) : (p.source_category === "M2P LOS Competitors & Tech" || p.status === "COMPETITOR_RADAR");
+    });
     return sendJSON(res, competitorPosts);
   }
 
   if (pathname === "/api/governance-posts" && method === "GET") {
     let posts = loadPosts();
-    let govPosts = posts.filter(p => 
-      p.source_category === "Board Leadership & Governance" || 
-      p.source_category === "Corporate Governance & Board Oversight" ||
-      p.id.startsWith("gov_") ||
-      (p.relevance_tags && (p.relevance_tags.includes("IICA") || p.relevance_tags.includes("Governance") || p.relevance_tags.includes("Boardroom")))
-    );
+    const { isOlderThan3Days, isGovernancePost } = safeRequire("db") || {};
+    let govPosts = posts.filter(p => {
+      if (p.status === "POSTED" || p.status === "REJECTED" || p.status === "EXPIRED") return false;
+      if (isOlderThan3Days && isOlderThan3Days(p)) return false;
+      return isGovernancePost ? isGovernancePost(p) : (p.source_category === "Board Leadership & Governance" || p.id.startsWith("gov_"));
+    });
     return sendJSON(res, govPosts);
   }
 

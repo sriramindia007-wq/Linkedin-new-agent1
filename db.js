@@ -164,10 +164,10 @@ function postExists(postUrl, authorName = "", postText = "") {
 
 function isOlderThan3Days(p) {
   if (!p) return true;
-  // 1. Check relative published string (e.g., 4d, 5d, 1w, 2w, 1mo, 2mo)
+  // 1. Check relative published string (e.g., 4d, 5d, 6d, 1w, 2w, 1mo, 2mo)
   const rel = (p.published_relative || "").toLowerCase().trim();
-  if (/\b([4-9]|[1-9][0-9])d\b/.test(rel)) return true; // 4d and above
-  if (/\b\d+\s*(w|mo|yr|y|month|year|week)s?\b/.test(rel)) return true; // weeks, months, years
+  if (/([4-9]|\d{2,})\s*d/i.test(rel)) return true; // 4d, 5d, 6d, 7d and above
+  if (/(\d+)\s*(w|wk|week|mo|month|yr|year)s?/i.test(rel)) return true; // weeks, months, years
 
   // 2. Check scraped_at timestamp (strictly <= 72 hours)
   if (p.scraped_at) {
@@ -183,7 +183,7 @@ function pruneExpiredPendingPosts() {
   let prunedCount = 0;
 
   for (const p of posts) {
-    if (p.status === "PENDING" && isOlderThan3Days(p)) {
+    if (p.status !== "POSTED" && p.status !== "REJECTED" && p.status !== "EXPIRED" && isOlderThan3Days(p)) {
       p.status = "EXPIRED";
       changed = true;
       prunedCount++;
@@ -192,7 +192,7 @@ function pruneExpiredPendingPosts() {
 
   if (changed) {
     savePosts(posts);
-    console.log(`🧹 [Freshness Guardian] Auto-pruned ${prunedCount} stale pending posts (>3 days old).`);
+    console.log(`🧹 [Freshness Guardian] Auto-pruned ${prunedCount} stale posts (>3 days old).`);
   }
   return prunedCount;
 }

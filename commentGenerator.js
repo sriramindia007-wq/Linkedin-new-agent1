@@ -271,6 +271,7 @@ function generateDeepSemanticComments(postText, authorName, sourceCategory, cust
   const textLower = text.toLowerCase();
   const prefix = customGuidance && customGuidance.trim().length > 0 ? `Regarding ${customGuidance.trim()}: ` : "";
   const { keyMetric, detectedOrg } = extractKeyEntities(text);
+  const org = detectedOrg || authorName || "specialized lenders";
   // 0. CORPORATE GOVERNANCE, IICA, ILSS, IOD, CSR & BOARD LEADERSHIP
   const catLower = (sourceCategory || "").toLowerCase();
   if (catLower.includes("governance") || catLower.includes("board") || textLower.includes("governance") || textLower.includes("independent director") || textLower.includes("board leadership") || textLower.includes("iica") || textLower.includes("ilss") || textLower.includes("iod") || textLower.includes("audit committee") || textLower.includes("boardroom") || textLower.includes("fiduciary") || textLower.includes("stakeholder") || textLower.includes("esg") || textLower.includes("csr") || textLower.includes("brsr")) {
@@ -381,15 +382,17 @@ async function generateCommentsForPost(postText, authorName, sourceCategory, cus
     console.warn(`[AI Comment Generator] LLM call error (${provider}):`, llmErr.message);
   }
 
+  const { sanitizeAiSlop } = require("./mlPreferenceEngine");
+
   if (rawLlmOutput) {
     try {
       const cleanJson = rawLlmOutput.replace(/```json/gi, "").replace(/```/g, "").trim();
       const parsed = JSON.parse(cleanJson);
       if (parsed.value_add && parsed.provocative_question && parsed.executive_perspective) {
         return {
-          value_add: parsed.value_add,
-          provocative_question: parsed.provocative_question,
-          executive_perspective: parsed.executive_perspective
+          value_add: sanitizeAiSlop(parsed.value_add),
+          provocative_question: sanitizeAiSlop(parsed.provocative_question),
+          executive_perspective: sanitizeAiSlop(parsed.executive_perspective)
         };
       }
     } catch (parseErr) {
@@ -398,7 +401,12 @@ async function generateCommentsForPost(postText, authorName, sourceCategory, cus
   }
 
   // Instant seamless fallback to Context-Adaptive Persona Engine
-  return generateDeepSemanticComments(postText, authorName, sourceCategory, customGuidance);
+  const rawFallback = generateDeepSemanticComments(postText, authorName, sourceCategory, customGuidance);
+  return {
+    value_add: sanitizeAiSlop(rawFallback.value_add),
+    provocative_question: sanitizeAiSlop(rawFallback.provocative_question),
+    executive_perspective: sanitizeAiSlop(rawFallback.executive_perspective)
+  };
 }
 
 module.exports = {
