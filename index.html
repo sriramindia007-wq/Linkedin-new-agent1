@@ -778,8 +778,15 @@
         const data = await apiFetch("/api/stats");
         if (document.getElementById("statPending")) document.getElementById("statPending").innerText = data.pending !== undefined ? data.pending : 0;
         if (document.getElementById("statPosted")) document.getElementById("statPosted").innerText = data.posted !== undefined ? data.posted : 0;
-        if (document.getElementById("statSources")) document.getElementById("statSources").innerText = data.sources_count || 563;
+        if (document.getElementById("statSources")) document.getElementById("statSources").innerText = data.sources_count || 596;
         if (document.getElementById("tabReviewCount")) document.getElementById("tabReviewCount").innerText = data.pending !== undefined ? data.pending : 0;
+        if (data.last_scrape && document.getElementById("statLastScrapeTime")) {
+          try {
+            const d = new Date(data.last_scrape);
+            const formatted = d.toLocaleDateString("en-IN", { day: "numeric", month: "short" }) + ", " + d.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true }) + " IST";
+            document.getElementById("statLastScrapeTime").innerText = formatted;
+          } catch (err) {}
+        }
       } catch (e) {
         console.error("Error loading stats:", e);
       }
