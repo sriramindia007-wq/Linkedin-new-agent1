@@ -109,6 +109,29 @@ function isPostBlacklisted(postUrl = "", postText = "") {
   return false;
 }
 
+function ensureContextualGrounding(p) {
+  if (!p || !p.post_text) return;
+  const currentComment = p.approved_comment || p.generated_comments?.value_add || "";
+  
+  const isBoilerplate = !currentComment || 
+    currentComment.length < 30 ||
+    currentComment.includes("robust corporate governance and fiduciary oversight are the foundational pillars") ||
+    currentComment.includes("From an institutional credit perspective, sustainable growth for") ||
+    currentComment.includes("A significant development for India's evolving financial") ||
+    currentComment.includes("Regarding General Context:");
+
+  if (isBoilerplate) {
+    try {
+      const { synthesizePostCommentary } = require("./deepContentSynthesisAgent");
+      if (synthesizePostCommentary) {
+        const commentary = synthesizePostCommentary(p.author_name, p.post_text, p.source_category, p.post_url);
+        p.generated_comments = commentary;
+        p.approved_comment = commentary.value_add;
+      }
+    } catch (e) {}
+  }
+}
+
 function loadPosts() {
   const data = readCleanJson(POSTS_FILE);
   if (!Array.isArray(data)) return [];
@@ -131,6 +154,9 @@ function loadPosts() {
         Object.assign(p, act);
       }
 
+      // Permanent Zero-Boilerplate Guardian
+      ensureContextualGrounding(p);
+
       unique.push(p);
     }
   }
@@ -138,6 +164,9 @@ function loadPosts() {
 }
 
 function savePosts(posts) {
+  if (Array.isArray(posts)) {
+    posts.forEach(p => ensureContextualGrounding(p));
+  }
   fs.writeFileSync(POSTS_FILE, JSON.stringify(posts, null, 2), "utf-8");
   const altLocations = [
     path.join(__dirname, "data", "posts.json"),
