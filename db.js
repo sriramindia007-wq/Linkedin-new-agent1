@@ -197,6 +197,24 @@ function pruneExpiredPendingPosts() {
   return prunedCount;
 }
 
+function isGovernancePost(p) {
+  if (!p) return false;
+  if (p.source_category === "Board Leadership & Governance" || p.source_category === "Corporate Governance & Board Oversight") return true;
+  if (p.id && p.id.startsWith("gov_")) return true;
+  
+  const textToCheck = `${p.author_name || ''} ${p.author_headline || ''} ${p.source_name || ''} ${(p.relevance_tags || []).join(' ')}`.toLowerCase();
+  if (/iica|iod|board\s*leadership|centre\s*of\s*excellence\s*for\s*board|independent\s*director|boardroom|board\s*stewardship|governance\s*and\s*risk\s*committee|damodaran|haribhakti/i.test(textToCheck)) {
+    return true;
+  }
+  return false;
+}
+
+function isCompetitorPost(p) {
+  if (!p) return false;
+  if (p.source_category === "M2P LOS Competitors & Tech" || p.competitor_intel || p.status === "COMPETITOR_RADAR") return true;
+  return false;
+}
+
 function getPostsPaged({ status = "PENDING", category = "ALL", page = 1, limit = 50 }) {
   let all = loadPosts();
 
@@ -206,11 +224,8 @@ function getPostsPaged({ status = "PENDING", category = "ALL", page = 1, limit =
       p.status === "PENDING" && 
       !isOlderThan3Days(p) &&
       !p.manual_post && 
-      !p.competitor_intel && 
-      p.source_category !== "M2P LOS Competitors & Tech" && 
-      p.source_category !== "Board Leadership & Governance" && 
-      p.source_category !== "Corporate Governance & Board Oversight" &&
-      !p.id.startsWith("gov_") &&
+      !isCompetitorPost(p) &&
+      !isGovernancePost(p) &&
       !p.id.startsWith("news_") &&
       !isPostBlacklisted(p.post_url, p.post_text)
     );
@@ -388,32 +403,42 @@ function markPostAsCompetitor(postId, note = "Competitor Intel") {
 function getStats() {
   const posts = loadPosts();
   const sources = loadSources();
-  const stats = {
-    pending: 0,
-    approved: 0,
-    posted: 0,
-    rejected: 0,
+  let pendingLending = 0;
+  let pendingGov = 0;
+  let competitorCount = 0;
+  let postedCount = 0;
+  let approvedCount = 0;
+  let rejectedCount = 0;
+
+  for (const p of posts) {
+    if (p.status === "POSTED" || p.manual_post) {
+      postedCount++;
+    } else if (p.status === "REJECTED") {
+      rejectedCount++;
+    } else if (p.status === "APPROVED") {
+      approvedCount++;
+    } else if (p.status === "PENDING" && !isOlderThan3Days(p)) {
+      if (isCompetitorPost(p)) {
+        competitorCount++;
+      } else if (isGovernancePost(p)) {
+        pendingGov++;
+      } else {
+        pendingLending++;
+      }
+    }
+  }
+
+  return {
+    pending: pendingLending,
+    governance_count: pendingGov,
+    competitors_count: competitorCount,
+    approved: approvedCount,
+    posted: postedCount,
+    rejected: rejectedCount,
     sources_count: sources.length,
     total: posts.length,
     last_scrape: posts.length > 0 ? posts[0].scraped_at : new Date().toISOString()
   };
-  for (const p of posts) {
-    if (
-      p.status === "PENDING" && 
-      !isOlderThan3Days(p) &&
-      !p.manual_post && 
-      !p.competitor_intel && 
-      p.source_category !== "M2P LOS Competitors & Tech" &&
-      p.source_category !== "Board Leadership & Governance" &&
-      p.source_category !== "Corporate Governance & Board Oversight" &&
-      !p.id.startsWith("gov_") &&
-      !p.id.startsWith("news_")
-    ) stats.pending++;
-    else if (p.status === "APPROVED") stats.approved++;
-    else if (p.status === "POSTED" || p.manual_post) stats.posted++;
-    else if (p.status === "REJECTED") stats.rejected++;
-  }
-  return stats;
 }
 
 function loadSources() {
@@ -453,5 +478,7 @@ module.exports = {
   savePersona,
   isPostBlacklisted,
   isOlderThan3Days,
+  isGovernancePost,
+  isCompetitorPost,
   pruneExpiredPendingPosts
 };

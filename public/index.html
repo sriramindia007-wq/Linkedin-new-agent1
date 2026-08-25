@@ -411,17 +411,17 @@
         </li>
         <li class="nav-item" role="presentation">
           <button class="nav-link" id="tab-news-btn" data-bs-toggle="tab" data-bs-target="#tab-news" type="button" role="tab" onclick="loadNewsPosts()">
-            <i class="fa-solid fa-newspaper text-info"></i> 📰 Market News
+            <i class="fa-solid fa-newspaper text-info"></i> 📰 Market News (<span id="tabNewsCount">120</span>)
           </button>
         </li>
         <li class="nav-item" role="presentation">
           <button class="nav-link" id="tab-governance-btn" data-bs-toggle="tab" data-bs-target="#tab-governance" type="button" role="tab" onclick="loadGovernancePosts()">
-            <i class="fa-solid fa-landmark text-warning"></i> 🏛️ Boardroom &amp; IICA
+            <i class="fa-solid fa-landmark text-warning"></i> 🏛️ Boardroom &amp; IICA (<span id="tabGovCount">33</span>)
           </button>
         </li>
         <li class="nav-item" role="presentation">
           <button class="nav-link" id="tab-competitors-btn" data-bs-toggle="tab" data-bs-target="#tab-competitors" type="button" role="tab" onclick="loadCompetitorPosts()">
-            <i class="fa-solid fa-building-shield text-danger"></i> 🏢 Competitor Radar
+            <i class="fa-solid fa-building-shield text-danger"></i> 🏢 Competitor Radar (<span id="tabCompCount">7</span>)
           </button>
         </li>
         <li class="nav-item" role="presentation">
@@ -852,7 +852,11 @@
         if (document.getElementById("statPosted")) document.getElementById("statPosted").innerText = data.posted !== undefined ? data.posted : 0;
         if (document.getElementById("statSources")) document.getElementById("statSources").innerText = data.sources_count || 596;
         if (document.getElementById("navSourcesCount")) document.getElementById("navSourcesCount").innerText = `${data.sources_count || 596} Sources`;
+        
         if (document.getElementById("tabReviewCount")) document.getElementById("tabReviewCount").innerText = data.pending !== undefined ? data.pending : 0;
+        if (document.getElementById("tabGovCount")) document.getElementById("tabGovCount").innerText = data.governance_count !== undefined ? data.governance_count : 0;
+        if (document.getElementById("tabCompCount")) document.getElementById("tabCompCount").innerText = data.competitors_count !== undefined ? data.competitors_count : 0;
+        if (document.getElementById("tabNewsCount")) document.getElementById("tabNewsCount").innerText = data.news_count || document.getElementById("statNewsCount").innerText || 120;
         
         if (data.last_scrape && document.getElementById("statLastScrapeTime")) {
           try {
