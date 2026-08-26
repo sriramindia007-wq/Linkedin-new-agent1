@@ -1374,38 +1374,53 @@
     }
 
     async function markNewsAsReposted(articleId) {
+      const card = document.getElementById(`card-${articleId}`);
       const editor = document.getElementById(`editor-${articleId}`);
       const repostText = editor ? editor.value : "";
+      const headline = card?.querySelector("h5 a")?.innerText?.trim() || "";
+      const articleUrl = card?.querySelector("h5 a")?.getAttribute("href") || "";
+
+      if (card) {
+        card.style.transition = "all 0.3s ease";
+        card.style.opacity = "0";
+        card.style.transform = "scale(0.95)";
+        setTimeout(() => card.remove(), 300);
+      }
+
       try {
         const data = await apiFetch("/api/mark-news-reposted", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ articleId, repostText })
+          body: JSON.stringify({ articleId, articleUrl, headline, repostText })
         });
-        if (data.success) {
-          const card = document.getElementById(`card-${articleId}`);
-          if (card) card.remove();
-          loadStats();
-          loadHistory();
-          alert("✅ Moved to Posted History!");
-        }
+        loadStats();
+        loadHistory();
       } catch (e) {
-        alert("Error: " + e.message);
+        console.warn("Mark reposted error:", e.message);
       }
     }
 
     async function skipNewsArticle(articleId) {
+      const card = document.getElementById(`card-${articleId}`);
+      const headline = card?.querySelector("h5 a")?.innerText?.trim() || "";
+      const articleUrl = card?.querySelector("h5 a")?.getAttribute("href") || "";
+
+      if (card) {
+        card.style.transition = "all 0.3s ease";
+        card.style.opacity = "0";
+        card.style.transform = "scale(0.95)";
+        setTimeout(() => card.remove(), 300);
+      }
+
       try {
         await apiFetch("/api/skip-news", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ articleId })
+          body: JSON.stringify({ articleId, articleUrl, headline })
         });
-        const card = document.getElementById(`card-${articleId}`);
-        if (card) card.remove();
         loadStats();
       } catch (e) {
-        alert("Error: " + e.message);
+        console.warn("Skip news error:", e.message);
       }
     }
 

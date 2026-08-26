@@ -714,52 +714,74 @@ How is your team currently handling data reconciliation when telemetry streams s
 
   if (pathname === "/api/mark-news-reposted" && method === "POST") {
     const body = await parseBody(req);
-    const { articleId, repostText } = body;
+    const { articleId, articleUrl, headline, repostText } = body;
     const { loadMarketNews, saveMarketNews } = safeRequire("externalNewsEngine") || {};
     let news = loadMarketNews ? loadMarketNews() : [];
-    const item = news.find(n => n.id === articleId);
+    
+    let item = news.find(n => 
+      (articleId && n.id === articleId) || 
+      (articleUrl && (n.article_url === articleUrl || n.link === articleUrl)) ||
+      (headline && n.headline === headline)
+    );
+
     if (item) {
       item.status = "POSTED";
       item.reposted_at = new Date().toISOString();
       item.repost_text = repostText;
       saveMarketNews(news);
-
-      const { markPostAsManuallyPosted, recordPersistedAction } = safeRequire("db") || {};
-      if (recordPersistedAction) {
-        recordPersistedAction(item, { status: "POSTED", reposted_at: item.reposted_at, repost_text: repostText });
-      }
-      if (markPostAsManuallyPosted) {
-        markPostAsManuallyPosted(articleId, repostText, `Authority Repost (${item.publisher || 'Media'})`);
-      }
-      return sendJSON(res, { success: true, message: "Marked as Reposted on LinkedIn!" });
     }
-    return sendJSON(res, { success: false, error: "Article not found" }, 404);
+
+    const { markPostAsManuallyPosted, recordPersistedAction } = safeRequire("db") || {};
+    const targetItem = item || {
+      id: articleId || `news_${Date.now()}`,
+      article_url: articleUrl,
+      headline: headline || "Market News Article",
+      status: "POSTED"
+    };
+
+    if (recordPersistedAction) {
+      recordPersistedAction(targetItem, { status: "POSTED", reposted_at: new Date().toISOString(), repost_text: repostText });
+    }
+    if (markPostAsManuallyPosted) {
+      markPostAsManuallyPosted(targetItem.id, repostText, `Authority Repost (${targetItem.publisher || 'Financial Media'})`);
+    }
+
+    return sendJSON(res, { success: true, message: "Marked as Reposted on LinkedIn!" });
   }
 
   if (pathname === "/api/skip-news" && method === "POST") {
     const body = await parseBody(req);
-    const { articleId } = body;
+    const { articleId, articleUrl, headline } = body;
     const { loadMarketNews, saveMarketNews } = safeRequire("externalNewsEngine") || {};
     let news = loadMarketNews ? loadMarketNews() : [];
-    const item = news.find(n => n.id === articleId);
+    
+    // Find and update item if in active archive
+    let item = news.find(n => 
+      (articleId && n.id === articleId) || 
+      (articleUrl && (n.article_url === articleUrl || n.link === articleUrl)) ||
+      (headline && n.headline === headline)
+    );
+
     if (item) {
       item.status = "REJECTED";
       saveMarketNews(news);
-
-      // Lock skipped news article permanently into State Guardian Memory
-      const { saveRejectedItem, recordPersistedAction, normalizeKey } = safeRequire("db") || {};
-      if (saveRejectedItem) {
-        if (item.article_url) saveRejectedItem(item.article_url);
-        if (item.headline) saveRejectedItem(normalizeKey(item.headline));
-      }
-      if (recordPersistedAction) {
-        recordPersistedAction(item, { status: "REJECTED" });
-      }
-
-      console.log(`🛡️ [State Guardian] Permanently memorized skipped news article: "${item.headline}"`);
-      return sendJSON(res, { success: true, message: "Article permanently skipped and memorized" });
     }
-    return sendJSON(res, { success: false, error: "Article not found" }, 404);
+
+    // Lock skipped news article permanently into State Guardian Memory
+    const { saveRejectedItem, recordPersistedAction, normalizeKey } = safeRequire("db") || {};
+    const targetUrl = articleUrl || item?.article_url || item?.link || "";
+    const targetHead = headline || item?.headline || "";
+
+    if (saveRejectedItem) {
+      if (targetUrl) saveRejectedItem(targetUrl);
+      if (targetHead) saveRejectedItem(normalizeKey(targetHead));
+    }
+    if (recordPersistedAction) {
+      recordPersistedAction({ id: articleId || item?.id, article_url: targetUrl, headline: targetHead }, { status: "REJECTED" });
+    }
+
+    console.log(`🛡️ [State Guardian] Permanently memorized skipped news article: "${targetHead || articleId}"`);
+    return sendJSON(res, { success: true, message: "Article permanently skipped and memorized" });
   }
 
   if (pathname === "/api/trigger-governance-scrape" && method === "POST") {
