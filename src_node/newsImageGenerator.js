@@ -457,7 +457,7 @@ async function generateNewsCardImage(articleId, headline, takeText = '', topic =
           <span>Sriram Ganesan</span>
           <span style="color: ${theme.accentLight};">${ICONS.sparkle}</span>
         </div>
-        <div class="author-subtitle">Corporate Director Aspirant &amp; BFSI Thought Leader</div>
+        <div class="author-subtitle">BFSI Thought Leader &amp; Lending Practitioner</div>
       </div>
     </div>
 

@@ -1107,31 +1107,39 @@
             </div>
           </div>
 
+          <!-- Comment Header & 1-Click Copy -->
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <label class="form-label fw-bold small text-muted text-uppercase mb-0">Generated Perspective Draft:</label>
+            <button type="button" class="btn btn-xs btn-outline-primary fw-bold px-2 py-1 shadow-sm" onclick="copyCommentText('${p.id}')" title="1-Click Copy comment to clipboard">
+              <i class="fa-regular fa-copy me-1"></i> 📋 Copy Comment
+            </button>
+          </div>
+
           <!-- Comment Textarea -->
           <div class="mb-3">
-            <textarea class="form-control comment-editor" id="editor-${p.id}" rows="3">${escapeHtml(defaultComment)}</textarea>
+            <textarea class="form-control comment-editor" id="editor-${p.id}" rows="4">${escapeHtml(defaultComment)}</textarea>
           </div>
 
           <!-- Actions Bar -->
           <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 pt-2 border-top">
             <div class="d-flex flex-wrap gap-2">
+              <button class="btn btn-sm btn-primary fw-bold px-3 shadow-sm" onclick="copyCommentText('${p.id}')" title="1-Click Copy comment">
+                <i class="fa-regular fa-copy me-1"></i> 📋 Copy Comment
+              </button>
+              <button class="btn btn-sm btn-outline-info fw-bold" onclick="copyCommentAndOpenPost('${p.id}', '${escapeHtml(targetUrl)}')" title="Copy comment and open original LinkedIn post">
+                <i class="fa-brands fa-linkedin me-1"></i> Copy &amp; Open Post
+              </button>
               <button class="btn-action-primary" onclick="postNow('${p.id}')">
-                <i class="fa-solid fa-paper-plane me-1"></i> 🚀 Approve &amp; Post Now
+                <i class="fa-solid fa-paper-plane me-1"></i> 🚀 Post Now
               </button>
               <button class="btn btn-sm btn-outline-warning fw-bold text-dark" onclick="openScheduleModal('${p.id}', 'POST')">
-                <i class="fa-solid fa-clock me-1"></i> ⏰ Schedule Post
+                <i class="fa-solid fa-clock me-1"></i> ⏰ Schedule
               </button>
-              <a href="${escapeHtml(targetUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-secondary fw-semibold">
-                <i class="fa-brands fa-linkedin me-1"></i> View Post
-              </a>
               <button class="btn btn-sm btn-outline-success fw-semibold" onclick="markAsManuallyPosted('${p.id}')" title="I posted this manually on LinkedIn - move to Posted History">
                 <i class="fa-solid fa-tag me-1"></i> 🏷️ Mark Posted
               </button>
               <button class="btn btn-sm btn-outline-warning fw-semibold text-dark" onclick="moveToCompetitorRadar('${p.id}')" title="Move this post to Competitor Radar">
                 <i class="fa-solid fa-building-shield me-1"></i> 🏢 Competitor
-              </button>
-              <button class="btn btn-sm btn-outline-primary fw-semibold" onclick="approveDraft('${p.id}')">
-                <i class="fa-solid fa-check me-1"></i> Approve Draft
               </button>
             </div>
             <button class="btn btn-link text-danger text-decoration-none small" onclick="rejectPost('${p.id}')" title="Skip this specific post (author/company is NEVER blocked)">
@@ -1301,6 +1309,29 @@
       navigator.clipboard.writeText(text).then(() => {
         alert("✅ 1st Self-Comment text copied to clipboard!\n\n" + text);
       });
+    }
+
+    function copyCommentText(postId) {
+      const editor = document.getElementById(`editor-${postId}`);
+      const text = editor ? editor.value : "";
+      if (!text) return;
+      navigator.clipboard.writeText(text).then(() => {
+        const btns = document.querySelectorAll(`[onclick*="copyCommentText('${postId}')"]`);
+        btns.forEach(b => {
+          const orig = b.innerHTML;
+          b.innerHTML = `<i class="fa-solid fa-check text-success me-1"></i> Copied!`;
+          setTimeout(() => b.innerHTML = orig, 2000);
+        });
+      }).catch(() => {
+        prompt("Copy comment:", text);
+      });
+    }
+
+    function copyCommentAndOpenPost(postId, postUrl) {
+      copyCommentText(postId);
+      if (postUrl) {
+        window.open(postUrl, "_blank");
+      }
     }
 
     function selectStyle(postId, styleKey) {
