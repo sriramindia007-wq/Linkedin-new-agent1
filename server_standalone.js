@@ -784,6 +784,52 @@ How is your team currently handling data reconciliation when telemetry streams s
     return sendJSON(res, { success: true, message: "Article permanently skipped and memorized" });
   }
 
+  // On-Demand B2B Infographic Card Generator (Opt-In Per Article)
+  if (pathname === "/api/generate-news-card" && method === "POST") {
+    const body = await parseBody(req);
+    const { articleId, headline, takeText, topic, publisher } = body;
+    
+    if (!articleId) {
+      return sendJSON(res, { success: false, error: "Missing articleId parameter" }, 400);
+    }
+
+    try {
+      const { generateNewsCardImage } = safeRequire("newsImageGenerator") || {};
+      if (!generateNewsCardImage) {
+        return sendJSON(res, { success: false, error: "Image generator module not found" }, 500);
+      }
+
+      const { loadMarketNews, saveMarketNews } = safeRequire("externalNewsEngine") || {};
+      let news = loadMarketNews ? loadMarketNews() : [];
+      let item = news.find(n => n.id === articleId || n.article_url === articleId);
+
+      const targetHeadline = headline || item?.headline || "Lending Market Intelligence";
+      const targetTake = takeText || item?.generated_takes?.architectural_take || item?.headline || "";
+      const targetTopic = topic || item?.topic || "Market News";
+      const targetPub = publisher || item?.publisher || "Financial Media";
+
+      console.log(`🎨 [On-Demand Card] Generating 1200x630 visual asset for: "${targetHeadline.slice(0, 55)}..."`);
+      const cardResult = await generateNewsCardImage(articleId, targetHeadline, targetTake, targetTopic, targetPub);
+
+      if (cardResult && item) {
+        if (!item.generated_takes) item.generated_takes = {};
+        item.generated_takes.image_url = cardResult.imageUrl;
+        item.generated_takes.image_path = cardResult.imagePath;
+        saveMarketNews(news);
+      }
+
+      return sendJSON(res, {
+        success: true,
+        imageUrl: cardResult?.imageUrl || "",
+        imagePath: cardResult?.imagePath || "",
+        message: "Infographic card generated successfully!"
+      });
+    } catch (e) {
+      console.error("[On-Demand Card] Error generating card:", e.message);
+      return sendJSON(res, { success: false, error: e.message }, 500);
+    }
+  }
+
   if (pathname === "/api/trigger-governance-scrape" && method === "POST") {
     try {
       const { scrapeBoardAndGovernance } = safeRequire("boardGovernanceAgent");

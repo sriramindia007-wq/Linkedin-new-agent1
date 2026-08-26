@@ -1197,11 +1197,11 @@
             </div>
           </div>
 
-          ${n.generated_takes?.image_url ? `
-            <!-- Auto-Generated B2B Infographic Card Preview -->
-            <div class="mb-3 p-3 bg-light rounded-3 border">
+          <!-- On-Demand B2B Infographic Card Box -->
+          <div id="card-box-${n.id}" class="mb-3 p-3 bg-light rounded-3 border">
+            ${n.generated_takes?.image_url ? `
               <div class="d-flex justify-content-between align-items-center mb-2">
-                <span class="small fw-bold text-dark text-uppercase"><i class="fa-solid fa-image text-primary me-1"></i> Auto-Attached B2B Visual Card:</span>
+                <span class="small fw-bold text-dark text-uppercase"><i class="fa-solid fa-image text-primary me-1"></i> Attached B2B Authority Card:</span>
                 <div class="d-flex gap-2">
                   <button type="button" class="btn btn-xs btn-outline-primary fw-bold" onclick="openImagePreviewModal('${n.generated_takes.image_url}', '${escapeHtml(n.headline)}')">
                     <i class="fa-solid fa-expand me-1"></i> Full Size
@@ -1209,6 +1209,9 @@
                   <a href="${n.generated_takes.image_url}" download="linkedin_card_${n.id}.png" class="btn btn-xs btn-outline-secondary fw-bold">
                     <i class="fa-solid fa-download me-1"></i> Download
                   </a>
+                  <button type="button" class="btn btn-xs btn-outline-warning fw-bold" onclick="triggerGenerateCard('${n.id}')">
+                    <i class="fa-solid fa-arrows-rotate me-1"></i> Regenerate
+                  </button>
                 </div>
               </div>
               <div class="text-center bg-dark p-2 rounded-3">
@@ -1216,8 +1219,18 @@
                   <img src="${n.generated_takes.image_url}" class="img-fluid rounded border shadow-sm" style="max-height: 240px; width: auto; object-fit: contain; cursor: zoom-in;" alt="B2B Authority Card (Click to Enlarge)">
                 </a>
               </div>
-            </div>
-          ` : ''}
+            ` : `
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <div class="small fw-bold text-dark"><i class="fa-solid fa-wand-magic-sparkles text-primary me-1"></i> 1200x630 B2B Infographic Card (On-Demand)</div>
+                  <div class="text-muted" style="font-size: 0.78rem;">Generate high-impact executive visual card with key metrics and Sriram's branding only when you want to attach an image.</div>
+                </div>
+                <button type="button" id="btn-gen-card-${n.id}" class="btn btn-sm btn-outline-primary fw-bold shadow-sm" onclick="triggerGenerateCard('${n.id}')">
+                  <i class="fa-solid fa-image me-1"></i> Generate Card
+                </button>
+              </div>
+            `}
+          </div>
 
           <!-- Formatted Standalone Repost Draft -->
           <div class="mb-3">
@@ -1971,6 +1984,67 @@
       }
       const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById("imagePreviewModal"));
       modal.show();
+    }
+
+    async function triggerGenerateCard(articleId) {
+      const btn = document.getElementById(`btn-gen-card-${articleId}`);
+      const box = document.getElementById(`card-box-${articleId}`);
+      const card = document.getElementById(`card-${articleId}`);
+      const headline = card?.querySelector("h5 a")?.innerText?.trim() || "";
+      const editor = document.getElementById(`editor-${articleId}`);
+      const takeText = editor ? editor.value : "";
+      
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span> Generating...`;
+      }
+      if (box && !btn) {
+        box.innerHTML = `<div class="text-center p-3 text-primary small fw-bold"><span class="spinner-border spinner-border-sm me-2"></span> Regenerating 1200x630 Card...</div>`;
+      }
+
+      try {
+        const res = await apiFetch("/api/generate-news-card", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ articleId, headline, takeText })
+        });
+
+        if (res.success && res.imageUrl && box) {
+          box.innerHTML = `
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="small fw-bold text-dark text-uppercase"><i class="fa-solid fa-image text-primary me-1"></i> Attached B2B Authority Card:</span>
+              <div class="d-flex gap-2">
+                <button type="button" class="btn btn-xs btn-outline-primary fw-bold" onclick="openImagePreviewModal('${res.imageUrl}', '${escapeHtml(headline)}')">
+                  <i class="fa-solid fa-expand me-1"></i> Full Size
+                </button>
+                <a href="${res.imageUrl}" download="linkedin_card_${articleId}.png" class="btn btn-xs btn-outline-secondary fw-bold">
+                  <i class="fa-solid fa-download me-1"></i> Download
+                </a>
+                <button type="button" class="btn btn-xs btn-outline-warning fw-bold" onclick="triggerGenerateCard('${articleId}')">
+                  <i class="fa-solid fa-arrows-rotate me-1"></i> Regenerate
+                </button>
+              </div>
+            </div>
+            <div class="text-center bg-dark p-2 rounded-3">
+              <a href="javascript:void(0)" onclick="openImagePreviewModal('${res.imageUrl}', '${escapeHtml(headline)}')">
+                <img src="${res.imageUrl}" class="img-fluid rounded border shadow-sm" style="max-height: 240px; width: auto; object-fit: contain; cursor: zoom-in;" alt="B2B Authority Card (Click to Enlarge)">
+              </a>
+            </div>
+          `;
+        } else {
+          alert("Card generation failed: " + (res.error || "Unknown error"));
+          if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = `<i class="fa-solid fa-image me-1"></i> Generate Card`;
+          }
+        }
+      } catch (e) {
+        alert("Error generating card: " + e.message);
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = `<i class="fa-solid fa-image me-1"></i> Generate Card`;
+        }
+      }
     }
 
     async function forceResetScraper() {

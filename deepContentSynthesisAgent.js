@@ -196,7 +196,7 @@ How is your leadership team positioning your organizational strategy to capitali
 /**
  * Synthesizes deep, fact-grounded Thought-Leadership Repost Takes for Market News Articles
  */
-async function synthesizeNewsArticleTakes(articleUrl, headline, topic, publisher, articleId = "") {
+async function synthesizeNewsArticleTakes(articleUrl, headline, topic, publisher, articleId = "", generateImage = false) {
   const h = (headline || "").trim();
   const hLower = (headline || "").toLowerCase();
   const { metrics, entities } = extractEntitiesAndMetrics(h);
@@ -447,8 +447,8 @@ How is your board positioning your institutional strategy to leverage these stru
     };
   }
 
-  // Automated B2B Visual Asset / Infographic Card Generation
-  if (articleId && takes) {
+  // On-Demand B2B Visual Asset / Infographic Card Generation
+  if (generateImage && articleId && takes) {
     try {
       const cardResult = await generateNewsCardImage(articleId, headline, takes.architectural_take, topic, publisher);
       if (cardResult) {
