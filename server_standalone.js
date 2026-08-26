@@ -607,10 +607,11 @@ How is your team currently handling data reconciliation when telemetry streams s
 
   if (pathname === "/api/competitor-posts" && method === "GET") {
     let posts = loadPosts();
-    const { isOlderThan3Days, isCompetitorPost } = safeRequire("db") || {};
+    const { isOlderThan3Days, isCompetitorPost, isPostBlacklisted } = safeRequire("db") || {};
     let competitorPosts = posts.filter(p => {
       if (p.status === "POSTED" || p.status === "REJECTED" || p.status === "EXPIRED") return false;
       if (isOlderThan3Days && isOlderThan3Days(p)) return false;
+      if (isPostBlacklisted && isPostBlacklisted(p.post_url, p.post_text)) return false;
       return isCompetitorPost ? isCompetitorPost(p) : (p.source_category === "M2P LOS Competitors & Tech" || p.status === "COMPETITOR_RADAR");
     });
     return sendJSON(res, competitorPosts);
@@ -618,10 +619,11 @@ How is your team currently handling data reconciliation when telemetry streams s
 
   if (pathname === "/api/governance-posts" && method === "GET") {
     let posts = loadPosts();
-    const { isOlderThan3Days, isGovernancePost } = safeRequire("db") || {};
+    const { isOlderThan3Days, isGovernancePost, isPostBlacklisted } = safeRequire("db") || {};
     let govPosts = posts.filter(p => {
       if (p.status === "POSTED" || p.status === "REJECTED" || p.status === "EXPIRED") return false;
       if (isOlderThan3Days && isOlderThan3Days(p)) return false;
+      if (isPostBlacklisted && isPostBlacklisted(p.post_url, p.post_text)) return false;
       return isGovernancePost ? isGovernancePost(p) : (p.source_category === "Board Leadership & Governance" || p.id.startsWith("gov_"));
     });
     return sendJSON(res, govPosts);
@@ -629,6 +631,7 @@ How is your team currently handling data reconciliation when telemetry streams s
 
   if (pathname === "/api/news-posts" && method === "GET") {
     const { loadMarketNews, fetchAllExternalNews } = safeRequire("externalNewsEngine") || {};
+    const { isPostBlacklisted } = safeRequire("db") || {};
     let newsArticles = loadMarketNews ? loadMarketNews() : [];
     if (!newsArticles || newsArticles.length === 0) {
       if (fetchAllExternalNews) {
@@ -641,6 +644,7 @@ How is your team currently handling data reconciliation when telemetry streams s
 
     const filtered = (newsArticles || []).filter(n => {
       if (n.status === "REJECTED" || n.status === "POSTED") return false;
+      if (isPostBlacklisted && isPostBlacklisted(n.article_url, n.headline)) return false;
       const pubTime = new Date(n.published_at || n.scraped_at).getTime();
       if ((now - pubTime) > maxAge) return false;
       if (noiseRegex.test((n.headline + ' ' + (n.publisher || '')).toLowerCase())) return false;
@@ -992,14 +996,37 @@ How is your team currently handling data reconciliation when telemetry streams s
 
   if ((pathname === "/api/reject" || pathname === "/api/skip") && method === "POST") {
     const body = await parseBody(req);
-    const posts = loadPosts();
-    const post = posts.find(p => p.id === body.postId);
+    const { postId, postUrl, postText, authorName } = body;
+    const { loadPosts, savePosts, recordPersistedAction, saveRejectedItem, normalizeKey, cleanUrl } = safeRequire("db") || {};
+    
+    let posts = loadPosts ? loadPosts() : [];
+    let post = posts.find(p => 
+      (postId && p.id === postId) || 
+      (postUrl && (p.post_url === postUrl || cleanUrl(p.post_url) === cleanUrl(postUrl))) ||
+      (postText && normalizeKey(p.post_text) === normalizeKey(postText))
+    );
+
     if (post) {
-      const { recordSkippedPost } = safeRequire("mlPreferenceEngine");
-      if (recordSkippedPost) recordSkippedPost(post);
+      post.status = "REJECTED";
+      if (savePosts) savePosts(posts);
     }
-    const updated = markPostStatus(body.postId, "REJECTED");
-    return sendJSON(res, { success: true, message: "Post skipped and blacklisted permanently", post: updated });
+
+    const targetUrl = postUrl || post?.post_url || "";
+    const targetText = postText || post?.post_text || "";
+    const targetId = postId || post?.id || `post_${Date.now()}`;
+
+    if (saveRejectedItem) {
+      if (targetId) saveRejectedItem(targetId);
+      if (targetUrl) saveRejectedItem(targetUrl);
+      if (targetText) saveRejectedItem(normalizeKey(targetText));
+    }
+
+    if (recordPersistedAction) {
+      recordPersistedAction({ id: targetId, post_url: targetUrl, post_text: targetText, author_name: authorName || post?.author_name }, { status: "REJECTED" });
+    }
+
+    console.log(`🛡️ [State Guardian] Permanently memorized skipped post: "${post?.author_name || targetId}"`);
+    return sendJSON(res, { success: true, message: "Post skipped and blacklisted permanently", post });
   }
 
   // 1-Click Single LinkedIn URL Ingestion

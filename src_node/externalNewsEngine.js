@@ -173,20 +173,10 @@ function loadMarketNews() {
 
 function saveMarketNews(newsList) {
   try {
-    const locations = [
-      getNewsFilePath(),
-      path.join(__dirname, 'data', 'market_news.json'),
-      path.join(__dirname, 'market_news.json'),
-      path.join(__dirname, 'src_node', 'data', 'market_news.json'),
-      path.join(__dirname, 'src_node', 'market_news.json')
-    ];
-    locations.forEach(loc => {
-      try {
-        const dir = path.dirname(loc);
-        if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-        fs.writeFileSync(loc, JSON.stringify(newsList, null, 2), 'utf-8');
-      } catch (e) {}
-    });
+    const { writeSyncedJsonFile } = require('./db');
+    if (writeSyncedJsonFile) {
+      writeSyncedJsonFile('market_news.json', newsList);
+    }
   } catch (e) {
     console.error('Error saving market news:', e.message);
   }
@@ -227,12 +217,20 @@ async function fetchAllExternalNews() {
       const items = parseGoogleRss(xml, stream.topic);
 
       for (const item of items) {
-        const { isPostBlacklisted } = require("./db");
+        const { isPostBlacklisted, cleanUrl, normalizeKey } = require("./db");
         if (isPostBlacklisted && isPostBlacklisted(item.link, item.title)) {
           continue; // Permanently excluded via State Guardian rejection memory
         }
 
-        if (currentNews.some(n => n.article_url === item.link || n.headline === item.title)) continue;
+        const cleanedUrl = cleanUrl ? cleanUrl(item.link) : item.link;
+        const textKey = normalizeKey ? normalizeKey(item.title) : item.title;
+
+        if (currentNews.some(n => 
+          n.article_url === item.link || 
+          n.headline === item.title ||
+          (cleanedUrl && cleanUrl(n.article_url) === cleanedUrl) ||
+          (textKey && normalizeKey(n.headline) === textKey)
+        )) continue;
 
         // Deep Content Synthesis: Reads full article content before synthesizing takes
         let takes;
@@ -273,8 +271,22 @@ async function fetchAllExternalNews() {
 }
 
 function insertSingleNewsArticle(articleObj) {
+  const { isPostBlacklisted, cleanUrl, normalizeKey } = require("./db");
+  if (isPostBlacklisted && isPostBlacklisted(articleObj.article_url, articleObj.headline)) {
+    return; // Permanently excluded
+  }
+
   const current = loadMarketNews();
-  const exists = current.some(n => n.id === articleObj.id || n.article_url === articleObj.article_url || n.headline === articleObj.headline);
+  const cleanedUrl = cleanUrl ? cleanUrl(articleObj.article_url) : articleObj.article_url;
+  const textKey = normalizeKey ? normalizeKey(articleObj.headline) : articleObj.headline;
+
+  const exists = current.some(n => 
+    n.id === articleObj.id || 
+    n.article_url === articleObj.article_url || 
+    (cleanedUrl && cleanUrl(n.article_url) === cleanedUrl) ||
+    (textKey && normalizeKey(n.headline) === textKey)
+  );
+
   if (!exists) {
     current.unshift(articleObj);
     if (current.length > 120) current.length = 120;

@@ -1,16 +1,52 @@
 const fs = require("fs");
 const path = require("path");
 
+function getAllTargetFileLocations(filename) {
+  const dirs = [
+    __dirname,
+    path.join(__dirname, "data"),
+    path.join(__dirname, "..", "data"),
+    path.join(__dirname, "src_node"),
+    path.join(__dirname, "src_node", "data"),
+    path.join(__dirname, "..", "src_node", "data"),
+    path.join(process.cwd(), "data"),
+    process.cwd()
+  ];
+  const unique = [];
+  const seen = new Set();
+  for (const d of dirs) {
+    const full = path.resolve(path.join(d, filename));
+    if (!seen.has(full)) {
+      seen.add(full);
+      unique.push(full);
+    }
+  }
+  return unique;
+}
+
+function writeSyncedJsonFile(filename, data) {
+  const locations = getAllTargetFileLocations(filename);
+  for (const loc of locations) {
+    try {
+      const dir = path.dirname(loc);
+      if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+      fs.writeFileSync(loc, JSON.stringify(data, null, 2), "utf-8");
+    } catch (e) {}
+  }
+}
+
 function getResolvedPath(filename) {
   const candidates = [
-    path.join(__dirname, filename),
     path.join(__dirname, "data", filename),
-    path.join(__dirname, "..", "data", filename)
+    path.join(__dirname, filename),
+    path.join(__dirname, "..", "data", filename),
+    path.join(process.cwd(), "data", filename),
+    path.join(process.cwd(), filename)
   ];
   for (const c of candidates) {
     if (fs.existsSync(c)) return c;
   }
-  return path.join(__dirname, filename);
+  return path.join(__dirname, "data", filename);
 }
 
 const POSTS_FILE = getResolvedPath("posts.json");
@@ -33,41 +69,36 @@ function readCleanJson(filePath) {
 
 function normalizeKey(str) {
   if (!str) return "";
-  return str.trim().substring(0, 100).toLowerCase().replace(/[^a-z0-9]/g, "");
-}
-
-function loadPersistedActions() {
-  const data = readCleanJson(PERSISTED_ACTIONS_FILE);
-  if (data && typeof data === "object" && !Array.isArray(data)) {
-    return {
-      by_id: data.by_id || {},
-      by_url: data.by_url || {},
-      by_text_key: data.by_text_key || {}
-    };
-  }
-  return { by_id: {}, by_url: {}, by_text_key: {} };
-}
-
-function savePersistedActions(actions) {
-  try {
-    fs.writeFileSync(PERSISTED_ACTIONS_FILE, JSON.stringify(actions, null, 2), "utf-8");
-    const alt = path.join(__dirname, "data", "persisted_actions.json");
-    if (fs.existsSync(path.dirname(alt))) {
-      try { fs.writeFileSync(alt, JSON.stringify(actions, null, 2), "utf-8"); } catch (e) {}
-    }
-  } catch (e) {
-    console.error("Error saving persisted actions:", e.message);
-  }
+  return str.trim().substring(0, 120).toLowerCase().replace(/[^a-z0-9]/g, "");
 }
 
 function cleanUrl(rawUrl) {
   if (!rawUrl) return "";
   try {
     const u = new URL(rawUrl);
-    return `${u.origin}${u.pathname}`.toLowerCase();
+    return `${u.origin}${u.pathname}`.toLowerCase().replace(/\/+$/, "");
   } catch (e) {
-    return rawUrl.split("?")[0].toLowerCase();
+    return rawUrl.split("?")[0].toLowerCase().replace(/\/+$/, "");
   }
+}
+
+function loadPersistedActions() {
+  const locations = getAllTargetFileLocations("persisted_actions.json");
+  for (const loc of locations) {
+    const data = readCleanJson(loc);
+    if (data && typeof data === "object" && !Array.isArray(data) && (data.by_id || data.by_url || data.by_text_key)) {
+      return {
+        by_id: data.by_id || {},
+        by_url: data.by_url || {},
+        by_text_key: data.by_text_key || {}
+      };
+    }
+  }
+  return { by_id: {}, by_url: {}, by_text_key: {} };
+}
+
+function savePersistedActions(actions) {
+  writeSyncedJsonFile("persisted_actions.json", actions);
 }
 
 function recordPersistedAction(post, updates = {}) {
@@ -87,7 +118,7 @@ function recordPersistedAction(post, updates = {}) {
 
   if (id) actions.by_id[id] = { ...(actions.by_id[id] || {}), ...payload };
   if (rawUrl) actions.by_url[rawUrl] = { ...(actions.by_url[rawUrl] || {}), ...payload };
-  if (cleanedUrl && cleanedUrl !== rawUrl) actions.by_url[cleanedUrl] = { ...(actions.by_url[cleanedUrl] || {}), ...payload };
+  if (cleanedUrl) actions.by_url[cleanedUrl] = { ...(actions.by_url[cleanedUrl] || {}), ...payload };
   if (textKey) actions.by_text_key[textKey] = { ...(actions.by_text_key[textKey] || {}), ...payload };
 
   savePersistedActions(actions);
@@ -95,9 +126,15 @@ function recordPersistedAction(post, updates = {}) {
 }
 
 function loadRejectedSet() {
-  const list = readCleanJson(REJECTED_FILE);
-  if (!Array.isArray(list)) return new Set();
-  return new Set(list);
+  const locations = getAllTargetFileLocations("rejected_posts.json");
+  const set = new Set();
+  for (const loc of locations) {
+    const list = readCleanJson(loc);
+    if (Array.isArray(list)) {
+      list.forEach(item => set.add(item));
+    }
+  }
+  return set;
 }
 
 function saveRejectedItem(urlOrKey) {
@@ -105,16 +142,10 @@ function saveRejectedItem(urlOrKey) {
   const set = loadRejectedSet();
   set.add(urlOrKey);
   const cleaned = cleanUrl(urlOrKey);
-  if (cleaned && cleaned !== urlOrKey) set.add(cleaned);
+  if (cleaned) set.add(cleaned);
 
   const arr = Array.from(set);
-  try {
-    fs.writeFileSync(REJECTED_FILE, JSON.stringify(arr, null, 2), "utf-8");
-    const alt = path.join(__dirname, "data", "rejected_posts.json");
-    if (fs.existsSync(path.dirname(alt))) {
-      try { fs.writeFileSync(alt, JSON.stringify(arr, null, 2), "utf-8"); } catch (e) {}
-    }
-  } catch (e) {}
+  writeSyncedJsonFile("rejected_posts.json", arr);
 }
 
 function isPostBlacklisted(postUrl = "", postText = "") {
@@ -175,6 +206,7 @@ function loadPosts() {
       // Apply immutable persisted actions
       const act = actions.by_id[p.id] || 
                   (p.post_url ? actions.by_url[p.post_url] : null) || 
+                  (p.post_url ? actions.by_url[cleanUrl(p.post_url)] : null) ||
                   (p.post_text ? actions.by_text_key[normalizeKey(p.post_text)] : null);
 
       if (act) {
@@ -194,70 +226,42 @@ function savePosts(posts) {
   if (Array.isArray(posts)) {
     posts.forEach(p => ensureContextualGrounding(p));
   }
-  fs.writeFileSync(POSTS_FILE, JSON.stringify(posts, null, 2), "utf-8");
-  const altLocations = [
-    path.join(__dirname, "data", "posts.json"),
-    path.join(__dirname, "src_node", "data", "posts.json"),
-    path.join(__dirname, "src_node", "posts.json")
-  ];
-  altLocations.forEach(loc => {
-    try {
-      if (fs.existsSync(path.dirname(loc))) fs.writeFileSync(loc, JSON.stringify(posts, null, 2), "utf-8");
-    } catch (e) {}
-  });
+  writeSyncedJsonFile("posts.json", posts);
 }
 
 function postExists(postUrl, authorName = "", postText = "") {
   if (isPostBlacklisted(postUrl, postText)) return true;
-  const posts = loadPosts();
+  
+  const actions = loadPersistedActions();
+  const rawUrl = postUrl || "";
+  const cleaned = cleanUrl(rawUrl);
   const textKey = normalizeKey(postText);
+
+  if (rawUrl && actions.by_url[rawUrl]) return true;
+  if (cleaned && actions.by_url[cleaned]) return true;
+  if (textKey && actions.by_text_key[textKey]) return true;
+
+  const posts = loadPosts();
   return posts.some(p => {
-    if (postUrl && p.post_url && p.post_url === postUrl) return true;
+    if (postUrl && p.post_url && (p.post_url === postUrl || cleanUrl(p.post_url) === cleaned)) return true;
     if (textKey && normalizeKey(p.post_text) === textKey) return true;
     return false;
   });
 }
 
-function isOlderThan3Days(p) {
-  if (!p) return true;
-  // 1. Check relative published string (e.g., 4d, 5d, 6d, 1w, 2w, 1mo, 2mo)
-  const rel = (p.published_relative || "").toLowerCase().trim();
-  if (/([4-9]|\d{2,})\s*d/i.test(rel)) return true; // 4d, 5d, 6d, 7d and above
-  if (/(\d+)\s*(w|wk|week|mo|month|yr|year)s?/i.test(rel)) return true; // weeks, months, years
-
-  // 2. Check scraped_at timestamp (strictly <= 72 hours)
-  if (p.scraped_at) {
-    const ageMs = Date.now() - new Date(p.scraped_at).getTime();
-    if (ageMs > (3 * 24 * 60 * 60 * 1000)) return true; // older than 72 hours
-  }
-  return false;
-}
-
-function pruneExpiredPendingPosts() {
-  let posts = loadPosts();
-  let changed = false;
-  let prunedCount = 0;
-
-  for (const p of posts) {
-    if (p.status !== "POSTED" && p.status !== "REJECTED" && p.status !== "EXPIRED" && isOlderThan3Days(p)) {
-      p.status = "EXPIRED";
-      changed = true;
-      prunedCount++;
-    }
-  }
-
-  if (changed) {
-    savePosts(posts);
-    console.log(`🧹 [Freshness Guardian] Auto-pruned ${prunedCount} stale posts (>3 days old).`);
-  }
-  return prunedCount;
+function isOlderThan3Days(post) {
+  if (!post) return false;
+  const postDate = new Date(post.scraped_at || post.published_at || post.published_relative || Date.now());
+  const now = new Date();
+  const diffDays = (now - postDate) / (1000 * 60 * 60 * 24);
+  return diffDays > 3;
 }
 
 function isGovernancePost(p) {
   if (!p) return false;
-  if (p.source_category === "Board Leadership & Governance" || p.source_category === "Corporate Governance & Board Oversight") return true;
-  if (p.id && p.id.startsWith("gov_")) return true;
-  
+  if (p.source_category === "Board Leadership & Governance" || (p.id && p.id.startsWith("gov_")) || p.governance_type) {
+    return true;
+  }
   const textToCheck = `${p.author_name || ''} ${p.author_headline || ''} ${p.source_name || ''} ${(p.relevance_tags || []).join(' ')}`.toLowerCase();
   if (/iica|iod|board\s*leadership|centre\s*of\s*excellence\s*for\s*board|independent\s*director|boardroom|board\s*stewardship|governance\s*and\s*risk\s*committee|damodaran|haribhakti/i.test(textToCheck)) {
     return true;
@@ -311,10 +315,10 @@ function getPostsPaged({ status = "PENDING", category = "ALL", page = 1, limit =
 }
 
 function insertPost(postData) {
-  const posts = loadPosts();
   if (postExists(postData.post_url, postData.author_name, postData.post_text)) {
     return null;
   }
+  const posts = loadPosts();
 
   const id = postData.id || ("post_" + Date.now().toString() + "_" + Math.random().toString(36).substring(2, 6));
   const newPost = {
@@ -372,7 +376,7 @@ function approveComment(postId, style, commentText) {
 
 function markPostStatus(postId, status, errorMsg = null) {
   const posts = loadPosts();
-  const p = posts.find(item => item.id === postId);
+  let p = posts.find(item => item.id === postId);
   if (p) {
     p.status = status;
     if (status === "POSTED") p.posted_at = new Date().toISOString();
@@ -389,6 +393,12 @@ function markPostStatus(postId, status, errorMsg = null) {
       error_message: errorMsg
     });
     savePosts(posts);
+  } else {
+    // If not found in memory, still record the rejection
+    if (status === "REJECTED") {
+      saveRejectedItem(postId);
+      recordPersistedAction({ id: postId }, { status: "REJECTED" });
+    }
   }
   return p;
 }
@@ -414,7 +424,6 @@ function markPostAsManuallyPosted(postId, commentText = "", manualTag = "Manuall
     p.posted_at = new Date().toISOString();
     if (commentText) p.approved_comment = commentText;
   }
-
   recordPersistedAction(p, {
     status: "POSTED",
     manual_post: true,
@@ -429,137 +438,93 @@ function markPostAsManuallyPosted(postId, commentText = "", manualTag = "Manuall
 function markPostAsCompetitor(postId, note = "Competitor Intel") {
   const posts = loadPosts();
   let p = posts.find(item => item.id === postId);
-  if (!p) {
-    p = {
-      id: postId,
-      author_name: "Competitor Source",
+  if (p) {
+    p.source_category = "M2P LOS Competitors & Tech";
+    p.status = "COMPETITOR_RADAR";
+    p.competitor_intel = true;
+    p.competitor_note = note;
+    recordPersistedAction(p, {
       status: "COMPETITOR_RADAR",
       source_category: "M2P LOS Competitors & Tech",
       competitor_intel: true,
       competitor_note: note
-    };
-    posts.unshift(p);
-  } else {
-    p.status = "COMPETITOR_RADAR";
-    p.source_category = "M2P LOS Competitors & Tech";
-    p.competitor_intel = true;
-    p.competitor_note = note;
+    });
+    savePosts(posts);
   }
-
-  recordPersistedAction(p, {
-    status: "COMPETITOR_RADAR",
-    source_category: "M2P LOS Competitors & Tech",
-    competitor_intel: true,
-    competitor_note: note
-  });
-  savePosts(posts);
   return p;
+}
+
+function loadSources() {
+  const locations = getAllTargetFileLocations("sources.json");
+  for (const loc of locations) {
+    const data = readCleanJson(loc);
+    if (Array.isArray(data) && data.length > 0) return data;
+  }
+  return [];
+}
+
+function saveSources(sources) {
+  writeSyncedJsonFile("sources.json", sources);
+}
+
+function loadPersona() {
+  const locations = getAllTargetFileLocations("persona.json");
+  for (const loc of locations) {
+    const data = readCleanJson(loc);
+    if (data && data.user_name) return data;
+  }
+  return {};
+}
+
+function savePersona(persona) {
+  writeSyncedJsonFile("persona.json", persona);
 }
 
 function getStats() {
   const posts = loadPosts();
-  const sources = loadSources();
-  let pendingLending = 0;
-  let pendingGov = 0;
-  let competitorCount = 0;
-  let postedCount = 0;
-  let approvedCount = 0;
-  let rejectedCount = 0;
-
-  for (const p of posts) {
-    if (p.status === "POSTED" || p.manual_post) {
-      postedCount++;
-    } else if (p.status === "REJECTED") {
-      rejectedCount++;
-    } else if (p.status === "APPROVED") {
-      approvedCount++;
-    } else if (p.status === "PENDING" && !isOlderThan3Days(p)) {
-      if (isCompetitorPost(p)) {
-        competitorCount++;
-      } else if (isGovernancePost(p)) {
-        pendingGov++;
-      } else {
-        pendingLending++;
-      }
-    }
-  }
-
-  let newsCount = 0;
-  try {
-    const marketNewsFile = path.join(__dirname, "data", "market_news.json");
-    if (fs.existsSync(marketNewsFile)) {
-      const rawNews = JSON.parse(fs.readFileSync(marketNewsFile, "utf-8"));
-      newsCount = Array.isArray(rawNews) ? rawNews.filter(n => n.status !== "POSTED" && n.status !== "REJECTED").length : 0;
-    }
-  } catch (e) {}
-
-  let scheduledCount = 0;
-  try {
-    const schedFile = path.join(__dirname, "data", "scheduled_posts.json");
-    if (fs.existsSync(schedFile)) {
-      const rawSched = JSON.parse(fs.readFileSync(schedFile, "utf-8"));
-      scheduledCount = Array.isArray(rawSched) ? rawSched.filter(s => s.status === "SCHEDULED").length : 0;
-    }
-  } catch (e) {}
+  const pending = posts.filter(p => p.status === "PENDING" && !isOlderThan3Days(p) && !p.manual_post && !isCompetitorPost(p) && !isGovernancePost(p) && !p.id.startsWith("news_"));
+  const approved = posts.filter(p => p.status === "APPROVED");
+  const posted = posts.filter(p => p.status === "POSTED");
+  const rejected = posts.filter(p => p.status === "REJECTED");
+  const competitor = posts.filter(p => isCompetitorPost(p) && p.status !== "POSTED" && p.status !== "REJECTED");
+  const governance = posts.filter(p => isGovernancePost(p) && p.status !== "POSTED" && p.status !== "REJECTED" && !isOlderThan3Days(p));
 
   return {
-    pending: pendingLending,
-    governance_count: pendingGov,
-    competitors_count: competitorCount,
-    approved: approvedCount,
-    posted: postedCount,
-    rejected: rejectedCount,
-    sources_count: sources.length,
-    news_count: newsCount,
-    scheduled_count: scheduledCount,
     total: posts.length,
-    last_scrape: posts.length > 0 ? posts[0].scraped_at : new Date().toISOString()
+    pending: pending.length,
+    approved: approved.length,
+    posted: posted.length,
+    rejected: rejected.length,
+    competitors: competitor.length,
+    governance: governance.length
   };
-}
-
-function loadSources() {
-  const data = readCleanJson(SOURCES_FILE);
-  return Array.isArray(data) ? data : [];
-}
-
-function saveSources(sources) {
-  fs.writeFileSync(SOURCES_FILE, JSON.stringify(sources, null, 2), "utf-8");
-}
-
-function loadPersona() {
-  const data = readCleanJson(PERSONA_FILE);
-  return data || {};
-}
-
-function savePersona(persona) {
-  fs.writeFileSync(PERSONA_FILE, JSON.stringify(persona, null, 2), "utf-8");
 }
 
 module.exports = {
   loadPosts,
   savePosts,
   postExists,
-  getPostsPaged,
   insertPost,
   updatePostComments,
   approveComment,
   markPostStatus,
   markPostAsManuallyPosted,
   markPostAsCompetitor,
-  recordPersistedAction,
-  getStats,
   loadSources,
   saveSources,
   loadPersona,
   savePersona,
-  isPostBlacklisted,
-  saveRejectedItem,
-  loadRejectedSet,
-  normalizeKey,
-  cleanUrl,
-  loadPersistedActions,
+  getStats,
+  getPostsPaged,
   isOlderThan3Days,
   isGovernancePost,
   isCompetitorPost,
-  pruneExpiredPendingPosts
+  isPostBlacklisted,
+  saveRejectedItem,
+  recordPersistedAction,
+  loadPersistedActions,
+  cleanUrl,
+  normalizeKey,
+  writeSyncedJsonFile,
+  getAllTargetFileLocations
 };

@@ -1717,18 +1717,27 @@
     }
 
     async function rejectPost(postId) {
-      if (!confirm("Skip this specific post? (Note: The author/company will continue to be monitored for future lending updates)")) return;
+      const card = document.getElementById(`card-${postId}`);
+      const postUrl = card?.querySelector("a[href*='linkedin.com']")?.getAttribute("href") || "";
+      const postText = card?.querySelector(".post-content-box")?.innerText?.trim() || "";
+      const authorName = card?.querySelector("h5 a")?.innerText?.trim() || "";
+
+      if (card) {
+        card.style.transition = "all 0.3s ease";
+        card.style.opacity = "0";
+        card.style.transform = "scale(0.95)";
+        setTimeout(() => card.remove(), 300);
+      }
+
       try {
         await apiFetch("/api/skip", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ postId })
+          body: JSON.stringify({ postId, postUrl, postText, authorName })
         });
-        const card = document.getElementById(`card-${postId}`);
-        if (card) card.remove();
         loadStats();
       } catch (err) {
-        alert("Error skipping post: " + err.message);
+        console.warn("Skip error:", err.message);
       }
     }
 
