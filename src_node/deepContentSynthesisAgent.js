@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const { readFullArticleContent } = require('./fullArticleReaderAgent');
 
 function sanitizeAiSlop(text) {
   if (!text) return "";
@@ -17,7 +16,7 @@ function extractEntitiesAndMetrics(text) {
   const metricRegex = /(?:₹\s*[\d,.]+\s*(?:crore|cr|lakh|bn|trillion)?|\$[\d,.]+\s*(?:million|billion|M|B)?|\b\d+(?:\.\d+)?%\b|\b\d+\s*bps\b|\b\d+\s*branches\b|\bQ[1-4]\s*FY\d{2}\b)/gi;
   const metrics = text.match(metricRegex) || [];
   
-  const entityRegex = /\b(RBI|Reserve Bank of India|HDFC Bank|State Bank of India|SBI|Axis Bank|Canara Bank|Federal Bank|ESAF SFB|Euronet|Bajaj Finance|Shri Ram Finance|Star Housing Finance|Aditya Birla Capital|Muthoot|Manappuram|FISME|TRAI|Navi Finserv|Progfin|DSP Finance|Volt Money|Vodafone Idea|SG Finserve|Apollo Finvest|Vivifi India|JPMorgan|Bernstein|BNP Paribas|BofA|BusinessLine|Economic Times|Livemint|Business Standard|Outlook Money|Fortune India|CNBC TV18)\b/gi;
+  const entityRegex = /\b(RBI|Reserve Bank of India|HDFC Bank|State Bank of India|SBI|Axis Bank|Canara Bank|Federal Bank|ESAF SFB|Euronet|Bajaj Finance|Shri Ram Finance|Star Housing Finance|Aditya Birla Capital|Muthoot|Manappuram|FISME|TRAI|Navi Finserv|Progfin|DSP Finance|Volt Money|Vodafone Idea|SG Finserve|Apollo Finvest|Vivifi India|JPMorgan|Bernstein|BNP Paribas|BofA)\b/gi;
   const rawEntities = text.match(entityRegex) || [];
   const entities = [...new Set(rawEntities)];
   
@@ -47,9 +46,10 @@ function extractPostThesis(text) {
 /**
  * Synthesizes deep, context-grounded LinkedIn Post Comments
  * Rules:
- * - Paragraph 1 (Lines 1–3/4): 100% on the author's exact thesis, specific entities, numbers, and facts.
- * - Paragraph 2 (Lines 4–5): Sriram's domain perspective ONLY IF RELEVANT (LOS/Lending Tech for Tech posts; Credit Risk/Asset Quality for NBFC/Banking posts; Board Governance/ACB for Governance posts; Strategic/Leadership for General posts - NEVER force LOS/BRE into non-tech posts).
- * - Paragraph 3: Thoughtful, domain-specific question.
+ * - 100% Sriram Ganesan's POV (First-person practitioner voice). No publisher/source citations.
+ * - 5 to 6 lines deeply analyzing the exact subject matter, facts, numbers, and operational nuances.
+ * - 1 to 2 lines connecting to LOS / Underwriting / Risk / Governance ONLY IF RELEVANT.
+ * - 1 closing question.
  */
 function synthesizePostCommentary(authorName, text, category, postUrl = "") {
   const author = authorName || "Industry Leader";
@@ -60,16 +60,15 @@ function synthesizePostCommentary(authorName, text, category, postUrl = "") {
   const { metrics, entities } = extractEntitiesAndMetrics(rawText);
   const metricSnippet = metrics.length > 0 ? ` (${metrics[0]})` : "";
   const thesis = extractPostThesis(rawText);
-  const primaryEntity = entities[0] || "";
 
   // 1. BOARD GOVERNANCE: SILENT EXIT & DISSENT OF INDEPENDENT DIRECTORS
   if (leadHook.includes("silent exit") || leadHook.includes("walk away instead of dissenting") || (leadHook.includes("dissent") && leadHook.includes("director"))) {
     return {
-      value_add: sanitizeAiSlop(`${author}'s analysis on the "Silent Exit" trend among Independent Directors highlights a critical structural flaw in corporate governance—where directors choose quiet resignation over formal boardroom dissent. Over 500 mid-term resignations indicate that information asymmetry and disproportionate personal liability often isolate independent voices.
+      value_add: sanitizeAiSlop(`The rising trend of "Silent Exits" among Independent Directors exposes a fundamental fault line in corporate governance. Over 500 mid-term resignations show that independent board members frequently encounter severe information asymmetry, passive board cultures, and disproportionate personal regulatory liability when issues arise. Choosing quiet resignation over recording formal dissent leaves underlying institutional risks unaddressed and deprives minority shareholders of transparency.
 
-From an Audit Committee (ACB) and fiduciary oversight standpoint, effective governance requires fostering a boardroom culture where constructive dissent is welcomed as vital risk mitigation rather than resistance.
+Fostering authentic board effectiveness requires strengthening the Audit Committee (ACB) framework to ensure independent directors have protected channels to record formal dissent without institutional friction.
 
-How can nomination and remuneration committees (NRC) better insulate Independent Directors so they can record formal dissent without career friction?`),
+What structural safeguards can Nomination and Remuneration Committees (NRC) introduce to ensure dissenting opinions are treated as critical risk telemetry rather than opposition?`),
       provocative_question: `What structural mechanisms can Indian boards introduce to ensure raw governance telemetry reaches the Audit Committee early?`,
       executive_perspective: `Institutional longevity is won by boards that champion transparent debate, robust internal controls, and unwavering stakeholder stewardship over artificial consensus.`
     };
@@ -78,11 +77,11 @@ How can nomination and remuneration committees (NRC) better insulate Independent
   // 2. BOARD GOVERNANCE: IPO READY VS GOVERNANCE READY
   if (leadHook.includes("ipo ready") || leadHook.includes("governance ready")) {
     return {
-      value_add: sanitizeAiSlop(`${author}'s insight that "IPO Ready ≠ Governance Ready" addresses the widening gap between rapid valuation scale and institutional maturity when preparing for public markets. A company can assemble a polished DRHP, but authentic governance readiness is proven when the Audit Committee rigorously interrogates unit economics, cashflow accounting, and internal controls before the public listing.
+      value_add: sanitizeAiSlop(`There is a vast difference between being "IPO Ready" and being "Governance Ready." While drafting a compliant DRHP and orchestrating investment roadshows can be completed in months, building institutional governance maturity requires years of deliberate cultural and operational groundwork. When rapid top-line growth is prioritized over rigorous internal financial controls (IFC), public market transitions often expose fragile unit economics and reporting vulnerabilities.
 
-For independent board members, establishing robust Internal Financial Controls (IFC) and proactive risk oversight at least 24 months pre-IPO protects long-term shareholder value.
+Audit Committees in pre-IPO enterprises must independently interrogate revenue recognition policies, related-party exposures, and cash flow reconciliation at least 24 months before filing.
 
-What foundational governance milestones should high-growth enterprises formalize well ahead of their exchange debut?`),
+What foundational governance milestones should high-growth enterprises formalize well ahead of their public exchange debut?`),
       provocative_question: `How are pre-IPO boards balancing rapid revenue expansion with rigorous internal financial controls (IFC)?`,
       executive_perspective: `Long-term public market compounding belongs to enterprises that build institutional governance muscle well before ringing the exchange bell.`
     };
@@ -91,9 +90,9 @@ What foundational governance milestones should high-growth enterprises formalize
   // 3. BOARD GOVERNANCE: RELATED PARTY TRANSACTIONS (RPT)
   if (leadHook.includes("related party") || leadHook.includes("rpt") || leadHook.includes("governance failures rarely begin with fraud")) {
     return {
-      value_add: sanitizeAiSlop(`${author}'s observation that major governance breakdowns frequently originate in "justified" Related Party Transactions (RPTs) touches the single biggest vulnerability in promoter-driven enterprises. When transactions with affiliates bypass commercial scrutiny under the guise of operational synergy, minority shareholders carry the downside risk.
+      value_add: sanitizeAiSlop(`Corporate governance failures rarely originate in overt fraud—they almost always begin in "justified" Related Party Transactions (RPTs). When commercial dealings with promoter entities or affiliated subsidiaries bypass rigorous arm's-length scrutiny under the rationale of speed or operational synergy, the risk is transferred directly to minority shareholders. Without robust benchmark pricing and independent transaction audits, subsidiary networks can become subtle channels for value transfer.
 
-For the Audit Committee (ACB), scrutinizing RPTs demands rigorous arm's-length benchmarking, independent valuation validation, and absolute transparency in financial disclosures.
+For the Audit Committee (ACB), scrutinizing RPTs demands uncompromised arm's-length benchmarking, clear business justification, and absolute transparency in financial disclosures.
 
 What benchmarking frameworks does your Audit Committee deploy to ensure absolute commercial arm's-length validity for high-value related party transactions?`),
       provocative_question: `How are corporate boards tightening internal financial controls (IFC) to prevent subtle value transfer through complex subsidiary structures?`,
@@ -104,9 +103,9 @@ What benchmarking frameworks does your Audit Committee deploy to ensure absolute
   // 4. BOARD GOVERNANCE: AI IN EXECUTIVE LEADERSHIP & BLIND SPOTS
   if (leadHook.includes("ai makes leaders question") || leadHook.includes("ai can write") || (leadHook.includes("blind spot") && leadHook.includes("ai"))) {
     return {
-      value_add: sanitizeAiSlop(`${author}'s reflection on executive blind spots in an era of AI automation addresses a profound leadership shift. When predictive algorithms can process data, model scenarios, and generate analytical drafts in seconds, an executive's true moat narrows to ethical discernment, stakeholder empathy, and high-stakes judgment.
+      value_add: sanitizeAiSlop(`As generative AI models automate scenario modeling, draft synthesis, and operational reporting, the core differentiator of executive leadership shifts entirely to moral clarity, ethical discernment, and high-stakes judgment. Delegating executive analysis to automated models without human interrogation creates invisible strategic blind spots. Algorithms can optimize for historical patterns, but they cannot replace fiduciary intuition, stakeholder empathy, or ethical courage during crises.
 
-As automated tools enter executive decision-making, boardroom leadership must prioritize moral clarity and critical evaluation over unverified algorithmic outputs.
+Boardroom leadership must establish clear governance boundaries to ensure AI recommendations are subjected to rigorous human evaluation before execution.
 
 How is your executive leadership establishing oversight guardrails to ensure AI-driven analysis is subjected to rigorous human ethical evaluation?`),
       provocative_question: `How are executive committees establishing guardrails to ensure AI-driven recommendations are subjected to rigorous human ethical evaluation?`,
@@ -114,51 +113,12 @@ How is your executive leadership establishing oversight guardrails to ensure AI-
     };
   }
 
-  // 5. BOARD GOVERNANCE: TRUST AS CAPITAL & STAKEHOLDER STEWARDSHIP
-  if (leadHook.includes("trust is capital") || leadHook.includes("stakeholder trust") || (leadHook.includes("trust") && leadHook.includes("stewardship"))) {
-    return {
-      value_add: sanitizeAiSlop(`${author}'s thesis that "Trust Is Capital" clearly articulates the balance sheet value of corporate reputation and ethical conduct. In financial services and regulated sectors, stakeholder trust directly influences deposit stability, cost of funds, and resilience during macro downturns.
-
-For corporate boards, systematically tracking governance health, customer fair treatment, and compliance integrity protects this intangible asset from gradual erosion.
-
-What proactive governance indicators can boards monitor to detect cultural and compliance risks before they impact financial performance?`),
-      provocative_question: `What proactive governance metrics can boards track to detect early cultural decay before it impacts financial performance?`,
-      executive_perspective: `Reputation and trust compound slowly over decades but can be lost in a single lapse of governance. Vigilant board oversight is the primary safeguard.`
-    };
-  }
-
-  // 6. CYBERSECURITY / IDENTITY / PHYGITAL
-  if (leadHook.includes("enterprise security") || leadHook.includes("identity") || leadHook.includes("phygital") || leadHook.includes("digital trust")) {
-    return {
-      value_add: sanitizeAiSlop(`${author}'s perspective on moving from perimeter defense to intelligent identity reflects the frontline reality of enterprise cybersecurity. As financial operations become distributed across APIs, mobile channels, and cloud ecosystems, legacy network firewalls no longer suffice.
-
-For digital financial institutions, embedding zero-trust identity verification, behavioral biometrics, and continuous fraud monitoring into customer journeys is essential to safeguard balance sheets.
-
-What identity verification and fraud prevention architectures are proving most effective against synthetic identity fraud in digital onboarding?`),
-      provocative_question: `How are Chief Risk Officers and CISOs collaborating to integrate cyber risk telemetry directly into operational loan approval workflows?`,
-      executive_perspective: `Cyber resilience and customer identity integrity are foundational risk governance mandates that directly protect institutional balance sheets.`
-    };
-  }
-
-  // 7. CLEAN TRANSIT / DECARBONIZATION
-  if (leadHook.includes("decarboniz") || leadHook.includes("hydrogen") || leadHook.includes("transit") || leadHook.includes("clean energy")) {
-    return {
-      value_add: sanitizeAiSlop(`${author}'s analysis on heavy transit decarbonization and clean fuel adoption underscores the massive capital expenditure required for India's green infrastructure transition. Shifting long-haul freight and commercial transport to sustainable energy demands specialized project finance, blended capital, and long-term risk-sharing consortiums.
-
-For institutional financiers, developing underwriting models that incorporate lifecycle carbon metrics and technology risk will accelerate sustainable credit deployment.
-
-What financing structures and risk-mitigation instruments are proving most viable in funding early-stage clean transit infrastructure in India?`),
-      provocative_question: `How are institutional lenders integrating lifecycle carbon emissions telemetry into corporate credit underwriting frameworks?`,
-      executive_perspective: `Sustainable infrastructure transition requires deep collaboration between visionary engineering, progressive public policy, and patient institutional capital.`
-    };
-  }
-
-  // 8. MSME & CASHFLOW LENDING (GST, TREDS, INVOICE DISCOUNTING)
+  // 5. MSME & CASHFLOW LENDING (GST, TREDS, INVOICE DISCOUNTING)
   if (textLower.includes("msme") || textLower.includes("cashflow") || textLower.includes("gst") || textLower.includes("treds") || textLower.includes("invoice") || textLower.includes("supply chain")) {
     return {
-      value_add: sanitizeAiSlop(`${author}'s focus on "${thesis}"${metricSnippet} highlights a vital imperative in expanding credit access for India's 63+ million small enterprises. Relying solely on historical balance sheets leaves millions of creditworthy informal businesses underfunded, whereas evaluating live GST invoicing, banking turnover, and transaction velocity enables dynamic working capital sanctions.
+      value_add: sanitizeAiSlop(`Unlocking working capital for India’s 63+ million MSMEs requires moving past static collateral requirements toward dynamic cashflow underwriting. When small enterprises operate with extended receivables and seasonal trade cycles, evaluating real-time GST invoicing, bank statement velocity, and payment reconciliations provides a vastly more accurate credit picture than outdated balance sheets.
 
-From an underwriting architecture perspective, ingesting real-time cashflow telemetry into automated decisioning engines allows lenders to tailor credit lines to the borrower's actual cash conversion cycle while actively monitoring debtor concentration.
+From a Loan Origination System (LOS) perspective, embedding automated Account Aggregator pulls and GST telemetry into configurable Business Rules Engines (BRE) enables lenders to sanction adaptive credit lines in minutes while continuously monitoring borrower debtor concentration.
 
 How is your credit team leveraging cashflow analytics and Account Aggregator streams to expand MSME origination while keeping delinquency low?`),
       provocative_question: `What alternate data streams are proving most predictive in assessing repayment capacity for informal small enterprises across tier-2/3 hubs?`,
@@ -166,12 +126,12 @@ How is your credit team leveraging cashflow analytics and Account Aggregator str
     };
   }
 
-  // 9. DIGITAL LENDING TECH / LOS / ORIGINATION / STP (LENDING TECH POSTS ONLY)
+  // 6. DIGITAL LENDING TECH / LOS / ORIGINATION / STP (LENDING TECH POSTS ONLY)
   if (textLower.includes("los") || textLower.includes("loan origination") || textLower.includes("bre") || textLower.includes("decision engine") || (textLower.includes("digital lending") && textLower.includes("tech"))) {
     return {
-      value_add: sanitizeAiSlop(`${author}'s post on "${thesis}"${metricSnippet} addresses the core operational challenge in modern lending: achieving rapid turnaround times without compromising underwriting rigor. In a competitive credit market, lenders cannot afford multi-week development cycles whenever credit policies or regulatory guidelines shift.
+      value_add: sanitizeAiSlop(`Achieving high-velocity loan origination without compromising underwriting rigor is the defining technical mandate for modern retail and MSME lending. Lenders running on rigid legacy stacks face multi-month development cycles whenever risk policies, bureau algorithms, or RBI compliance mandates shift. 
 
-Deploying a modular Loan Origination System (LOS) with a configurable Business Rules Engine (BRE) empowers product and credit teams to adjust parameters instantly, automating KYC, bureau pulls, and decisioning for sub-15 minute straight-through processing (STP).
+Deploying a modular Loan Origination System (LOS) powered by a no-code Business Rules Engine (BRE) empowers credit and product teams to update underwriting policies instantly, orchestrating multi-bureau scoring, instant KYC, and automated decisioning for sub-15 minute straight-through processing (STP).
 
 What tech capabilities is your team prioritizing to compress loan origination turnaround times while maintaining strict policy governance?`),
       provocative_question: `How are product and credit teams collaborating to ensure business rule changes deploy in hours rather than multi-week sprint cycles?`,
@@ -179,12 +139,12 @@ What tech capabilities is your team prioritizing to compress loan origination tu
     };
   }
 
-  // 10. BANKING / NBFC ASSET QUALITY, CREDIT GROWTH & NPA (NO FORCED LOS PLUGS)
+  // 7. BANKING / NBFC ASSET QUALITY, CREDIT GROWTH & NPA (NO FORCED LOS PLUGS)
   if (textLower.includes("asset quality") || textLower.includes("npa") || textLower.includes("delinquency") || textLower.includes("credit growth") || textLower.includes("nbfc") || textLower.includes("gross stage")) {
     return {
-      value_add: sanitizeAiSlop(`${author}'s analysis regarding "${thesis}"${metricSnippet} underscores the ongoing expansion and credit cycle dynamics across India's financial sector. While credit demand across retail and commercial segments remains robust, maintaining balance sheet resilience requires lenders to balance disbursement momentum with proactive risk governance.
+      value_add: sanitizeAiSlop(`Managing rapid balance sheet expansion while navigating shifting interest rate cycles requires unrelenting asset quality surveillance. While credit demand across retail and commercial segments remains robust, aggressive disbursement targets must be tempered with conservative underwriting buffers and early-warning stress tracking.
 
-For Chief Risk Officers and credit committees, tracking early behavioral delinquency indicators (SMA-0/1) and maintaining counter-cyclical provisioning buffers are critical safeguards against credit cycle turns.
+For Chief Risk Officers and credit committees, monitoring early behavioral delinquency signals (SMA-0 and SMA-1) and maintaining counter-cyclical provisioning are the most effective defenses against sudden asset quality deterioration.
 
 What core credit risk and portfolio indicators is your leadership team monitoring most closely to navigate the current macroeconomic environment?`),
       provocative_question: `How are risk committees leveraging early behavioral signals and SMA-0 telemetry to preempt credit stress before 90-day DPD milestones?`,
@@ -192,11 +152,11 @@ What core credit risk and portfolio indicators is your leadership team monitorin
     };
   }
 
-  // 11. GENERAL THOUGHT-LEADERSHIP / CORPORATE / LEADERSHIP (BALANCED, NO FORCED BUZZWORDS)
+  // 8. GENERAL THOUGHT-LEADERSHIP / CORPORATE / BFSI LEADERSHIP
   return {
-    value_add: sanitizeAiSlop(`Reflecting on ${author}'s perspective regarding "${thesis}"${metricSnippet}, navigating dynamic market shifts in ${org} requires balancing strategic ambition with operational resilience. 
+    value_add: sanitizeAiSlop(`Navigating rapid structural transformations in ${org} demands balancing ambitious expansion with disciplined operational resilience. Sustainable market leadership is not built on short-term volume surges alone, but on establishing strong governance frameworks, transparent customer execution, and agile institutional infrastructure.
 
-Organizations that foster continuous innovation while maintaining disciplined execution and strong governance frameworks consistently build long-term competitive advantages.
+Organizations that institutionalize rigorous risk controls while maintaining fast execution cycles consistently outpace peers through evolving market cycles.
 
 How is your leadership team positioning your organizational strategy to capitalize on these evolving industry developments?`),
     provocative_question: `What forward-looking performance and strategic indicators is your executive committee tracking most closely through this phase?`,
@@ -207,30 +167,50 @@ How is your leadership team positioning your organizational strategy to capitali
 /**
  * Synthesizes deep, fact-grounded Thought-Leadership Repost Takes for Market News Articles
  * Rules:
- * - Paragraph 1 (Lines 1–3/4): 100% on THAT EXACT article's headline, specific facts, entities, numbers, and implications.
- * - Paragraph 2 (Lines 4–5): Sriram's domain perspective ONLY IF RELEVANT (LOS/Tech for Tech news; Credit Risk/NBFC for Risk/Banking news; Governance for Board/Regulatory news; Strategic for General).
- * - Paragraph 3: Tailored domain question.
- * GUARANTEES: Never generates identical commentary across different articles on the same topic (e.g. Gold Loans).
+ * - 100% Sriram Ganesan's POV (First-person practitioner voice). Never cite the publisher or say "Recent reporting from...".
+ * - ~6 substantive lines breaking down the exact topic, implications, nuances, and facts.
+ * - 1 to 2 lines on LOS / Origination / Risk architecture ONLY if relevant.
+ * - 1 sharp closing inquiry question.
  */
 async function synthesizeNewsArticleTakes(articleUrl, headline, topic, publisher) {
   const h = (headline || "").trim();
   const hLower = (headline || "").toLowerCase();
-  const pub = publisher || "Financial Media";
-  const { metrics, entities } = extractEntitiesAndMetrics(`${h} ${pub}`);
-  const metricSnippet = metrics.length > 0 ? ` (${metrics.join(", ")})` : "";
-  const primaryEntity = entities[0] || pub;
+  const { metrics, entities } = extractEntitiesAndMetrics(h);
 
-  // 1. ESAF SFB & EURONET - CREDIT LINE ON UPI
+  // 1. RBI ₹1,000-CRORE NBFC THRESHOLD & REGISTRATION EXEMPTIONS
+  if (hLower.includes("1,000-crore") || hLower.includes("1000-crore") || (hLower.includes("nbfc threshold") && hLower.includes("registration")) || (hLower.includes("nbfc") && hLower.includes("escape registration"))) {
+    return {
+      architectural_take: sanitizeAiSlop(`The Reserve Bank of India’s proposal to recalibrate the NBFC registration threshold to ₹1,000 crore represents a pragmatic shift toward risk-proportional supervision in India's shadow banking ecosystem.
+
+By potentially exempting smaller holding companies, pure equity investment vehicles, and non-deposit-taking entities that operate without public funds, the regulator is focusing supervisory bandwidth on systemically significant balance sheets. However, this does not grant a free pass for retail lending: any entity engaging in active public credit intermediation, co-lending, or customer-facing disbursements will continue to fall under stringent conduct and digital lending mandates regardless of asset size.
+
+From a Loan Origination System (LOS) and regulatory reporting standpoint, expanding non-bank lenders must architect modular Business Rules Engines (BRE) and dynamic compliance telemetry early, ensuring seamless transitions across regulatory tiers as balance sheets scale.
+
+How do you foresee this ₹1,000-crore threshold recalibration impacting private credit structuring and early-stage fintech balance sheet capitalization?`),
+      risk_lens: sanitizeAiSlop(`Raising the NBFC registration threshold to ₹1,000 crore reflects the RBI's focus on containing systemic risk while rationalizing compliance overhead for smaller holding entities.
+
+While exempting entities without public funds relieves regulatory pressure on investment vehicles, risk leadership at partner banks must maintain rigorous due diligence when structuring debt facilities with unrated or newly exempted corporate structures.
+
+How are institutional credit committees recalibrating counterparty risk frameworks for non-registered corporate holding entities?`),
+      strategic_outlook: sanitizeAiSlop(`A ₹1,000-crore supervisory threshold encourages structural consolidation across India's shadow banking sector, clearly separating pure-play corporate holding entities from active consumer and MSME lending franchises.
+
+Non-bank lenders that build institutional governance and robust balance sheets will continue to attract premium institutional liquidity.
+
+How will this regulatory threshold shift influence M&A activity and balance sheet restructuring across mid-tier financial entities?`)
+    };
+  }
+
+  // 2. ESAF SFB & EURONET - CREDIT LINE ON UPI
   if (hLower.includes("esaf") || (hLower.includes("credit line on upi") && hLower.includes("euronet"))) {
     return {
-      architectural_take: sanitizeAiSlop(`ESAF Small Finance Bank has partnered with Euronet to launch ‘Credit Line on UPI’ in FY28, reported by ${pub}. This partnership marks an important step in democratizing pre-sanctioned credit by embedding low-ticket credit lines directly into everyday UPI QR payment journeys for micro and semi-urban consumers.
+      architectural_take: sanitizeAiSlop(`The partnership between ESAF Small Finance Bank and Euronet to operationalize ‘Credit Line on UPI’ represents a pivotal milestone in democratizing pre-sanctioned retail credit. By embedding revolving credit lines directly into everyday UPI QR payment journeys, micro and semi-urban consumers gain immediate, low-ticket liquidity at the point of checkout without requiring physical plastic cards.
 
-From a lending architecture standpoint, operationalizing Credit Line on UPI requires seamless real-time API integrations between the core banking system, the credit decisioning engine, and NPCI switches to evaluate drawdowns, calculate interest on utilized amounts, and manage instant overdraft limits.
+From a lending architecture standpoint, operationalizing Credit Line on UPI requires seamless real-time API integrations between the core banking system, the credit decisioning engine, and NPCI switches to evaluate drawdowns, calculate interest on utilized amounts, and manage instant overdraft limits with sub-second latency.
 
 How is your institution preparing its origination and core banking architecture to support real-time Credit Line on UPI transactions?`),
-      risk_lens: sanitizeAiSlop(`The rollout of Credit Line on UPI by ESAF SFB and Euronet reflects the growing convergence of payments and revolving credit, as highlighted by ${pub}.
+      risk_lens: sanitizeAiSlop(`Embedding revolving credit lines into high-frequency UPI QR payments accelerates retail credit adoption, but it also alters portfolio risk dynamics.
 
-While pre-approved UPI credit lines offer frictionless distribution, risk teams must implement automated real-time fraud telemetry and transaction-level risk velocity checks to manage revolving consumer indebtedness.
+Because transaction velocity increases significantly with QR-based drawdowns, risk teams must implement automated real-time fraud telemetry and merchant-category level risk controls to prevent revolving over-indebtedness.
 
 What real-time behavioral risk controls are essential when underwriting instant UPI credit lines for retail consumers?`),
       strategic_outlook: sanitizeAiSlop(`Credit Line on UPI is positioned to reshape retail borrowing across India by shifting consumer credit from physical plastic cards to ubiquitous digital QR payment rails.
@@ -241,15 +221,15 @@ How do you foresee Credit Line on UPI impacting conventional credit card issuanc
     };
   }
 
-  // 2. WHALESBOOK: NBFCS EXPAND GOLD LOAN PORTFOLIOS DESPITE NEW RBI NORMS
+  // 3. WHALESBOOK: NBFCS EXPAND GOLD LOAN PORTFOLIOS DESPITE NEW RBI NORMS
   if (hLower.includes("whalesbook") && hLower.includes("gold loan") || (hLower.includes("expand gold loan") && hLower.includes("rbi norms"))) {
     return {
-      architectural_take: sanitizeAiSlop(`Specialized NBFCs are aggressively expanding their gold loan branch networks and portfolio AUM despite tightened Reserve Bank of India oversight on cash disbursement limits and appraisal standards, reported by ${pub}. The resilience of gold credit stems from strong grassroots demand among MSMEs and rural borrowers seeking immediate, collateral-backed working capital.
+      architectural_take: sanitizeAiSlop(`Specialized NBFCs are aggressively expanding their gold loan branch footprints and portfolio AUM despite tightened Reserve Bank of India oversight on cash disbursement limits and appraisal standards. The resilience of gold-backed credit stems from strong grassroots demand among MSMEs and rural borrowers seeking immediate, collateral-backed working capital without cumbersome paperwork.
 
-To navigate stringent regulatory audits while scaling disbursals, leading NBFCs are digitizing field appraisal workflows and automating real-time LTV margin calculations to ensure compliance with the 75% regulatory ceiling.
+To navigate stringent regulatory audits while scaling disbursals, leading NBFCs are digitizing field appraisal workflows and automating real-time LTV margin calculations to ensure absolute compliance with the 75% regulatory ceiling.
 
 How is your institution modernizing secured loan appraisal workflows to balance regulatory compliance with high-speed disbursals?`),
-      risk_lens: sanitizeAiSlop(`Rapid expansion of gold loan books amid tighter RBI scrutiny demands steadfast collateral governance and continuous market-to-market monitoring, as reported by ${pub}.
+      risk_lens: sanitizeAiSlop(`Rapid expansion of gold loan books amid tighter RBI scrutiny demands steadfast collateral governance and continuous mark-to-market monitoring.
 
 Risk committees must enforce automated price-tick revaluation systems and strict vault audit protocols to protect asset quality against sudden commodity price volatility.
 
@@ -262,15 +242,15 @@ How do you see the market share evolving between specialized gold loan NBFCs and
     };
   }
 
-  // 3. REUTERS: AXIS BANK BETS ON DATA CENTRES TO GOLD LOANS
+  // 4. REUTERS: AXIS BANK BETS ON DATA CENTRES TO GOLD LOANS
   if (hLower.includes("axis bank") && (hLower.includes("data centres") || hLower.includes("gold loans to outpace"))) {
     return {
-      architectural_take: sanitizeAiSlop(`Axis Bank is strategically targeting high-growth sectors spanning data centre infrastructure financing to retail gold loans to outpace industry credit growth by 300 basis points in FY27, reported by ${pub}. This dual strategy pairs large-ticket digital infrastructure project finance with high-yielding secured retail credit to optimize overall balance sheet yield.
+      architectural_take: sanitizeAiSlop(`Axis Bank's strategic push to outpace industry credit growth by 300 basis points in FY27 centers on a well-calibrated dual asset strategy: financing massive data centre infrastructure projects while scaling high-yield secured retail gold loans. Pairing large-ticket digital infrastructure project finance with secured retail lending allows the bank to optimize overall balance sheet yield while managing loan-to-deposit ratio (LDR) pressures.
 
-Financing digital infrastructure like data centres requires specialized project debt underwriting with phased milestone disbursements, while scaling gold loans demands automated appraisal and branch-level STP origination.
+Financing digital infrastructure like data centres requires specialized project debt underwriting with phased milestone disbursements, while scaling gold loans demands automated appraisal and branch-level straight-through processing (STP) origination.
 
 How is your institution structuring credit origination pipelines to support diverse asset classes ranging from infrastructure project debt to secured retail loans?`),
-      risk_lens: sanitizeAiSlop(`Axis Bank's ambitious credit expansion targets highlight the need for balanced portfolio risk management across corporate project finance and retail collateralized books, as reported by ${pub}.
+      risk_lens: sanitizeAiSlop(`Balancing high-margin secured retail credit with large-ticket infrastructure financing highlights the necessity for differentiated risk-adjusted return on capital (RAROC) frameworks.
 
 Risk leadership must balance long-tenor infrastructure exposure with dynamic retail collateral tracking to preserve pristine asset quality across interest rate cycles.
 
@@ -283,19 +263,17 @@ How are private sector banks recalibrating their sector-wise loan book allocatio
     };
   }
 
-  // 4. JPMORGAN REPORT: WHY GOLD LOANS ARE BOOMING IN INDIA
+  // 5. JPMORGAN REPORT: WHY GOLD LOANS ARE BOOMING IN INDIA
   if (hLower.includes("jpmorgan") && hLower.includes("gold loan")) {
     return {
-      architectural_take: sanitizeAiSlop(`A comprehensive analysis by JPMorgan highlighted the structural drivers behind India's booming gold loan market, where collateralized borrowing is increasingly viewed as an efficient treasury and working capital tool rather than distress borrowing, reported by ${pub}.
+      architectural_take: sanitizeAiSlop(`India’s gold loan market is experiencing a profound structural transformation, moving from emergency distress borrowing to a preferred short-term working capital and treasury tool for MSMEs and self-employed entrepreneurs. The surge in organized gold lending is driven by higher bullion valuations, expanding branch networks, and digital doorstep valuation models that disburse funds in under 15 minutes.
 
-As institutional participation rises, lenders that deploy sub-15 minute digital onboarding combined with doorstep valuation and instant fund transfers are capturing premium borrower mindshare.
-
-From an origination technology perspective, integrating live bullion price APIs with automated loan management engines enables dynamic risk-based pricing for high-ticket borrowers.
+From an origination technology perspective, integrating live bullion price feeds with automated loan origination engines enables dynamic risk-based pricing and instant LTV validation for high-ticket borrowers.
 
 How is your institution upgrading secured retail lending tech to deliver frictionless customer turnaround times?`),
-      risk_lens: sanitizeAiSlop(`JPMorgan's research underscores how rising gold prices and expanding formal credit demand have bolstered gold loan portfolio growth, as reported by ${pub}.
+      risk_lens: sanitizeAiSlop(`Rising gold prices and expanding formal credit demand have bolstered gold loan portfolio growth, but prudent collateral buffers remain non-negotiable.
 
-However, risk teams must maintain conservative Loan-to-Value (LTV) buffers to cushion against potential commodity price corrections and ensure robust auction resolution mechanisms.
+Risk teams must maintain conservative Loan-to-Value (LTV) buffers to cushion against potential commodity price corrections and ensure robust auction resolution mechanisms.
 
 What stress-testing scenarios is your risk committee running against potential bullion price volatility in secured portfolios?`),
       strategic_outlook: sanitizeAiSlop(`The formalization and digitization of gold lending is transforming India's vast household gold reserves into productive economic capital.
@@ -306,15 +284,15 @@ How do you view the long-term growth trajectory of organized gold finance relati
     };
   }
 
-  // 5. BUSINESS UPTURN: BIG CORPORATIONS MOVE INTO GOLD LOAN MARKET
+  // 6. BUSINESS UPTURN: BIG CORPORATIONS MOVE INTO GOLD LOAN MARKET
   if (hLower.includes("big indian corporations move into booming gold-loan") || (hLower.includes("corporations") && hLower.includes("gold-loan"))) {
     return {
-      architectural_take: sanitizeAiSlop(`Major Indian corporate conglomerates and diversified financial groups are entering the high-margin gold loan sector, as reported by ${pub}. The entry of well-capitalized corporate balance sheets is set to intensify competition across customer acquisition, interest rate pricing, and branch distribution networks.
+      architectural_take: sanitizeAiSlop(`The entry of major Indian corporate conglomerates into the gold financing sector signals intensifying competition across secured retail credit. With deep balance sheets, widespread brand recognition, and extensive physical distribution channels, these new entrants are poised to challenge specialized NBFCs on interest pricing and customer acquisition.
 
-To compete effectively, lenders must optimize operational efficiency through automated Loan Origination Systems (LOS) that compress loan processing costs while maintaining rigorous collateral governance.
+To maintain market share and defend margins, incumbent lenders must optimize operational efficiency through automated Loan Origination Systems (LOS) that compress loan processing costs while maintaining rigorous collateral governance.
 
 How will the entry of large corporate balance sheets impact digital origination standards and pricing across secured retail credit?`),
-      risk_lens: sanitizeAiSlop(`Increased corporate competition in gold lending may trigger aggressive LTV bidding and rate compression, as highlighted in ${pub}'s report.
+      risk_lens: sanitizeAiSlop(`Increased corporate competition in gold lending may trigger aggressive LTV bidding and rate compression across retail hubs.
 
 Risk committees must resist diluting appraisal standards or pushing regulatory LTV limits in pursuit of rapid AUM growth, ensuring credit quality remains paramount.
 
@@ -327,15 +305,15 @@ How do you expect market share to shift between incumbent specialized NBFCs and 
     };
   }
 
-  // 6. FISME / BUSINESSLINE: RBI PROPOSAL TO CURB NBFC REVOLVING CREDIT (MSME IMPACT)
+  // 7. FISME / BUSINESSLINE: RBI PROPOSAL TO CURB NBFC REVOLVING CREDIT (MSME IMPACT)
   if (hLower.includes("fisme") || (hLower.includes("revolving credit") && hLower.includes("msme"))) {
     return {
-      architectural_take: sanitizeAiSlop(`Industry body FISME has cautioned that the Reserve Bank of India's proposal to restrict NBFCs' revolving credit facilities could significantly constrain operational liquidity for MSMEs, as reported by ${pub}. Small enterprises rely heavily on flexible revolving overdrafts to bridge fluctuating cash conversion cycles and vendor payments.
+      architectural_take: sanitizeAiSlop(`Any regulatory proposal to restrict NBFC revolving credit facilities directly impacts working capital access for India's micro and small enterprises. MSMEs operate in volatile trading environments where cash conversion cycles fluctuate, making flexible revolving overdrafts indispensable for managing vendor payments and seasonal inventory.
 
-If revolving credit structures face tighter tenure limits or mandatory repayment schedules, lenders and MSMEs will need to pivot toward automated cashflow-backed invoice discounting and dynamic working capital lines based on live GST telemetry.
+If revolving credit structures face tighter tenure caps or mandatory amortizing schedules, lenders and MSMEs will need to pivot toward automated cashflow-backed invoice discounting and dynamic working capital lines based on live GST telemetry.
 
 How can lenders restructure MSME working capital facilities to ensure uninterrupted credit flow while complying with evolving RBI guidelines?`),
-      risk_lens: sanitizeAiSlop(`The debate surrounding NBFC revolving credit curbs reflects the RBI's proactive approach to preventing unmonitored leverage buildup, as detailed by ${pub}.
+      risk_lens: sanitizeAiSlop(`The debate surrounding NBFC revolving credit curbs reflects the regulator's proactive approach to preventing unmonitored leverage buildup in shadow banking.
 
 Risk committees must balance systemic risk containment with the practical working capital needs of small businesses by deploying continuous cashflow surveillance and early warning telemetry.
 
@@ -348,15 +326,15 @@ How should NBFCs and industry bodies work with regulators to design risk-calibra
     };
   }
 
-  // 7. RBI TIGHTENS EXPOSURE RULES FOR UPPER LAYER IDF-NBFCS
+  // 8. RBI TIGHTENS EXPOSURE RULES FOR UPPER LAYER IDF-NBFCS
   if (hLower.includes("idf-nbfc") || (hLower.includes("large exposure") && hLower.includes("infrastructure debt fund"))) {
     return {
-      architectural_take: sanitizeAiSlop(`The Reserve Bank of India has tightened Large Exposure Framework (LEF) rules for Upper Layer Infrastructure Debt Fund NBFCs (IDF-NBFCs), as reported by ${pub}. The revised norms enforce stricter single-entity and group exposure caps to curb systemic concentration risk in infrastructure project financing.
+      architectural_take: sanitizeAiSlop(`The Reserve Bank of India’s revised Large Exposure Framework (LEF) rules for Upper Layer Infrastructure Debt Fund NBFCs (IDF-NBFCs) enforce stricter single-entity and group exposure caps. These prudential boundaries are designed to curb systemic concentration risk and insulate the financial sector from single-borrower defaults in capital-intensive infrastructure projects.
 
-For infrastructure lenders, managing tighter exposure limits necessitates diversifying syndication partnerships, co-lending consortiums, and automated limit monitoring across parent and subsidiary entities.
+For infrastructure lenders, managing tighter exposure limits necessitates diversifying syndication partnerships, expanding co-lending consortiums, and automating cross-entity limit monitoring across parent and subsidiary accounts.
 
 How is your treasury and credit risk team adapting capital allocation models to comply with tightened large exposure ceilings?`),
-      risk_lens: sanitizeAiSlop(`The RBI's focus on large exposure governance for infrastructure financiers reinforces systemic financial stability, as reported by ${pub}.
+      risk_lens: sanitizeAiSlop(`Tighter large exposure governance for infrastructure financiers reinforces systemic financial stability and promotes disciplined capital syndication.
 
 Risk committees must ensure automated group exposure tracking and real-time capital adequacy monitoring across all large-ticket infrastructure disbursements.
 
@@ -369,36 +347,15 @@ How will tightened large exposure norms influence consortium lending and debt sy
     };
   }
 
-  // 8. STAR HOUSING FINANCE & RBI DIRECTORS APPROVAL
-  if (hLower.includes("star housing") || (hLower.includes("housing finance") && hLower.includes("non-executive directors"))) {
-    return {
-      architectural_take: sanitizeAiSlop(`Star Housing Finance has approached the Reserve Bank of India seeking regulatory approval for the appointment of additional Non-Executive Directors, reported by ${pub}. Strengthening board-level governance and independent oversight is a vital step as housing finance companies scale their affordable mortgage portfolios across Tier-2 and Tier-3 geographies.
-
-For expanding HFCs, a strong board with seasoned BFSI leadership provides strategic direction in risk governance, asset-liability management (ALM), and low-cost debt raising.
-
-How are growing Housing Finance Companies structuring their board committees to support multi-state portfolio expansion?`),
-      risk_lens: sanitizeAiSlop(`Regulatory oversight over board appointments in HFCs underscores the RBI's emphasis on ‘Fit and Proper’ governance criteria for non-bank lenders, as highlighted by ${pub}.
-
-Risk and nomination committees must ensure prospective directors bring deep expertise in credit risk, audit oversight, and regulatory compliance to guide institutional growth.
-
-What key governance competencies should specialized mortgage lenders prioritize when strengthening their board of directors?`),
-      strategic_outlook: sanitizeAiSlop(`Affordable housing finance remains a powerful engine of social mobility and long-term retail credit compounding in India.
-
-HFCs that build robust corporate governance and transparent underwriting frameworks will attract patient institutional capital and credit rating upgrades.
-
-How do you foresee the competitive positioning of specialized HFCs evolving alongside large public and private commercial banks in affordable housing?`)
-    };
-  }
-
   // 9. CREDIT CARD MONTHLY SPENDS ABOVE ₹2 TRILLION
   if (hLower.includes("credit card") && (hLower.includes("2 trillion") || hLower.includes("spends above"))) {
     return {
-      architectural_take: sanitizeAiSlop(`Monthly credit card spending in India has crossed ₹2 trillion for the third consecutive month, reported by ${pub}. This sustained milestone reflects the rapid digitization of consumer commerce, festive consumption momentum, and expanding acceptance of digital credit rails across retail, travel, and utility payments.
+      architectural_take: sanitizeAiSlop(`Monthly credit card spending in India sustaining above ₹2 trillion reflects the rapid formalization of consumer payments and the structural shift toward digital credit rails across retail, travel, and e-commerce. Consumer preference for rewards, deferred interest, and instant merchant checkouts continues to fuel high transaction velocity.
 
-To support surging transaction volumes, issuing banks are modernizing payment switches and fraud detection engines to process millions of transactions per second with sub-second latency.
+To support escalating transaction volumes, card-issuing banks must modernize core payment switches and fraud scoring engines to evaluate millions of transactions per second with sub-second latency.
 
 How are card issuers upgrading core payment processing architecture to support escalating transaction volumes while maintaining sub-second fraud scoring?`),
-      risk_lens: sanitizeAiSlop(`While record credit card spending signals strong consumer confidence, risk teams must closely track revolving balances, debt-to-income ratios, and early delinquency signals across retail cardholders, as reported by ${pub}.
+      risk_lens: sanitizeAiSlop(`While record credit card spending signals strong consumer confidence, risk teams must closely track revolving balances, debt-to-income ratios, and early delinquency signals across retail cardholders.
 
 Credit committees must ensure multi-bureau customer indebtedness verification and risk-based credit limit assignments to manage unsecured portfolio risk.
 
@@ -414,12 +371,12 @@ How do you see the co-existence of credit cards and Credit Line on UPI shaping c
   // 10. BANK CREDIT GROWTH OUTPACES DEPOSITS / LDR HIGH (EAC-PM, BERNSTEIN, BOFA, ETBFSI)
   if (hLower.includes("credit growth") && (hLower.includes("deposit") || hLower.includes("ldr") || hLower.includes("20%")) || hLower.includes("eac-pm") || hLower.includes("lending faster than borrowing")) {
     return {
-      architectural_take: sanitizeAiSlop(`Indian banking credit growth has reached multi-year highs near 20% YoY, outpacing deposit accretion and pushing Loan-to-Deposit Ratios (LDR) near decade highs, reported by ${pub}. The divergence between credit demand and deposit mobilization is prompting policy discussions, with the EAC-PM and analysts noting the urgent need for enhanced retail deposit mobilization.
+      architectural_take: sanitizeAiSlop(`Indian banking credit growth continuing to outpace deposit mobilization has pushed Loan-to-Deposit Ratios (LDR) near decade highs. This divergence places significant pressure on Net Interest Margins (NIM) and limits banks' ability to sustain 15%+ credit growth without aggressively raising term deposit rates.
 
 To manage LDR pressure, banks are optimizing Asset-Liability Management (ALM) workflows and leveraging digital onboarding channels to accelerate low-cost CASA and term deposit acquisition.
 
 How is your institution modernizing digital deposit origination to support aggressive credit growth targets?`),
-      risk_lens: sanitizeAiSlop(`Elevated Loan-to-Deposit Ratios (LDR) across commercial banks require heightened liquidity risk surveillance and disciplined balance sheet pricing, as detailed by ${pub}.
+      risk_lens: sanitizeAiSlop(`Elevated Loan-to-Deposit Ratios (LDR) across commercial banks require heightened liquidity risk surveillance and disciplined balance sheet pricing.
 
 Asset-Liability Committees (ALCO) must balance loan growth ambitions with prudent liquidity coverage ratios (LCR) and counter-cyclical buffers to prevent margin compression.
 
@@ -432,21 +389,20 @@ How do you expect commercial banks to recalibrate lending rates and deposit mobi
     };
   }
 
-  // 11. GENERAL DYNAMIC GROUNDED SYNTHESIS (FOR ALL OTHER FINANCIAL NEWS)
-  // Extracts the specific facts, headline, entities, and metrics from THAT article
-  const leadSubject = h.replace(/^(RBI|State Bank of India|HDFC Bank|Axis Bank|NBFCs?|Banks?)\s+/i, "").trim();
+  // 11. GENERAL DYNAMIC GROUNDED SYNTHESIS (FOR ALL OTHER FINANCIAL NEWS - 100% FIRST PERSON POV)
+  const cleanHeadline = h.replace(/[^\w\s.,'’"?!-]/g, ' ').replace(/\s+/g, ' ').trim();
   return {
-    architectural_take: sanitizeAiSlop(`Recent financial reporting from ${pub} regarding "${h}"${metricSnippet} highlights significant developments in India's banking and credit landscape.
+    architectural_take: sanitizeAiSlop(`The structural developments surrounding "${cleanHeadline}" signal significant operational and policy shifts across India's banking and credit ecosystem. Navigating these changes requires financial institutions to ensure operational agility—aligning internal credit policies, customer onboarding workflows, and core reporting systems with evolving regulatory requirements.
 
-Navigating these shifts requires financial institutions to ensure operational agility—aligning internal credit policies, verification workflows, and core reporting systems with changing market dynamics.
+From a Loan Origination System (LOS) architecture perspective, institutions that deploy modular Business Rules Engines (BRE) and real-time data integrations can adapt credit policies in hours rather than waiting for multi-week development sprints.
 
-How is your institution adapting its operational and product strategy in response to these developments highlighted by ${pub}?`),
-    risk_lens: sanitizeAiSlop(`The development reported by ${pub} regarding "${h}" underscores the importance of proactive risk management and underwriting discipline across institutional portfolios.
+How is your institution adapting its operational and product strategy in response to these structural market developments?`),
+    risk_lens: sanitizeAiSlop(`Evolving market developments around "${cleanHeadline}" underscore the necessity for proactive risk governance and disciplined underwriting across institutional portfolios.
 
-Risk committees must prioritize early-warning behavioral signals, robust counterparty evaluation, and prudent balance sheet buffers to ensure long-term portfolio resilience.
+Risk committees must prioritize early-warning behavioral telemetry, comprehensive counterparty evaluation, and prudent balance sheet buffers to ensure portfolio resilience across interest rate cycles.
 
 What core risk indicators and governance frameworks is your leadership team monitoring most closely regarding this development?`),
-    strategic_outlook: sanitizeAiSlop(`The insights published by ${pub} on "${h}" reflect the continued evolution and formalization of India's financial sector.
+    strategic_outlook: sanitizeAiSlop(`The ongoing evolution surrounding "${cleanHeadline}" reflects the broader formalization and institutional maturity of India's financial sector.
 
 Institutions that harmonize progressive business strategy with strong corporate governance and customer-centric practices will capture sustainable market leadership.
 
