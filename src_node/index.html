@@ -442,6 +442,39 @@
       </ul>
     </div>
 
+    <!-- Executive Crawl Completion Toast Notification -->
+    <div id="crawlCompletionToast" class="toast text-white bg-dark border border-secondary shadow-lg position-fixed top-0 end-0 m-3" style="z-index: 99999; min-width: 340px; border-radius: 14px; display: none;" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header bg-dark text-white border-bottom border-secondary d-flex justify-content-between p-3 rounded-top-4">
+        <div class="d-flex align-items-center gap-2">
+          <span class="fs-5">🎯</span>
+          <strong class="me-auto text-light">Lending Intelligence Scan Finished</strong>
+        </div>
+        <button type="button" class="btn-close btn-close-white" onclick="dismissCompletionToast()"></button>
+      </div>
+      <div class="toast-body p-3 bg-dark rounded-bottom-4">
+        <div class="mb-2 fw-bold text-success fs-6" id="toastTotalFound">+0 Fresh Intelligence Updates Ingested</div>
+        <div class="d-flex flex-column gap-2 small mb-3 text-light bg-black bg-opacity-25 p-2 rounded-3 border border-secondary">
+          <div class="d-flex justify-content-between align-items-center">
+            <span>📰 Market &amp; Funding News:</span>
+            <span class="badge bg-info text-dark fw-bold" id="toastNewsBadge">+0</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <span>🏛️ Boardroom &amp; Governance:</span>
+            <span class="badge bg-warning text-dark fw-bold" id="toastGovBadge">+0</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <span>⚡ Lending &amp; Competitors:</span>
+            <span class="badge bg-primary fw-bold" id="toastLendingBadge">+0</span>
+          </div>
+        </div>
+        <div class="d-flex gap-2">
+          <button class="btn btn-xs btn-outline-info text-white flex-grow-1 fw-bold" onclick="switchToTab('tab-news-btn'); dismissCompletionToast();">📰 Review News</button>
+          <button class="btn btn-xs btn-outline-warning text-white flex-grow-1 fw-bold" onclick="switchToTab('tab-governance-btn'); dismissCompletionToast();">🏛️ Governance</button>
+          <button class="btn btn-xs btn-outline-primary text-white flex-grow-1 fw-bold" onclick="switchToTab('tab-review-btn'); dismissCompletionToast();">⚡ Lending</button>
+        </div>
+      </div>
+    </div>
+
     <!-- Tab Content (100% Identical to Web) -->
     <div class="tab-content" id="mainTabContent">
       
@@ -1807,9 +1840,71 @@
             pollInterval = null;
             refreshActiveTab();
             loadStats();
+            if (job && (job.status?.includes("Completed") || job.justCompleted || job.newPosts !== undefined)) {
+              showCrawlCompletionNotification(job);
+            }
           }
         } catch (e) {}
       }, 1500);
+    }
+
+    function dismissCompletionToast() {
+      const toast = document.getElementById("crawlCompletionToast");
+      if (toast) {
+        toast.classList.remove("show");
+        toast.style.display = "none";
+      }
+    }
+
+    function switchToTab(tabBtnId) {
+      const btn = document.getElementById(tabBtnId);
+      if (btn) {
+        const tabTrigger = new bootstrap.Tab(btn);
+        tabTrigger.show();
+        btn.click();
+      }
+    }
+
+    let lastCompletedJobTimestamp = null;
+
+    function showCrawlCompletionNotification(job) {
+      if (!job) return;
+      if (lastCompletedJobTimestamp && lastCompletedJobTimestamp === job.timestamp) return;
+      lastCompletedJobTimestamp = job.timestamp;
+
+      const b = job.breakdown || { news: 0, governance: 0, lending: 0 };
+      const total = typeof job.newPosts === 'number' ? job.newPosts : ((b.news || 0) + (b.governance || 0) + (b.lending || 0));
+
+      // 1. Render UI Toast
+      const toast = document.getElementById("crawlCompletionToast");
+      if (toast) {
+        document.getElementById("toastTotalFound").innerText = total > 0 
+          ? `🎉 Discovered +${total} Fresh Updates!` 
+          : `✅ Scan Complete (All Sources Monitored)`;
+        document.getElementById("toastNewsBadge").innerText = `+${b.news || 0} articles`;
+        document.getElementById("toastGovBadge").innerText = `+${b.governance || 0} posts`;
+        document.getElementById("toastLendingBadge").innerText = `+${b.lending || 0} posts`;
+        
+        toast.style.display = "block";
+        toast.classList.add("show");
+        
+        // Auto-dismiss after 15 seconds
+        setTimeout(() => dismissCompletionToast(), 15000);
+      }
+
+      // 2. Trigger Native Web / Mobile PWA Notification if supported
+      try {
+        if ("Notification" in window) {
+          if (Notification.permission === "granted") {
+            new Notification("🎯 Scan Complete: New Lending Updates", {
+              body: `Discovered +${total} new items across Market News (+${b.news || 0}), Governance (+${b.governance || 0}) & Lending (+${b.lending || 0}).`,
+              icon: "/icon-192.png"
+            });
+          } else if (Notification.permission !== "denied") {
+            Notification.requestPermission();
+          }
+        }
+      } catch (e) {}
     }
 
     async function forceResetScraper() {

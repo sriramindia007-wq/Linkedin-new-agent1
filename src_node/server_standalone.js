@@ -104,7 +104,9 @@ async function triggerBackgroundScrape(sourceIds = null, maxPosts = 2, label = "
   };
 
   (async () => {
-    let count = 0;
+    let newsCount = 0;
+    let govCount = 0;
+    let lendingCount = 0;
     try {
       // 1. STAGE 1: Market & Financial News (Instant Real-time Streaming)
       try {
@@ -112,10 +114,11 @@ async function triggerBackgroundScrape(sourceIds = null, maxPosts = 2, label = "
         const { fetchAllExternalNews } = safeRequire("externalNewsEngine");
         if (fetchAllExternalNews) {
           const newsRes = await fetchAllExternalNews();
-          if (newsRes && newsRes.count) count += newsRes.count;
+          if (newsRes && typeof newsRes.count === "number") newsCount = newsRes.count;
         }
         activeScrapeJob.progress = 10;
-        activeScrapeJob.newPosts = count;
+        activeScrapeJob.newPosts = newsCount;
+        activeScrapeJob.breakdown = { news: newsCount, governance: 0, lending: 0 };
       } catch (e) {
         console.error("[Crawl Engine] Market News error:", e.message);
       }
@@ -126,10 +129,11 @@ async function triggerBackgroundScrape(sourceIds = null, maxPosts = 2, label = "
         const { scrapeBoardAndGovernance } = safeRequire("boardGovernanceAgent");
         if (scrapeBoardAndGovernance) {
           const govRes = await scrapeBoardAndGovernance();
-          if (typeof govRes === "number") count += govRes;
+          if (typeof govRes === "number") govCount = govRes;
         }
         activeScrapeJob.progress = 35;
-        activeScrapeJob.newPosts = count;
+        activeScrapeJob.newPosts = newsCount + govCount;
+        activeScrapeJob.breakdown = { news: newsCount, governance: govCount, lending: 0 };
       } catch (e) {
         console.error("[Crawl Engine] Governance error:", e.message);
       }
@@ -142,14 +146,15 @@ async function triggerBackgroundScrape(sourceIds = null, maxPosts = 2, label = "
             activeScrapeJob.progress = 35 + current;
             activeScrapeJob.total = 35 + total;
             activeScrapeJob.currentSource = srcName || "Scanning Lending Ecosystem...";
-            activeScrapeJob.newPosts = count;
+            activeScrapeJob.newPosts = newsCount + govCount + lendingCount;
           });
-          count += scraperCount;
+          if (typeof scraperCount === "number") lendingCount = scraperCount;
         }
       } catch (e) {
         console.error("[Crawl Engine] LinkedIn scraper error:", e.message);
       }
 
+      const totalNew = newsCount + govCount + lendingCount;
       lastScrapeTime = new Date().toISOString();
       const elapsedSec = Math.round((Date.now() - startTime) / 1000);
       activeScrapeJob = {
@@ -157,12 +162,18 @@ async function triggerBackgroundScrape(sourceIds = null, maxPosts = 2, label = "
         progress: activeScrapeJob.total,
         total: activeScrapeJob.total,
         currentSource: "Complete",
-        newPosts: count,
+        newPosts: totalNew,
+        breakdown: {
+          news: newsCount,
+          governance: govCount,
+          lending: lendingCount
+        },
         status: `Completed (${label}) in ${elapsedSec}s`,
         timestamp: lastScrapeTime,
-        elapsedSeconds: elapsedSec
+        elapsedSeconds: elapsedSec,
+        justCompleted: true
       };
-      console.log(`✅ [CRAWL FINISHED] Scraped all channels in ${elapsedSec}s. Ingested ${count} new qualifying items.`);
+      console.log(`✅ [CRAWL FINISHED] Scraped all channels in ${elapsedSec}s. Breakdown: News (+${newsCount}), Governance (+${govCount}), Lending (+${lendingCount}). Total: +${totalNew}`);
     } catch (err) {
       console.error(`❌ [CRAWL FAILED] Error:`, err.message);
       activeScrapeJob = {
@@ -170,7 +181,8 @@ async function triggerBackgroundScrape(sourceIds = null, maxPosts = 2, label = "
         progress: activeScrapeJob.progress || 0,
         total: activeScrapeJob.total || 0,
         currentSource: "Error encountered",
-        newPosts: count || 0,
+        newPosts: (newsCount + govCount + lendingCount) || 0,
+        breakdown: { news: newsCount, governance: govCount, lending: lendingCount },
         status: `Error: ${err.message}`,
         timestamp: new Date().toISOString()
       };
