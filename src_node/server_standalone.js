@@ -134,22 +134,23 @@ async function triggerNewsCrawlJob(label = "Market News") {
   return activeScrapeJob;
 }
 
-// 2. Specialized Agent: Boardroom & Governance Crawler (31 Curated Leadership Sources, ~30s)
+// 2. Specialized Agent: Boardroom & Governance Crawler (All 161+ IICA & Independent Director Sources)
 async function triggerGovernanceCrawlJob(label = "Boardroom & Governance") {
   if (activeScrapeJob.isRunning) {
     console.log(`ℹ️ [Governance Agent] Crawler already running: "${activeScrapeJob.status}".`);
     return activeScrapeJob;
   }
   const startTime = Date.now();
-  const { GOVERNANCE_SOURCES } = safeRequire("boardGovernanceAgent") || {};
-  const totalCount = (GOVERNANCE_SOURCES && GOVERNANCE_SOURCES.length) || 31;
+  const { getAllGovernanceSources, scrapeBoardAndGovernance } = safeRequire("boardGovernanceAgent") || {};
+  const allGovSources = getAllGovernanceSources ? getAllGovernanceSources() : [];
+  const totalCount = allGovSources.length + 1; // All sources + Live IICA Search stream
 
   activeScrapeJob = {
     isRunning: true,
     channel: "GOVERNANCE",
     progress: 0,
     total: totalCount,
-    currentSource: "Scanning IICA, IOD, SID & Curated Independent Directors...",
+    currentSource: `Scanning ${allGovSources.length} IICA & Curated Independent Directors...`,
     newPosts: 0,
     status: `Running (${label})`,
     startTime: new Date().toISOString()
@@ -158,9 +159,12 @@ async function triggerGovernanceCrawlJob(label = "Boardroom & Governance") {
   (async () => {
     let count = 0;
     try {
-      const { scrapeBoardAndGovernance } = safeRequire("boardGovernanceAgent");
       if (scrapeBoardAndGovernance) {
-        const res = await scrapeBoardAndGovernance();
+        const res = await scrapeBoardAndGovernance((current, total, srcName) => {
+          activeScrapeJob.progress = current;
+          activeScrapeJob.total = total;
+          activeScrapeJob.currentSource = srcName || "Scanning IICA & Boardroom Leaders...";
+        });
         count = typeof res === "number" ? res : (res?.count || 0);
       }
       const elapsedSec = Math.round((Date.now() - startTime) / 1000);
@@ -168,8 +172,8 @@ async function triggerGovernanceCrawlJob(label = "Boardroom & Governance") {
       activeScrapeJob = {
         isRunning: false,
         channel: "GOVERNANCE",
-        progress: totalCount,
-        total: totalCount,
+        progress: activeScrapeJob.total,
+        total: activeScrapeJob.total,
         currentSource: "Complete",
         newPosts: count,
         breakdown: { news: 0, governance: count, lending: 0 },
@@ -178,7 +182,7 @@ async function triggerGovernanceCrawlJob(label = "Boardroom & Governance") {
         elapsedSeconds: elapsedSec,
         justCompleted: true
       };
-      console.log(`✅ [Boardroom Agent] Scan complete in ${elapsedSec}s: +${count} posts.`);
+      console.log(`✅ [Boardroom Agent] Scan complete in ${elapsedSec}s across ${totalCount} sources: +${count} posts.`);
     } catch (e) {
       activeScrapeJob.status = `Error: ${e.message}`;
       activeScrapeJob.isRunning = false;
