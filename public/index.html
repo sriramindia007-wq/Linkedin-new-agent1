@@ -1664,15 +1664,12 @@
       }
       try {
         await apiFetch("/api/trigger-news-scrape", { method: "POST" });
-        setTimeout(() => {
-          loadNewsPosts();
-          if (btn) {
-            btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-rotate me-1"></i> Refresh Market News';
-          }
-        }, 3000);
+        startScrapeProgressPolling();
       } catch (e) {
-        if (btn) btn.disabled = false;
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-rotate me-1"></i> Refresh Market News';
+        }
       }
     }
 
@@ -1684,15 +1681,12 @@
       }
       try {
         await apiFetch("/api/trigger-governance-scrape", { method: "POST" });
-        setTimeout(() => {
-          loadGovernancePosts();
-          if (btn) {
-            btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-rotate me-1"></i> Refresh Governance Intel';
-          }
-        }, 3000);
+        startScrapeProgressPolling();
       } catch (e) {
-        if (btn) btn.disabled = false;
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-rotate me-1"></i> Refresh Governance Intel';
+        }
       }
     }
 
@@ -1741,7 +1735,7 @@
         }
 
         const prog = job.progress || 0;
-        const tot = job.total || 596;
+        const tot = job.total || 180;
         const pending = Math.max(0, tot - prog);
         const percent = Math.min(99, Math.round((prog / Math.max(1, tot)) * 100));
 
@@ -1776,6 +1770,16 @@
           btn.disabled = false;
           btn.innerHTML = '<i class="fa-solid fa-play me-1"></i> Run';
         }
+        const btnNews = document.getElementById("btnRefreshNews");
+        if (btnNews) {
+          btnNews.disabled = false;
+          btnNews.innerHTML = '<i class="fa-solid fa-rotate me-1"></i> Refresh Market News';
+        }
+        const btnGov = document.getElementById("btnRefreshGovernance");
+        if (btnGov) {
+          btnGov.disabled = false;
+          btnGov.innerHTML = '<i class="fa-solid fa-rotate me-1"></i> Refresh Governance Intel';
+        }
       }
     }
 
@@ -1791,20 +1795,21 @@
           updateTelemetryUI(job);
 
           if (job && job.isRunning) {
-            // Live Dynamic Stream Ingestion: Stream newly discovered posts immediately into the active view!
+            // Live Dynamic Stream Ingestion: Stream newly discovered posts immediately into whichever tab is currently open!
             const activeTab = document.querySelector("#mainTab .nav-link.active")?.getAttribute("id");
             if (activeTab === "tab-review-btn") loadPendingPosts();
+            else if (activeTab === "tab-news-btn") loadNewsPosts();
             else if (activeTab === "tab-governance-btn") loadGovernancePosts();
             else if (activeTab === "tab-competitors-btn") loadCompetitorPosts();
             loadStats();
           } else {
             clearInterval(pollInterval);
             pollInterval = null;
-            loadPendingPosts();
+            refreshActiveTab();
             loadStats();
           }
         } catch (e) {}
-      }, 2000);
+      }, 1500);
     }
 
     async function forceResetScraper() {

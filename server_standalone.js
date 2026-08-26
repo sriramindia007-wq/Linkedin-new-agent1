@@ -81,18 +81,23 @@ function parseBody(req) {
   });
 }
 
-// Background Scrape Runner (Non-blocking & Ultra-Reliable)
+// Background Scrape Runner (Non-blocking, Streaming & Multi-Channel)
 async function triggerBackgroundScrape(sourceIds = null, maxPosts = 2, label = "Manual") {
   if (activeScrapeJob.isRunning) {
+    console.log(`ℹ️ [Crawl Engine] Crawl already running: "${activeScrapeJob.status}". Attaching caller.`);
     return activeScrapeJob;
   }
 
   const startTime = Date.now();
+  const allSources = loadSources();
+  const targetSources = sourceIds ? allSources.filter(s => sourceIds.includes(s.id)) : allSources;
+  const totalCount = targetSources.length + 35; // All sources + 4 News Streams + 31 Governance Leaders
+
   activeScrapeJob = {
     isRunning: true,
     progress: 0,
-    total: sourceIds ? sourceIds.length : (loadSources().length || 145),
-    currentSource: "Initializing Ultra-Reliable Engine...",
+    total: totalCount,
+    currentSource: "Initializing Multi-Channel Lending Intelligence Engine...",
     newPosts: 0,
     status: `Running (${label})`,
     startTime: new Date().toISOString()
@@ -101,39 +106,65 @@ async function triggerBackgroundScrape(sourceIds = null, maxPosts = 2, label = "
   (async () => {
     let count = 0;
     try {
-      const { runScraper } = safeRequire("scraper");
-      count = await runScraper(sourceIds, maxPosts, (current, total, srcName) => {
-        activeScrapeJob.progress = current;
-        activeScrapeJob.total = total;
-        activeScrapeJob.currentSource = srcName;
-      });
-
-      // Also automatically run External News & Board Governance pipelines in background
+      // 1. STAGE 1: Market & Financial News (Instant Real-time Streaming)
       try {
+        activeScrapeJob.currentSource = "Crawling Market News (Mint, ETBFSI, Financial Express, Business Standard)...";
         const { fetchAllExternalNews } = safeRequire("externalNewsEngine");
-        if (fetchAllExternalNews) await fetchAllExternalNews();
-      } catch (e) {}
+        if (fetchAllExternalNews) {
+          const newsRes = await fetchAllExternalNews();
+          if (newsRes && newsRes.count) count += newsRes.count;
+        }
+        activeScrapeJob.progress = 10;
+        activeScrapeJob.newPosts = count;
+      } catch (e) {
+        console.error("[Crawl Engine] Market News error:", e.message);
+      }
 
+      // 2. STAGE 2: Boardroom & Governance Leaders
       try {
+        activeScrapeJob.currentSource = "Crawling Boardroom & Governance Leaders (IICA, IOD, Independent Directors)...";
         const { scrapeBoardAndGovernance } = safeRequire("boardGovernanceAgent");
-        if (scrapeBoardAndGovernance) await scrapeBoardAndGovernance();
-      } catch (e) {}
+        if (scrapeBoardAndGovernance) {
+          const govRes = await scrapeBoardAndGovernance();
+          if (typeof govRes === "number") count += govRes;
+        }
+        activeScrapeJob.progress = 35;
+        activeScrapeJob.newPosts = count;
+      } catch (e) {
+        console.error("[Crawl Engine] Governance error:", e.message);
+      }
+
+      // 3. STAGE 3: Full LinkedIn Sources Parallel Sweep
+      try {
+        const { runScraper } = safeRequire("scraper");
+        if (runScraper) {
+          const scraperCount = await runScraper(sourceIds, maxPosts, (current, total, srcName) => {
+            activeScrapeJob.progress = 35 + current;
+            activeScrapeJob.total = 35 + total;
+            activeScrapeJob.currentSource = srcName || "Scanning Lending Ecosystem...";
+            activeScrapeJob.newPosts = count;
+          });
+          count += scraperCount;
+        }
+      } catch (e) {
+        console.error("[Crawl Engine] LinkedIn scraper error:", e.message);
+      }
 
       lastScrapeTime = new Date().toISOString();
       const elapsedSec = Math.round((Date.now() - startTime) / 1000);
       activeScrapeJob = {
         isRunning: false,
-        progress: activeScrapeJob.total || current,
-        total: activeScrapeJob.total || current,
+        progress: activeScrapeJob.total,
+        total: activeScrapeJob.total,
         currentSource: "Complete",
         newPosts: count,
         status: `Completed (${label}) in ${elapsedSec}s`,
         timestamp: lastScrapeTime,
         elapsedSeconds: elapsedSec
       };
-      console.log(`✅ [SCRAPER FINISHED] Scraped ${activeScrapeJob.total} sources in ${elapsedSec}s. Ingested ${count} new qualifying posts.`);
+      console.log(`✅ [CRAWL FINISHED] Scraped all channels in ${elapsedSec}s. Ingested ${count} new qualifying items.`);
     } catch (err) {
-      console.error(`❌ [SCRAPER FAILED] Error:`, err.message);
+      console.error(`❌ [CRAWL FAILED] Error:`, err.message);
       activeScrapeJob = {
         isRunning: false,
         progress: activeScrapeJob.progress || 0,
@@ -478,13 +509,13 @@ How is your team currently handling data reconciliation when telemetry streams s
     }
     const maxAge = 3 * 24 * 60 * 60 * 1000;
     const now = Date.now();
-    const noiseRegex = /padres|baseball|rbi single|rbi double|homerun|cricket|marathon|fcnr|fixed deposit|nri deposit|celebration|bollywood|horoscope|ninth inning|somerset|dsl padres|border talks|space economy/i;
+    const noiseRegex = /\b(padres|baseball|rbi single|rbi double|homerun|cricket|marathon|fcnr|fixed deposit|nri deposit|celebration|bollywood|horoscope|ninth inning|somerset|dsl padres|border talks|space economy|house collapse|collapses|landslide|subsidence|reservoir|dam|earthquake|flood|drown|accident|murder|arrest|crime|police|court verdict|weather|rain|snow|temperature|road accident|highway accident|traffic|temple|festival|cinema|movie|actor|actress|box office|web series|gold rate today|gold price in chennai|gold jewelry|petrol|diesel)\b/i;
 
     const filtered = (newsArticles || []).filter(n => {
       if (n.status === "REJECTED" || n.status === "POSTED") return false;
       const pubTime = new Date(n.published_at || n.scraped_at).getTime();
       if ((now - pubTime) > maxAge) return false;
-      if (noiseRegex.test(n.headline + ' ' + (n.publisher || ''))) return false;
+      if (noiseRegex.test((n.headline + ' ' + (n.publisher || '')).toLowerCase())) return false;
       return true;
     });
 
@@ -493,12 +524,75 @@ How is your team currently handling data reconciliation when telemetry streams s
 
   if (pathname === "/api/trigger-news-scrape" && method === "POST") {
     try {
-      const { fetchAllExternalNews } = safeRequire("externalNewsEngine");
-      if (fetchAllExternalNews) {
-        const result = await fetchAllExternalNews();
-        return sendJSON(res, { success: true, message: `Fetched ${result.count || 0} fresh articles!`, result });
+      if (activeScrapeJob.isRunning) {
+        return sendJSON(res, { success: true, message: "Crawl already running in background", job: activeScrapeJob });
       }
-      return sendJSON(res, { success: false, error: "News engine not found" }, 500);
+
+      activeScrapeJob = {
+        isRunning: true,
+        progress: 0,
+        total: 10,
+        currentSource: "Scanning Live Indian Financial News (Mint, ETBFSI, Financial Express, Business Standard)...",
+        newPosts: 0,
+        status: "Running (Market News)",
+        startTime: new Date().toISOString()
+      };
+
+      (async () => {
+        try {
+          const { fetchAllExternalNews } = safeRequire("externalNewsEngine");
+          if (fetchAllExternalNews) {
+            const result = await fetchAllExternalNews();
+            activeScrapeJob.newPosts = result?.count || 0;
+          }
+        } catch (e) {
+          console.error("News crawl error:", e.message);
+        } finally {
+          activeScrapeJob.isRunning = false;
+          activeScrapeJob.progress = activeScrapeJob.total;
+          activeScrapeJob.status = "Completed (Market News)";
+        }
+      })();
+
+      return sendJSON(res, { success: true, message: "Market News crawl started in background", job: activeScrapeJob });
+    } catch (e) {
+      return sendJSON(res, { success: false, error: e.message }, 500);
+    }
+  }
+
+  if (pathname === "/api/trigger-governance-scrape" && method === "POST") {
+    try {
+      if (activeScrapeJob.isRunning) {
+        return sendJSON(res, { success: true, message: "Crawl already running in background", job: activeScrapeJob });
+      }
+
+      activeScrapeJob = {
+        isRunning: true,
+        progress: 0,
+        total: 31,
+        currentSource: "Scanning Boardroom & Governance Leaders (IICA, IOD, Independent Directors)...",
+        newPosts: 0,
+        status: "Running (Board Governance)",
+        startTime: new Date().toISOString()
+      };
+
+      (async () => {
+        try {
+          const { scrapeBoardAndGovernance } = safeRequire("boardGovernanceAgent");
+          if (scrapeBoardAndGovernance) {
+            const count = await scrapeBoardAndGovernance();
+            activeScrapeJob.newPosts = typeof count === "number" ? count : 0;
+          }
+        } catch (e) {
+          console.error("Governance crawl error:", e.message);
+        } finally {
+          activeScrapeJob.isRunning = false;
+          activeScrapeJob.progress = activeScrapeJob.total;
+          activeScrapeJob.status = "Completed (Board Governance)";
+        }
+      })();
+
+      return sendJSON(res, { success: true, message: "Board Governance crawl started in background", job: activeScrapeJob });
     } catch (e) {
       return sendJSON(res, { success: false, error: e.message }, 500);
     }
