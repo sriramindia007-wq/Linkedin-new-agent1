@@ -1153,6 +1153,7 @@
     function renderNewsCard(n) {
       window.__postComments[n.id] = n.generated_takes || {};
       const takes = n.generated_takes || {};
+      const defaultTake = takes.architectural_take || takes.risk_lens || takes.strategic_outlook || "";
       const fullRepostDraft = `${defaultTake}\n\n📌 Detailed article link and source reporting shared in the first comment below 👇\n\n#DigitalLending #Fintech #BFSI #Banking #CreditRisk #CorporateGovernance`;
 
       return `
