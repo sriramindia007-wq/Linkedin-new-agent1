@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { generateCommentsForPost } = require('./commentGenerator');
 const { calculateRelevance } = require('./relevanceScorer');
-const { loadPosts, savePosts, postExists } = require('./db');
+const { loadPosts, savePosts, postExists, insertPost } = require('./db');
 
 const GOVERNANCE_SOURCES = [
   { name: "Indian Institute of Corporate Affairs (IICA)", url: "https://www.linkedin.com/company/iica-official/posts/", category: "Board Leadership & Governance" },
@@ -117,7 +117,7 @@ async function scrapeBoardAndGovernance() {
             generated_comments: comments
           };
 
-          currentPosts.unshift(postObj);
+          insertPost(postObj);
           addedCount++;
         }
       } catch (err) {
@@ -131,10 +131,9 @@ async function scrapeBoardAndGovernance() {
   }
 
   if (addedCount > 0) {
-    savePosts(currentPosts);
     console.log(`🎉 [Governance Agent] Ingested ${addedCount} fresh Boardroom & Governance posts!`);
   }
-  return { success: true, addedCount };
+  return { success: true, count: addedCount, addedCount };
 }
 
 module.exports = {

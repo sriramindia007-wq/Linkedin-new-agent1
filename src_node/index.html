@@ -475,61 +475,61 @@
       </div>
     </div>
 
+    <!-- Executive Live Scraper Telemetry & Progress Card (Visible Across All Tabs) -->
+    <div id="scrapeTelemetryCard" class="card p-3 mb-4 border-0 shadow-sm rounded-4 bg-white d-none">
+      <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+        <div class="d-flex align-items-center gap-2">
+          <span class="spinner-grow spinner-grow-sm text-primary" role="status"></span>
+          <strong class="text-dark fs-6" id="telemetryStatusTitle">⚡ Live Intelligence Crawler Active</strong>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="badge bg-primary fs-6 px-3 py-1" id="telemetryPercentBadge">0%</span>
+          <button class="btn btn-xs btn-outline-danger fw-bold" onclick="forceResetScraper()" title="Stop Crawl">
+            <i class="fa-solid fa-stop me-1"></i> Stop Crawl
+          </button>
+        </div>
+      </div>
+
+      <!-- Animated Progress Bar -->
+      <div class="progress mb-3" style="height: 10px; border-radius: 10px; background-color: #f1f5f9;">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" id="telemetryProgressBar" role="progressbar" style="width: 0%;"></div>
+      </div>
+
+      <!-- 4 Live Telemetry Chips (Time Remaining, Sources Scanned, Pending, Target) -->
+      <div class="row g-2 text-center small">
+        <div class="col-6 col-md-3">
+          <div class="p-2 bg-light rounded-3 border">
+            <div class="text-muted small fw-bold text-uppercase">Sources Scanned</div>
+            <div class="fw-bold text-dark fs-6" id="telemetrySourcesCount">0 / 180</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="p-2 bg-light rounded-3 border">
+            <div class="text-muted small fw-bold text-uppercase">Sources Pending</div>
+            <div class="fw-bold text-warning fs-6" id="telemetrySourcesPending">180 left</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="p-2 bg-light rounded-3 border">
+            <div class="text-muted small fw-bold text-uppercase">Time Remaining</div>
+            <div class="fw-bold text-info fs-6" id="telemetryEstTime">Estimating...</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="p-2 bg-light rounded-3 border">
+            <div class="text-muted small fw-bold text-uppercase">Active Channel / Target</div>
+            <div class="fw-bold text-primary text-truncate small" id="telemetryCurrentTarget">Initializing...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Tab Content (100% Identical to Web) -->
     <div class="tab-content" id="mainTabContent">
       
       <!-- 1. Review & Approve Tab -->
       <div class="tab-pane fade show active" id="tab-review" role="tabpanel">
         
-        <!-- Executive Live Scraper Telemetry & Progress Card -->
-        <div id="scrapeTelemetryCard" class="card p-3 mb-4 border-0 shadow-sm rounded-4 bg-white d-none">
-          <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
-            <div class="d-flex align-items-center gap-2">
-              <span class="spinner-grow spinner-grow-sm text-primary" role="status"></span>
-              <strong class="text-dark fs-6" id="telemetryStatusTitle">⚡ Live Scraper Active: Scanning 596 Targets</strong>
-            </div>
-            <div class="d-flex align-items-center gap-2">
-              <span class="badge bg-primary fs-6 px-3 py-1" id="telemetryPercentBadge">0%</span>
-              <button class="btn btn-xs btn-outline-danger fw-bold" onclick="forceResetScraper()" title="Stop Crawl">
-                <i class="fa-solid fa-stop me-1"></i> Stop Crawl
-              </button>
-            </div>
-          </div>
-
-          <!-- Animated Progress Bar -->
-          <div class="progress mb-3" style="height: 10px; border-radius: 10px; background-color: #f1f5f9;">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" id="telemetryProgressBar" role="progressbar" style="width: 0%;"></div>
-          </div>
-
-          <!-- 4 Live Telemetry Chips -->
-          <div class="row g-2 text-center small">
-            <div class="col-6 col-md-3">
-              <div class="p-2 bg-light rounded-3 border">
-                <div class="text-muted small fw-bold text-uppercase">Sources Scanned</div>
-                <div class="fw-bold text-dark fs-6" id="telemetrySourcesCount">0 / 596</div>
-              </div>
-            </div>
-            <div class="col-6 col-md-3">
-              <div class="p-2 bg-light rounded-3 border">
-                <div class="text-muted small fw-bold text-uppercase">Sources Pending</div>
-                <div class="fw-bold text-warning fs-6" id="telemetrySourcesPending">596 left</div>
-              </div>
-            </div>
-            <div class="col-6 col-md-3">
-              <div class="p-2 bg-light rounded-3 border">
-                <div class="text-muted small fw-bold text-uppercase">Time Remaining</div>
-                <div class="fw-bold text-info fs-6" id="telemetryEstTime">Estimating...</div>
-              </div>
-            </div>
-            <div class="col-6 col-md-3">
-              <div class="p-2 bg-light rounded-3 border">
-                <div class="text-muted small fw-bold text-uppercase">Active Target</div>
-                <div class="fw-bold text-primary text-truncate small" id="telemetryCurrentTarget">Initializing...</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div id="postsContainer">
           <div class="text-center py-5 text-muted">
             <div class="spinner-border text-primary mb-2" role="status"></div>

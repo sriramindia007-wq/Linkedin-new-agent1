@@ -219,7 +219,7 @@ async function fetchAllExternalNews() {
           publisher: item.publisher,
           source_name: item.publisher,
           source_category: item.topic,
-          summary: `${item.title} (Reported by ${item.publisher})`,
+          summary: `${item.title}`,
           published_at: item.pubDate,
           scraped_at: new Date().toISOString(),
           status: "PENDING",
@@ -227,7 +227,7 @@ async function fetchAllExternalNews() {
           generated_takes: takes
         };
 
-        currentNews.unshift(articleObj);
+        insertSingleNewsArticle(articleObj);
         newArticlesAdded++;
       }
     } catch (err) {
@@ -235,12 +235,19 @@ async function fetchAllExternalNews() {
     }
   }
 
-  // Keep top 120 recent articles
-  if (currentNews.length > 120) currentNews = currentNews.slice(0, 120);
-  saveMarketNews(currentNews);
+  const finalArchive = loadMarketNews();
+  console.log(`🎉 [External News Engine] Successfully ingested ${newArticlesAdded} fresh real-world lending articles! Total archive: ${finalArchive.length}`);
+  return { success: true, count: newArticlesAdded, total: finalArchive.length };
+}
 
-  console.log(`🎉 [External News Engine] Successfully ingested ${newArticlesAdded} fresh real-world lending articles! Total archive: ${currentNews.length}`);
-  return { success: true, count: newArticlesAdded, total: currentNews.length };
+function insertSingleNewsArticle(articleObj) {
+  const current = loadMarketNews();
+  const exists = current.some(n => n.id === articleObj.id || n.article_url === articleObj.article_url || n.headline === articleObj.headline);
+  if (!exists) {
+    current.unshift(articleObj);
+    if (current.length > 120) current.length = 120;
+    saveMarketNews(current);
+  }
 }
 
 /**
