@@ -1186,16 +1186,38 @@
             <label class="form-label fw-bold small text-muted text-uppercase mb-1">Select Persona Perspective for Repost:</label>
             <div class="d-flex flex-wrap">
               <button type="button" class="style-pill active" id="btn-${n.id}-architectural_take" onclick="selectNewsStyle('${n.id}', 'architectural_take')">
-                💡 Practitioner's LOS Take
+                💡 Core Practitioner Perspective
               </button>
               <button type="button" class="style-pill" id="btn-${n.id}-risk_lens" onclick="selectNewsStyle('${n.id}', 'risk_lens')">
-                ❓ Risk &amp; Governance Lens
+                🛡️ Risk &amp; Governance Lens
               </button>
               <button type="button" class="style-pill" id="btn-${n.id}-strategic_outlook" onclick="selectNewsStyle('${n.id}', 'strategic_outlook')">
-                📊 Market Growth Outlook
+                📈 Strategic Market Outlook
               </button>
             </div>
           </div>
+
+          ${n.generated_takes?.image_url ? `
+            <!-- Auto-Generated B2B Infographic Card Preview -->
+            <div class="mb-3 p-3 bg-light rounded-3 border">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="small fw-bold text-dark text-uppercase"><i class="fa-solid fa-image text-primary me-1"></i> Auto-Attached B2B Visual Card:</span>
+                <div class="d-flex gap-2">
+                  <a href="${n.generated_takes.image_url}" target="_blank" class="btn btn-xs btn-outline-primary fw-bold">
+                    <i class="fa-solid fa-expand me-1"></i> Full Size
+                  </a>
+                  <a href="${n.generated_takes.image_url}" download="linkedin_card_${n.id}.png" class="btn btn-xs btn-outline-secondary fw-bold">
+                    <i class="fa-solid fa-download me-1"></i> Download
+                  </a>
+                </div>
+              </div>
+              <div class="text-center bg-dark p-2 rounded-3">
+                <a href="${n.generated_takes.image_url}" target="_blank">
+                  <img src="${n.generated_takes.image_url}" class="img-fluid rounded border shadow-sm" style="max-height: 240px; width: auto; object-fit: contain;" alt="B2B Authority Card">
+                </a>
+              </div>
+            </div>
+          ` : ''}
 
           <!-- Formatted Standalone Repost Draft -->
           <div class="mb-3">

@@ -210,7 +210,7 @@ async function postCommentToLinkedin(postId, postUrl, commentText) {
   }
 }
 
-async function publishStandalonePostToLinkedIn(postText, sourceLink = "", publisher = "") {
+async function publishStandalonePostToLinkedIn(postText, sourceLink = "", publisher = "", imagePath = "") {
   if (!postText || !postText.trim()) {
     return { success: false, message: "Missing post text content" };
   }
@@ -231,6 +231,25 @@ async function publishStandalonePostToLinkedIn(postText, sourceLink = "", publis
     if (page.url().includes("login") || page.url().includes("authwall")) {
       await context.close();
       return { success: false, message: "LinkedIn session expired or not logged in. Please log in to LinkedIn." };
+    }
+
+    // Optional: Upload B2B visual image card if present
+    if (imagePath && fs.existsSync(imagePath)) {
+      try {
+        console.log(`[Poster] 🖼️ Attaching generated B2B image card: ${imagePath}`);
+        const fileInput = await page.$("input[type='file'][name='file'], input[type='file'][accept*='image'], input[type='file']");
+        if (fileInput) {
+          await fileInput.setInputFiles(imagePath);
+          await new Promise(r => setTimeout(r, 2000));
+          const nextBtn = await page.$("button:has-text('Next'):not([disabled]), button:has-text('Done'):not([disabled]), button.share-box-footer__primary-btn");
+          if (nextBtn) {
+            await nextBtn.click({ force: true });
+            await new Promise(r => setTimeout(r, 1500));
+          }
+        }
+      } catch (imgErr) {
+        console.warn("[Poster] Note: Image attachment skipped, proceeding with text:", imgErr.message);
+      }
     }
 
     // Try locating editor directly first
