@@ -829,7 +829,7 @@
             </div>
             <div class="mb-3">
               <label class="form-label fw-bold small">LinkedIn Headline</label>
-              <input type="text" class="form-control form-control-sm" id="modalPHeadline" value="Head - Loan Origination System (LOS) Product &amp; Product Solutions | M2P Fintech" />
+              <input type="text" class="form-control form-control-sm" id="modalPHeadline" value="Corporate Director Aspirant | BFSI &amp; Digital Lending Leader | Enterprise Governance" />
             </div>
             <div class="mb-3">
               <label class="form-label fw-bold small">Domain Focus Areas (One per line)</label>
@@ -1145,9 +1145,7 @@
     function renderNewsCard(n) {
       window.__postComments[n.id] = n.generated_takes || {};
       const takes = n.generated_takes || {};
-      const defaultTake = takes.architectural_take || takes.risk_lens || takes.strategic_outlook || "";
-      
-      const fullRepostDraft = `${defaultTake}\n\n📌 Detailed article link and source reporting shared in the first comment below 👇\n\n#DigitalLending #Fintech #BFSI #LoanOrigination #CreditRisk #M2PFintech`;
+      const fullRepostDraft = `${defaultTake}\n\n📌 Detailed article link and source reporting shared in the first comment below 👇\n\n#DigitalLending #Fintech #BFSI #Banking #CreditRisk #CorporateGovernance`;
 
       return `
         <div class="post-card" id="card-${n.id}">
@@ -1321,7 +1319,7 @@
       const takeText = window.__postComments?.[articleId]?.[styleKey] || "";
       const editor = document.getElementById(`editor-${articleId}`);
       if (editor) {
-        editor.value = `${takeText}\n\n📌 Detailed article link and source reporting shared in the first comment below 👇\n\n#DigitalLending #Fintech #BFSI #LoanOrigination #CreditRisk #M2PFintech`;
+        editor.value = `${takeText}\n\n📌 Detailed article link and source reporting shared in the first comment below 👇\n\n#DigitalLending #Fintech #BFSI #Banking #CreditRisk #CorporateGovernance`;
       }
     }
 
