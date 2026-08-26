@@ -58,13 +58,26 @@ function synthesizePostCommentary(authorName, text, category, postUrl = "") {
   const author = authorName || "Industry Leader";
   const org = category || "BFSI";
   const rawText = text || "";
-  const leadHook = rawText.slice(0, 300).toLowerCase();
+  const leadHook = rawText.slice(0, 350).toLowerCase();
   const textLower = rawText.toLowerCase();
   const { metrics, entities } = extractEntitiesAndMetrics(rawText);
   const metricSnippet = metrics.length > 0 ? ` (${metrics[0]})` : "";
   const thesis = extractPostThesis(rawText);
 
-  // 1. BOARD GOVERNANCE: SILENT EXIT & DISSENT OF INDEPENDENT DIRECTORS
+  // 1. BOARD GOVERNANCE: TRUST IS CAPITAL & STAKEHOLDER CREDIBILITY
+  if (leadHook.includes("trust is capital") || leadHook.includes("stakeholder trust") || leadHook.includes("institutional capital") || leadHook.includes("reported strength and lived")) {
+    return {
+      value_add: sanitizeAiSlop(`Stakeholder trust is the most critical form of institutional capital an organization possesses. While financial metrics, quarterly EPS, and top-line growth reflect short-term operational execution, long-term resilience is determined by the alignment between reported performance and lived organizational reality. When a gap emerges between external disclosures and internal governance culture, institutional credibility erodes rapidly.
+
+For corporate boards and Audit Committees, assurance cannot rely solely on executive presentations—it requires establishing unfiltered risk telemetry and evaluating organizational conduct under stress.
+
+Beyond quarterly financial metrics, what specific assurance mechanisms does your board deploy to verify that institutional trust and ethical conduct are being strengthened across operating subsidiaries?`),
+      provocative_question: `What proactive frameworks are corporate boards using to measure organizational integrity and stakeholder trust before reputational risks materialize?`,
+      executive_perspective: `Institutional longevity is won by organizations where governance integrity, transparent reporting, and stakeholder trust are treated as foundational balance sheet assets.`
+    };
+  }
+
+  // 2. BOARD GOVERNANCE: SILENT EXIT & DISSENT OF INDEPENDENT DIRECTORS
   if (leadHook.includes("silent exit") || leadHook.includes("walk away instead of dissenting") || (leadHook.includes("dissent") && leadHook.includes("director"))) {
     return {
       value_add: sanitizeAiSlop(`The rising trend of "Silent Exits" among Independent Directors exposes a fundamental fault line in corporate governance. Over 500 mid-term resignations show that independent board members frequently encounter severe information asymmetry, passive board cultures, and disproportionate personal regulatory liability when issues arise. Choosing quiet resignation over recording formal dissent leaves underlying institutional risks unaddressed and deprives minority shareholders of transparency.
@@ -77,7 +90,7 @@ What structural safeguards can Nomination and Remuneration Committees (NRC) intr
     };
   }
 
-  // 2. BOARD GOVERNANCE: IPO READY VS GOVERNANCE READY
+  // 3. BOARD GOVERNANCE: IPO READY VS GOVERNANCE READY
   if (leadHook.includes("ipo ready") || leadHook.includes("governance ready")) {
     return {
       value_add: sanitizeAiSlop(`There is a vast difference between being "IPO Ready" and being "Governance Ready." While drafting a compliant DRHP and orchestrating investment roadshows can be completed in months, building institutional governance maturity requires years of deliberate cultural and operational groundwork. When rapid top-line growth is prioritized over rigorous internal financial controls (IFC), public market transitions often expose fragile unit economics and reporting vulnerabilities.
@@ -90,7 +103,7 @@ What foundational governance milestones should high-growth enterprises formalize
     };
   }
 
-  // 3. BOARD GOVERNANCE: RELATED PARTY TRANSACTIONS (RPT)
+  // 4. BOARD GOVERNANCE: RELATED PARTY TRANSACTIONS (RPT)
   if (leadHook.includes("related party") || leadHook.includes("rpt") || leadHook.includes("governance failures rarely begin with fraud")) {
     return {
       value_add: sanitizeAiSlop(`Corporate governance failures rarely originate in overt fraud—they almost always begin in "justified" Related Party Transactions (RPTs). When commercial dealings with promoter entities or affiliated subsidiaries bypass rigorous arm's-length scrutiny under the rationale of speed or operational synergy, the risk is transferred directly to minority shareholders. Without robust benchmark pricing and independent transaction audits, subsidiary networks can become subtle channels for value transfer.
@@ -103,7 +116,7 @@ What benchmarking frameworks does your Audit Committee deploy to ensure absolute
     };
   }
 
-  // 4. BOARD GOVERNANCE: AI IN EXECUTIVE LEADERSHIP & BLIND SPOTS
+  // 5. BOARD GOVERNANCE: AI IN EXECUTIVE LEADERSHIP & BLIND SPOTS
   if (leadHook.includes("ai makes leaders question") || leadHook.includes("ai can write") || (leadHook.includes("blind spot") && leadHook.includes("ai"))) {
     return {
       value_add: sanitizeAiSlop(`As generative AI models automate scenario modeling, draft synthesis, and operational reporting, the core differentiator of executive leadership shifts entirely to moral clarity, ethical discernment, and high-stakes judgment. Delegating executive analysis to automated models without human interrogation creates invisible strategic blind spots. Algorithms can optimize for historical patterns, but they cannot replace fiduciary intuition, stakeholder empathy, or ethical courage during crises.
@@ -116,7 +129,7 @@ How is your executive leadership establishing oversight guardrails to ensure AI-
     };
   }
 
-  // 5. MSME & CASHFLOW LENDING (GST, TREDS, INVOICE DISCOUNTING)
+  // 6. MSME & CASHFLOW LENDING (GST, TREDS, INVOICE DISCOUNTING)
   if (textLower.includes("msme") || textLower.includes("cashflow") || textLower.includes("gst") || textLower.includes("treds") || textLower.includes("invoice") || textLower.includes("supply chain")) {
     return {
       value_add: sanitizeAiSlop(`Unlocking working capital for India’s 63+ million MSMEs requires moving past static collateral requirements toward dynamic cashflow underwriting. When small enterprises operate with extended receivables and seasonal trade cycles, evaluating real-time GST invoicing, bank statement velocity, and payment reconciliations provides a vastly more accurate credit picture than outdated balance sheets.
@@ -129,7 +142,7 @@ How is your credit team leveraging cashflow analytics and Account Aggregator str
     };
   }
 
-  // 6. DIGITAL LENDING TECH / LOS / ORIGINATION / STP (LENDING TECH POSTS ONLY)
+  // 7. DIGITAL LENDING TECH / LOS / ORIGINATION / STP (LENDING TECH POSTS ONLY)
   if (textLower.includes("los") || textLower.includes("loan origination") || textLower.includes("bre") || textLower.includes("decision engine") || (textLower.includes("digital lending") && textLower.includes("tech"))) {
     return {
       value_add: sanitizeAiSlop(`Achieving high-velocity loan origination without compromising underwriting rigor is the defining technical mandate for modern retail and MSME lending. Lenders running on rigid legacy stacks face multi-month development cycles whenever risk policies, bureau algorithms, or RBI compliance mandates shift. 
@@ -142,7 +155,7 @@ What tech capabilities is your team prioritizing to compress loan origination tu
     };
   }
 
-  // 7. BANKING / NBFC ASSET QUALITY, CREDIT GROWTH & NPA (NO FORCED LOS PLUGS)
+  // 8. BANKING / NBFC ASSET QUALITY, CREDIT GROWTH & NPA (NO FORCED LOS PLUGS)
   if (textLower.includes("asset quality") || textLower.includes("npa") || textLower.includes("delinquency") || textLower.includes("credit growth") || textLower.includes("nbfc") || textLower.includes("gross stage")) {
     return {
       value_add: sanitizeAiSlop(`Managing rapid balance sheet expansion while navigating shifting interest rate cycles requires unrelenting asset quality surveillance. While credit demand across retail and commercial segments remains robust, aggressive disbursement targets must be tempered with conservative underwriting buffers and early-warning stress tracking.
@@ -155,9 +168,22 @@ What core credit risk and portfolio indicators is your leadership team monitorin
     };
   }
 
-  // 8. GENERAL THOUGHT-LEADERSHIP / CORPORATE / BFSI LEADERSHIP (NO FORCED BUZZWORDS)
+  // 9. GENERAL / BOARDROOM & CORPORATE GOVERNANCE DYNAMIC SYNTHESIS
+  if (category === "Board Leadership & Governance" || leadHook.includes("director") || leadHook.includes("board") || leadHook.includes("governance")) {
+    return {
+      value_add: sanitizeAiSlop(`Strong corporate governance is the ultimate safeguard of enterprise value during structural market shifts. While commercial execution drives quarterly performance, the board's primary responsibility is establishing proactive risk oversight, enforcing fiduciary integrity, and ensuring transparent capital allocation across the organization.
+
+Audit and Risk Committees that maintain independent surveillance of key operational metrics consistently protect minority shareholder interests and institutional resilience.
+
+How is your board strengthening its governance telemetry to identify operational and compliance blind spots early?`),
+      provocative_question: `What governance frameworks is your board prioritizing to balance long-term strategic oversight with rigorous internal financial controls?`,
+      executive_perspective: `Institutional excellence is built on uncompromising fiduciary oversight, cultural integrity, and long-term stakeholder stewardship.`
+    };
+  }
+
+  // 10. GENERAL BFSI / THOUGHT LEADERSHIP DYNAMIC SYNTHESIS
   return {
-    value_add: sanitizeAiSlop(`Navigating rapid structural transformations in ${org} demands balancing ambitious expansion with disciplined operational resilience. Sustainable market leadership is not built on short-term volume surges alone, but on establishing strong governance frameworks, transparent customer execution, and agile institutional infrastructure.
+    value_add: sanitizeAiSlop(`Navigating structural developments in ${org} demands balancing rapid commercial expansion with disciplined operational resilience. Sustainable market leadership is not built on short-term volume surges alone, but on establishing strong governance frameworks, transparent customer execution, and agile institutional infrastructure.
 
 Organizations that institutionalize rigorous risk controls while maintaining fast execution cycles consistently outpace peers through evolving market cycles.
 
@@ -169,19 +195,12 @@ How is your leadership team positioning your organizational strategy to capitali
 
 /**
  * Synthesizes deep, fact-grounded Thought-Leadership Repost Takes for Market News Articles
- * Rules:
- * - 100% Sriram Ganesan's POV (First-person practitioner voice). Never cite the publisher or say "Recent reporting from...".
- * - 6 to 7 substantive lines breaking down the exact topic, implications, nuances, and facts from the news story.
- * - Mention LOS/BRE ONLY if the article is specifically about loan origination technology. Otherwise, focus on risk, policy, credit economics, or governance.
- * - 1 sharp closing inquiry question.
- * - Automatically generates and attaches an executive B2B visual asset card.
  */
 async function synthesizeNewsArticleTakes(articleUrl, headline, topic, publisher, articleId = "") {
   const h = (headline || "").trim();
   const hLower = (headline || "").toLowerCase();
   const { metrics, entities } = extractEntitiesAndMetrics(h);
 
-  // Optional: Read full article body if URL is available to enrich context
   let articleContext = "";
   if (articleUrl && articleUrl.startsWith("http")) {
     try {
@@ -217,7 +236,7 @@ How will this regulatory threshold shift influence M&A activity and balance shee
     };
   }
 
-  // 2. ESAF SFB & EURONET - CREDIT LINE ON UPI (RELEVANT TO LENDING TECH & CORE SWITCHING)
+  // 2. ESAF SFB & EURONET - CREDIT LINE ON UPI (LENDING TECH & REVOLVING CREDIT)
   else if (hLower.includes("esaf") || (hLower.includes("credit line on upi") && hLower.includes("euronet"))) {
     takes = {
       architectural_take: sanitizeAiSlop(`The partnership between ESAF Small Finance Bank and Euronet to operationalize ‘Credit Line on UPI’ represents a pivotal milestone in democratizing pre-sanctioned retail credit. By embedding revolving credit lines directly into everyday UPI QR payment journeys, micro and semi-urban consumers gain immediate, low-ticket liquidity at the point of checkout without requiring physical plastic cards.
@@ -238,7 +257,7 @@ How do you foresee Credit Line on UPI impacting conventional credit card issuanc
     };
   }
 
-  // 3. WHALESBOOK: NBFCS EXPAND GOLD LOAN PORTFOLIOS DESPITE NEW RBI NORMS (COLLATERAL & LTV FOCUS - NO FORCED LOS)
+  // 3. WHALESBOOK: NBFCS EXPAND GOLD LOAN PORTFOLIOS DESPITE NEW RBI NORMS (NO FORCED LOS)
   else if (hLower.includes("whalesbook") && hLower.includes("gold loan") || (hLower.includes("expand gold loan") && hLower.includes("rbi norms"))) {
     takes = {
       architectural_take: sanitizeAiSlop(`Specialized NBFCs are aggressively expanding their gold loan branch footprints and portfolio AUM despite tightened Reserve Bank of India oversight on cash disbursement limits and appraisal standards. The resilience of gold-backed credit stems from strong grassroots demand among MSMEs and rural borrowers seeking immediate, collateral-backed working capital without cumbersome paperwork.
@@ -259,7 +278,7 @@ How do you see the market share evolving between specialized gold loan NBFCs and
     };
   }
 
-  // 4. REUTERS: AXIS BANK BETS ON DATA CENTRES TO GOLD LOANS (DUAL ASSET ALLOCATION - NO FORCED LOS)
+  // 4. REUTERS: AXIS BANK BETS ON DATA CENTRES TO GOLD LOANS (NO FORCED LOS)
   else if (hLower.includes("axis bank") && (hLower.includes("data centres") || hLower.includes("gold loans to outpace"))) {
     takes = {
       architectural_take: sanitizeAiSlop(`Axis Bank's strategic push to outpace industry credit growth by 300 basis points in FY27 centers on a well-calibrated dual asset strategy: financing massive data centre infrastructure projects while scaling high-yield secured retail gold loans. Pairing large-ticket digital infrastructure project finance with secured retail lending allows the bank to optimize overall balance sheet yield while managing loan-to-deposit ratio (LDR) pressures.
@@ -322,7 +341,7 @@ How do you expect market share to shift between incumbent specialized NBFCs and 
     };
   }
 
-  // 7. FISME / BUSINESSLINE: RBI PROPOSAL TO CURB NBFC REVOLVING CREDIT (MSME IMPACT - NO FORCED LOS)
+  // 7. FISME / BUSINESSLINE: RBI PROPOSAL TO CURB NBFC REVOLVING CREDIT (NO FORCED LOS)
   else if (hLower.includes("fisme") || (hLower.includes("revolving credit") && hLower.includes("msme"))) {
     takes = {
       architectural_take: sanitizeAiSlop(`Any regulatory proposal to restrict NBFC revolving credit facilities directly impacts working capital access for India's micro and small enterprises. MSMEs operate in volatile trading environments where cash conversion cycles fluctuate, making flexible revolving overdrafts indispensable for managing vendor payments and seasonal inventory.
@@ -385,7 +404,7 @@ How do you see the co-existence of credit cards and Credit Line on UPI shaping c
     };
   }
 
-  // 10. BANK CREDIT GROWTH OUTPACES DEPOSITS / LDR HIGH (ALM & LIQUIDITY FOCUS - NO FORCED LOS)
+  // 10. BANK CREDIT GROWTH OUTPACES DEPOSITS / LDR HIGH (NO FORCED LOS)
   else if (hLower.includes("credit growth") && (hLower.includes("deposit") || hLower.includes("ldr") || hLower.includes("20%")) || hLower.includes("eac-pm") || hLower.includes("lending faster than borrowing")) {
     takes = {
       architectural_take: sanitizeAiSlop(`Indian banking credit growth continuing to outpace deposit mobilization has pushed Loan-to-Deposit Ratios (LDR) near decade highs. This divergence places significant pressure on Net Interest Margins (NIM) and limits banks' ability to sustain 15%+ credit growth without aggressively raising term deposit rates or issuing high-cost certificates of deposit.
