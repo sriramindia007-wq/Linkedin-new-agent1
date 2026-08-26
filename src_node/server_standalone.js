@@ -88,12 +88,15 @@ async function triggerNewsCrawlJob(label = "Market News") {
     return activeScrapeJob;
   }
   const startTime = Date.now();
+  const { SEARCH_STREAMS } = safeRequire("externalNewsEngine") || {};
+  const totalStreams = (SEARCH_STREAMS && SEARCH_STREAMS.length) || 12;
+
   activeScrapeJob = {
     isRunning: true,
     channel: "NEWS",
     progress: 0,
-    total: 4,
-    currentSource: "Scanning Live Indian Financial News (Mint, ETBFSI, Financial Express, Business Standard)...",
+    total: totalStreams,
+    currentSource: "Scanning 12 Live Indian Financial News Streams (Mint, ETBFSI, Financial Express, Business Standard, Reuters)...",
     newPosts: 0,
     status: `Running (${label})`,
     startTime: new Date().toISOString()
@@ -112,8 +115,8 @@ async function triggerNewsCrawlJob(label = "Market News") {
       activeScrapeJob = {
         isRunning: false,
         channel: "NEWS",
-        progress: 4,
-        total: 4,
+        progress: totalStreams,
+        total: totalStreams,
         currentSource: "Complete",
         newPosts: count,
         breakdown: { news: count, governance: 0, lending: 0 },
@@ -122,7 +125,7 @@ async function triggerNewsCrawlJob(label = "Market News") {
         elapsedSeconds: elapsedSec,
         justCompleted: true
       };
-      console.log(`✅ [Market News Agent] Scan complete in ${elapsedSec}s: +${count} articles.`);
+      console.log(`✅ [Market News Agent] Scan complete in ${elapsedSec}s across ${totalStreams} streams: +${count} articles.`);
     } catch (e) {
       activeScrapeJob.status = `Error: ${e.message}`;
       activeScrapeJob.isRunning = false;

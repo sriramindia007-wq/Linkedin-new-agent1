@@ -21,20 +21,52 @@ function getNewsFilePath() {
 
 const SEARCH_STREAMS = [
   {
-    topic: "Digital Lending & MSME Credit",
-    url: 'https://news.google.com/rss/search?q=(%22digital+lending%22+OR+%22MSME+lending%22+OR+%22loan+origination%22+OR+%22co-lending%22+OR+%22fintech+loan%22)+india+when:3d&hl=en-IN&gl=IN&ceid=IN:en'
+    topic: "Digital Lending & Tech Platforms",
+    url: 'https://news.google.com/rss/search?q=(%22digital+lending%22+OR+%22loan+origination%22+OR+%22fintech+lending%22+OR+%22LSP%22+OR+%22FLDG%22)+india+when:3d&hl=en-IN&gl=IN&ceid=IN:en'
   },
   {
-    topic: "NBFCs, Retail Credit & Asset Quality",
-    url: 'https://news.google.com/rss/search?q=(%22NBFC%22+OR+%22retail+credit%22+OR+%22asset+quality%22+OR+%22Gross+Stage%22+OR+%22credit+growth%22)+india+when:3d&hl=en-IN&gl=IN&ceid=IN:en'
+    topic: "MSME Cashflow Credit & TReDS",
+    url: 'https://news.google.com/rss/search?q=(%22MSME+lending%22+OR+%22MSME+credit%22+OR+%22TReDS%22+OR+%22supply+chain+finance%22+OR+%22invoice+discounting%22)+india+when:3d&hl=en-IN&gl=IN&ceid=IN:en'
   },
   {
-    topic: "Fintech Funding & IPOs",
-    url: 'https://news.google.com/rss/search?q=(%22fintech+funding%22+OR+%22NBFC+funding%22+OR+%22debt+funding%22+OR+%22fintech+IPO%22)+india+when:3d&hl=en-IN&gl=IN&ceid=IN:en'
+    topic: "NBFCs & Scale-Based Regulation",
+    url: 'https://news.google.com/rss/search?q=(%22NBFC%22+OR+%22shadow+banking%22+OR+%22scale-based+regulation%22+OR+%22upper+layer+NBFC%22)+india+when:3d&hl=en-IN&gl=IN&ceid=IN:en'
   },
   {
-    topic: "RBI & Regulatory Policy",
-    url: 'https://news.google.com/rss/search?q=(%22Reserve+Bank+of+India%22+OR+%22RBI%22)+AND+(lending+OR+credit+OR+NBFC+OR+%22co-lending%22+OR+underwriting)+when:3d&hl=en-IN&gl=IN&ceid=IN:en'
+    topic: "Secured Retail, Gold & Auto Loans",
+    url: 'https://news.google.com/rss/search?q=(%22gold+loan%22+OR+%22vehicle+loan%22+OR+%22auto+loan%22+OR+%22secured+lending%22)+india+when:3d&hl=en-IN&gl=IN&ceid=IN:en'
+  },
+  {
+    topic: "Credit Cards & UPI Credit Rails",
+    url: 'https://news.google.com/rss/search?q=(%22credit+card%22+OR+%22Credit+Line+on+UPI%22+OR+%22revolving+credit%22+OR+%22unsecured+credit%22)+india+when:3d&hl=en-IN&gl=IN&ceid=IN:en'
+  },
+  {
+    topic: "RBI Prudential Policy & LEF",
+    url: 'https://news.google.com/rss/search?q=(%22Reserve+Bank+of+India%22+OR+%22RBI%22)+AND+(lending+OR+credit+OR+NBFC+OR+%22co-lending%22+OR+underwriting+OR+%22large+exposure%22)+when:3d&hl=en-IN&gl=IN&ceid=IN:en'
+  },
+  {
+    topic: "Co-Lending & Consortium Syndication",
+    url: 'https://news.google.com/rss/search?q=(%22co-lending%22+OR+%22consortium+lending%22+OR+%22syndicated+loan%22+OR+%22direct+assignment%22+OR+%22PTC%22)+india+when:3d&hl=en-IN&gl=IN&ceid=IN:en'
+  },
+  {
+    topic: "Banking Asset Quality & LDR",
+    url: 'https://news.google.com/rss/search?q=(%22asset+quality%22+OR+%22Gross+NPA%22+OR+%22loan-to-deposit%22+OR+%22credit+growth%22+OR+%22NIM%22)+india+when:3d&hl=en-IN&gl=IN&ceid=IN:en'
+  },
+  {
+    topic: "Affordable Housing & HFC Lending",
+    url: 'https://news.google.com/rss/search?q=(%22housing+finance%22+OR+%22HFC%22+OR+%22affordable+housing+loan%22+OR+%22home+loan%22)+india+when:3d&hl=en-IN&gl=IN&ceid=IN:en'
+  },
+  {
+    topic: "Infrastructure & Project Finance (IDF)",
+    url: 'https://news.google.com/rss/search?q=(%22IDF-NBFC%22+OR+%22infrastructure+debt%22+OR+%22project+finance%22+OR+%22capex+loan%22)+india+when:3d&hl=en-IN&gl=IN&ceid=IN:en'
+  },
+  {
+    topic: "Microfinance (MFI) & Financial Inclusion",
+    url: 'https://news.google.com/rss/search?q=(%22microfinance%22+OR+%22NBFC-MFI%22+OR+%22MFIN%22+OR+%22Sa-Dhan%22+OR+%22priority+sector+lending%22)+india+when:3d&hl=en-IN&gl=IN&ceid=IN:en'
+  },
+  {
+    topic: "Fintech Debt Funding & Bond Markets",
+    url: 'https://news.google.com/rss/search?q=(%22debt+funding%22+OR+%22venture+debt%22+OR+%22NCD%22+OR+%22commercial+paper%22+OR+%22fintech+funding%22)+india+when:3d&hl=en-IN&gl=IN&ceid=IN:en'
   }
 ];
 
