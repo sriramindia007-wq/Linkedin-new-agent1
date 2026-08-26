@@ -81,12 +81,12 @@ function parseGoogleRss(xml, streamTopic) {
 
     const lower = `${rawTitle} ${publisher}`.toLowerCase();
     
-    // Strict Negative Noise Filters
-    const noiseRegex = /sensex|nifty|equity market|stock rally|equities open|mutual fund|space economy|border talks|oil price|rupee falls|rupee rises|dollar deposit|fcnr|fixed deposit|nri deposit|crypto|bitcoin|tcs buys|porsche|bollywood|cricket|baseball|padres|somerset|marathon|horoscope|gstat|appeal filing|celebration|sebi chief flags|mlb\.com|homerun/i;
+    // Strict Negative Noise Filters - Non-BFSI, Accidents, Disasters, Crime, Entertainment, Local issues
+    const noiseRegex = /\b(sensex|nifty|equity market|stock rally|equities open|mutual fund|space economy|border talks|oil price|rupee falls|rupee rises|dollar deposit|fcnr|fixed deposit|nri deposit|crypto|bitcoin|tcs buys|porsche|bollywood|cricket|baseball|padres|somerset|marathon|horoscope|gstat|appeal filing|celebration|sebi chief flags|mlb\.com|homerun|house collapse|collapses|landslide|subsidence|reservoir|dam|earthquake|flood|drown|accident|murder|arrest|crime|police|court verdict|weather|rain|snow|temperature|road accident|highway accident|traffic|temple|festival|cinema|movie|actor|actress|box office|web series|gold rate today|gold price in chennai|gold jewelry|petrol|diesel)\b/i;
     if (noiseRegex.test(lower)) continue;
 
-    // Strict Positive Lending & Credit Keywords Required
-    const lendingRegex = /loan|lending|credit|nbfc|borrow|debt|underwrit|cibil|equifax|crif|experian|co-lending|colending|mortgage|lap|housing finance|gold loan|microfinance|mfi|working capital|invoice discount|treds|supply chain finance|npa|gross stage|delinquen|fldg|fincorp|finserv|disburs|collection|priority sector lending|psl|sarfaesi|credit risk|banking credit|credit growth/i;
+    // Strict Positive Lending & Credit Keywords Required with word boundaries
+    const lendingRegex = /\b(loans?|lending|credits?|nbfcs?|borrowers?|borrowing|debts?|underwrit\w*|cibil|equifax|crif|experian|co-lending|colending|mortgages?|\blap\b|housing finance|gold loans?|microfinance|\bmfis?\b|working capital|invoice discount\w*|treds|supply chain finance|\bnpas?\b|gross stage \d|delinquen\w*|fldg|fincorp|finserv|disburs\w*|collections?|priority sector lending|\bpsl\b|sarfaesi|credit risk|banking credit|credit growth|asset quality|credit card|lending tech|loan origination)\b/i;
     if (!lendingRegex.test(lower)) continue;
 
     if (rawTitle && link) {

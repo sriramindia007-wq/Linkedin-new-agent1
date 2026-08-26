@@ -81,12 +81,12 @@ function parseGoogleRss(xml, streamTopic) {
 
     const lower = `${rawTitle} ${publisher}`.toLowerCase();
     
-    // Strict Negative Noise Filters
-    const noiseRegex = /sensex|nifty|equity market|stock rally|equities open|mutual fund|space economy|border talks|oil price|rupee falls|rupee rises|dollar deposit|fcnr|fixed deposit|nri deposit|crypto|bitcoin|tcs buys|porsche|bollywood|cricket|baseball|padres|somerset|marathon|horoscope|gstat|appeal filing|celebration|sebi chief flags|mlb\.com|homerun/i;
+    // Strict Negative Noise Filters - Non-BFSI, Accidents, Disasters, Crime, Entertainment, Local issues
+    const noiseRegex = /\b(sensex|nifty|equity market|stock rally|equities open|mutual fund|space economy|border talks|oil price|rupee falls|rupee rises|dollar deposit|fcnr|fixed deposit|nri deposit|crypto|bitcoin|tcs buys|porsche|bollywood|cricket|baseball|padres|somerset|marathon|horoscope|gstat|appeal filing|celebration|sebi chief flags|mlb\.com|homerun|house collapse|collapses|landslide|subsidence|reservoir|dam|earthquake|flood|drown|accident|murder|arrest|crime|police|court verdict|weather|rain|snow|temperature|road accident|highway accident|traffic|temple|festival|cinema|movie|actor|actress|box office|web series|gold rate today|gold price in chennai|gold jewelry|petrol|diesel)\b/i;
     if (noiseRegex.test(lower)) continue;
 
-    // Strict Positive Lending & Credit Keywords Required
-    const lendingRegex = /loan|lending|credit|nbfc|borrow|debt|underwrit|cibil|equifax|crif|experian|co-lending|colending|mortgage|lap|housing finance|gold loan|microfinance|mfi|working capital|invoice discount|treds|supply chain finance|npa|gross stage|delinquen|fldg|fincorp|finserv|disburs|collection|priority sector lending|psl|sarfaesi|credit risk|banking credit|credit growth/i;
+    // Strict Positive Lending & Credit Keywords Required with word boundaries
+    const lendingRegex = /\b(loans?|lending|credits?|nbfcs?|borrowers?|borrowing|debts?|underwrit\w*|cibil|equifax|crif|experian|co-lending|colending|mortgages?|\blap\b|housing finance|gold loans?|microfinance|\bmfis?\b|working capital|invoice discount\w*|treds|supply chain finance|\bnpas?\b|gross stage \d|delinquen\w*|fldg|fincorp|finserv|disburs\w*|collections?|priority sector lending|\bpsl\b|sarfaesi|credit risk|banking credit|credit growth|asset quality|credit card|lending tech|loan origination)\b/i;
     if (!lendingRegex.test(lower)) continue;
 
     if (rawTitle && link) {
@@ -105,26 +105,56 @@ function parseGoogleRss(xml, streamTopic) {
 function loadMarketNews() {
   try {
     const file = getNewsFilePath();
+    let list = [];
     if (fs.existsSync(file)) {
-      return JSON.parse(fs.readFileSync(file, 'utf-8'));
+      list = JSON.parse(fs.readFileSync(file, 'utf-8'));
     }
-  } catch (e) {}
-  return [];
+    if (!Array.isArray(list)) list = [];
+
+    // Apply immutable persisted actions
+    try {
+      const { loadPersistedActions, normalizeKey, cleanUrl } = require("./db");
+      const actions = loadPersistedActions ? loadPersistedActions() : null;
+      if (actions) {
+        list.forEach(n => {
+          const rawUrl = n.article_url || n.link || "";
+          const cleanedUrl = cleanUrl ? cleanUrl(rawUrl) : "";
+          const textKey = normalizeKey ? normalizeKey(n.headline || n.title || "") : "";
+
+          const act = actions.by_id[n.id] || 
+                      (rawUrl ? actions.by_url[rawUrl] : null) || 
+                      (cleanedUrl ? actions.by_url[cleanedUrl] : null) || 
+                      (textKey ? actions.by_text_key[textKey] : null);
+
+          if (act) {
+            Object.assign(n, act);
+          }
+        });
+      }
+    } catch (e) {}
+
+    return list;
+  } catch (e) {
+    return [];
+  }
 }
 
 function saveMarketNews(newsList) {
   try {
-    const file = getNewsFilePath();
-    const dir = path.dirname(file);
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(file, JSON.stringify(newsList, null, 2), 'utf-8');
-    
-    const mirror = path.join(__dirname, 'data', 'market_news.json');
-    if (file !== mirror) {
-      const mDir = path.dirname(mirror);
-      if (!fs.existsSync(mDir)) fs.mkdirSync(mDir, { recursive: true });
-      fs.writeFileSync(mirror, JSON.stringify(newsList, null, 2), 'utf-8');
-    }
+    const locations = [
+      getNewsFilePath(),
+      path.join(__dirname, 'data', 'market_news.json'),
+      path.join(__dirname, 'market_news.json'),
+      path.join(__dirname, 'src_node', 'data', 'market_news.json'),
+      path.join(__dirname, 'src_node', 'market_news.json')
+    ];
+    locations.forEach(loc => {
+      try {
+        const dir = path.dirname(loc);
+        if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+        fs.writeFileSync(loc, JSON.stringify(newsList, null, 2), 'utf-8');
+      } catch (e) {}
+    });
   } catch (e) {
     console.error('Error saving market news:', e.message);
   }
