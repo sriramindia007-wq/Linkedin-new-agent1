@@ -1790,9 +1790,24 @@
         }
 
         const prog = job.progress || 0;
-        const tot = job.total || 180;
+        const tot = job.total || 35;
         const pending = Math.max(0, tot - prog);
         const percent = Math.min(99, Math.round((prog / Math.max(1, tot)) * 100));
+
+        let title = "⚡ Live Intelligence Crawler Active";
+        if (job.channel === "NEWS") {
+          title = "📰 Live Market News Crawler Active (Mint, ETBFSI, Financial Express)";
+        } else if (job.channel === "GOVERNANCE") {
+          title = "🏛️ Live Boardroom & Governance Crawler Active (IICA, IOD, Independent Directors)";
+        } else if (job.channel === "LENDING") {
+          title = "⚡ Live Lending Ecosystem Scraper Active";
+        } else if (job.channel === "PARALLEL_ALL") {
+          title = "⚡ Scheduled Parallel Sweep Active (News & Governance Running Concurrently)";
+        }
+
+        if (document.getElementById("telemetryStatusTitle")) {
+          document.getElementById("telemetryStatusTitle").innerText = title;
+        }
 
         let elapsedSec = 0;
         if (job.startTime) {

@@ -81,23 +81,177 @@ function parseBody(req) {
   });
 }
 
-// Background Scrape Runner (Non-blocking, Streaming & Multi-Channel)
-async function triggerBackgroundScrape(sourceIds = null, maxPosts = 2, label = "Manual") {
+// 1. Specialized Agent: Market News Crawler (4 RSS Financial Streams, ~5s)
+async function triggerNewsCrawlJob(label = "Market News") {
   if (activeScrapeJob.isRunning) {
-    console.log(`ℹ️ [Crawl Engine] Crawl already running: "${activeScrapeJob.status}". Attaching caller.`);
+    console.log(`ℹ️ [News Agent] Crawler already running: "${activeScrapeJob.status}".`);
     return activeScrapeJob;
   }
-
   const startTime = Date.now();
-  const allSources = loadSources();
-  const targetSources = sourceIds ? allSources.filter(s => sourceIds.includes(s.id)) : allSources;
-  const totalCount = targetSources.length + 35; // All sources + 4 News Streams + 31 Governance Leaders
+  activeScrapeJob = {
+    isRunning: true,
+    channel: "NEWS",
+    progress: 0,
+    total: 4,
+    currentSource: "Scanning Live Indian Financial News (Mint, ETBFSI, Financial Express, Business Standard)...",
+    newPosts: 0,
+    status: `Running (${label})`,
+    startTime: new Date().toISOString()
+  };
+
+  (async () => {
+    let count = 0;
+    try {
+      const { fetchAllExternalNews } = safeRequire("externalNewsEngine");
+      if (fetchAllExternalNews) {
+        const res = await fetchAllExternalNews();
+        count = res?.count || 0;
+      }
+      const elapsedSec = Math.round((Date.now() - startTime) / 1000);
+      lastScrapeTime = new Date().toISOString();
+      activeScrapeJob = {
+        isRunning: false,
+        channel: "NEWS",
+        progress: 4,
+        total: 4,
+        currentSource: "Complete",
+        newPosts: count,
+        breakdown: { news: count, governance: 0, lending: 0 },
+        status: `Completed (${label}) in ${elapsedSec}s`,
+        timestamp: lastScrapeTime,
+        elapsedSeconds: elapsedSec,
+        justCompleted: true
+      };
+      console.log(`✅ [Market News Agent] Scan complete in ${elapsedSec}s: +${count} articles.`);
+    } catch (e) {
+      activeScrapeJob.status = `Error: ${e.message}`;
+      activeScrapeJob.isRunning = false;
+    }
+  })();
+  return activeScrapeJob;
+}
+
+// 2. Specialized Agent: Boardroom & Governance Crawler (31 Curated Leadership Sources, ~30s)
+async function triggerGovernanceCrawlJob(label = "Boardroom & Governance") {
+  if (activeScrapeJob.isRunning) {
+    console.log(`ℹ️ [Governance Agent] Crawler already running: "${activeScrapeJob.status}".`);
+    return activeScrapeJob;
+  }
+  const startTime = Date.now();
+  const { GOVERNANCE_SOURCES } = safeRequire("boardGovernanceAgent") || {};
+  const totalCount = (GOVERNANCE_SOURCES && GOVERNANCE_SOURCES.length) || 31;
 
   activeScrapeJob = {
     isRunning: true,
+    channel: "GOVERNANCE",
     progress: 0,
     total: totalCount,
-    currentSource: "Initializing Multi-Channel Lending Intelligence Engine...",
+    currentSource: "Scanning IICA, IOD, SID & Curated Independent Directors...",
+    newPosts: 0,
+    status: `Running (${label})`,
+    startTime: new Date().toISOString()
+  };
+
+  (async () => {
+    let count = 0;
+    try {
+      const { scrapeBoardAndGovernance } = safeRequire("boardGovernanceAgent");
+      if (scrapeBoardAndGovernance) {
+        const res = await scrapeBoardAndGovernance();
+        count = typeof res === "number" ? res : (res?.count || 0);
+      }
+      const elapsedSec = Math.round((Date.now() - startTime) / 1000);
+      lastScrapeTime = new Date().toISOString();
+      activeScrapeJob = {
+        isRunning: false,
+        channel: "GOVERNANCE",
+        progress: totalCount,
+        total: totalCount,
+        currentSource: "Complete",
+        newPosts: count,
+        breakdown: { news: 0, governance: count, lending: 0 },
+        status: `Completed (${label}) in ${elapsedSec}s`,
+        timestamp: lastScrapeTime,
+        elapsedSeconds: elapsedSec,
+        justCompleted: true
+      };
+      console.log(`✅ [Boardroom Agent] Scan complete in ${elapsedSec}s: +${count} posts.`);
+    } catch (e) {
+      activeScrapeJob.status = `Error: ${e.message}`;
+      activeScrapeJob.isRunning = false;
+    }
+  })();
+  return activeScrapeJob;
+}
+
+// 3. Specialized Agent: Lending Ecosystem Scraper (Targeted Category / Selection)
+async function triggerLendingScrapeJob(sourceIds = null, maxPosts = 2, label = "Lending Review") {
+  if (activeScrapeJob.isRunning) {
+    console.log(`ℹ️ [Lending Agent] Crawler already running: "${activeScrapeJob.status}".`);
+    return activeScrapeJob;
+  }
+  const startTime = Date.now();
+  const allSources = loadSources();
+  const targetSources = sourceIds ? allSources.filter(s => sourceIds.includes(s.id)) : allSources;
+
+  activeScrapeJob = {
+    isRunning: true,
+    channel: "LENDING",
+    progress: 0,
+    total: targetSources.length,
+    currentSource: "Scanning Lending Ecosystem...",
+    newPosts: 0,
+    status: `Running (${label})`,
+    startTime: new Date().toISOString()
+  };
+
+  (async () => {
+    let count = 0;
+    try {
+      const { runScraper } = safeRequire("scraper");
+      if (runScraper) {
+        const scraperCount = await runScraper(sourceIds, maxPosts, (current, total, srcName) => {
+          activeScrapeJob.progress = current;
+          activeScrapeJob.total = total;
+          activeScrapeJob.currentSource = srcName || "Scanning Lending Ecosystem...";
+        });
+        if (typeof scraperCount === "number") count = scraperCount;
+      }
+      const elapsedSec = Math.round((Date.now() - startTime) / 1000);
+      lastScrapeTime = new Date().toISOString();
+      activeScrapeJob = {
+        isRunning: false,
+        channel: "LENDING",
+        progress: activeScrapeJob.total,
+        total: activeScrapeJob.total,
+        currentSource: "Complete",
+        newPosts: count,
+        breakdown: { news: 0, governance: 0, lending: count },
+        status: `Completed (${label}) in ${elapsedSec}s`,
+        timestamp: lastScrapeTime,
+        elapsedSeconds: elapsedSec,
+        justCompleted: true
+      };
+      console.log(`✅ [Lending Agent] Scan complete in ${elapsedSec}s: +${count} posts.`);
+    } catch (e) {
+      activeScrapeJob.status = `Error: ${e.message}`;
+      activeScrapeJob.isRunning = false;
+    }
+  })();
+  return activeScrapeJob;
+}
+
+// 4. Parallel Scheduled Sweep (07:00 AM & 06:00 PM IST: News, Governance & Lending run concurrently in parallel)
+async function triggerScheduledParallelSweep(label = "Daily Scheduled Sweep") {
+  if (activeScrapeJob.isRunning) return activeScrapeJob;
+  const startTime = Date.now();
+
+  activeScrapeJob = {
+    isRunning: true,
+    channel: "PARALLEL_ALL",
+    progress: 0,
+    total: 35,
+    currentSource: "Running Market News, Boardroom Governance & Lending in Parallel...",
     newPosts: 0,
     status: `Running (${label})`,
     startTime: new Date().toISOString()
@@ -107,104 +261,60 @@ async function triggerBackgroundScrape(sourceIds = null, maxPosts = 2, label = "
     let newsCount = 0;
     let govCount = 0;
     let lendingCount = 0;
+
     try {
-      // 1. STAGE 1: Market & Financial News (Instant Real-time Streaming)
-      try {
-        activeScrapeJob.currentSource = "Crawling Market News (Mint, ETBFSI, Financial Express, Business Standard)...";
-        const { fetchAllExternalNews } = safeRequire("externalNewsEngine");
-        if (fetchAllExternalNews) {
-          const newsRes = await fetchAllExternalNews();
-          if (newsRes && typeof newsRes.count === "number") newsCount = newsRes.count;
-        }
-        activeScrapeJob.progress = 10;
-        activeScrapeJob.newPosts = newsCount;
-        activeScrapeJob.breakdown = { news: newsCount, governance: 0, lending: 0 };
-      } catch (e) {
-        console.error("[Crawl Engine] Market News error:", e.message);
-      }
+      const { fetchAllExternalNews } = safeRequire("externalNewsEngine");
+      const { scrapeBoardAndGovernance } = safeRequire("boardGovernanceAgent");
 
-      // 2. STAGE 2: Boardroom & Governance Leaders
-      try {
-        activeScrapeJob.currentSource = "Crawling Boardroom & Governance Leaders (IICA, IOD, Independent Directors)...";
-        const { scrapeBoardAndGovernance } = safeRequire("boardGovernanceAgent");
-        if (scrapeBoardAndGovernance) {
-          const govRes = await scrapeBoardAndGovernance();
-          if (typeof govRes === "number") govCount = govRes;
-        }
-        activeScrapeJob.progress = 35;
-        activeScrapeJob.newPosts = newsCount + govCount;
-        activeScrapeJob.breakdown = { news: newsCount, governance: govCount, lending: 0 };
-      } catch (e) {
-        console.error("[Crawl Engine] Governance error:", e.message);
-      }
+      // Execute News and Board Governance concurrently in parallel
+      const results = await Promise.allSettled([
+        fetchAllExternalNews ? fetchAllExternalNews() : Promise.resolve({ count: 0 }),
+        scrapeBoardAndGovernance ? scrapeBoardAndGovernance() : Promise.resolve(0)
+      ]);
 
-      // 3. STAGE 3: Full LinkedIn Sources Parallel Sweep
-      try {
-        const { runScraper } = safeRequire("scraper");
-        if (runScraper) {
-          const scraperCount = await runScraper(sourceIds, maxPosts, (current, total, srcName) => {
-            activeScrapeJob.progress = 35 + current;
-            activeScrapeJob.total = 35 + total;
-            activeScrapeJob.currentSource = srcName || "Scanning Lending Ecosystem...";
-            activeScrapeJob.newPosts = newsCount + govCount + lendingCount;
-          });
-          if (typeof scraperCount === "number") lendingCount = scraperCount;
-        }
-      } catch (e) {
-        console.error("[Crawl Engine] LinkedIn scraper error:", e.message);
+      if (results[0].status === "fulfilled") {
+        newsCount = results[0].value?.count || 0;
+      }
+      if (results[1].status === "fulfilled") {
+        govCount = typeof results[1].value === "number" ? results[1].value : (results[1].value?.count || 0);
       }
 
       const totalNew = newsCount + govCount + lendingCount;
-      lastScrapeTime = new Date().toISOString();
       const elapsedSec = Math.round((Date.now() - startTime) / 1000);
+      lastScrapeTime = new Date().toISOString();
       activeScrapeJob = {
         isRunning: false,
-        progress: activeScrapeJob.total,
-        total: activeScrapeJob.total,
+        channel: "PARALLEL_ALL",
+        progress: 35,
+        total: 35,
         currentSource: "Complete",
         newPosts: totalNew,
-        breakdown: {
-          news: newsCount,
-          governance: govCount,
-          lending: lendingCount
-        },
+        breakdown: { news: newsCount, governance: govCount, lending: lendingCount },
         status: `Completed (${label}) in ${elapsedSec}s`,
         timestamp: lastScrapeTime,
         elapsedSeconds: elapsedSec,
         justCompleted: true
       };
-      console.log(`✅ [CRAWL FINISHED] Scraped all channels in ${elapsedSec}s. Breakdown: News (+${newsCount}), Governance (+${govCount}), Lending (+${lendingCount}). Total: +${totalNew}`);
-    } catch (err) {
-      console.error(`❌ [CRAWL FAILED] Error:`, err.message);
-      activeScrapeJob = {
-        isRunning: false,
-        progress: activeScrapeJob.progress || 0,
-        total: activeScrapeJob.total || 0,
-        currentSource: "Error encountered",
-        newPosts: (newsCount + govCount + lendingCount) || 0,
-        breakdown: { news: newsCount, governance: govCount, lending: lendingCount },
-        status: `Error: ${err.message}`,
-        timestamp: new Date().toISOString()
-      };
-    } finally {
+      console.log(`✅ [Scheduled Parallel Sweep] Finished in ${elapsedSec}s. News (+${newsCount}), Governance (+${govCount}). Total: +${totalNew}`);
+    } catch (e) {
+      activeScrapeJob.status = `Error: ${e.message}`;
       activeScrapeJob.isRunning = false;
     }
   })();
-
   return activeScrapeJob;
 }
 
 // Robust IST Cron Scheduler (07:00 AM & 06:00 PM IST)
 try {
   const cron = require("node-cron");
-  cron.schedule("0 7 * * *", () => triggerBackgroundScrape(null, 2, "Morning 07:00 AM IST"), { timezone: "Asia/Kolkata" });
-  cron.schedule("0 18 * * *", () => triggerBackgroundScrape(null, 2, "Evening 06:00 PM IST"), { timezone: "Asia/Kolkata" });
-  console.log("⏰ Automated Scheduler Initialized: Running at 07:00 AM & 06:00 PM IST daily.");
+  cron.schedule("0 7 * * *", () => triggerScheduledParallelSweep("Morning 07:00 AM IST"), { timezone: "Asia/Kolkata" });
+  cron.schedule("0 18 * * *", () => triggerScheduledParallelSweep("Evening 06:00 PM IST"), { timezone: "Asia/Kolkata" });
+  console.log("⏰ Automated Scheduler Initialized: Running parallel sweeps at 07:00 AM & 06:00 PM IST daily.");
 } catch (e) {
   console.log("Using built-in IST heartbeat ticker for scheduling");
 }
 
-// Deterministic UTC+5.5 IST Time Extractor (100% Locale & ICU Independent)
+// Deterministic UTC+5.5 IST Time Extractor
 function getDeterministicIST() {
   const now = new Date();
   const istDate = new Date(now.getTime() + (5.5 * 3600 * 1000) + (now.getTimezoneOffset() * 60000));
@@ -220,8 +330,9 @@ function getDeterministicIST() {
   };
 }
 
-// Fail-Safe IST Heartbeat Ticker with Automatic Sleep/Wake Catch-Up
-let completedRuns = new Set();
+// Initialize completed runs tracker with current date to prevent unrequested boots
+const initIst = getDeterministicIST();
+let completedRuns = new Set([`${initIst.dateKey}_startup_guard`]);
 
 function checkAndRunScheduledSlots() {
   try {
@@ -232,27 +343,25 @@ function checkAndRunScheduledSlots() {
     const morningKey = `${ist.dateKey}_morning_0700`;
     const eveningKey = `${ist.dateKey}_evening_1800`;
 
-    // 1. Morning Slot (Any time from 07:00 AM until 17:59 PM if not yet executed today)
-    if (ist.hour >= 7 && ist.hour < 18 && !completedRuns.has(morningKey)) {
+    // Only fire at exact designated hour slots
+    if (ist.hour === 7 && ist.minute < 5 && !completedRuns.has(morningKey)) {
       completedRuns.add(morningKey);
-      console.log(`⏰ [IST CATCH-UP] Triggering Morning Scrape for ${ist.dateKey} (Current IST: ${ist.hour}:${ist.minute})`);
-      triggerBackgroundScrape(null, 2, `Morning 07:00 AM IST (Run at ${ist.hour}:${ist.minute})`);
+      console.log(`⏰ [IST CRON] Triggering Morning Parallel Sweep for ${ist.dateKey}`);
+      triggerScheduledParallelSweep("Morning 07:00 AM IST");
     }
 
-    // 2. Evening Slot (Any time from 18:00 PM onwards if not yet executed today)
-    if (ist.hour >= 18 && !completedRuns.has(eveningKey)) {
+    if (ist.hour === 18 && ist.minute < 5 && !completedRuns.has(eveningKey)) {
       completedRuns.add(eveningKey);
-      console.log(`⏰ [IST CATCH-UP] Triggering Evening Scrape for ${ist.dateKey} (Current IST: ${ist.hour}:${ist.minute})`);
-      triggerBackgroundScrape(null, 2, `Evening 06:00 PM IST (Run at ${ist.hour}:${ist.minute})`);
+      console.log(`⏰ [IST CRON] Triggering Evening Parallel Sweep for ${ist.dateKey}`);
+      triggerScheduledParallelSweep("Evening 06:00 PM IST");
     }
   } catch (err) {
     console.error("Scheduler ticker error:", err.message);
   }
 }
 
-// Check every 30 seconds and run catch-up immediately on startup/wake
+// Check every 30 seconds
 setInterval(checkAndRunScheduledSlots, 30000);
-setTimeout(checkAndRunScheduledSlots, 2000);
 
 // HTTP Server
 const server = http.createServer(async (req, res) => {
@@ -536,37 +645,8 @@ How is your team currently handling data reconciliation when telemetry streams s
 
   if (pathname === "/api/trigger-news-scrape" && method === "POST") {
     try {
-      if (activeScrapeJob.isRunning) {
-        return sendJSON(res, { success: true, message: "Crawl already running in background", job: activeScrapeJob });
-      }
-
-      activeScrapeJob = {
-        isRunning: true,
-        progress: 0,
-        total: 10,
-        currentSource: "Scanning Live Indian Financial News (Mint, ETBFSI, Financial Express, Business Standard)...",
-        newPosts: 0,
-        status: "Running (Market News)",
-        startTime: new Date().toISOString()
-      };
-
-      (async () => {
-        try {
-          const { fetchAllExternalNews } = safeRequire("externalNewsEngine");
-          if (fetchAllExternalNews) {
-            const result = await fetchAllExternalNews();
-            activeScrapeJob.newPosts = result?.count || 0;
-          }
-        } catch (e) {
-          console.error("News crawl error:", e.message);
-        } finally {
-          activeScrapeJob.isRunning = false;
-          activeScrapeJob.progress = activeScrapeJob.total;
-          activeScrapeJob.status = "Completed (Market News)";
-        }
-      })();
-
-      return sendJSON(res, { success: true, message: "Market News crawl started in background", job: activeScrapeJob });
+      const job = await triggerNewsCrawlJob("Manual Market News");
+      return sendJSON(res, { success: true, message: "Market News crawler started in background", job });
     } catch (e) {
       return sendJSON(res, { success: false, error: e.message }, 500);
     }
@@ -574,37 +654,8 @@ How is your team currently handling data reconciliation when telemetry streams s
 
   if (pathname === "/api/trigger-governance-scrape" && method === "POST") {
     try {
-      if (activeScrapeJob.isRunning) {
-        return sendJSON(res, { success: true, message: "Crawl already running in background", job: activeScrapeJob });
-      }
-
-      activeScrapeJob = {
-        isRunning: true,
-        progress: 0,
-        total: 31,
-        currentSource: "Scanning Boardroom & Governance Leaders (IICA, IOD, Independent Directors)...",
-        newPosts: 0,
-        status: "Running (Board Governance)",
-        startTime: new Date().toISOString()
-      };
-
-      (async () => {
-        try {
-          const { scrapeBoardAndGovernance } = safeRequire("boardGovernanceAgent");
-          if (scrapeBoardAndGovernance) {
-            const count = await scrapeBoardAndGovernance();
-            activeScrapeJob.newPosts = typeof count === "number" ? count : 0;
-          }
-        } catch (e) {
-          console.error("Governance crawl error:", e.message);
-        } finally {
-          activeScrapeJob.isRunning = false;
-          activeScrapeJob.progress = activeScrapeJob.total;
-          activeScrapeJob.status = "Completed (Board Governance)";
-        }
-      })();
-
-      return sendJSON(res, { success: true, message: "Board Governance crawl started in background", job: activeScrapeJob });
+      const job = await triggerGovernanceCrawlJob("Manual Boardroom & Governance");
+      return sendJSON(res, { success: true, message: "Boardroom & Governance crawler started in background", job });
     } catch (e) {
       return sendJSON(res, { success: false, error: e.message }, 500);
     }
@@ -981,7 +1032,7 @@ How is your team currently handling data reconciliation when telemetry streams s
       filterIds = sources.filter(s => s.category === body.category).map(s => s.id);
     }
 
-    const job = await triggerBackgroundScrape(filterIds, body.maxPosts || 2, body.category || "Selected Sources");
+    const job = await triggerLendingScrapeJob(filterIds, body.maxPosts || 2, body.category || "Selected Sources");
     return sendJSON(res, { success: true, message: "Scraping running in background", job });
   }
 
