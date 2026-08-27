@@ -20,74 +20,83 @@ function ensureOutputDir() {
 
 // Vector SVG Icons for FinTech / BFSI Visual Storytelling
 const ICONS = {
-  shield: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>`,
-  scale: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg>`,
-  lightning: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>`,
-  chart: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>`,
-  building: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M8 10h.01"></path><path d="M16 10h.01"></path><path d="M8 14h.01"></path><path d="M16 14h.01"></path></svg>`,
-  sparkle: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>`,
-  pulse: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>`
+  pulseLogo: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`,
+  radar: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/></svg>`,
+  origination: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+  shield: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`,
+  scale: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>`,
+  chart: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>`,
+  sparkle: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>`,
+  arrowRight: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`
 };
 
 function getThemeColors(topic = '', headline = '') {
   const combined = `${topic} ${headline}`.toLowerCase();
   
-  if (combined.includes('rbi') || combined.includes('regulation') || combined.includes('governance') || combined.includes('compliance') || combined.includes('kfs') || combined.includes('flgd')) {
+  if (combined.includes('rbi') || combined.includes('regulation') || combined.includes('governance') || combined.includes('compliance') || combined.includes('kfs') || combined.includes('flgd') || combined.includes('policy')) {
     return {
-      gradient: 'linear-gradient(135deg, #090e1a 0%, #0f1c3f 50%, #172a5a 100%)',
+      gradient: 'linear-gradient(145deg, #070c18 0%, #0d1630 45%, #132048 100%)',
       accent: '#6366f1',
       accentLight: '#818cf8',
-      accentGlow: 'rgba(99, 102, 241, 0.35)',
-      cardBg: 'rgba(15, 28, 63, 0.75)',
-      cardBorder: 'rgba(99, 102, 241, 0.45)',
+      accentGlow: 'rgba(99, 102, 241, 0.4)',
+      cardBg: 'rgba(19, 32, 72, 0.65)',
+      cardBorder: 'rgba(99, 102, 241, 0.35)',
       badgeBg: 'rgba(99, 102, 241, 0.2)',
       badgeBorder: 'rgba(99, 102, 241, 0.5)',
       badgeText: '#c7d2fe',
-      icon: ICONS.shield,
+      icon1: ICONS.radar,
+      icon2: ICONS.origination,
+      icon3: ICONS.shield,
       category: 'REGULATORY & POLICY TELEMETRY'
     };
   }
   if (combined.includes('gold') || combined.includes('lap') || combined.includes('secured') || combined.includes('msme') || combined.includes('mortgage') || combined.includes('asset quality') || combined.includes('npa') || combined.includes('unsecured')) {
     return {
-      gradient: 'linear-gradient(135deg, #140d04 0%, #2b1805 50%, #422507 100%)',
+      gradient: 'linear-gradient(145deg, #100a04 0%, #241405 45%, #381f08 100%)',
       accent: '#f59e0b',
       accentLight: '#fbbf24',
-      accentGlow: 'rgba(245, 158, 11, 0.35)',
-      cardBg: 'rgba(43, 24, 5, 0.75)',
-      cardBorder: 'rgba(245, 158, 11, 0.45)',
+      accentGlow: 'rgba(245, 158, 11, 0.4)',
+      cardBg: 'rgba(56, 31, 8, 0.65)',
+      cardBorder: 'rgba(245, 158, 11, 0.35)',
       badgeBg: 'rgba(245, 158, 11, 0.2)',
       badgeBorder: 'rgba(245, 158, 11, 0.5)',
       badgeText: '#fef3c7',
-      icon: ICONS.scale,
+      icon1: ICONS.radar,
+      icon2: ICONS.scale,
+      icon3: ICONS.shield,
       category: 'SECURED CREDIT & NBFC GROWTH'
     };
   }
   if (combined.includes('digital') || combined.includes('upi') || combined.includes('card') || combined.includes('fintech') || combined.includes('app') || combined.includes('origination')) {
     return {
-      gradient: 'linear-gradient(135deg, #05131e 0%, #08283e 50%, #0d4263 100%)',
+      gradient: 'linear-gradient(145deg, #030f18 0%, #061e30 45%, #0b304c 100%)',
       accent: '#06b6d4',
       accentLight: '#22d3ee',
-      accentGlow: 'rgba(6, 182, 212, 0.35)',
-      cardBg: 'rgba(8, 40, 62, 0.75)',
-      cardBorder: 'rgba(6, 182, 212, 0.45)',
+      accentGlow: 'rgba(6, 182, 212, 0.4)',
+      cardBg: 'rgba(11, 48, 76, 0.65)',
+      cardBorder: 'rgba(6, 182, 212, 0.35)',
       badgeBg: 'rgba(6, 182, 212, 0.2)',
       badgeBorder: 'rgba(6, 182, 212, 0.5)',
       badgeText: '#cffafe',
-      icon: ICONS.lightning,
+      icon1: ICONS.radar,
+      icon2: ICONS.origination,
+      icon3: ICONS.chart,
       category: 'DIGITAL LENDING & PAYMENTS'
     };
   }
   return {
-    gradient: 'linear-gradient(135deg, #061512 0%, #0b241e 50%, #11382f 100%)',
+    gradient: 'linear-gradient(145deg, #04120e 0%, #08201a 45%, #0f352c 100%)',
     accent: '#10b981',
     accentLight: '#34d399',
-    accentGlow: 'rgba(16, 185, 129, 0.35)',
-    cardBg: 'rgba(17, 56, 47, 0.75)',
-    cardBorder: 'rgba(16, 185, 129, 0.45)',
+    accentGlow: 'rgba(16, 185, 129, 0.4)',
+    cardBg: 'rgba(15, 53, 44, 0.65)',
+    cardBorder: 'rgba(16, 185, 129, 0.35)',
     badgeBg: 'rgba(16, 185, 129, 0.2)',
     badgeBorder: 'rgba(16, 185, 129, 0.5)',
     badgeText: '#d1fae5',
-    icon: ICONS.chart,
+    icon1: ICONS.radar,
+    icon2: ICONS.chart,
+    icon3: ICONS.shield,
     category: 'BFSI & CREDIT INTELLIGENCE'
   };
 }
@@ -98,11 +107,13 @@ function extractKeyMetric(headline = '', text = '') {
   return m ? m[0] : '';
 }
 
-function extractExecutiveTakeaways(text = '', headline = '', topic = '') {
+/**
+ * Extracts 3 distinct, complete, high-impact executive takeaways for the 3-pillar infographic
+ */
+function extractPictorialPillars(text = '', headline = '', topic = '') {
   let combined = (text || '').replace(/\r?\n/g, ' ');
   combined = combined.replace(/https?:\/\/\S+/g, '').replace(/#[a-zA-Z0-9_]+/g, '').trim();
 
-  // If text contains quotes of headline, remove them to get substantive analysis
   if (headline) {
     const escaped = headline.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     combined = combined.replace(new RegExp(`"?${escaped}"?`, 'gi'), '').trim();
@@ -120,45 +131,45 @@ function extractExecutiveTakeaways(text = '', headline = '', topic = '') {
                  !s.toLowerCase().includes('the structural developments surrounding') &&
                  !s.toLowerCase().includes('the report from'));
 
-  let architectural = '';
-  let impact = '';
+  let p1 = ''; // Market Shift
+  let p2 = ''; // Platform / Origination
+  let p3 = ''; // Risk / Governance
 
   for (const s of rawSentences) {
     const lower = s.toLowerCase();
-    if (!architectural && (lower.includes('origination') || lower.includes('bre') || lower.includes('stp') || lower.includes('architecture') || lower.includes('balance sheet') || lower.includes('structural') || lower.includes('infrastructure') || lower.includes('growth') || lower.includes('shift') || lower.includes('digital') || lower.includes('technology') || lower.includes('platform') || lower.includes('lenders') || lower.includes('portfolio'))) {
-      architectural = s;
-    } else if (!impact && (lower.includes('risk') || lower.includes('underwriting') || lower.includes('governance') || lower.includes('telemetry') || lower.includes('compliance') || lower.includes('delinquency') || lower.includes('credit') || lower.includes('provisioning') || lower.includes('discipline') || lower.includes('safeguard') || lower.includes('capital'))) {
-      impact = s;
+    if (!p1 && (lower.includes('market') || lower.includes('growth') || lower.includes('trend') || lower.includes('shift') || lower.includes('banks') || lower.includes('nbfc') || lower.includes('sector'))) {
+      p1 = s;
+    } else if (!p2 && (lower.includes('origination') || lower.includes('bre') || lower.includes('stp') || lower.includes('workflow') || lower.includes('platform') || lower.includes('digital') || lower.includes('automation') || lower.includes('architecture'))) {
+      p2 = s;
+    } else if (!p3 && (lower.includes('risk') || lower.includes('underwriting') || lower.includes('governance') || lower.includes('telemetry') || lower.includes('delinquency') || lower.includes('compliance') || lower.includes('provisioning') || lower.includes('safeguard'))) {
+      p3 = s;
     }
   }
 
-  // High-value domain fallback takes if text was generic
-  if (!architectural) {
-    architectural = 'Structural recalibration towards secured balance sheet growth, modular BRE rule orchestration, and lower cost of funds.';
-  }
-  if (!impact) {
-    impact = 'Tightening underwriting boundaries with proactive delinquency telemetry, counter-cyclical provisioning, and credit discipline.';
-  }
+  // Fallbacks if not detected in text
+  if (!p1) p1 = rawSentences[0] || 'Market recalibration shifting capital towards disciplined, high-quality balance sheet assets.';
+  if (!p2) p2 = rawSentences[1] || 'Institutions modernizing rule orchestration engines (BRE) and straight-through origination.';
+  if (!p3) p3 = rawSentences[2] || 'Strengthening early delinquency telemetry, risk-based pricing, and underwriting governance.';
 
-  // Clean trailing punctuation or hanging quotes
-  architectural = architectural.replace(/^[“"':-]\s*/, '').replace(/\s*[”"']$/, '').trim();
-  impact = impact.replace(/^[“"':-]\s*/, '').replace(/\s*[”"']$/, '').trim();
+  // Clean quotes
+  const clean = str => {
+    let s = str.replace(/^[“"':-]\s*/, '').replace(/\s*[”"']$/, '').trim();
+    if (s.length > 140) {
+      const trimmed = s.slice(0, 135);
+      s = trimmed.slice(0, trimmed.lastIndexOf(' ')) + '.';
+    }
+    return s;
+  };
 
-  // Natural sentence wrap bounds (no slicing mid-word)
-  if (architectural.length > 185) {
-    const trimmed = architectural.slice(0, 180);
-    architectural = trimmed.slice(0, trimmed.lastIndexOf(' ')) + '.';
-  }
-  if (impact.length > 185) {
-    const trimmed = impact.slice(0, 180);
-    impact = trimmed.slice(0, trimmed.lastIndexOf(' ')) + '.';
-  }
-
-  return { architectural, impact };
+  return {
+    pillar1: clean(p1),
+    pillar2: clean(p2),
+    pillar3: clean(p3)
+  };
 }
 
 /**
- * Generates a high-resolution 1200x630 B2B Authority Card Image with Fintech Pulse branding
+ * Generates a high-resolution 1200x630 Executive Infographic Card with Fintech Pulse branding
  */
 async function generateNewsCardImage(articleId, headline, takeText = '', topic = '', publisher = '') {
   ensureOutputDir();
@@ -167,13 +178,16 @@ async function generateNewsCardImage(articleId, headline, takeText = '', topic =
 
   const theme = getThemeColors(topic, headline);
   const metric = extractKeyMetric(headline, takeText);
-  const takeaways = extractExecutiveTakeaways(takeText, headline, topic);
+  const pillars = extractPictorialPillars(takeText, headline, topic);
 
   // Clean headline
   let cleanHeadline = (headline || 'Financial Market Intelligence Briefing')
     .replace(/[^\w\s.,'’"?!-]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
+
+  // Dynamic font sizing to prevent any overflow
+  const headlineFontSize = cleanHeadline.length > 75 ? '25px' : '29px';
 
   const html = `
 <!DOCTYPE html>
@@ -190,306 +204,371 @@ async function generateNewsCardImage(articleId, headline, takeText = '', topic =
     color: #ffffff;
     overflow: hidden;
     position: relative;
-    padding: 0;
   }
 
   .container {
     width: 1200px;
     height: 630px;
-    padding: 36px 48px;
+    padding: 32px 46px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
-    overflow: hidden;
+    z-index: 10;
   }
 
   /* Grid pattern overlay */
   .grid-pattern {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-    background-size: 28px 28px;
-    opacity: 0.7;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1.2px, transparent 1.2px);
+    background-size: 26px 26px;
+    opacity: 0.75;
     z-index: 1;
   }
 
   /* Glowing background orbs */
-  .glow-orb-top {
+  .glow-orb-1 {
     position: absolute;
-    width: 550px;
-    height: 550px;
+    width: 600px;
+    height: 600px;
     background: radial-gradient(circle, ${theme.accent} 0%, rgba(0,0,0,0) 70%);
     opacity: 0.22;
-    top: -160px;
-    right: -120px;
-    border-radius: 50%;
-    filter: blur(55px);
-    z-index: 2;
-  }
-  .glow-orb-bottom {
-    position: absolute;
-    width: 450px;
-    height: 450px;
-    background: radial-gradient(circle, #3b82f6 0%, rgba(0,0,0,0) 70%);
-    opacity: 0.14;
-    bottom: -160px;
-    left: -120px;
+    top: -200px;
+    right: -100px;
     border-radius: 50%;
     filter: blur(60px);
     z-index: 2;
   }
+  .glow-orb-2 {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, #0284c7 0%, rgba(0,0,0,0) 70%);
+    opacity: 0.15;
+    bottom: -180px;
+    left: -100px;
+    border-radius: 50%;
+    filter: blur(65px);
+    z-index: 2;
+  }
 
-  /* Header Row */
+  /* Header Bar with prominent FINTECH PULSE Branding */
   .header-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
-    z-index: 10;
-    height: 44px;
+    height: 46px;
   }
 
-  .brand-group {
+  .brand-masthead {
     display: flex;
     align-items: center;
     gap: 12px;
   }
 
-  .pulse-badge {
+  .brand-emblem {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.06) 100%);
-    border: 1.5px solid ${theme.accent};
-    box-shadow: 0 0 20px ${theme.accentGlow};
+    gap: 9px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.06) 100%);
+    border: 1.5px solid ${theme.accentLight};
+    box-shadow: 0 0 24px ${theme.accentGlow}, inset 0 0 12px rgba(255,255,255,0.1);
     color: #ffffff;
-    font-size: 13px;
+    font-size: 13.5px;
     font-weight: 900;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    padding: 7px 16px;
+    padding: 7px 18px;
     border-radius: 100px;
   }
 
-  .pulse-dot {
-    width: 8px;
-    height: 8px;
-    background: ${theme.accentLight};
-    border-radius: 50%;
-    box-shadow: 0 0 8px ${theme.accentLight};
+  .pulse-icon-svg {
+    color: ${theme.accentLight};
+    display: flex;
+    align-items: center;
   }
 
-  .category-tag {
+  .category-pill {
     display: inline-flex;
     align-items: center;
     gap: 7px;
     background: ${theme.badgeBg};
     border: 1px solid ${theme.badgeBorder};
     color: ${theme.badgeText};
-    font-size: 12px;
-    font-weight: 700;
+    font-size: 11.5px;
+    font-weight: 800;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 6px 14px;
     border-radius: 100px;
   }
 
-  .metric-badge {
+  .metric-pill {
     display: ${metric ? 'inline-flex' : 'none'};
     align-items: center;
     gap: 8px;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.1);
     border: 1.5px solid ${theme.accentLight};
     box-shadow: 0 0 16px ${theme.accentGlow};
     color: #ffffff;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 800;
-    padding: 7px 18px;
+    padding: 6px 16px;
     border-radius: 100px;
   }
 
-  /* Center Main Content */
-  .content-area {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    flex: 1;
-    margin: 14px 0;
-    gap: 16px;
+  /* Headline Block */
+  .headline-section {
+    margin: 4px 0 10px 0;
   }
 
-  .headline-box {
-    position: relative;
-  }
-
-  .headline-title {
-    font-size: 32px;
-    line-height: 1.25;
+  .headline-text {
+    font-size: ${headlineFontSize};
+    line-height: 1.28;
     font-weight: 800;
     color: #ffffff;
-    letter-spacing: -0.02em;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    letter-spacing: -0.015em;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.6);
   }
 
-  /* 2-Column Executive Impact Cards */
-  .takeaway-grid {
+  /* 3-Pillar Pictorial Infographic Grid */
+  .infographic-flow {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 6px;
   }
 
-  .takeaway-card {
+  .pillar-card {
     background: ${theme.cardBg};
     border: 1.5px solid ${theme.cardBorder};
-    backdrop-filter: blur(16px);
+    backdrop-filter: blur(20px);
     border-radius: 16px;
-    padding: 22px 24px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    padding: 18px 20px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.45);
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    min-height: 150px;
+    justify-content: space-between;
+    min-height: 230px;
+    position: relative;
   }
 
-  .card-label-row {
+  .pillar-header {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .pillar-icon-medallion {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, ${theme.accent} 0%, rgba(255,255,255,0.1) 100%);
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 14px ${theme.accentGlow};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    flex-shrink: 0;
+  }
+
+  .pillar-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .pillar-step-badge {
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
     color: ${theme.accentLight};
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
-  .card-body-text {
-    font-size: 15.5px;
-    line-height: 1.5;
-    color: #f1f5f9;
-    font-weight: 500;
+  .pillar-title {
+    font-size: 13.5px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.01em;
   }
 
-  /* Footer Row */
+  .pillar-body {
+    font-size: 14.5px;
+    line-height: 1.48;
+    color: #f1f5f9;
+    font-weight: 500;
+    margin-top: 4px;
+  }
+
+  .pillar-footer-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: ${theme.accentLight};
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin-top: 10px;
+  }
+
+  /* Footer Bar */
   .footer-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
-    padding-top: 14px;
-    position: relative;
-    z-index: 10;
-    height: 56px;
+    padding-top: 12px;
+    height: 52px;
   }
 
   .author-profile {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
   }
 
   .avatar-badge {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
     background: linear-gradient(135deg, ${theme.accent} 0%, #1e1b4b 100%);
-    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
     color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 900;
-    font-size: 17px;
+    font-size: 16px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.4);
   }
 
   .author-info {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 1px;
   }
 
   .author-name-row {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 800;
     color: #ffffff;
   }
 
   .author-subtitle {
-    font-size: 12px;
+    font-size: 11.5px;
     color: #94a3b8;
     font-weight: 500;
   }
 
-  .footer-meta-pill {
+  .footer-series-pill {
     display: flex;
     align-items: center;
     gap: 8px;
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 8px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 7px 16px;
     border-radius: 10px;
-    font-size: 12px;
+    font-size: 11.5px;
     font-weight: 700;
     color: #cbd5e1;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 </style>
 </head>
 <body>
   <div class="grid-pattern"></div>
-  <div class="glow-orb-top"></div>
-  <div class="glow-orb-bottom"></div>
+  <div class="glow-orb-1"></div>
+  <div class="glow-orb-2"></div>
 
   <div class="container">
-    <!-- Header Bar -->
+    <!-- Header Bar with FINTECH PULSE Branding -->
     <div class="header-bar">
-      <div class="brand-group">
-        <div class="pulse-badge">
-          <div class="pulse-dot"></div>
+      <div class="brand-masthead">
+        <div class="brand-emblem">
+          <div class="pulse-icon-svg">${ICONS.pulseLogo}</div>
           <span>FINTECH PULSE</span>
         </div>
-        <div class="category-tag">
-          ${theme.icon}
+        <div class="category-pill">
           <span>${theme.category}</span>
         </div>
       </div>
       ${metric ? `
-        <div class="metric-badge">
-          ${ICONS.lightning}
+        <div class="metric-pill">
+          ${ICONS.sparkle}
           <span>${metric}</span>
         </div>
       ` : ''}
     </div>
 
-    <!-- Main Content Area -->
-    <div class="content-area">
-      <div class="headline-box">
-        <h1 class="headline-title">${cleanHeadline}</h1>
+    <!-- Headline Section -->
+    <div class="headline-section">
+      <h1 class="headline-text">${cleanHeadline}</h1>
+    </div>
+
+    <!-- 3-Pillar Pictorial Infographic Flow -->
+    <div class="infographic-flow">
+      <!-- Pillar 1: Market Catalyst -->
+      <div class="pillar-card">
+        <div>
+          <div class="pillar-header">
+            <div class="pillar-icon-medallion">${theme.icon1}</div>
+            <div class="pillar-meta">
+              <span class="pillar-step-badge">Pillar 01</span>
+              <h3 class="pillar-title">Market Catalyst &amp; Shift</h3>
+            </div>
+          </div>
+          <p class="pillar-body">${pillars.pillar1}</p>
+        </div>
+        <div class="pillar-footer-indicator">
+          <span>Macro Dynamics</span>
+          ${ICONS.arrowRight}
+        </div>
       </div>
 
-      <!-- 2-Column Impact Cards -->
-      <div class="takeaway-grid">
-        <div class="takeaway-card">
-          <div class="card-label-row">
-            ${ICONS.shield}
-            <span>Architectural &amp; Balance Sheet Shift</span>
+      <!-- Pillar 2: Origination & STP Architecture -->
+      <div class="pillar-card">
+        <div>
+          <div class="pillar-header">
+            <div class="pillar-icon-medallion">${theme.icon2}</div>
+            <div class="pillar-meta">
+              <span class="pillar-step-badge">Pillar 02</span>
+              <h3 class="pillar-title">Origination &amp; STP Impact</h3>
+            </div>
           </div>
-          <p class="card-body-text">${takeaways.architectural}</p>
+          <p class="pillar-body">${pillars.pillar2}</p>
         </div>
+        <div class="pillar-footer-indicator">
+          <span>BRE &amp; Platform</span>
+          ${ICONS.arrowRight}
+        </div>
+      </div>
 
-        <div class="takeaway-card">
-          <div class="card-label-row">
-            ${ICONS.chart}
-            <span>Risk, Underwriting &amp; Market Outlook</span>
+      <!-- Pillar 3: Risk & Underwriting Lens -->
+      <div class="pillar-card">
+        <div>
+          <div class="pillar-header">
+            <div class="pillar-icon-medallion">${theme.icon3}</div>
+            <div class="pillar-meta">
+              <span class="pillar-step-badge">Pillar 03</span>
+              <h3 class="pillar-title">Risk &amp; Underwriting Lens</h3>
+            </div>
           </div>
-          <p class="card-body-text">${takeaways.impact}</p>
+          <p class="pillar-body">${pillars.pillar3}</p>
+        </div>
+        <div class="pillar-footer-indicator">
+          <span>Credit Discipline</span>
+          ${ICONS.arrowRight}
         </div>
       </div>
     </div>
@@ -507,9 +586,9 @@ async function generateNewsCardImage(articleId, headline, takeText = '', topic =
         </div>
       </div>
 
-      <div class="footer-meta-pill">
-        ${ICONS.pulse}
-        <span>Executive Intelligence Briefing</span>
+      <div class="footer-series-pill">
+        <span style="color: ${theme.accentLight};">⚡</span>
+        <span>Fintech Pulse™ Intelligence</span>
       </div>
     </div>
   </div>
@@ -536,7 +615,7 @@ async function generateNewsCardImage(articleId, headline, takeText = '', topic =
       } catch (e) {}
     });
 
-    console.log(`🎨 [Fintech Pulse] Generated 1200x630 visual card: ${outputPath}`);
+    console.log(`🎨 [Fintech Pulse] Generated 1200x630 visual infographic card: ${outputPath}`);
     return {
       imageUrl: `/generated_cards/${filename}`,
       imagePath: outputPath
